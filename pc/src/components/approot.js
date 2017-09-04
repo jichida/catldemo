@@ -13,10 +13,14 @@ import Device from './device.js';
 import Deviceinfo from './deviceinfo.js';
 import Devicemessage from './devicemessage.js';
 import Historyplay from './historytrackplayback';
+import Chartlist from './chartlist';
+import Workorder from './workorder';
 
 import Login from './login/login.js';
 import MapPage from './admincontent';
 import WeuiTool from './tools/weuitool';
+
+
 
 
 
@@ -59,6 +63,8 @@ class AppRoot extends React.Component {
                     <Route path="/deviceinfo/:id" component={Deviceinfo} />
                     <Route path="/devicemessage/:id" component={Devicemessage} />
                     <Route path="/historyplay/:id" component={Historyplay} />
+                    <Route path="/workorder" component={Workorder} />
+                    <Route path="/chartlist" component={Chartlist} />
                 </Switch>
                 <div>
                     <Index history={this.props.history}/>

@@ -38,6 +38,7 @@ class Page extends React.Component {
         this.state = {
             innerWidth : window.innerWidth,
             openaddress : false,
+            titlenav : 0
         };
     }
     componentWillMount() {
@@ -79,6 +80,11 @@ class Page extends React.Component {
         })
     }
 
+    titleNavClick =(v)=>{
+        console.log("index nav titlenav");
+        this.setState({titlenav: v});
+    }
+
     render() {
         const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p} = this.props;
         const treestyle = this.getdrawstyle("400px");
@@ -90,9 +96,9 @@ class Page extends React.Component {
                     <div className="headcontent">
                         <AppBar
                             title={
-                                <div>
-                                    <Icon type="bars" style={{color:"#333"}} onClick={()=>{this.props.dispatch(ui_showmenu("addressbox"))}} />
-                                    <span className="title">Title</span>
+                                <div className="titlenav">
+                                    <span className={this.state.titlenav===0?"sel":""} onClick={this.titleNavClick.bind(this, 0)}>地图展示</span>
+                                    <span className={this.state.titlenav===1?"sel":""} onClick={this.titleNavClick.bind(this, 1)}>设备展示</span>
                                 </div>
                             }
                             onLeftIconButtonTouchTap={this.menuevent}
@@ -106,7 +112,7 @@ class Page extends React.Component {
                                 marginTop: "0",
                                 marginLeft: "0"
                             }}
-                            iconElementLeft={<div className="logo" onClick={()=>{this.props.history.push("/datatable")}}>logo</div>}
+                            iconElementLeft={<div className="logo" onClick={()=>{this.props.dispatch(ui_showmenu("addressbox"))}}>logo</div>}
                             className="appbar"
                         />
                     </div>

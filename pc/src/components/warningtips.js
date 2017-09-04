@@ -25,6 +25,8 @@ import IconMenu from 'material-ui/IconMenu';
 import MapsPlace from 'material-ui/svg-icons/maps/place';
 import Settings from "material-ui/svg-icons/action/settings";
 import Car from "material-ui/svg-icons/maps/directions-car";
+import Chart from "material-ui/svg-icons/editor/insert-chart";
+import Assignment from "material-ui/svg-icons/action/assignment";
 
 import Exit from "material-ui/svg-icons/action/exit-to-app";
 import Avatar from "../img/2.jpg";
@@ -109,6 +111,14 @@ class UserMenu extends React.Component {
           animation={PopoverAnimationVertical}
         >
           <Menu>
+            <MenuItem primaryText="统计分析" leftIcon={<Chart />} onClick={()=>{
+                this.handleRequestClose();
+                this.props.history.push("/chartlist");
+            }}/>
+            <MenuItem primaryText="工单查询" leftIcon={<Assignment />} onClick={()=>{
+                this.handleRequestClose();
+                this.props.history.push("/workorder");
+            }}/>
             <MenuItem primaryText="查询报表" leftIcon={<Car />} onClick={()=>{
                 this.handleRequestClose();
                 this.props.history.push("/device");
