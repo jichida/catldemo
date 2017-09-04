@@ -1,0 +1,72 @@
+/*common*/
+*{
+    overflow-scrolling:touch;
+    -webkit-overflow-scrolling:touch;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-weight: 200;
+    border:none;
+}
+.submitBtn{
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    text-align: center;
+    border-radius: 6px;
+}
+.btn>span{
+    display: block;
+    text-align: center;
+    flex-grow: 1;
+    font-size: 16px;
+}
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    border-radius: 6px;
+}
+.btn.Primary{
+    background: #3479e1;
+    color: #FFF;
+}
+.btn.Primary:active{
+    background: #2a6bce;
+}
+.btn.Warning{
+    background: #fe8802;
+    color: #FFF;
+}
+.btn.Warning:active{
+    background: #e07b08;
+}
+.btn.login{
+    background: #72aaff;
+}
+.btn.login:active{
+    background: #3479e1;
+}
+.AppContainer{
+    
+}
+.AppPage{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    height: 100%;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}

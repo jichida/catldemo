@@ -1,0 +1,755 @@
+/*common*/
+*{
+    overflow-scrolling:touch;
+    -webkit-overflow-scrolling:touch;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-weight: 200;
+    border:none;
+    list-style: none;
+}
+.AppContainer{
+    background: #EEE;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.AppPage{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    height: 100%;
+}
+.AppPage .content{
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    position: relative;
+}
+.AppPage .content .admincontainer{
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+}
+.AppPage .AdminContent{
+    
+}
+.AppPage .content .AdminContent,
+.AppPage .content .admincontainer{
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    align-self: stretch;
+    width: 100%;
+    position: relative;
+}
+.AppPage .content .appbar{
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+.AppPage .leftmenu{
+    background: #2a2d34;
+    color: #FFF;
+    height: 100%;
+    overflow: auto;
+    width: 180px;
+}
+.AppPage .leftmenu ul li {
+    height: 50px;
+    display: block;
+}
+.AppPage .leftmenu ul li a{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-align-self: center;
+    align-self: center;
+    border-bottom: 1px solid #666;
+    line-height: 50px;
+    text-align: center;
+    -moz-justify-content: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    padding: 0 15px;
+}
+.AppPage .leftmenu.open ul li a{
+    -moz-justify-content: flex-start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+}
+.AppPage .leftmenu ul li i{
+    line-height: 50px;
+    font-size: 22px;
+}
+.AppPage .leftmenu ul li:active{
+    background: #383a3e;
+}
+
+.AppPage .logo{
+    background: #EEE;
+    height: 64px;
+    color: #333;
+    text-align: center;
+    line-height: 64px;
+}
+.AppPage .leftmenu ul li span{
+    padding-left: 10px;
+    display: none;
+}
+.AppPage .leftmenu.open ul li span{
+    display: inline-block;
+    white-space: nowrap ;
+}
+.AppPage .content .headcontent{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+.AppPage .content .headcontent .logo{
+    width: 100px;
+    height: 64px;
+    line-height: 64px;
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+.AppPage .bodycontainer{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+}
+
+.AppPage .leftmenu{
+    width: 60px;
+    animation:leftmenuhide .1s;
+    -webkit-animation:leftmenuhide .1s;
+}
+.AppPage .leftmenu.open{
+    width: 180px;
+    animation:leftmenushow .1s;
+    -webkit-animation:leftmenushow .1s;
+}
+@keyframes leftmenuhide{
+    from {width: 180px;}
+    to {width : 60px;}
+}
+@keyframes leftmenushow{
+    from {width: 60px;}
+    to {width : 180px;}
+}
+.AppPage .menuMain{
+    width: 54px;
+    background:#4283cc;
+    height: 54px;
+    display: block;
+    overflow:hidden;
+    padding: 0;
+    border-radius: 54px;
+    text-align: center;
+    font-size:24px;
+}
+.AppPage .menuitem{
+    width: 60px;
+    line-height: 60px;
+    margin-bottom: 5px;
+    border-radius: 60px;
+    background:#4283cc;
+}
+.AppPage .menuMain,
+.AppPage .menuitem{
+    color: #FFF;
+}
+.AppPage .menuitem span.name{
+    width: 0;
+    opacity :  0;
+    display: none;
+}
+.AppPage .menuitem span.name.show{
+    position: absolute;
+    right: 26px;
+    display: block;
+    background: #4283cc;
+    border-radius: 60px 0 0 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+    z-index: 1;
+    top: 0;
+    opacity: 1;
+    white-space : nowrap;
+    width: 100px;
+    animation:leftmenutextshow .1s;
+    -webkit-animation:leftmenutextshow .1s;
+}
+
+@keyframes leftmenutextshow{
+    from {width: 0px;opacity: 0;}
+    to {width : 100px;opacity: 1;}
+}
+
+
+.AppPage .menuitem i.fa{
+    z-index: 100;
+    position: relative;
+}
+
+
+
+.AppPage .fab__icon{
+    line-height: 54px;
+}
+.AppPage .page__background,
+.AppPage .page__content{
+    display: none;
+}
+.AppPage .page{
+    pointer-events:none;
+}
+.AppPage .page .fab--bottom__right,
+.AppPage .react-draggable .cursor,
+.AppPage .react-draggable .cursor *,
+.AppPage .page .fab--bottom__right *{
+    pointer-events:auto;
+}
+.AppPage .fab--bottom__right{
+    bottom: 0;
+    right: 3px;
+}
+.AppPage .react-draggable{
+    z-index: 1000;
+    height: 54px;
+    width: 60px;
+    position: fixed;
+    overflow: visible;
+}
+.AppPage .react-draggable .page{
+    overflow-y: visible;
+}
+.appbar .title{
+    color: #333;
+}
+.treePage{
+    padding: '20px 20px 0 20px'
+}
+.treeSearch .input-group{
+    padding:10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+}
+.treeSearch .input-group .input-group-addon{
+    padding:5px 10px;
+    background: #FFF;
+}
+.treeSearch .input-group input{
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+.warningPage{
+    position: fixed;
+    width: 100%;
+    background: #FFF;
+    z-index: 2000;
+    overflow-y:auto; 
+}
+.warningPage .tit{
+    font-size: 18px;
+    margin: 10px 0;
+    font-weight: bold;
+
+}
+.showMessageBtn{
+    position: absolute;
+    top: 12px;
+    right: 120px;
+    z-index: 1200;
+}
+.devicebtnlist{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    margin-right: 20px;
+}
+.devicebtnlist >button{
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    margin-left: 10px;
+}
+.messagePage .lists,
+.devicePage .lists{
+    border-top:1px solid #EEE;
+}
+.messagePage .lists .li,
+.devicePage .lists .li{
+    padding: 10px 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    border-bottom:1px solid #EEE;
+}
+.devicePage .lists .li{
+    -moz-justify-content: space-between;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+.messagePage .lists .li:active{
+    background: #EEE;
+}
+.messagePage .lists .li .fa.fa-bus{
+    text-align: center;
+}
+.messagePage .lists .li .licontent .name{
+    font-size:14px;
+    color: #999;
+}
+
+.devicePage .lists .li{
+    border-bottom: 1px solid #EEE;
+}
+.toggledistcluster,
+.togglehugepoints{
+    position: fixed;
+    right: 120px;
+    top:12px;
+    z-index:1200;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    padding: 6px 10px;
+    background: #EEE;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+}
+.togglehugepoints{
+    right: 270px;
+}
+
+.toggledistcluster .toggleitme,
+.togglehugepoints .toggleitme{
+
+}
+
+.searchli{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: flex-end;
+    align-items: flex-end;
+    -webkit-align-items: flex-end;
+    -moz-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -moz-justify-content: space-between;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+.searchli >div{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: flex-end;
+    align-items: flex-end;
+    -webkit-align-items: flex-end;
+    -moz-flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -moz-justify-content: space-between;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    width: 100%;
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+.searchli >div>div{
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+.searchbtn{
+    text-align: right;
+    margin-bottom: 15px;
+}
+.myclose {
+    display: block;
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    right: 5px;
+    top:2px;
+}
+.myclose :active{
+    background: #EEE;
+}
+
+.myclose:after{
+    content : "";
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: #333;
+    left: 8px;
+    top: 18px;
+    transform: rotate(45deg);
+}
+.myclose:before{
+    content : "";
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    background: #333;
+    left: 8px;
+    top: 18px;
+    transform: rotate(-45deg);
+}
+
+.myclose.white:after,
+.myclose.white:before{
+    background: #FFF;
+}
+
+.AppPage .warningtips{
+    position: absolute;
+    z-index: 1299;
+    position: absolute;
+    top : 12px;
+    right: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -moz-justify-content: flex-end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+}
+.AppPage .Badge{
+    padding: 0;
+    height: 36px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -moz-justify-content: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    margin-left: 5px;
+}
+.AppPage .BadgeStyle{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+}
+.treePage .btnlist{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -moz-justify-content: flex-start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+    padding: 0 15px 15px 15px;
+}
+.treePage .btnlist >div{
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+.treePage .btnlist >div:first-child{
+    margin-right: 10px;
+}
+
+.treePage .searchbox{
+    padding: 10px 15px;
+}
+.treePage .searchbox >div{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    background: #EEE;
+    padding: 5px;
+}
+.treePage .searchbox >div input{
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 10px;
+    background: #EEE;
+}
+.formlist,.btnlist{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+}
+.formlist >div,
+.btnlist >div{
+    margin-right: 10px;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+.formlist >div{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -moz-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+.formlist >div:first-child,.formlist >div>div:first-child{
+    margin-right: 10px;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+.formlist >div>div{
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+.formlist >div>div>div{
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+.treePage .warningPage{
+    margin-top: -20px;
+    margin-bottom: -10px;
+}
+.treehead{
+    color: #FFF;
+    background: #2085b5;
+    height: 45px;
+    text-align: center;
+    line-height: 45px;
+}
+.topuser {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-align-items: center;
+    height: 48px;
+    margin-left: 20px;
+}
+.topuser span{
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+.topuser img{
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    border:2px solid #EEE;
+}
+.appbar{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-align-items: center;
+    background: #5cbeaa;
+    color: #FFF;
+    font-size: 22px;
+    height: 72px;
+    line-height: 72px;
+}
+.appbar .fa.back{
+    font-size:30px;
+    padding: 0 20px;
+    background-size: #FFF;
+
+}
+.appbar .title{
+    padding: 0 15px;
+}
+.historytrackplayback .appbar .title{
+    border:1px solid #FFF;
+    color: #FFF;
+    padding: 0 15px;
+}
+
+.appbar .day{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-align-items: center;
+    -webkit-box-orient:vertical;
+    -webkit-box-direction:normal;
+    -moz-box-orient:vertical;
+    -moz-box-direction:normal;
+    flex-direction:column;
+    -webkit-flex-direction:column;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 0 15px;
+    border-right: 1px solid #FFF;
+    height: 72px;
+    -moz-justify-content: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+.appbar .controlbtn{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    justify-content: flex-end;
+    -moz-justify-content: flex-end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+.appbar .controlbtn span{
+    display: inline-block;
+    background: #EEE;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 0 4px 4px 0;
+    padding: 0 15px;
+    color: #333;
+    cursor: pointer;
+}
+.appbar .controlbtn span:first-child{
+    background: #FFF;
+    border-radius:4px 0 0 4px;
+}
+.appbar .controlbtn span:active{
+    background: #CCC;
+}
+.ant-table-body {
+    font-size: 16px;
+}
+.ant-tabs-bar{
+    margin-bottom: 0;
+}
+.searchtree{
+    height: 175px;
+}
+.searchtree > div,
+.searchtree > span{
+    margin-bottom: 10px;
+}
+.treetabs .ant-tabs-nav.ant-tabs-nav-animated{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -moz-justify-content: space-between;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+.TreeSearchBattery {padding: 20px;border-bottom: 1px solid #EEE;background: #EEE;}
+.tablelist{padding: 20px;}
+.searchreport,
+.searchreport >div.i,
+.searchreport >div.b{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-flex-wrap: wrap;
+    
+}
+.searchreport >div.b{
+    justify-content: flex-end;
+    -moz-justify-content: flex-end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+}
+.searchreport >div.b >button{
+    margin-left: 10px;
+}
+.searchreport{
+    -moz-box-direction:normal;
+    flex-direction:column;
+    -webkit-flex-direction:column;
+}
+.searchreport{
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+.searchreport >div .daterange{
+    -ms-flex-shrink: 0;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+}
+.searchreport >div >div,
+.searchreport >div >span{
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.searchreport >div .ant-input-group{
+    width: auto;
+}
+.deviceinfoPage.devicePage .deviceinfolist{
+    padding: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+}
+.deviceinfoPage.devicePage .deviceinfolist .li{
+    width: 50%;
+    border-bottom: none;
+}
+.deviceinfoPage.devicePage .deviceinfolist .li>div{
+    margin:0 10px;
+    border-bottom: 1px solid #EEE;
+    width: 100%
+}
+

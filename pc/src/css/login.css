@@ -1,0 +1,34 @@
+.loginPage{}
+.loginPage .content .loginForm{
+	width: 300px;
+	height: auto;
+	margin: auto;
+	-webkit-flex-grow: 0;
+	flex-grow: 0;
+	background: #FFF;
+	border-radius: 6px;
+	box-shadow: 4px 4px 4px #CCC;
+	padding: 20px;
+}
+.loginForm .li{
+	display: -webkit-box;
+    display: -ms-flexbox;
+   	display: flex;
+   	display: -webkit-flex;
+   	margin-bottom: 15px;
+}
+.loginForm .form_input{
+	height: 50px;
+	line-height: 50px;
+	font-size:18px;
+}
+.loginForm .form_input >div{
+}
+.formvalidation.form_input.warning{
+	position: relative;
+}
+.formvalidation.form_input.warning .warningtext{
+	position: absolute;
+	right: 0;
+	top:13px;
+}

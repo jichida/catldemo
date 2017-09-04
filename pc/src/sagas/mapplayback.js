@@ -1,0 +1,299 @@
+import { select,put,call,take,takeEvery,takeLatest,cancel,fork } from 'redux-saga/effects';
+import {delay} from 'redux-saga';
+import {
+  mapmain_setzoomlevel,
+  mapmain_setmapcenter,
+  map_setmapinited,
+  carmapshow_createmap,
+  carmapshow_destorymap,
+  mapmain_setenableddrawmapflag,
+  querydevice_result,
+  ui_selcurdevice_request,
+  querydeviceinfo_request,
+
+  mapplayback_start,
+  mapplayback_end,
+  queryhistorytrack_request,
+  queryhistorytrack_result
+} from '../actions';
+import coordtransform from 'coordtransform';
+import {getcurrentpos} from './getcurrentpos';
+import { push } from 'react-router-redux';
+import L from 'leaflet';
+import _ from 'lodash';
+
+const divmapid_maptrackhistoryplayback = 'maptrackhistoryplayback';
+
+
+const loczero = L.latLng(0,0);
+let gPathSimplifier,pathSimplifierIns;
+const CreateMapUI =  (map)=>{
+    return new Promise((resolve,reject) => {
+
+        //加载PathSimplifier，loadUI的路径参数为模块名中 'ui/' 之后的部分
+         window.AMapUI.load(['ui/misc/PathSimplifier'], (PathSimplifier)=> {
+          gPathSimplifier = PathSimplifier;
+          if (!PathSimplifier.supportCanvas) {
+              alert('当前环境不支持 Canvas！');
+              return;
+          }
+
+          pathSimplifierIns = new PathSimplifier({
+              zIndex: 100,
+              map: map, //所属的地图实例
+              getPath: (pathData, pathIndex)=> {
+                  //返回轨迹数据中的节点信息，[AMap.LngLat, AMap.LngLat...] 或者 [[lng,lat],[lng,lat]...]
+                  return pathData.path;
+              },
+              getHoverTitle: (pathData, pathIndex, pointIndex)=> {
+                  //返回鼠标悬停时显示的信息
+                  if (pointIndex >= 0) {
+                      //鼠标悬停在某个轨迹节点上
+                      return pathData.name + '，点:' + pointIndex + '/' + pathData.path.length;
+                  }
+                  //鼠标悬停在节点之间的连线上
+                  return pathData.name + '，点数量' + pathData.path.length;
+              },
+              renderOptions: {
+                  //轨迹线的样式
+                  pathLineStyle: {
+                      strokeStyle: 'red',
+                      lineWidth: 6,
+                      dirArrowStyle: true
+                  }
+              }
+          });
+
+          //这里构建两条简单的轨迹，仅作示例
+          // pathSimplifierIns.setData([{
+          //     name: '上海桂菁路69号到常州津通工业园',
+          //     //创建一条包括500个插值点的大地线
+          //     path: PathSimplifier.getGeodesicPath([121.4044300000,31.1742500000], [119.9515200000,31.6641500000], 500)
+          //
+          // }]);
+          resolve(pathSimplifierIns);
+        });
+
+   });
+}
+
+let navg0;
+const startplayback = ({isloop,speed})=>{
+  return new Promise((resolve,reject) => {
+    if(!!pathSimplifierIns){
+      //创建一个巡航器
+          const onload = ()=> {
+              pathSimplifierIns.renderLater();
+          }
+
+          const onerror =(e)=> {
+              alert('图片加载失败！');
+          }
+
+          navg0 = pathSimplifierIns.createPathNavigator(0, {
+             loop: isloop, //循环播放
+             speed,
+             pathNavigatorStyle: {
+                  width: 16,
+                  height: 32,
+                  content: gPathSimplifier.Render.Canvas.getImageContent(`${process.env.PUBLIC_URL}/images/car.png`, onload, onerror),
+                  strokeStyle: null,
+                  fillStyle: null
+            }
+         });
+         navg0.start();
+         resolve(navg0);
+    }
+  });
+}
+
+let createmap =({mapcenterlocation,zoomlevel})=> {
+
+  return new Promise((resolve,reject) => {
+    if(!mapcenterlocation.equals(loczero) && !window.amaptrackhistoryplayback ){
+      let center = new window.AMap.LngLat(mapcenterlocation.lng,mapcenterlocation.lat);
+      window.amaptrackhistoryplayback = new window.AMap.Map(divmapid_maptrackhistoryplayback, {
+            center: center,
+            zoom:zoomlevel,
+            lang:"zh-cn",
+            dragEnable:true,
+            zoomEnable:true,
+            touchZoom:true,
+        });
+
+        window.AMap.plugin(['AMap.ToolBar','AMap.Scale','AMap.OverView'],
+        ()=>{
+            const scale = new window.AMap.Scale({
+                  visible: true
+              });
+            const  toolBar = new window.AMap.ToolBar({
+                  visible: true
+              });
+            const  overView = new window.AMap.OverView({
+                  visible: true
+              });
+            window.amaptrackhistoryplayback.addControl(scale);
+            window.amaptrackhistoryplayback.addControl(toolBar);
+            window.amaptrackhistoryplayback.addControl(overView);
+            resolve(window.amaptrackhistoryplayback);
+        });
+      }
+      else{
+        if(!!window.amaptrackhistoryplayback){
+          resolve(window.amaptrackhistoryplayback);
+          return;
+        }
+        reject(`地图参数${mapcenterlocation.lng},${mapcenterlocation.lat},amaptrackhistoryplayback:${!!window.amaptrackhistoryplayback}`);
+      }
+  });
+}
+
+const listenmapevent = (eventname)=>{
+  return new Promise(resolve => {
+    window.amaptrackhistoryplayback.on(eventname, (e)=> {
+        resolve(eventname);
+    });
+  });
+}
+
+
+const getmapstate_curdevice = (state) => {
+  const {device:{g_devicesdb,mapseldeviceid}} = state;
+  let deviceitem = g_devicesdb[mapseldeviceid];
+  if(!!deviceitem){
+    const LastHistoryTrack = deviceitem.LastHistoryTrack;
+    if(!!LastHistoryTrack){
+      const locz = L.latLng(LastHistoryTrack.Latitude,LastHistoryTrack.Longitude);
+      return locz;
+    }
+  }
+  return loczero;
+}
+
+export function* createmaptrackhistoryplaybackflow(){
+
+    //创建地图
+    yield takeEvery(`${carmapshow_createmap}`, function*(action_createmap) {
+      try{
+        let {payload:{divmapid}} = action_createmap;
+        if(divmapid === divmapid_maptrackhistoryplayback){
+          while(!window.AMap || !window.AMapUI){
+            yield call(delay,500);
+          }
+
+          //take
+          let mapcenterlocation = yield select(getmapstate_curdevice);
+          const zoomlevel = 16;
+
+          if(mapcenterlocation.equals(loczero)){//仅在第一次加载页面初始化时进入
+            const centerpos = yield call(getcurrentpos);
+            mapcenterlocation = L.latLng(centerpos.lat, centerpos.lng);
+          }
+          yield call(createmap,{mapcenterlocation,zoomlevel});//创建地图
+
+          yield call(CreateMapUI,window.amaptrackhistoryplayback);
+
+
+          let task_zoomend =  yield fork(function*(eventname){
+            while(true){
+              yield call(listenmapevent,eventname);
+              // let centerlocation = window.amapmain.getCenter();
+              // let centerlatlng = L.latLng(centerlocation.lat, centerlocation.lng);
+              yield put(mapmain_setzoomlevel(window.amaptrackhistoryplayback.getZoom()));
+            }
+          },'zoomend');
+
+
+          yield take(`${carmapshow_destorymap}`);
+          yield cancel(task_zoomend);
+        }
+      }
+      catch(e){
+
+
+      }
+
+    });
+
+    //销毁地图
+    yield takeEvery(`${carmapshow_destorymap}`, function*(action_destorymap) {
+      let {payload:{divmapid}} = action_destorymap;
+      if(divmapid === divmapid_maptrackhistoryplayback){
+        window.amaptrackhistoryplayback = null;
+      }
+    });
+
+    yield takeLatest(`${ui_selcurdevice_request}`,function*(actioncurdevice){
+      try{
+          const {payload:{DeviceId,deviceitem}} = actioncurdevice;
+          if(!!deviceitem){
+            const LastHistoryTrack = deviceitem.LastHistoryTrack;
+            if(!!LastHistoryTrack){
+              if(LastHistoryTrack.Latitude !== 0 && LastHistoryTrack.Longitude !== 0){
+                let cor = [LastHistoryTrack.Longitude,LastHistoryTrack.Latitude];
+                let wgs84togcj02=coordtransform.wgs84togcj02(cor[0],cor[1]);
+                window.amaptrackhistoryplayback.setCenter(wgs84togcj02);
+              }
+            }
+          }
+        }
+        catch(e){
+
+
+        }
+    });
+
+    //mapplayback_start
+    yield  takeLatest(`${mapplayback_start}`,function*(actionstart){
+      try{
+          const {payload:{isloop,speed,query}} = actionstart;
+          yield put(queryhistorytrack_request({query}));
+          const {payload:{list}} = yield take(`${queryhistorytrack_result}`);
+          let path = [];
+          let latlngs = [];
+          let center = [];
+          for(let i = 0;i < list.length ;i ++){
+            let cor = [list[i].Longitude,list[i].Latitude];
+            let wgs84togcj02=coordtransform.wgs84togcj02(cor[0],cor[1]);
+            latlngs.push([wgs84togcj02[1],wgs84togcj02[0]]);
+            path.push(wgs84togcj02);
+            if(i === 0){
+              center = wgs84togcj02;
+            }
+          }
+
+          if(path.length > 0){
+            let polyline = L.polyline(latlngs);
+            let lBounds = polyline.getBounds();//LatLngBounds
+            let southWest = new window.AMap.LngLat(lBounds.getSouthWest().lng,lBounds.getSouthWest().lat);
+            let northEast = new window.AMap.LngLat(lBounds.getNorthEast().lng,lBounds.getNorthEast().lat);
+            let amapboounds = new window.AMap.Bounds(southWest,northEast);
+            window.amaptrackhistoryplayback.setBounds(amapboounds);
+            pathSimplifierIns.setData([{
+              name: '设备1602010008',
+              path
+            }]);
+
+            yield call(startplayback,{isloop,speed});
+          }
+
+        }
+        catch(e){
+
+
+        }
+    });
+    //mapplayback_end
+    yield takeLatest(`${mapplayback_end}`,function*(action){
+      try{
+        if(!!navg0){
+          navg0.stop();
+          navg0.destroy();
+        }
+      }
+      catch(e){
+
+
+      }
+    });
+}
