@@ -64,7 +64,7 @@ class AppRoot extends React.Component {
                     <Route path="/devicemessage/:id" component={requireAuthentication(Devicemessage)} />
                     <Route path="/historyplay/:id" component={requireAuthentication(Historyplay)} />
                     <Route path="/workorder" component={requireAuthentication(Workorder)} />
-                    <Route path="/chartlist" component={requireAuthentication(Chartlist)} />
+                    <Route path="/chartlist/:id" component={requireAuthentication(Chartlist)} />
                 </Switch>
                 <div>
                     <Index history={this.props.history}/>

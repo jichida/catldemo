@@ -113,7 +113,19 @@ class UserMenu extends React.Component {
           <Menu>
             <MenuItem primaryText="统计分析" leftIcon={<Chart />} onClick={()=>{
                 this.handleRequestClose();
-                this.props.history.push("/chartlist");
+                this.props.history.push("/chartlist/0");
+            }}/>
+            <MenuItem primaryText="仪表盘1" leftIcon={<Chart />} onClick={()=>{
+                this.handleRequestClose();
+                this.props.history.push("/chartlist/1");
+            }}/>
+            <MenuItem primaryText="仪表盘2" leftIcon={<Chart />} onClick={()=>{
+                this.handleRequestClose();
+                this.props.history.push("/chartlist/2");
+            }}/>
+            <MenuItem primaryText="仪表盘3" leftIcon={<Chart />} onClick={()=>{
+                this.handleRequestClose();
+                this.props.history.push("/chartlist/3");
             }}/>
             <MenuItem primaryText="工单查询" leftIcon={<Assignment />} onClick={()=>{
                 this.handleRequestClose();
