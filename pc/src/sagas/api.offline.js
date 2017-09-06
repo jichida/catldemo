@@ -30,9 +30,12 @@ import {
 
   serverpush_devicegeo_sz_request,
   serverpush_devicegeo_sz_result,
-  start_serverpush_devicegeo_sz
+  start_serverpush_devicegeo_sz,
+
+  ui_changemodeview
 } from '../actions';
-import jsondatareadonly from '../test/bmsdata.json';
+import jsondatareadonly_device from '../test/bmsdata_device.json';
+import jsondatareadonly_chargingpile from '../test/bmsdata_chargingpile.json';
 import jsondatatrack from '../test/1602010008.json';
 import jsondataalarm from '../test/json-BMS2.json';
 import {getRandomLocation} from '../env/geo';
@@ -41,7 +44,7 @@ import {g_devicesdb} from './mapmain';
 import _ from 'lodash';
 import {getgeodata} from '../sagas/mapmain_getgeodata';
 //获取地理位置信息，封装为promise
-let jsondata = _.filter(jsondatareadonly,(item) => {
+let jsondata = _.filter(jsondatareadonly_device,(item) => {
   let thisdata = false;
   if(!!item.LastHistoryTrack){
     if(!!item.LastHistoryTrack.Latitude){
@@ -54,24 +57,25 @@ let jsondata = _.filter(jsondatareadonly,(item) => {
 });
 
 //模拟10万+
-for(let i = 0;i < 0; i++){
-  _.map(jsondatareadonly,(itemonly) => {
-    const item = {...itemonly};
-    if(!!item.LastHistoryTrack){
-      if(!!item.LastHistoryTrack.Latitude){
-        if(item.LastHistoryTrack.Latitude > 0){
-          let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,300);
-          item.LastHistoryTrack.Latitude = item.LastHistoryTrack.Latitude;
-          item.LastHistoryTrack.Longitude  = item.LastHistoryTrack.Longitude;
-          item.DeviceId = `${i}${item.DeviceId}`;
-          jsondata.push(item);
-        }
-      }
-    }
-  });
-}
+// for(let i = 0;i < 0; i++){
+//   _.map(jsondatareadonly,(itemonly) => {
+//     const item = {...itemonly};
+//     if(!!item.LastHistoryTrack){
+//       if(!!item.LastHistoryTrack.Latitude){
+//         if(item.LastHistoryTrack.Latitude > 0){
+//           let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,300);
+//           item.LastHistoryTrack.Latitude = item.LastHistoryTrack.Latitude;
+//           item.LastHistoryTrack.Longitude  = item.LastHistoryTrack.Longitude;
+//           item.DeviceId = `${i}${item.DeviceId}`;
+//           jsondata.push(item);
+//         }
+//       }
+//     }
+//   });
+// }
 
-// jsondata = _.sampleSize(jsondata, 100000);
+// jsondata = _.sampleSize(jsondata, 1000);
+// console.log(`\n${JSON.stringify(jsondata)}\n`)
 
 export function* apiflow(){//仅执行一次
   yield takeEvery(`${querydeviceinfo_request}`, function*(action) {
@@ -105,6 +109,37 @@ export function* apiflow(){//仅执行一次
       }));
     }
 
+  });
+
+  yield takeEvery(`${ui_changemodeview}`, function*(action) {
+      let viewmode = action.payload;
+      let jsondatareadonly;
+      if(viewmode === 'device'){
+        jsondatareadonly = jsondatareadonly_device;
+      }
+      else{
+        jsondatareadonly = jsondatareadonly_chargingpile;
+      }
+      jsondata = _.filter(jsondatareadonly,(item) => {
+        let thisdata = false;
+        if(!!item.LastHistoryTrack){
+          if(!!item.LastHistoryTrack.Latitude){
+            if(item.LastHistoryTrack.Latitude > 0){
+              thisdata = true;
+            }
+          }
+        }
+        return thisdata;
+      });
+      _.map(jsondata,(item)=>{
+        if(viewmode === 'device'){
+          item.imagetype = '0';
+        }
+        else{
+          item.imagetype = '4';
+        }
+      });
+      yield put(querydevice_result({list:jsondata}));
   });
 
   yield takeEvery(`${querydevice_request}`, function*(action) {
@@ -179,7 +214,7 @@ export function* apiflow(){//仅执行一次
 
   //  模拟服务端推送消息
   yield takeEvery(`${serverpush_devicegeo_sz_request}`, function*(action) {
-    const list = _.sampleSize(jsondata, 1);
+    const list = _.sampleSize(jsondata, 1000);
     let items = [];
     for(let i = 0;i < list.length; i++){
       let item = {...list[i]};

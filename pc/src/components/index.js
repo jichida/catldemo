@@ -25,7 +25,8 @@ import {
     ui_showmenu,
     ui_showhistoryplay,
     ui_showdistcluster,
-    ui_showhugepoints
+    ui_showhugepoints,
+    ui_changemodeview
 } from '../actions';
 import translate from 'redux-polyglot/translate';
 import Historytrackplayback from "./historytrackplayback";
@@ -83,10 +84,16 @@ class Page extends React.Component {
     titleNavClick =(v)=>{
         console.log("index nav titlenav");
         this.setState({titlenav: v});
+        if(v===0){
+          this.props.dispatch(ui_changemodeview('device'));
+        }
+        else{
+          this.props.dispatch(ui_changemodeview('chargingpile'));
+        }
     }
 
     render() {
-        const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p} = this.props;
+        const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p,modeview} = this.props;
         const treestyle = this.getdrawstyle("400px");
         const MapPage = this.props.map;
 
@@ -97,8 +104,8 @@ class Page extends React.Component {
                         <AppBar
                             title={
                                 <div className="titlenav">
-                                    <span className={this.state.titlenav===0?"sel":""} onClick={this.titleNavClick.bind(this, 0)}>地图展示</span>
-                                    <span className={this.state.titlenav===1?"sel":""} onClick={this.titleNavClick.bind(this, 1)}>设备展示</span>
+                                    <span className={this.state.titlenav===0?"sel":""} onClick={this.titleNavClick.bind(this, 0)}>地图模式</span>
+                                    <span className={this.state.titlenav===1?"sel":""} onClick={this.titleNavClick.bind(this, 1)}>充电桩模式</span>
                                 </div>
                             }
                             onLeftIconButtonTouchTap={this.menuevent}
@@ -145,15 +152,15 @@ class Page extends React.Component {
                         <Menu lesswidth={showmenu==="addressbox"?400:100} />
 
                     </div>
-                </div> 
+                </div>
 
             </div>
         );
     }
 }
 
-const mapStateToProps = ({app:{showmenu,showhistoryplay,showdistcluster,showhugepoints}}) => {
-    return {showmenu,showhistoryplay,showdistcluster,showhugepoints};
+const mapStateToProps = ({app:{showmenu,showhistoryplay,showdistcluster,showhugepoints,modeview}}) => {
+    return {showmenu,showhistoryplay,showdistcluster,showhugepoints,modeview};
 };
 
 const DummyComponentWithPProps = translate('warningbox')(Page);

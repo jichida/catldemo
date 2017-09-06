@@ -120,6 +120,11 @@ const CreateMapUI_PointSimplifier =  (map)=>{
                    getGroupId: (deviceitem, idx)=> {
                        let idex = parseInt(deviceitem.locz[0]) + parseInt(deviceitem.locz[1]);
                        let groupid = idex%3;
+
+                       if(!!deviceitem.imagetype){
+                         groupid = deviceitem.imagetype;
+                       }
+                       //这里显示图标
                        return groupid;
                    },
                    groupStyleOptions: (gid)=> {
