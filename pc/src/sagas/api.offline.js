@@ -201,11 +201,6 @@ export function* apiflow(){//仅执行一次
      }
      yield put(notify_socket_connected(true));
 
-     yield call(delay,2000);
-
-    //  yield put(md_login_result({
-    //    loginsuccess:true
-    //  }));
    });
 
    yield takeEvery(`${queryhistorytrack_request}`, function*(action) {

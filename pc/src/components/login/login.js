@@ -74,8 +74,7 @@ export class Page extends Component {
     componentWillReceiveProps (nextProps) {
 
         if(nextProps.loginsuccess && !this.props.loginsuccess){
-
-            //search:?next=/devicelist
+          //search:?next=/devicelist
             var fdStart = this.props.location.search.indexOf("?next=");
             if(fdStart === 0){
                 const redirectRoute = this.props.location.search.substring(6);
@@ -118,7 +117,9 @@ export class Page extends Component {
     }
 }
 
-const mapStateToProps = ({userlogin}) => { return userlogin; }
+const mapStateToProps = ({userlogin}) => {
+  return {...userlogin};
+}
 Page = connect(mapStateToProps)(Page);
 
 export default Page;

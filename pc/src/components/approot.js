@@ -58,13 +58,13 @@ class AppRoot extends React.Component {
                     <Route path="/index" component={requireAuthentication(()=>(<div></div>))} />
                     <Route path="/datatable" component={requireAuthentication(Datatable)} />
                     <Route path="/login" component={Login} />
-                    <Route path="/message" component={Message} />
-                    <Route path="/device" component={Device} />
-                    <Route path="/deviceinfo/:id" component={Deviceinfo} />
-                    <Route path="/devicemessage/:id" component={Devicemessage} />
-                    <Route path="/historyplay/:id" component={Historyplay} />
-                    <Route path="/workorder" component={Workorder} />
-                    <Route path="/chartlist" component={Chartlist} />
+                    <Route path="/message" component={requireAuthentication(Message)} />
+                    <Route path="/device" component={requireAuthentication(Device)} />
+                    <Route path="/deviceinfo/:id" component={requireAuthentication(Deviceinfo)} />
+                    <Route path="/devicemessage/:id" component={requireAuthentication(Devicemessage)} />
+                    <Route path="/historyplay/:id" component={requireAuthentication(Historyplay)} />
+                    <Route path="/workorder" component={requireAuthentication(Workorder)} />
+                    <Route path="/chartlist" component={requireAuthentication(Chartlist)} />
                 </Switch>
                 <div>
                     <Index history={this.props.history}/>
