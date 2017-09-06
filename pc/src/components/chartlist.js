@@ -14,7 +14,7 @@ class Page extends React.Component {
                     <i className="fa fa-angle-left back" aria-hidden="true" onClick={()=>{this.props.history.goBack()}}></i>
                     <div className="title">统计分析</div>
                 </div>
-                <iframe src="http://www.baidu.com" style={{width:"100%",height: "100%"}}></iframe>
+                <iframe src="https://app.powerbi.com/view?r=eyJrIjoiMjE3YWJmZDMtOTU2NC00MzI0LWE2N2ItZTYzZGEyOTNhYmJhIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9" style={{width:"100%",height: "100%"}}></iframe>
             </div>
 
         );
