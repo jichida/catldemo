@@ -9,7 +9,6 @@ class Page extends React.Component {
 
         return (
             <div className="warningPage" style={{height : window.innerHeight+"px"}}>
-
                 <div className="appbar">
                     <i className="fa fa-angle-left back" aria-hidden="true" onClick={()=>{this.props.history.goBack()}}></i>
                     <div className="title">统计分析</div>

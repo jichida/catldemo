@@ -62,31 +62,40 @@ class MessageAllDevice extends React.Component {
     }
 }
 
-
+//序号、工单号、营运公司、车牌号、故障地点、故障代码、部位、故障描述、责任人
 const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram,alarms}}) => {
     const alaram_data = [{
-        key: 1,
-        "设备ID" : "001",
-        "PACK号码" : "pack001",
-        "PDB编号" : "pdb001",
-        "料号" : "liaohao001",
-        "省市区" : "江苏常州武进区"
+        "序号": 1,
+        "工单号" : "001",
+        "营运公司" : "pack001",
+        "车牌号" : "pdb001",
+        "故障地点" : "liaohao001",
+        "故障代码" : "江苏常州武进区",
+        "部位" : "liaohao001",
+        "故障描述" : "江苏常州武进区",
+        "责任人" : "江苏常州武进区",
     },
     {
-        key: 2,
-        "设备ID" : "002",
-        "PACK号码" : "pack002",
-        "PDB编号" : "pdb002",
-        "料号" : "liaohao002",
-        "省市区" : "江苏常州武进区"
+      "序号": 2,
+      "工单号" : "001",
+      "营运公司" : "pack001",
+      "车牌号" : "pdb001",
+      "故障地点" : "liaohao001",
+      "故障代码" : "江苏常州武进区",
+      "部位" : "liaohao001",
+      "故障描述" : "江苏常州武进区",
+      "责任人" : "江苏常州武进区",
     },
     {
-        key: 3,
-        "设备ID" : "003",
-        "PACK号码" : "pack003",
-        "PDB编号" : "pdb003",
-        "料号" : "liaohao003",
-        "省市区" : "江苏常州武进区"
+      "序号": 3,
+      "工单号" : "001",
+      "营运公司" : "pack001",
+      "车牌号" : "pdb001",
+      "故障地点" : "liaohao001",
+      "故障代码" : "江苏常州武进区",
+      "部位" : "liaohao001",
+      "故障描述" : "江苏常州武进区",
+      "责任人" : "江苏常州武进区",
     }];
 
     let columns = _.map(alaram_data[0], (data, index)=>{
