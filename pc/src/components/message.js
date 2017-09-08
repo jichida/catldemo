@@ -107,7 +107,7 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
         dataIndex: '',
         key: 'x',
         render: (text, row, index) => {
-            return (<a onClick={()=>{delrow(row)}}>删除</a>);
+            return (<a onClick={()=>{delrow(row)}}>派发工单</a>);
         }
     }
     columns.push(columns_action);

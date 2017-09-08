@@ -133,7 +133,8 @@ class UserMenu extends React.Component {
             }}/>
             <MenuItem primaryText="设置" leftIcon={<Settings />} onClick={()=>{
                 this.handleRequestClose();
-                this.props.dispatch(ui_menuclick_settings({}));
+                window.open('http://yunqi.com28.cn:12004/admin/#/','_blank');
+                // this.props.dispatch(ui_menuclick_settings({}));
             }}/>
             <MenuItem primaryText="退出登录" leftIcon={<Exit />} onClick={()=>{
                 this.handleRequestClose();
