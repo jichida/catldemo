@@ -14,6 +14,10 @@ import Carlist from './mycars/carlist';
 import Collection from './collection/collection';
 import Playback from './playback';
 import Warning from './warning/';
+import Warningdevice from './warningdevice';
+import Warningdevicelist from './warningdevice/datalist.js';
+import Mydevice from './mydevice';
+
 import Systems from './system';
 
 import "../css/common.css";
@@ -50,8 +54,12 @@ class AppRoot extends React.Component {
                     <Route path="/carlist" component={Carlist} />
                     <Route path="/collection" component={Collection} />
                     <Route path="/playback" component={Playback} />
+                    <Route path="/warningdevice" component={Warningdevice} />
+                    <Route path="/warningdevicelist" component={Warningdevicelist} />
                     <Route path="/warning" component={Warning} />
                     <Route path="/system" component={Systems} />
+                    <Route path="/mydevice" component={Mydevice} />
+
                 </Switch>
             </div>
         );

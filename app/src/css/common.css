@@ -24,12 +24,13 @@
     height: 44px;
     text-align: center;
     border-radius: 6px;
+    font-size: 18px;
 }
 .btn>span{
     display: block;
     text-align: center;
     flex-grow: 1;
-    font-size: 16px;
+    font-size: 18px;
 }
 .btn{
     display: flex;
@@ -70,3 +71,134 @@
     -webkit-flex-direction: column;
     flex-direction: column;
 }
+.navhead{
+    display: flex;
+    background: #5cbeaa;
+    padding: 20px 15px 10px 15px;
+    justify-content: space-between;
+}
+.indexPage .navhead .userlnk img{
+    width: 30px;
+}
+.indexPage .headsearch{
+    flex-grow: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.indexPage .headsearch input{
+    height: 30px;
+    width: 100%;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 16px;
+}
+.indexPage .navhead .setting img{
+    width: 30px;
+}
+.indexPage .indexnav{
+    display: flex;
+    justify-content: space-around;
+    line-height: 50px;
+    background: #FFF;
+    border-bottom: 2px solid #EEE;
+}
+.indexPage .indexnav span{
+    display: inline-block;
+    position: relative;
+    font-size: 18px;
+}
+.indexPage .indexnav span.sel:after{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    left: 0;
+    content: "";
+    background: #5cbeaa;    
+}
+.footerPage ul{
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #000;
+    background: #FFF;
+}
+.footerPage ul li {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding: 5px 0;
+    flex-grow: 1;
+}
+.footerPage ul li:active{
+    background: #F2F2F2;
+}
+.footerPage ul li img{
+    width: 46%;
+}
+.footerPage ul li span{
+    font-size: 12px;
+}
+.playbackPage .searchlnk img{
+    width: 30px;
+}
+.playbackPage .navhead {
+    color:  #FFF;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+.playbackPage .navhead .title{
+    flex-grow: 1;
+    text-align: center;
+    font-size: 18px;
+}
+.mydevicelist {
+    flex-grow:1;
+}
+.mydevicelist .li{
+    position: relative;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    line-height: 50px;
+}
+.mydevicelist .li:active{
+    background: #EEE;
+}
+.mydevicelist .li img{
+    width: 30px;
+    margin-right: 10px;
+}
+.mydevicelist .li:after{
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    bottom: 0;
+    background: #DDD;
+}
+.mydevicelist .li:before{
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border:  1px solid #666;
+    position: absolute;
+    border-bottom: none;
+    border-left: none;
+    right: 20px;
+    transform: rotate(45deg); 
+    -moz-transform:rotate(45deg);    /* Firefox */
+    -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+}
+
+
+
+

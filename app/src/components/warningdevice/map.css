@@ -43,6 +43,17 @@
     flex-direction:column;
     -webkit-flex-direction:column;
 }
+.playbackPage .formlist >div.li{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: row;
+    align-items: center;
+}
+.playbackPage .formlist >div.li img{
+    margin-left: 10px;
+}
 .playbackPage .btnlist{
     display: flex;
     justify-content: space-between;
@@ -54,41 +65,3 @@
 .playbackPage .btnlist >div:last-child{
     margin-right: 0;
 }
-.seltimecontent {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid #EEE;
-}
-.seltimecontent:after{
-    content: "";
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border: 1px solid #999;
-    right: 20px;
-    top: 27px;
-    position: absolute;
-    transform: rotate(45deg);
-    -moz-transform: rotate(45deg);    /* Firefox */  
-    -webkit-transform: rotate(45deg); /* Safari 和 Chrome */
-    border-bottom: none;
-    border-left: none;
-}
-.seltimecontent img{
-    width: 30px;
-    margin-right: 10px;
-}
-.seltimecontent span{
-    font-size: 18px;
-}
-.seltimebtn{
-    padding: 15px;
-    text-align: center;
-}
-
-.AdminContent{
-    flex-grow: 1;
-}
-
-
