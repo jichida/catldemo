@@ -1,4 +1,7 @@
 import _ from 'lodash';
+import store from '../env/store';
+import {ui_showmenu} from '../actions';
+import { push,goBack,go  } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 
 //地图上点图标的样式【图标类型】
 export const getgroupStyleMap = ()=>{
@@ -43,6 +46,26 @@ export const getgroupStyleMap = ()=>{
       offset: ['-50%', '-50%'],
       fillStyle: null,
     },
+    {
+      name:'4',
+      image:`${process.env.PUBLIC_URL}/images/power_online.png`,
+      width: 16,
+      //高度
+      height: 16,
+      //定位点为中心
+      offset: ['-50%', '-50%'],
+      fillStyle: null,
+    },
+    {
+      name:'5',
+      image:`${process.env.PUBLIC_URL}/images/power_offline.png`,
+      width: 16,
+      //高度
+      height: 16,
+      //定位点为中心
+      offset: ['-50%', '-50%'],
+      fillStyle: null,
+    },
   ];
   return groupsz;
 }
@@ -68,12 +91,18 @@ export const getpopinfowindowstyle = (deviceitem)=>{
   let city = _.get(deviceitem,'city','');
   let district = _.get(deviceitem,'district','');
   let formattedAddress = _.get(deviceitem,'formattedAddress','');
+  window.clickfn =(DeviceId)=>{
+    store.dispatch(push(`/deviceinfo/${DeviceId}`));
+
+    // store.dispatch(ui_showmenu("showdevice"));
+    //yield put(ui_showmenu("showdevice"));deviceinfo
+  }
 
   return {
       infoTitle: `<p>设备id:<span class='color_warning'>${DeviceId}</span></p>`,
       infoBody: `<p>位置:纬度<span class='color_warning'>${txtLatitude}</span>,经度:<span class='color_warning'>${txtLongitude}</span> </p>
       <p>行政编码:<span class='color_warning'>${adcode}</span></p>
       <p>省市区:<span class='color_warning'>${province}${city}${district}</span></p>
-      <p>地址:<span class='color_warning'>${formattedAddress}</span></p>`
+      <p>地址:<span class='color_warning'>${formattedAddress}</span></p><p><button onclick="clickfn(${DeviceId})">查看详情</button></p>`
   };
 }

@@ -26,12 +26,12 @@ class Page extends React.Component {
         this.props.dispatch(mapplayback_start({isloop:false,speed:5000}));
     }
     render() {
-        const {mapseldeviceid,devices} = this.props;
-        let DeviceId;
-        let deviceitem = devices[mapseldeviceid];
-        if(!!deviceitem){
-          DeviceId = deviceitem.DeviceId;
-        }
+        // const {mapseldeviceid,devices} = this.props;
+        // let DeviceId;
+        // let deviceitem = devices[mapseldeviceid];
+        // if(!!deviceitem){
+        //   DeviceId = deviceitem.DeviceId;
+        // }
         const formstyle={width:"100%",flexGrow:"1"};
         const textFieldStyle={width:"100%",flexGrow:"1"};
         return (
@@ -53,7 +53,7 @@ class Page extends React.Component {
                     </div>
                 </div>
                 <Map height={window.innerHeight-(65+230+70)}/>
-                <Footer sel={4} />  
+                <Footer sel={4} />
             </div>
         );
     }

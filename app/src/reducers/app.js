@@ -5,7 +5,8 @@ import {
   ui_showmenu,
   ui_showhistoryplay,
   ui_showdistcluster,
-  ui_showhugepoints
+  ui_showhugepoints,
+  ui_changemodeview
 } from '../actions';
 
 
@@ -17,10 +18,15 @@ const initial = {
     oldshowmenu:'powersearch',
     showmenu:'',
     socketconnected:false,
+    modeview:'device'//'device'/'chargingpile'
   },
 };
 
 const app = createReducer({
+  [ui_changemodeview]:(state,payload)=>{
+    let modeview = payload;
+    return {...state,modeview};
+  },
   [ui_showdistcluster]:(state,payload)=>{
     let showdistcluster = payload;
     return {...state,showdistcluster};

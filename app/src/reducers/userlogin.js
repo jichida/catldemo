@@ -19,8 +19,8 @@ const userlogin = createReducer({
     return { ...initial.userlogin};
   },
   [login_result]: (state, payload) => {
-    localStorage.setItem('zhongnan_driver_token',payload.token);
-    return { ...state, ...payload,loginsuccess:true};
+    // localStorage.setItem('zhongnan_driver_token',payload.token);
+    return { ...state, ...payload};
   },
 }, initial.userlogin);
 
