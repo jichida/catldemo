@@ -20,7 +20,7 @@ import Searchimg2 from '../../img/14.png';
 import Searchimg3 from '../../img/15.png';
 import Footer from "../index/footer.js";
 import Datalist from "./datalist";
-
+import MapPage from '../admincontent';
 class Page extends React.Component {
     constructor(props) {
         super(props);
@@ -51,7 +51,7 @@ class Page extends React.Component {
                 <div className="set">
 
                     <div className="title">告警设备搜索</div>
-                    { 
+                    {
                         !this.state.showdata &&
                         <div className="formlist">
                             <div className="li">
@@ -67,11 +67,11 @@ class Page extends React.Component {
                                 <img src={Searchimg3} width={30} />
                                 <DatePicker hintText="开始时间" style={{flexGrow: "1",marginLeft: "10px", marginBottom: "10px"}} textFieldStyle={textFieldStyle}/>
                             </div>
-                            <RaisedButton 
-                                onTouchTap={()=>{this.setState({showdata: !this.state.showdata})}} 
-                                label="搜索" 
-                                backgroundColor={"#5cbeaa"} 
-                                labelStyle={{fontSize: "16px",color : "#FFF"}} 
+                            <RaisedButton
+                                onTouchTap={()=>{this.setState({showdata: !this.state.showdata})}}
+                                label="搜索"
+                                backgroundColor={"#5cbeaa"}
+                                labelStyle={{fontSize: "16px",color : "#FFF"}}
                                 style={{ margin: "0 15px 20px 15px", width: "auto"}}
                                 />
                         </div>
@@ -79,8 +79,8 @@ class Page extends React.Component {
 
                 </div>
                 { this.state.showdata && <Datalist /> }
-                { !this.state.showdata && <div style={{flexGrow:1}}>这里是地图</div> }
-                <Footer sel={1} />  
+                { !this.state.showdata && <div style={{flexGrow:1}}><MapPage /></div> }
+                <Footer sel={1} />
             </div>
         );
     }

@@ -8,7 +8,7 @@ import Devicestar from "../../img/16.png";
 import Moresetting from "../../img/17.png";
 import Footer from "../index/footer.js";
 import Datalist from "./datalist";
-
+import MapPage from '../admincontent';
 
 
 
@@ -19,9 +19,9 @@ class Page extends React.Component {
             showtype : 0
         };
     }
-    
+
     render() {
-        
+
         return (
             <div className="mydevicePage AppPage"
                 style={{
@@ -37,9 +37,9 @@ class Page extends React.Component {
                 </div>
                 <div className="searchcontent"><input name="searchinput" placeholder="搜索设备ID" /></div>
                 <div className="mydevicecontent">
-                    {   
+                    {
                         this.state.showtype===0 &&
-                        <div className="mapcontent">地图控件</div>
+                        <div className="mapcontent"><MapPage /></div>
                     }
                     {
                         this.state.showtype===1 &&

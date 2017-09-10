@@ -4,12 +4,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './index.css';
-import Avatar from "../../img/2.png"; 
+import Avatar from "../../img/2.png";
 import Userlnk from "../../img/11.png";
 import Setting from "../../img/12.png";
 import Footer from "./footer.js";
 import Collectiondevice from "../collectiondevice";
-
+import MapPage from '../admincontent';
 class Page extends React.Component {
     constructor(props) {
         super(props);
@@ -47,7 +47,7 @@ class Page extends React.Component {
                 {
                     this.state.selstatus===0 &&
                         <div className="content">
-                            这里是地图部分
+                            <MapPage />
                         </div>
                 }
                 {
