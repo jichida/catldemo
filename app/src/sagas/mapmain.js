@@ -550,7 +550,7 @@ export function* createmapmainflow(){
         }
       }
       catch(e){
-
+        console.log(e);
       }
 
     });

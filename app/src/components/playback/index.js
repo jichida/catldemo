@@ -11,7 +11,7 @@ import { DatePicker } from 'antd';
 import NavBar from "../tools/nav.js";
 import Map from './map';
 import "./map.css";
-import {mapplayback_start} from '../../actions';
+import {mapplayback_start,mapplayback_end} from '../../actions';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Searchimg from '../../img/13.png';
@@ -22,9 +22,14 @@ import { Button } from 'antd';
 const { RangePicker } = DatePicker;
 
 class Page extends React.Component {
-    onClickStart(){
-        this.props.dispatch(mapplayback_start({isloop:false,speed:5000}));
-    }
+  onClickStart(){
+    const {mapseldeviceid,g_devicesdb} = this.props;
+    // const {startDate,endDate} = this.state;
+    this.props.dispatch(mapplayback_start({isloop:false,speed:5000,query:{}}));
+  }
+  onClickEnd(){
+    this.props.dispatch(mapplayback_end({}));
+  }
     render() {
         // const {mapseldeviceid,devices} = this.props;
         // let DeviceId;
@@ -49,8 +54,8 @@ class Page extends React.Component {
                         <span>起始时间</span>
                     </div>
                     <div className="seltimebtn">
-                        <Button style={{background: "#67bd82",color: "#FFF", marginRight:"20px"}}>开始</Button>
-                        <Button style={{background: "#3a52a2",color: "#FFF"}}>结束</Button>
+                        <Button style={{background: "#67bd82",color: "#FFF", marginRight:"20px"}} onClick={this.onClickStart.bind(this)}>开始</Button>
+                        <Button style={{background: "#3a52a2",color: "#FFF"}} onClick={this.onClickEnd.bind(this)}>结束</Button>
                     </div>
                 </div>
                 <Map height={height}/>
