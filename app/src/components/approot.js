@@ -17,9 +17,9 @@ import Warning from './warning/';
 import Warningdevice from './warningdevice';
 import Warningdevicelist from './warningdevice/datalist.js';
 import Mydevice from './mydevice';
-
 import Systems from './system';
-
+import Deviceinfo from './mydevice/deviceinfo';
+import Workorder from './workorder';
 import "../css/common.css";
 
 class AppRoot extends React.Component {
@@ -47,6 +47,7 @@ class AppRoot extends React.Component {
         return (
             <div className="AppContainer">
                 <Switch>
+
                     <Route exact path="/" component={()=>(<Redirect to="/index"/>)} />
                     <Route path="/index" component={Index} />
                     <Route path="/login" component={Login} />
@@ -59,6 +60,8 @@ class AppRoot extends React.Component {
                     <Route path="/warning" component={Warning} />
                     <Route path="/system" component={Systems} />
                     <Route path="/mydevice" component={Mydevice} />
+                    <Route path="/deviceinfo" component={Deviceinfo} />
+                    <Route path="/workorder" component={Workorder} />
 
                 </Switch>
             </div>

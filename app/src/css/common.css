@@ -77,6 +77,45 @@
     padding: 20px 15px 10px 15px;
     justify-content: space-between;
 }
+.mydevicePage .navhead .navlist{
+    display: flex;
+    width: 160px;
+    padding-left: 30px;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+.mydevicePage .navhead .navlist span{
+    display: inline-block;
+    padding: 7px 15px;
+    background: #FFF;
+    font-size: 16px;
+    border: 1px solid #FFF;
+}
+.mydevicePage .navhead .navlist span.sel{
+    background: none;
+    color: #FFF;
+}
+.mydevicePage .navhead .moresetting{
+    display: flex;
+    align-items: center;
+}
+.mydevicePage .searchcontent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f8fa;
+    padding: 10px 0;
+}
+.mydevicePage .searchcontent input{
+    width: 80%;
+    border-radius: 40px;
+    height: 40px;
+    border: 1px solid #EEE;
+    background: #FFF;
+    font-size: 16px;
+    text-align: center;
+}
 .indexPage .navhead .userlnk img{
     width: 30px;
 }
@@ -198,6 +237,70 @@
     -moz-transform:rotate(45deg);    /* Firefox */
     -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
 }
+.mydevicePage .mydevicecontent {
+    flex-grow: 1;
+}
+.mydevicecontentlist .devicenum{
+    margin: auto;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding:  10px 0;
+}
+.mydevicecontentlist .devicenum span.c{
+    margin: 0 15px;
+}
+.navhead .back{
+    display: flex;
+    width: 30px;
+    align-self: stretch;
+    align-items: center;
+    justify-content: center;
+}
+.navhead .back:before{
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border:  1px solid #FFF;
+    border-top: none;
+    border-right: none;
+    right: 20px;
+    transform: rotate(45deg); 
+    -moz-transform:rotate(45deg);    /* Firefox */
+    -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+}
+.navhead .title{
+    color: #FFF;
+    font-size: 18px;
+}
+.deviceinfocontent >div{
+    display: flex;
+    margin: 0 15px;
+    border-bottom: 1px solid #EEE;
+    line-height: 40px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.indexPage .workorderlist{
+    flex-grow: 1;
+}
+.indexPage .workorderlist .contenttit{
+    background: #EEE;
+    text-align: center;
+    padding: 10px 0;
+}
+
+
+
+
+
+
+
+
+
 
 
 

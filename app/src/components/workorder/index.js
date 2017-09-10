@@ -3,12 +3,13 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import './index.css';
 import Avatar from "../../img/2.png"; 
 import Userlnk from "../../img/11.png";
 import Setting from "../../img/12.png";
-import Footer from "./footer.js";
+import Footer from "../index/footer.js";
 import Collectiondevice from "../collectiondevice";
+import Datalist from "./datalist";
+
 
 class Page extends React.Component {
     constructor(props) {
@@ -22,11 +23,13 @@ class Page extends React.Component {
         console.log(v);
         this.setState({selstatus : v});
     }
+    
     render() {
         const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p} = this.props;
         const pushurl = (name)=>{
             this.props.history.push(name);
         }
+        const colorred = {color: "#C00"};
         return (
             <div className="indexPage AppPage"
                 style={{
@@ -35,26 +38,14 @@ class Page extends React.Component {
                 }}>
                 <div className="navhead">
                     <a className="userlnk"><img src={Userlnk} /></a>
-                    <div className="headsearch">
-                        <input name="search" placeholder="搜索设备ID" />
-                    </div>
+                    <span className="title">工单处理</span>
                     <a className="setting"><img src={Setting} /></a>
                 </div>
-                <div className="indexnav">
-                    <span className={this.state.selstatus===0?"sel":''} onClick={this.indexnavclick.bind(this,0)}>所有设备</span>
-                    <span className={this.state.selstatus===1?"sel":''} onClick={this.indexnavclick.bind(this,1)}>我的收藏</span>
+                <div className="workorderlist">
+                    <div className="contenttit">过去7天内工共发生<span style={colorred}>50</span>起故障,已处理<span style={colorred}>10</span>起,未处理<span style={colorred}>20</span>起</div>
+                    <Datalist />
                 </div>
-                {
-                    this.state.selstatus===0 &&
-                        <div className="content">
-                            这里是地图部分
-                        </div>
-                }
-                {
-                    this.state.selstatus===1 &&
-                        <Collectiondevice />
-                }
-                <Footer sel={0} />
+                <Footer sel={3} />
             </div>
         );
     }
