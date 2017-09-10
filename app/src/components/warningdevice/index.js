@@ -40,6 +40,7 @@ class Page extends React.Component {
         // }
         const formstyle={width:"100%",flexGrow:"1"};
         const textFieldStyle={width:"100%",flexGrow:"1"};
+        const height =  window.innerHeight - 65 - 209 - 66.08;
         return (
             <div className="playbackPage AppPage"
                 style={{height : `${window.innerHeight}px`,overflow: "hidden",paddingBottom:"0"}}
@@ -79,7 +80,7 @@ class Page extends React.Component {
 
                 </div>
                 { this.state.showdata && <Datalist /> }
-                { !this.state.showdata && <div style={{flexGrow:1}}><MapPage /></div> }
+                { !this.state.showdata && <div style={{flexGrow:1}}><MapPage height={height}/></div> }
                 <Footer sel={1} />
             </div>
         );

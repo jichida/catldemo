@@ -21,7 +21,7 @@ class Page extends React.Component {
     }
 
     render() {
-
+        const height =  window.innerHeight - 70 - 60 - 66.08;
         return (
             <div className="mydevicePage AppPage"
                 style={{
@@ -39,7 +39,7 @@ class Page extends React.Component {
                 <div className="mydevicecontent">
                     {
                         this.state.showtype===0 &&
-                        <div className="mapcontent"><MapPage /></div>
+                        <div className="mapcontent"><MapPage height={height}/></div>
                     }
                     {
                         this.state.showtype===1 &&

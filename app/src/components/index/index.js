@@ -27,6 +27,7 @@ class Page extends React.Component {
         const pushurl = (name)=>{
             this.props.history.push(name);
         }
+        const height =  window.innerHeight - 67.08- 65- 52;
         return (
             <div className="indexPage AppPage"
                 style={{
@@ -47,7 +48,7 @@ class Page extends React.Component {
                 {
                     this.state.selstatus===0 &&
                         <div className="content">
-                            <MapPage />
+                            <MapPage height={height}/>
                         </div>
                 }
                 {

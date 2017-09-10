@@ -34,6 +34,7 @@ class Page extends React.Component {
         // }
         const formstyle={width:"100%",flexGrow:"1"};
         const textFieldStyle={width:"100%",flexGrow:"1"};
+        const height = window.innerHeight-(65+120+66.08);
         return (
             <div className="playbackPage AppPage"
                 style={{height : `${window.innerHeight}px`,overflow: "hidden",paddingBottom:"0"}}
@@ -52,7 +53,7 @@ class Page extends React.Component {
                         <Button style={{background: "#3a52a2",color: "#FFF"}}>结束</Button>
                     </div>
                 </div>
-                <Map height={window.innerHeight-(65+230+70)}/>
+                <Map height={height}/>
                 <Footer sel={4} />
             </div>
         );
