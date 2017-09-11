@@ -540,6 +540,15 @@ export function* createmapmainflow(){
               //
             }
           },'pointClick');//'pointClick pointMouseover pointMouseout'
+
+          //如果已经登录,并且有数据了！，重新加载数据
+          let deivcelist = [];
+          _.map(g_devicesdb,(v)=>{
+            deivcelist.push(v);
+          });
+          if(deivcelist.length > 0){
+            yield put(querydevice_result({list:deivcelist}));
+          }
           //监听事件
           //  pointSimplifierIns.on('pointClick pointMouseover pointMouseout', function(e, record) {
           //
