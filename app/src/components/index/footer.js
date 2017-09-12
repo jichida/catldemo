@@ -37,7 +37,7 @@ class Page extends React.Component {
                 <ul>
                     <li onClick={this.pushurl.bind(this, "/")}><img src={this.props.sel===0?Footer1:Footer2} /><span>总览</span></li>
                     <li onClick={this.pushurl.bind(this, "/warningdevice")}><img src={this.props.sel===1?Footer3:Footer4} /><span>预警信息</span></li>
-                    <li onClick={this.pushurl.bind(this, "/mydevice")}><img src={this.props.sel===2?Footer5:Footer6} /><span>我的设备</span></li>
+                    <li onClick={this.pushurl.bind(this, "/mydevice")}><img src={this.props.sel===2?Footer5:Footer6} /><span>我的车辆</span></li>
                     <li onClick={this.pushurl.bind(this, "/workorder")}><img src={this.props.sel===3?Footer7:Footer8} /><span>工单处理</span></li>
                     <li onClick={this.pushurl.bind(this, "/playback")}><img src={this.props.sel===4?Footer9:Footer10} /><span>轨迹回放</span></li>
                 </ul>

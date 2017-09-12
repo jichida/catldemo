@@ -47,7 +47,7 @@ class Page extends React.Component {
                     {
                         this.state.showdata &&
                         <div>
-                            <div className="title">告警设备搜索</div>
+                            <div className="title">告警车辆搜索</div>
                             <div className="formlist">
                                 <div className="li">
                                     <img src={Searchimg2} width={30} />

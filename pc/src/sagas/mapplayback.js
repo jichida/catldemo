@@ -270,7 +270,7 @@ export function* createmaptrackhistoryplaybackflow(){
             let amapboounds = new window.AMap.Bounds(southWest,northEast);
             window.amaptrackhistoryplayback.setBounds(amapboounds);
             pathSimplifierIns.setData([{
-              name: '设备1602010008',
+              name: '车辆1602010008',
               path
             }]);
 

@@ -10,6 +10,7 @@ import Footer from "../index/footer.js";
 import "../../css/antd.min.css";
 
 const data = [{
+
     time: '2017/09/07',//预警时间
     deviceid: '0012',//预警设备
     errorinfo: "1级警报", //故障信息
@@ -29,7 +30,7 @@ const data = [{
     deviceid: '0012',//预警设备
     errorinfo: "1级警报", //故障信息
     address: "上海浦东", //地理信息
-}, ];
+}];
 
 class Page extends React.Component {
 
@@ -39,7 +40,7 @@ class Page extends React.Component {
             dataIndex: 'time',
             key: 'time'
         }, {
-            title: '预警设备',
+            title: '车辆ID',
             dataIndex: 'deviceid',
             key: 'deviceid',
         }, {

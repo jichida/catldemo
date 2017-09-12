@@ -1,7 +1,7 @@
 
 /**
  * Created by jiaowenhui on 2017/7/28.
-    设备详情
+    车辆详情
  */
 import React from 'react';
 import {connect} from 'react-redux';
@@ -97,7 +97,7 @@ class Page extends React.Component {
 
                 <div className="appbar">
                     <i className="fa fa-angle-left back" aria-hidden="true" onClick={()=>{this.props.history.goBack()}}></i>
-                    <div className="title">设备详情</div>
+                    <div className="title">车辆详情</div>
                     <div className="devicebtnlist">
                         <Button type="primary" icon="play-circle-o" onClick={()=>this.props.history.push(`/historyplay/${mapseldeviceid}`)}>轨迹回放</Button>
                         <Button type="primary" icon="clock-circle-o" onClick={()=>this.props.history.push(`/devicemessage/${mapseldeviceid}`)}>历史警告</Button>

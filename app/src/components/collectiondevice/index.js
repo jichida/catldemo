@@ -11,7 +11,7 @@ class Page extends React.Component {
     
     render() {
 
-        const data = [{name : "设备1"},{name : "设备2"}]
+        const data = [{name : "车辆1"},{name : "车辆2"}]
         
         return (
             <div className="mydevicelist">

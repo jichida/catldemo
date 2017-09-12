@@ -37,12 +37,12 @@ class Page extends React.Component {
                 <div className="navhead">
                     
                     <div className="headsearch">
-                        <input name="search" placeholder="搜索设备ID" />
+                        <input name="search" placeholder="搜索车辆ID" />
                     </div>
                     <a className="userlnk" onClick={()=>{this.props.history.push("/usercenter")}}><img src={Userlnk} /></a>
                 </div>
                 <div className="indexnav">
-                    <span className={this.state.selstatus===0?"sel":''} onClick={this.indexnavclick.bind(this,0)}>所有设备</span>
+                    <span className={this.state.selstatus===0?"sel":''} onClick={this.indexnavclick.bind(this,0)}>所有车辆</span>
                     <span className={this.state.selstatus===1?"sel":''} onClick={this.indexnavclick.bind(this,1)}>我的收藏</span>
                 </div>
                 {

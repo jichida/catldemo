@@ -99,7 +99,7 @@ export const getpopinfowindowstyle = (deviceitem)=>{
   }
 
   return {
-      infoTitle: `<p>设备id:<span class='color_warning'>${DeviceId}</span></p>`,
+      infoTitle: `<p>车辆id:<span class='color_warning'>${DeviceId}</span></p>`,
       infoBody: `<p>位置:纬度<span class='color_warning'>${txtLatitude}</span>,经度:<span class='color_warning'>${txtLongitude}</span> </p>
       <p>行政编码:<span class='color_warning'>${adcode}</span></p>
       <p>省市区:<span class='color_warning'>${province}${city}${district}</span></p>
