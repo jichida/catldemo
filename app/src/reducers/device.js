@@ -24,7 +24,7 @@ const initial = {
   device:{
     treefilter:undefined,
 
-    mapseldeviceid:undefined,//当前选中的设备
+    mapseldeviceid:undefined,//当前选中的车辆
     // mapdeviceidlist:[],
     gmap_acode_treename,//key:acode/value:name
     gmap_acode_treecount,//key:acode/value:count

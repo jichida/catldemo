@@ -53,7 +53,7 @@ class Page extends React.Component {
                     <span className="back" onClick={()=>{this.props.history.goBack()}}></span>
                     <span className="title" style={{paddingRight : "30px"}}>预警信息</span>
                 </div>
-                <div className="set" style={{position: "initial"}}><div className="title">告警设备搜索</div></div>
+                <div className="set" style={{position: "initial"}}><div className="title">告警车辆搜索</div></div>
                 <Datalist />
             </div>
         );

@@ -106,7 +106,7 @@ const CreateMapUI_PointSimplifier =  (map)=>{
                    //return [LastHistoryTrack.Latitude,LastHistoryTrack.Longitude];
                },
                getHoverTitle: (deviceitem, idx)=> {
-                   return `设备编号:${deviceitem.DeviceId}`;
+                   return `车辆编号:${deviceitem.DeviceId}`;
                },
                //使用GroupStyleRender
                renderConstructor: PointSimplifier.Render.Canvas.GroupStyleRender,
@@ -575,12 +575,12 @@ export function* createmapmainflow(){
       }
     });
 
-    //选择一个设备请求
+    //选择一个车辆请求
     yield takeLatest(`${ui_selcurdevice_request}`,function*(actioncurdevice){
       const {payload:{DeviceId,deviceitem}} = actioncurdevice;
       try{
             //强制展开树
-            //获取该设备所在经纬度
+            //获取该车辆所在经纬度
             const result = yield call(getgeodata,deviceitem);
             //调用一次citycode，防止加载不到AreaNode
             try{
@@ -602,12 +602,12 @@ export function* createmapmainflow(){
       yield put(ui_selcurdevice_result(actioncurdevice.payload));
     });
 
-    //选择一个设备
+    //选择一个车辆
     yield takeLatest(`${ui_selcurdevice_result}`,function*(actioncurdevice){
       try{
           const {payload:{DeviceId,deviceitem}} = actioncurdevice;
 
-          //获取该设备信息
+          //获取该车辆信息
           yield put(querydeviceinfo_request({query:{DeviceId}}));
           const {payload} = yield take(`${querydeviceinfo_result}`);
           g_devicesdb[DeviceId] = payload;
@@ -629,7 +629,7 @@ export function* createmapmainflow(){
         }
     });
 
-    //查询所有设备返回
+    //查询所有车辆返回
     yield takeLatest(`${querydevice_result}`, function*(deviceresult) {
       let {payload:{list:devicelist}} = deviceresult;
       try{
@@ -713,7 +713,7 @@ export function* createmapmainflow(){
             if(!!result){
               if(result.type === 'device'){
                 isarea = true;
-                //如果返回设备,则将设备加载到树中
+                //如果返回车辆,则将车辆加载到树中
                 yield put(mapmain_areamountdevices_result({adcode:adcodetop,gmap_acode_devices,g_devicesdb,gmap_acode_treecount}));
               }
               else{
@@ -765,7 +765,7 @@ export function* createmapmainflow(){
 
     });
 
-    //查询某设备条件（待查）
+    //查询某车辆条件（待查）
     yield takeLatest(`${md_ui_settreefilter}`,function*(action){
       //https://redux-saga.js.org/docs/recipes/
       try{
@@ -784,7 +784,7 @@ export function* createmapmainflow(){
     });
     //serverpush_devicegeo
 
-    //某个设备地理位置发送变化
+    //某个车辆地理位置发送变化
     yield takeEvery(`${serverpush_devicegeo}`,function*(action){
       //https://redux-saga.js.org/docs/recipes/
       const {payload} = action;
@@ -800,7 +800,7 @@ export function* createmapmainflow(){
       }
     });
 
-    //多个设备地理位置变化【刷新界面】
+    //多个车辆地理位置变化【刷新界面】
     yield takeEvery(`${serverpush_devicegeo_sz}`,function*(action){
       //https://redux-saga.js.org/docs/recipes/
       const {payload} = action;
@@ -811,7 +811,7 @@ export function* createmapmainflow(){
         });
 
         if(!!infoWindow){//正在弹窗
-          //判断当前设备是否发生偏移
+          //判断当前车辆是否发生偏移
           const {mapseldeviceid} = yield select((state)=>{
             return {mapseldeviceid:state.device.mapseldeviceid};
           });
@@ -819,7 +819,7 @@ export function* createmapmainflow(){
             return o.DeviceId === mapseldeviceid;
           }));
           if(!!deviceitem){
-            console.log(`当前设备发生了变化:${JSON.stringify(deviceitem)}`)
+            console.log(`当前车辆发生了变化:${JSON.stringify(deviceitem)}`)
             //请求
             yield put(querydeviceinfo_request({query:{DeviceId:mapseldeviceid}}));
             const {payload} = yield take(`${querydeviceinfo_result}`);
@@ -934,7 +934,7 @@ export function* createmapmainflow(){
             yield join(...forkhandles);
           }
 
-          //如果停留在区域,则重新装载设备结点
+          //如果停留在区域,则重新装载车辆结点
           if(!!curareaid){
             yield put(mapmain_areamountdevices_result({adcode:curareaid,gmap_acode_devices,g_devicesdb}));
           }

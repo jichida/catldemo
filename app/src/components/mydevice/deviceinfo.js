@@ -26,7 +26,7 @@ class Page extends React.Component {
                 }}>
                 <div className="navhead">
                     <a onClick={()=>{this.props.history.goBack()}} className="back"></a>
-                    <span className="title">设备详情</span>
+                    <span className="title">车辆详情</span>
                     <a className="moresetting"><img src={Moresetting} width="30" /></a>
                 </div>
                 <div className="deviceinfocontent">

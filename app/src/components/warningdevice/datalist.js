@@ -11,21 +11,21 @@ import "../../css/antd.min.css";
 
 const data = [{
     key: '1',
-    deviceid: '0012',//设备ID
+    deviceid: '0012',//车辆ID
     pack: "PK0023", //PACK号
     pdb: "PDB23", //pdb
     liaohao: "22", //料号
     city: "常州武进", //省市区
 }, {
     key: '2',
-    deviceid: '0013',//设备ID
+    deviceid: '0013',//车辆ID
     pack: "PK0024", //PACK号
     pdb: "PDB23", //pdb
     liaohao: "22", //料号
     city: "常州武进", //省市区
 }, {
     key: '3',
-    deviceid: '0014',//设备ID
+    deviceid: '0014',//车辆ID
     pack: "PK0026", //PACK号
     pdb: "PDB23", //pdb
     liaohao: "22", //料号
@@ -40,7 +40,7 @@ class Page extends React.Component {
             dataIndex: 'key',
             key: 'key'
         }, {
-            title: '设备ID',
+            title: '车辆ID',
             dataIndex: 'deviceid',
             key: 'deviceid',
         }, {

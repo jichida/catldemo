@@ -84,7 +84,7 @@ class Page extends React.Component {
             <div className="historytrackplayback" id="historytrackplayback">
                 <div className="appbar">
                     <i className="fa fa-angle-left back" aria-hidden="true" onClick={()=>{this.props.history.goBack();}}></i>
-                    <div className="title">设备编号：{DeviceId || ''}</div>
+                    <div className="title">车辆编号：{DeviceId || ''}</div>
                     <div className="anddday">
                         <div className="seldayli">
                             <Day color={"#333"} style={{width: "26px", height : "26px"}} />

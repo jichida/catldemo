@@ -35,7 +35,7 @@ class Page extends React.Component {
                     </div>
                     <a className="moresetting"><img src={Moresetting} width="30" /></a>
                 </div>
-                <div className="searchcontent"><input name="searchinput" placeholder="搜索设备ID" /></div>
+                <div className="searchcontent"><input name="searchinput" placeholder="搜索车辆ID" /></div>
                 <div className="mydevicecontent">
                     {
                         this.state.showtype===0 &&
