@@ -24,6 +24,7 @@ export const ui_btnclick_devicehistorytrackplayback = createAction('ui_btnclick_
 export const ui_alarm_elcurdevice = createAction('ui_alarm_elcurdevice');
 export const ui_mycar_selcurdevice = createAction('ui_mycar_selcurdevice');
 export const ui_mycar_showtype= createAction('ui_mycar_showtype');
+export const ui_selworkorder = createAction('ui_selworkorder');
 
 export const ui_index_selstatus= createAction('ui_index_selstatus');
 
