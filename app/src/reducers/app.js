@@ -7,12 +7,14 @@ import {
   ui_showdistcluster,
   ui_showhugepoints,
   ui_changemodeview,
-  ui_mycar_showtype
+  ui_mycar_showtype,
+  ui_index_selstatus
 } from '../actions';
 
 
 const initial = {
   app: {
+    selstatus:0,//for index
     ui_mydeivce_showtype:0,
     showdistcluster:true,
     showhugepoints:true,
@@ -25,6 +27,10 @@ const initial = {
 };
 
 const app = createReducer({
+  [ui_index_selstatus]:(state,payload)=>{
+    let selstatus = payload;
+    return {...state,selstatus};
+  },
   [ui_mycar_showtype]:(state,payload)=>{
     let ui_mydeivce_showtype = payload;
     return {...state,ui_mydeivce_showtype};

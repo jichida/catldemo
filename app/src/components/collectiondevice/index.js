@@ -8,17 +8,21 @@ import Devicestar from "../../img/16.png";
 import { withRouter } from 'react-router-dom';
 
 class Page extends React.Component {
-    
-    render() {
 
-        const data = [{name : "车辆1"},{name : "车辆2"}]
+    render() {
+        let data = [];
+        const {carcollections,g_devicesdb} = this.props;
+        _.map(carcollections,(id)=>{
+          let item = g_devicesdb[id];
+          data.push({name :`车辆${id}`,id});
+        });
         
         return (
             <div className="mydevicelist">
                 {
                     _.map(data, (d, i)=>{
                         return (
-                            <div className="li" key={i} onClick={()=>{this.props.history.push("/deviceinfo")}}><img src={Devicestar} />{d.name}</div>
+                            <div className="li" key={i} onClick={()=>{this.props.history.push(`/deviceinfo/${d.id}`)}}><img src={Devicestar} />{d.name}</div>
                         )
                     })
                 }<div></div>
@@ -28,4 +32,8 @@ class Page extends React.Component {
 }
 
 Page = withRouter(Page);
-export default connect()(Page);
+
+const mapStateToProps = ({device:{carcollections,g_devicesdb}}) => {
+    return {carcollections,g_devicesdb};
+}
+export default connect(mapStateToProps)(Page);

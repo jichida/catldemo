@@ -23,7 +23,12 @@ export const ui_btnclick_devicehistorytrackplayback = createAction('ui_btnclick_
 
 export const ui_mycarselcurdevice_request = createAction('ui_mycarselcurdevice_request');
 export const ui_mycarselcurdevice_result = createAction('ui_mycarselcurdevice_result');
-export const ui_mycar_showtype= createAction('ui_mycarselcurdevice_result');
+export const ui_mycar_showtype= createAction('ui_mycar_showtype');
+
+export const ui_index_selstatus= createAction('ui_index_selstatus');
+
+export const ui_index_addcollection= createAction('ui_index_addcollection');
+export const ui_index_unaddcollection= createAction('ui_index_unaddcollection');
 //轨迹回放
 export const mapplayback_start = createAction('mapplayback_start');
 export const mapplayback_end = createAction('mapplayback_end');

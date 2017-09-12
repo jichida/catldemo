@@ -12,7 +12,9 @@ import{
   mapmain_selgroup,
   ui_changetreestyle,
   ui_settreefilter,
-  ui_searchbattery_result
+  ui_searchbattery_result,
+  ui_index_addcollection,
+  ui_index_unaddcollection
 } from '../actions';
 import _ from 'lodash';
 import {getadcodeinfo} from '../util/addressutil';
@@ -23,7 +25,7 @@ const {datatree,gmap_acode_treename,gmap_acode_treecount} = get_initgeotree();
 const initial = {
   device:{
     treefilter:undefined,
-
+    carcollections:['1602000001','1602000002'],
     mapseldeviceid:undefined,//当前选中的车辆
     // mapdeviceidlist:[],
     gmap_acode_treename,//key:acode/value:name
@@ -55,6 +57,18 @@ const initial = {
 };
 
 const device = createReducer({
+  [ui_index_addcollection]:(state,payload)=>{
+    let carcollections = [...state.carcollections];
+    carcollections.push(payload);
+    return {...state,carcollections};
+  },
+  [ui_index_unaddcollection]:(state,payload)=>{
+    let carcollections = [...state.carcollections];
+    carcollections = _.filter(carcollections,(item)=>{
+      return item !== payload;
+    })
+    return {...state,carcollections};
+  },
   [ui_searchbattery_result]:(state,payload)=>{
     const {devicelist,g_devicesdb} = payload;
     let datatreesearchresult={

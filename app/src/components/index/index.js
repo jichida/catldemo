@@ -10,17 +10,20 @@ import Setting from "../../img/12.png";
 import Footer from "./footer.js";
 import Collectiondevice from "../collectiondevice";
 import MapPage from '../admincontent';
+import {ui_index_selstatus} from '../../actions';
+
+
 class Page extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             innerWidth : window.innerWidth,
-            selstatus : 0
         };
     }
     indexnavclick=(v)=>{
+        this.props.dispatch(ui_index_selstatus(v));
         console.log(v);
-        this.setState({selstatus : v});
+        //this.setState({selstatus : v});
     }
     render() {
         const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p} = this.props;
@@ -35,24 +38,24 @@ class Page extends React.Component {
                     minHeight : `${window.innerHeight}px`
                 }}>
                 <div className="navhead">
-                    
+
                     <div className="headsearch">
                         <input name="search" placeholder="搜索车辆ID" />
                     </div>
                     <a className="userlnk" onClick={()=>{this.props.history.push("/usercenter")}}><img src={Userlnk} /></a>
                 </div>
                 <div className="indexnav">
-                    <span className={this.state.selstatus===0?"sel":''} onClick={this.indexnavclick.bind(this,0)}>所有车辆</span>
-                    <span className={this.state.selstatus===1?"sel":''} onClick={this.indexnavclick.bind(this,1)}>我的收藏</span>
+                    <span className={this.props.selstatus===0?"sel":''} onClick={this.indexnavclick.bind(this,0)}>所有车辆</span>
+                    <span className={this.props.selstatus===1?"sel":''} onClick={this.indexnavclick.bind(this,1)}>我的收藏</span>
                 </div>
                 {
-                    this.state.selstatus===0 &&
+                    this.props.selstatus===0 &&
                         <div className="content">
                             <MapPage height={height}/>
                         </div>
                 }
                 {
-                    this.state.selstatus===1 &&
+                    this.props.selstatus===1 &&
                         <Collectiondevice />
                 }
                 <Footer sel={0} />
@@ -60,4 +63,8 @@ class Page extends React.Component {
         );
     }
 }
-export default connect()(Page);
+
+const mapStateToProps = ({app}) => {
+    return {selstatus:app.selstatus};
+}
+export default connect(mapStateToProps)(Page);
