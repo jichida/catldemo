@@ -11,7 +11,7 @@ import Avatar from '../../img/19.png';
 import Toggle from 'material-ui/Toggle';
 
 class Page extends React.Component {
-    
+
     render() {
         const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p} = this.props;
         const pushurl = (name)=>{
@@ -21,7 +21,7 @@ class Page extends React.Component {
             <div className="settingPage AppPage" style={{height : `${window.innerHeight}px`,overflow: "hidden",paddingBottom:"0"}}>
                 <div className="navhead">
                     <a className="back" onClick={()=>{this.props.history.goBack()}}></a>
-                    <span className="title" style={{paddingRight : "30px"}}>消息隐私设置  </span>
+                    <span className="title" style={{paddingRight : "30px"}}>消息隐私设置</span>
                 </div>
                 <br/>
                 <div className="settingmessage">
@@ -32,7 +32,7 @@ class Page extends React.Component {
                     </div>
                     <div className="title">隐私设置</div>
                     <div className="li selli">
-                        <span>谁可以看到我的个人欣喜</span>
+                        <span>谁可以看到我的个人信息</span>
                     </div>
                 </div>
             </div>
