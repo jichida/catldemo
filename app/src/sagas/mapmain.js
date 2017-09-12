@@ -42,7 +42,7 @@ import {
 import async from 'async';
 import {getgeodatabatch,getgeodata} from './mapmain_getgeodata';
 import {getcurrentpos} from './getcurrentpos';
-import { push } from 'react-router-redux';
+import { push,replace } from 'react-router-redux';
 import L from 'leaflet';
 import _ from 'lodash';
 import moment from 'moment';
@@ -1029,6 +1029,7 @@ export function* createmapmainflow(){
         let deviceitem = g_devicesdb[DeviceId];
         console.log(`${deviceitem}`)
         yield put(ui_sel_tabindex(0));
+        yield put(replace('/index'));
         //选择第一个tab
         yield put(ui_index_selstatus(0));
         //选择车辆
@@ -1056,6 +1057,8 @@ export function* createmapmainflow(){
             yield put(ui_sel_tabindex(0));
             //选择第一个tab
             yield put(ui_index_selstatus(0));
+
+            yield put(replace('/index'));
             //选择车辆
             if(!!deviceitem){
               yield put(ui_selcurdevice_request({DeviceId,deviceitem}));
