@@ -27,7 +27,7 @@ class Page extends React.Component {
     }
     pushurl = (name,tabindex)=>{
        this.props.dispatch(ui_sel_tabindex(tabindex));
-       this.props.history.push(name);
+       this.props.history.replace(name);
    }
     render() {
         const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p,tabindex} = this.props;

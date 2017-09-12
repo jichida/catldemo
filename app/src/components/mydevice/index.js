@@ -10,7 +10,7 @@ import Footer from "../index/footer.js";
 import Datalist from "./datalist";
 import MapPage from '../admincontent';
 import {ui_mycar_showtype} from '../../actions';
-
+import {jsondata_bms_mydevice} from '../../test/bmsdata.js';
 
 class Page extends React.Component {
     constructor(props) {
@@ -48,7 +48,9 @@ class Page extends React.Component {
                     {
                         this.props.ui_mydeivce_showtype===1 &&
                         <div className="mydevicecontentlist">
-                            <div className="devicenum"><span>联网车辆：10辆</span><span className='c'>运行车辆：10辆</span><span>故障车辆：10辆</span></div>
+                            <div className="devicenum"><span>联网车辆：{`${jsondata_bms_mydevice.length}`}辆</span>
+                            <span className='c'>运行车辆：{`${jsondata_bms_mydevice.length}`}辆</span>
+                            <span>故障车辆：1辆</span></div>
                             <Datalist />
                         </div>
                     }

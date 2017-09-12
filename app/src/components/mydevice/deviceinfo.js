@@ -8,6 +8,7 @@ import Devicestar from "../../img/16.png";
 import Moresetting from "../../img/17.png";
 import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
+import {ui_sel_tabindex} from '../../actions';
 import { Button } from 'antd';
 import {
     ui_index_addcollection,
@@ -40,7 +41,7 @@ class Page extends React.Component {
                 <div className="navhead">
                     <a onClick={()=>{this.props.history.goBack()}} className="back"></a>
                     <span className="title">车辆详情</span>
-                    <a className="moresetting"><img src={Moresetting} width="30" /></a>
+                    <a className="moresetting"></a>
                 </div>
                 <div className="deviceinfocontent">
                     <div><span>车辆id</span><span>{`${deviceid}`}</span></div>
@@ -63,7 +64,14 @@ class Page extends React.Component {
                             this.props.dispatch(ui_index_unaddcollection(deviceid));
                           }
                         }>取消收藏</Button>}
-                        <Button icon="play-circle-o" style={{background : "#5cbeaa", color: "#FFF"}} onClick={()=>{console.log("轨迹回放")}}>轨迹回放</Button>
+                        <Button icon="play-circle-o" style={{background : "#5cbeaa", color: "#FFF"}}
+                           onClick={
+                             ()=>{
+                               console.log("轨迹回放");
+                               this.props.dispatch(ui_sel_tabindex(4));
+                               this.props.history.replace('/playback');
+                             }
+                         }>轨迹回放</Button>
                     </div>
                 </div>
             </div>
