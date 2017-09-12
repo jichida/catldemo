@@ -29,12 +29,12 @@ class Page extends React.Component {
                 }}>
                 <div className="navhead">
                     <div className="navlist">
-                        <span className={this.props.ui_mydeivce_showtype==0?"sel":""} onClick={()=>
+                        <span className={this.props.ui_mydeivce_showtype==0?"":"sel"} onClick={()=>
                           {
                             this.props.dispatch(ui_mycar_showtype(0));
                           }
                         }>地图模式</span>
-                        <span className={this.props.ui_mydeivce_showtype==1?"sel":""} onClick={
+                        <span className={this.props.ui_mydeivce_showtype==1?"":"sel"} onClick={
                           ()=>{
                             this.props.dispatch(ui_mycar_showtype(1));
                           }
@@ -44,7 +44,7 @@ class Page extends React.Component {
                 </div>
                 <div className="searchcontent"><input name="searchinput" placeholder="搜索车辆ID" /></div>
                 <div className="mydevicecontent" style={mydevicecontentstyle}>
-                    
+
                     {
                         this.props.ui_mydeivce_showtype===1 &&
                         <div className="mydevicecontentlist">
