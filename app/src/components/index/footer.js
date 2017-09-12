@@ -5,7 +5,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './index.css';
 import { withRouter } from 'react-router-dom';
-import Avatar from "../../img/2.png"; 
+import {ui_sel_tabindex} from '../../actions';
+import Avatar from "../../img/2.png";
 import Footer1 from "../../img/1.png";
 import Footer2 from "../../img/2.png";
 import Footer3 from "../../img/3.png";
@@ -24,26 +25,29 @@ class Page extends React.Component {
             innerWidth : window.innerWidth,
         };
     }
-    pushurl =(url)=>{
-        this.props.history.push(url);
-    }
+    pushurl = (name,tabindex)=>{
+       this.props.dispatch(ui_sel_tabindex(tabindex));
+       this.props.history.push(name);
+   }
     render() {
-        const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p} = this.props;
-        const pushurl = (name)=>{
-            this.props.history.push(name);
-        }
+        const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p,tabindex} = this.props;
+
         return (
             <div className="footerPage">
                 <ul>
-                    <li onClick={this.pushurl.bind(this, "/")}><img src={this.props.sel===0?Footer1:Footer2} /><span>总览</span></li>
-                    <li onClick={this.pushurl.bind(this, "/warningdevice")}><img src={this.props.sel===1?Footer3:Footer4} /><span>预警信息</span></li>
-                    <li onClick={this.pushurl.bind(this, "/mydevice")}><img src={this.props.sel===2?Footer5:Footer6} /><span>我的车辆</span></li>
-                    <li onClick={this.pushurl.bind(this, "/workorder")}><img src={this.props.sel===3?Footer7:Footer8} /><span>工单处理</span></li>
-                    <li onClick={this.pushurl.bind(this, "/playback")}><img src={this.props.sel===4?Footer9:Footer10} /><span>轨迹回放</span></li>
+                    <li onClick={this.pushurl.bind(this, "/",0)}><img src={tabindex===0?Footer1:Footer2} /><span>总览</span></li>
+                    <li onClick={this.pushurl.bind(this, "/warningdevice",1)}><img src={tabindex===1?Footer3:Footer4} /><span>预警信息</span></li>
+                    <li onClick={this.pushurl.bind(this, "/mydevice",2)}><img src={tabindex===2?Footer5:Footer6} /><span>我的车辆</span></li>
+                    <li onClick={this.pushurl.bind(this, "/workorder",3)}><img src={tabindex===3?Footer7:Footer8} /><span>工单处理</span></li>
+                    <li onClick={this.pushurl.bind(this, "/playback",4)}><img src={tabindex===4?Footer9:Footer10} /><span>轨迹回放</span></li>
                 </ul>
             </div>
         );
     }
 }
 Page = withRouter(Page);
-export default connect()(Page);
+const mapStateToProps = ({app}) => {
+    const {tabindex} = app;
+    return {tabindex};
+}
+export default connect(mapStateToProps)(Page);
