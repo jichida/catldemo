@@ -8,33 +8,22 @@ import _ from 'lodash';
 import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 import "../../css/antd.min.css";
-
-const data = [{
-
-    time: '2017/09/07',//预警时间
-    deviceid: '0012',//预警设备
-    errorinfo: "1级警报", //故障信息
-    address: "上海浦东", //地理信息
-}, {
-    time: '2017/09/07',//预警时间
-    deviceid: '0012',//预警设备
-    errorinfo: "1级警报", //故障信息
-    address: "上海浦东", //地理信息
-}, {
-    time: '2017/09/07',//预警时间
-    deviceid: '0012',//预警设备
-    errorinfo: "1级警报", //故障信息
-    address: "上海浦东", //地理信息
-}, {
-    time: '2017/09/07',//预警时间
-    deviceid: '0012',//预警设备
-    errorinfo: "1级警报", //故障信息
-    address: "上海浦东", //地理信息
-}];
+import data from '../../test/bms_alarm.json';
 
 class Page extends React.Component {
 
     render() {
+        const {seltype} = this.props;
+        let dataalarm = [];
+        dataalarm = _.filter(data,(item) => {
+          if(seltype === 0){
+            return !item.isreaded;
+          }
+          if(seltype === 1){
+            return item.isreaded;
+          }
+          return true;
+        });
         const columns = [{
             title: '预警时间',
             dataIndex: 'time',
@@ -52,8 +41,10 @@ class Page extends React.Component {
             dataIndex: 'address',
             key: 'address',
         }];
+
+        // const columns = _.map
         return (
-            <Table columns={columns} dataSource={data} pagination={false} style={{flexGrow: 1}} />
+            <Table columns={columns} dataSource={dataalarm} pagination={false} style={{flexGrow: 1}} />
         );
     }
 }

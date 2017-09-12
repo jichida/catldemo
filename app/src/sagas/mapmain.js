@@ -657,6 +657,13 @@ export function* createmapmainflow(){
           const childadcodelist = yield call(getclustertree_root);
           yield put(mapmain_init_device({g_devicesdb,gmap_acode_devices,gmap_acode_treecount}));
 
+          if(window.amapmain.getZoom() > 12){
+            yield put(ui_showhugepoints(true));
+          }
+          else{
+            yield put(ui_showhugepoints(false));
+          }
+
         }
         catch(e){
 
@@ -665,6 +672,17 @@ export function* createmapmainflow(){
     });
 
     //显示地图区域
+    yield takeLatest(`${mapmain_setzoomlevel}`, function*(action_showflag) {
+        let {payload:zoollevel} = action_showflag;
+        if(zoollevel > 12){
+          yield put(ui_showhugepoints(true));
+        }
+        else{
+          yield put(ui_showhugepoints(false));
+        }
+    });
+
+
     yield takeEvery(`${ui_showdistcluster}`, function*(action_showflag) {
         let {payload:isshow} = action_showflag;
         try{

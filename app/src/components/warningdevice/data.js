@@ -51,14 +51,14 @@ class Page extends React.Component {
                     height : `${window.innerHeight}px`,
                     overflow: "hidden",
                     paddingBottom:"0",
-                    
+
                 }}
                 >
                 <div className="navhead">
                     <span className="back" onClick={()=>{this.props.history.goBack()}}></span>
                     <span className="title" style={{paddingRight : "30px"}}>预警信息</span>
                     <a className="searchlnk" onClick={()=>{this.setState({showdata: !this.state.showdata})}} ><img src={Searchimg} /></a>
-                    
+
                 </div>
                 {
                     this.state.showdata &&
@@ -93,7 +93,7 @@ class Page extends React.Component {
                     <span className={this.state.seltype===1?"sel":""} onClick={this.seltype.bind(this,1)}>已读报警</span>
                     <span className={this.state.seltype===2?"sel":""} onClick={this.seltype.bind(this,2)}>所有报警</span>
                 </div>
-                <Datalist />
+                <Datalist seltype={this.state.seltype}/>
                 <Footer sel={1} />
             </div>
         );
