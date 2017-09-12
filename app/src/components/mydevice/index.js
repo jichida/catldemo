@@ -19,11 +19,13 @@ class Page extends React.Component {
 
     render() {
         const height =  window.innerHeight - 70 - 60 - 66.08;
+        const mydevicecontentstyle = this.props.ui_mydeivce_showtype===0?{pointerEvents: "none",background : "none"}:{};
         return (
             <div className="mydevicePage AppPage"
                 style={{
-                    backgroundSize: "100% 100%",
-                    minHeight : `${window.innerHeight}px`
+                    background: "none",
+                    minHeight : `${window.innerHeight}px`,
+                    pointerEvents: "none",
                 }}>
                 <div className="navhead">
                     <div className="navlist">
@@ -41,11 +43,8 @@ class Page extends React.Component {
                     <a className="moresetting"><img src={Moresetting} width="30" /></a>
                 </div>
                 <div className="searchcontent"><input name="searchinput" placeholder="搜索车辆ID" /></div>
-                <div className="mydevicecontent">
-                    {
-                        this.props.ui_mydeivce_showtype===0 &&
-                        <div className="mapcontent"><MapPage height={height}/></div>
-                    }
+                <div className="mydevicecontent" style={mydevicecontentstyle}>
+                    
                     {
                         this.props.ui_mydeivce_showtype===1 &&
                         <div className="mydevicecontentlist">

@@ -31,8 +31,10 @@ class Page extends React.Component {
         return (
             <div className="indexPage AppPage"
                 style={{
-                    backgroundSize: "100% 100%",
-                    minHeight : `${window.innerHeight}px`
+                    background: "none",
+                    minHeight : `${window.innerHeight}px`,
+                    pointerEvents: "none",
+
                 }}>
                 <div className="navhead">
                     
@@ -47,8 +49,8 @@ class Page extends React.Component {
                 </div>
                 {
                     this.state.selstatus===0 &&
-                        <div className="content">
-                            <MapPage height={height}/>
+                        <div className="content" style={{pointerEvents: "none"}}>
+                           
                         </div>
                 }
                 {

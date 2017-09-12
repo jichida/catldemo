@@ -60,7 +60,6 @@ class Page extends React.Component {
                         <li><span className="full">当前位置：{data['当前位置']}</span></li>
                         <li><span className="full">故障描述：{data['故障描述']}</span></li>
                         <li><span className="full">备注：{data['备注']}</span></li>
-
                     </ul>
                     <div className="tit">维修反馈</div>
                     <div className="infoimg">

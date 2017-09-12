@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import {map_setmapinited} from '../actions';
+import {map_setmapinited, carmapshow_destorymap} from '../actions';
 import { Route,Redirect,Switch} from 'react-router-dom';
 
 
@@ -25,9 +25,11 @@ import Usercenter from './user';
 import Setting from './index/setting';
 import Settinguser from './index/settinguser';
 import Settingmessage from './index/settingmessage';
+import MapPage from './admincontent';
 import "../css/common.css";
 
 class AppRoot extends React.Component {
+
     componentWillMount() {
         const scriptui = document.createElement("script");
         scriptui.src = "http://webapi.amap.com/ui/1.0/main.js?v=1.0.10";
@@ -43,16 +45,18 @@ class AppRoot extends React.Component {
         }
         document.body.appendChild(script);
     }
+
     componentWillUnmount() {
         this.props.dispatch(map_setmapinited(false));
         window.initamaploaded = false;
     }
+
     render() {
 
         return (
             <div className="AppContainer">
-                <Switch>
 
+                <Switch>
                     <Route exact path="/" component={()=>(<Redirect to="/index"/>)} />
                     <Route path="/index" component={Index} />
                     <Route path="/login" component={Login} />
@@ -72,9 +76,10 @@ class AppRoot extends React.Component {
                     <Route path="/setting" component={Setting} />
                     <Route path="/settinguser" component={Settinguser} />
                     <Route path="/settingmessage" component={Settingmessage} />
-
-
                 </Switch>
+                <div className="commonmap" style={{height : (window.innerHeight-60)+"px"}}>
+                    <MapPage height={window.innerHeight}/>
+                </div>
             </div>
         );
     }

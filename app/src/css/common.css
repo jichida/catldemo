@@ -60,7 +60,7 @@
     background: #3479e1;
 }
 .AppContainer{
-    
+    position: relative;
 }
 .AppPage{
     display: -webkit-box;
@@ -70,6 +70,7 @@
     height: 100%;
     -webkit-flex-direction: column;
     flex-direction: column;
+    background: #FFF;
 }
 .navhead{
     display: flex;
@@ -77,6 +78,7 @@
     padding: 20px 15px 10px 15px;
     justify-content: space-between;
     align-items: center;
+    pointer-events: auto;
 }
 .navhead a{
     display: flex;
@@ -89,6 +91,8 @@
     justify-content: center;
     align-items: center;
     flex-grow: 1;
+    pointer-events: auto;
+    cursor: pointer;
 }
 .mydevicePage .navhead .navlist span{
     display: inline-block;
@@ -111,6 +115,7 @@
     justify-content: center;
     background: #f8f8fa;
     padding: 10px 0;
+    pointer-events: auto;
 }
 .mydevicePage .searchcontent input{
     width: 80%;
@@ -144,7 +149,8 @@
     justify-content: space-around;
     line-height: 50px;
     background: #FFF;
-    border-bottom: 2px solid #EEE;
+    border-bottom: 1px solid #EEE;
+    pointer-events: auto;
 }
 .indexPage .indexnav span{
     display: inline-block;
@@ -159,6 +165,9 @@
     left: 0;
     content: "";
     background: #5cbeaa;    
+}
+.footerPage{
+     pointer-events: auto;
 }
 .footerPage ul{
     list-style: none;
@@ -202,6 +211,8 @@
 }
 .mydevicelist {
     flex-grow:1;
+    background: #FFF;
+    pointer-events: auto;
 }
 .mydevicelist .li{
     position: relative;
@@ -244,6 +255,7 @@
 }
 .mydevicePage .mydevicecontent {
     flex-grow: 1;
+    background: #FFF;
 }
 .mydevicecontentlist .devicenum{
     margin: auto;
@@ -332,6 +344,7 @@
 .playbackPage .set.seltimewamp{
     background: #FFF;
     position: inherit;
+    top:0;
 }
 .playbackPage .formlist{
     background: #FFF;
@@ -507,5 +520,17 @@
 }
 .mydevicebtn button:last-child{
     margin-left: 5px;
+}
+.commonmap {
+    position: absolute;
+    width: 100%;
+    background: none;
+    top:0;
+    left: 0;
+    z-index: 1
+}
+.AppContainer >div:first-child{
+    position: relative;
+    z-index: 2
 }
 
