@@ -492,4 +492,20 @@
     -webkit-transform: rotate(45deg);
 
 }
-    
+.deviceinfocontent >div.mydevicebtn{
+    display: flex;
+    border-bottom: none;
+    padding-top: 20px;
+}
+.mydevicebtn button{
+    flex-grow:1;
+    font-size: 16px;
+    height: 40px;
+}
+.mydevicebtn button:first-child{
+    margin-right: 5px;
+}
+.mydevicebtn button:last-child{
+    margin-left: 5px;
+}
+
