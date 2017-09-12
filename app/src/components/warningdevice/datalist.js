@@ -30,7 +30,7 @@ class Page extends React.Component {
             key: 'time'
         }, {
             title: '车辆ID',
-            dataIndex: 'deviceid',
+            dataIndex: 'DeviceId',
             key: 'deviceid',
             render: text => <span onClick={()=>{console.log(`点击车辆${text}`)}}>{text}</span>,
         }, {

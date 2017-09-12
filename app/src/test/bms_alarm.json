@@ -1,24 +1,24 @@
 [{
     "time": "2017/09/07",
-    "deviceid": "0012",
+    "DeviceId": "1602000002",
     "errorinfo": "1级警报",
     "address": "上海浦东",
     "isreaded":false
 }, {
     "time": "2017/09/07",
-    "deviceid": "0012",
+    "DeviceId": "1602010001",
     "errorinfo":"1级警报",
     "address": "上海浦东",
     "isreaded":false
 }, {
     "time": "2017/09/07",
-    "deviceid": "0012",
+    "DeviceId": "1602010003",
     "errorinfo": "1级警报",
     "address": "上海浦东",
     "isreaded":false
 }, {
     "time": "2017/09/07",
-    "deviceid": "0012",
+    "DeviceId": "1602010007",
     "errorinfo": "1级警报",
     "address": "上海浦东",
     "isreaded":true
