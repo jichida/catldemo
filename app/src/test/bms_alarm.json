@@ -1,0 +1,25 @@
+[{
+    "time": "2017/09/07",
+    "deviceid": "0012",
+    "errorinfo": "1级警报",
+    "address": "上海浦东",
+    "isreaded":false
+}, {
+    "time": "2017/09/07",
+    "deviceid": "0012",
+    "errorinfo":"1级警报",
+    "address": "上海浦东",
+    "isreaded":false
+}, {
+    "time": "2017/09/07",
+    "deviceid": "0012",
+    "errorinfo": "1级警报",
+    "address": "上海浦东",
+    "isreaded":false
+}, {
+    "time": "2017/09/07",
+    "deviceid": "0012",
+    "errorinfo": "1级警报",
+    "address": "上海浦东",
+    "isreaded":true
+}]
