@@ -8,31 +8,15 @@ import _ from 'lodash';
 import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 import "../../css/antd.min.css";
-
-const data = [{
-    carid: '1',//车牌
-    vin: '0012',//vin
-    year: "3", //运营年限
-    mileage: "34", //总里程
-    baoyou: "22", //容量保有率
-    point: "常州武进", //当前位置
-}, {
-    carid: '1',//车牌
-    vin: '0012',//vin
-    year: "3", //运营年限
-    mileage: "34", //总里程
-    baoyou: "22", //容量保有率
-    point: "常州武进", //当前位置
-}, {
-    carid: '1',//车牌
-    vin: '0012',//vin
-    year: "3", //运营年限
-    mileage: "34", //总里程
-    baoyou: "22", //容量保有率
-    point: "常州武进", //当前位置
-}];
+import data from '../../test/bms_mydevice.json';
+import {ui_mycar_selcurdevice} from '../../actions';
 
 class Page extends React.Component {
+
+    rowClick = (record, index, event)=>{
+        console.log(record.carid);
+        this.props.dispatch(ui_mycar_selcurdevice(record.carid));
+    }
 
     render() {
         const columns = [{
@@ -60,7 +44,7 @@ class Page extends React.Component {
             key: 'point'
         }];
         return (
-            <Table columns={columns} dataSource={data} pagination={false} style={{flexGrow: 1}} />
+            <Table columns={columns} dataSource={data} pagination={false} style={{flexGrow: 1}} onRowClick={this.rowClick} />
         );
     }
 }

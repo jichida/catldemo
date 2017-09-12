@@ -10,8 +10,8 @@ import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 import { Button } from 'antd';
 import {
-ui_index_addcollection,
-ui_index_unaddcollection
+    ui_index_addcollection,
+    ui_index_unaddcollection
 } from '../../actions';
 
 class Page extends React.Component {
@@ -27,9 +27,9 @@ class Page extends React.Component {
         let deviceid = this.props.match.params.deviceid;
         let isincollections = false;
         _.map(carcollections,(id)=>{
-          if(id === deviceid){
-            isincollections = true;
-          }
+            if(id === deviceid){
+                isincollections = true;
+            }
         });
         return (
             <div className="mydevicePage AppPage"

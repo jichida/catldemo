@@ -10,13 +10,13 @@ import Footer from "../index/footer.js";
 import "../../css/antd.min.css";
 import data from '../../test/bms_alarm.json';
 
-import {ui_mycar_selcurdevice} from '../../actions';
+import {ui_alarm_elcurdevice} from '../../actions';
 
 class Page extends React.Component {
 
     rowClick = (record, index, event)=>{
         console.log(record.DeviceId);
-        this.props.dispatch(ui_mycar_selcurdevice(record.DeviceId));
+        this.props.dispatch(ui_alarm_elcurdevice(record.DeviceId));
     }
 
     render() {
