@@ -9,15 +9,14 @@ import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 import { withRouter } from 'react-router-dom';
 import "../../css/antd.min.css";
-import data from '../../test/workorder.json';
-
+import {data_bms_workorder} from '../../test/bmsdata.js';
 
 class Page extends React.Component {
 
     render() {
         const {selworkorder} = this.props;
         let dataworkorder = [];
-        dataworkorder = _.filter(data,(item) => {
+        dataworkorder = _.filter(data_bms_workorder,(item) => {
           if(selworkorder === 0){
             return !item.isdone;
           }

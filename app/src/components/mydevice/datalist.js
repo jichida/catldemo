@@ -8,7 +8,7 @@ import _ from 'lodash';
 import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 import "../../css/antd.min.css";
-import data from '../../test/bms_mydevice.json';
+import {jsondata_bms_mydevice} from '../../test/bmsdata.js';
 import {ui_mycar_selcurdevice} from '../../actions';
 
 class Page extends React.Component {
@@ -44,7 +44,7 @@ class Page extends React.Component {
             key: 'point'
         }];
         return (
-            <Table columns={columns} dataSource={data} pagination={false} style={{flexGrow: 1}} onRowClick={this.rowClick} />
+            <Table columns={columns} dataSource={jsondata_bms_mydevice} pagination={false} style={{flexGrow: 1}} onRowClick={this.rowClick} />
         );
     }
 }

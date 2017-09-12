@@ -8,7 +8,7 @@ import _ from 'lodash';
 import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 import "../../css/antd.min.css";
-import data from '../../test/bms_alarm.json';
+import {jsondata_bms_alarm} from '../../test/bmsdata.js';
 
 import {ui_alarm_elcurdevice} from '../../actions';
 
@@ -22,7 +22,7 @@ class Page extends React.Component {
     render() {
         const {seltype} = this.props;
         let dataalarm = [];
-        dataalarm = _.filter(data,(item) => {
+        dataalarm = _.filter(jsondata_bms_alarm,(item) => {
           if(seltype === 0){
             return !item.isreaded;
           }
