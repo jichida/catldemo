@@ -68,7 +68,11 @@ let gmap_acode_devices = {};
 //新建行政区域&海量点
 const CreateMapUI_PointSimplifier =  (map)=>{
   return new Promise((resolve,reject) => {
-
+      if(!window.AMapUI){
+        alert('未加载到AMapUI！');
+        reject();
+        return;
+      }
       window.AMapUI.load(['ui/misc/PointSimplifier',
     ],(PointSimplifier)=> {
            if (!PointSimplifier.supportCanvas) {
@@ -148,7 +152,11 @@ const CreateMapUI_PointSimplifier =  (map)=>{
 //新建行政区域
 const CreateMapUI_DistrictCluster =  (map)=>{
   return new Promise((resolve,reject) => {
-
+      if(!window.AMapUI){
+        alert('未加载到AMapUI！');
+        reject();
+        return;
+      }
       window.AMapUI.load(['ui/geo/DistrictCluster',
       'lib/utils',
       'lib/dom.utils',
@@ -360,7 +368,12 @@ const listenclusterevent = (eventname)=>{
 
 
 const showinfowindow = (deviceitem)=>{
-  return new Promise(resolve =>{
+  return new Promise((resolve,reject) =>{
+      if(!window.AMapUI){
+        alert('未加载到AMapUI！');
+        reject();
+        return;
+      }
       let locz = deviceitem.locz;
       window.AMapUI.loadUI(['overlay/SimpleInfoWindow'], function(SimpleInfoWindow) {
           infoWindow = new SimpleInfoWindow(getpopinfowindowstyle(deviceitem));
@@ -484,10 +497,12 @@ export function* createmapmainflow(){
       try{
         let {payload:{divmapid}} = action_createmap;
         if(divmapid === divmapid_mapmain){
-          while(!window.AMap || !window.AMapUI){
-            yield call(delay,500);
-          }
-
+          //wait js script loaded
+          // while(!window.AMap){
+          //   console.log(`wait here...${!!window.AMap},ui:${!!window.AMapUI}`);
+          //   yield call(delay,500);
+          // }
+          console.log(`js script init`);
           //take
           let mapcarprops = yield select((state) => {
             const {carmap} = state;
@@ -495,8 +510,11 @@ export function* createmapmainflow(){
           });
           if(!mapcarprops.isMapInited){//仅在第一次加载页面初始化时进入
             //等待地图初始化
+            console.log(`wait for mapcarprops.isMapInited`);
             yield take(`${map_setmapinited}`);
           }
+
+          console.log(`start create map`);
           let {mapcenterlocation,zoomlevel} = mapcarprops;
           if(mapcenterlocation.equals(loczero)){//仅在第一次加载页面初始化时进入
             const centerpos = yield call(getcurrentpos);
