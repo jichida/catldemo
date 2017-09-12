@@ -9,6 +9,8 @@ import Moresetting from "../../img/17.png";
 import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 
+import { Button } from 'antd';
+
 class Page extends React.Component {
     constructor(props) {
         super(props);
@@ -38,6 +40,10 @@ class Page extends React.Component {
                     <div><span>最高单体温度</span><span>ddd</span></div>
                     <div><span>平均单体温度</span><span>ddd</span></div>
                     <div><span>最低温度所在CSC号</span><span>ddd</span></div>
+                    <div className="mydevicebtn">
+                        <Button type="primary" icon="star" onClick={()=>{console.log("收藏车辆")}}>收藏车辆</Button>
+                        <Button icon="play-circle-o" style={{background : "#5cbeaa", color: "#FFF"}} onClick={()=>{console.log("轨迹回放")}}>轨迹回放</Button>
+                    </div>
                 </div>
             </div>
         );
