@@ -18,8 +18,9 @@ class Page extends React.Component {
             showtype : 0
         };
     }
-    
+
     render() {
+        let deviceid = this.props.match.params.deviceid;
         return (
             <div className="mydevicePage AppPage"
                 style={{
@@ -32,6 +33,7 @@ class Page extends React.Component {
                     <a className="moresetting"><img src={Moresetting} width="30" /></a>
                 </div>
                 <div className="deviceinfocontent">
+                    <div><span>车辆id</span><span>{`${deviceid}`}</span></div>
                     <div><span>数据包信号</span><span>ddd</span></div>
                     <div><span>箱体累加电压</span><span>ddd</span></div>
                     <div><span>真实SOC</span><span>ddd</span></div>

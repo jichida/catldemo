@@ -32,6 +32,8 @@ import {
 
   searchbattery_result,
   ui_searchbattery_result,
+
+  ui_mycarselcurdevice_request,
 } from '../actions';
 import async from 'async';
 import {getgeodatabatch,getgeodata} from './mapmain_getgeodata';
@@ -301,9 +303,11 @@ let CreateMap =({mapcenterlocation,zoomlevel})=> {
 //监听地图事件
 const listenmapevent = (eventname)=>{
   return new Promise(resolve => {
-    window.amapmain.on(eventname, (e)=> {
-        resolve(eventname);
-    });
+    if(!!window.amapmain){
+      window.amapmain.on(eventname, (e)=> {
+          resolve(eventname);
+      });
+    }
   });
 }
 
@@ -975,6 +979,12 @@ export function* createmapmainflow(){
         g_devicesdb[device.DeviceId] = device;
       });
       yield put(ui_searchbattery_result({g_devicesdb,devicelist}));
+    });
+
+
+    //ui_mycarselcurdevice_request
+    yield takeLatest(`${ui_mycarselcurdevice_request}`, function*(action) {
+      //地图模式选择车辆
     });
 }
 

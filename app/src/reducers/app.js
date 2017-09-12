@@ -6,12 +6,14 @@ import {
   ui_showhistoryplay,
   ui_showdistcluster,
   ui_showhugepoints,
-  ui_changemodeview
+  ui_changemodeview,
+  ui_mycar_showtype
 } from '../actions';
 
 
 const initial = {
   app: {
+    ui_mydeivce_showtype:0,
     showdistcluster:true,
     showhugepoints:true,
     showhistoryplay:false,
@@ -23,6 +25,10 @@ const initial = {
 };
 
 const app = createReducer({
+  [ui_mycar_showtype]:(state,payload)=>{
+    let ui_mydeivce_showtype = payload;
+    return {...state,ui_mydeivce_showtype};
+  },
   [ui_changemodeview]:(state,payload)=>{
     let modeview = payload;
     return {...state,modeview};

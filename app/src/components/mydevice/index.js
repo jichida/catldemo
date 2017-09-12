@@ -9,15 +9,12 @@ import Moresetting from "../../img/17.png";
 import Footer from "../index/footer.js";
 import Datalist from "./datalist";
 import MapPage from '../admincontent';
-
+import {ui_mycar_showtype} from '../../actions';
 
 
 class Page extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            showtype : 0
-        };
     }
 
     render() {
@@ -30,19 +27,27 @@ class Page extends React.Component {
                 }}>
                 <div className="navhead">
                     <div className="navlist">
-                        <span className={this.state.showtype==0?"sel":""} onClick={()=>{this.setState({showtype: 0})}}>地图模式</span>
-                        <span className={this.state.showtype==1?"sel":""} onClick={()=>{this.setState({showtype: 1})}}>列表模式</span>
+                        <span className={this.props.ui_mydeivce_showtype==0?"sel":""} onClick={()=>
+                          {
+                            this.props.dispatch(ui_mycar_showtype(0));
+                          }
+                        }>地图模式</span>
+                        <span className={this.props.ui_mydeivce_showtype==1?"sel":""} onClick={
+                          ()=>{
+                            this.props.dispatch(ui_mycar_showtype(1));
+                          }
+                        }>列表模式</span>
                     </div>
                     <a className="moresetting"><img src={Moresetting} width="30" /></a>
                 </div>
                 <div className="searchcontent"><input name="searchinput" placeholder="搜索车辆ID" /></div>
                 <div className="mydevicecontent">
                     {
-                        this.state.showtype===0 &&
+                        this.props.ui_mydeivce_showtype===0 &&
                         <div className="mapcontent"><MapPage height={height}/></div>
                     }
                     {
-                        this.state.showtype===1 &&
+                        this.props.ui_mydeivce_showtype===1 &&
                         <div className="mydevicecontentlist">
                             <div className="devicenum"><span>联网车辆：10辆</span><span className='c'>运行车辆：10辆</span><span>故障车辆：10辆</span></div>
                             <Datalist />
@@ -54,5 +59,8 @@ class Page extends React.Component {
         );
     }
 }
-
-export default connect()(Page);
+const data = ({app}) => {
+  const {ui_mydeivce_showtype} = app;
+  return {ui_mydeivce_showtype};
+}
+export default connect(data)(Page);
