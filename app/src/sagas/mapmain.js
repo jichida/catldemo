@@ -663,9 +663,11 @@ export function* createmapmainflow(){
 
           if(window.amapmain.getZoom() > 12){
             yield put(ui_showhugepoints(true));
+            yield put(ui_showdistcluster(false));
           }
           else{
             yield put(ui_showhugepoints(false));
+            yield put(ui_showdistcluster(true));
           }
 
         }
@@ -680,9 +682,11 @@ export function* createmapmainflow(){
         let {payload:zoollevel} = action_showflag;
         if(zoollevel > 12){
           yield put(ui_showhugepoints(true));
+          yield put(ui_showdistcluster(false));
         }
         else{
           yield put(ui_showhugepoints(false));
+          yield put(ui_showdistcluster(true));
         }
     });
 
