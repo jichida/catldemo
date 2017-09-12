@@ -44,14 +44,14 @@ class Page extends React.Component {
                 </div>
                 <div className="deviceinfocontent">
                     <div><span>车辆id</span><span>{`${deviceid}`}</span></div>
-                    <div><span>数据包信号</span><span>ddd</span></div>
-                    <div><span>箱体累加电压</span><span>ddd</span></div>
-                    <div><span>真实SOC</span><span>ddd</span></div>
-                    <div><span>最高单体电压</span><span>ddd</span></div>
-                    <div><span>最低单体电压</span><span>ddd</span></div>
-                    <div><span>最高单体温度</span><span>ddd</span></div>
-                    <div><span>平均单体温度</span><span>ddd</span></div>
-                    <div><span>最低温度所在CSC号</span><span>ddd</span></div>
+                    <div><span>数据包信号</span><span>{parseInt(Math.random()*10000)}</span></div>
+                    <div><span>箱体累加电压</span><span>{parseInt(Math.random()*100)}V</span></div>
+                    <div><span>真实SOC</span><span>WE-WEGWE</span></div>
+                    <div><span>最高单体电压</span><span>{parseInt(Math.random()*100)}V</span></div>
+                    <div><span>最低单体电压</span><span>{parseInt(Math.random()*100)}V</span></div>
+                    <div><span>最高单体温度</span><span>{parseInt(Math.random()*100)}°C</span></div>
+                    <div><span>平均单体温度</span><span>{parseInt(Math.random()*100)}°C</span></div>
+                    <div><span>最低温度所在CSC号</span><span>{parseInt(Math.random()*1000)}</span></div>
                     <div className="mydevicebtn">
                         {!isincollections &&
                         <Button type="primary" icon="star" onClick={()=>{
@@ -62,7 +62,7 @@ class Page extends React.Component {
                         <Button type="primary" icon="star" onClick={()=>{
                             this.props.dispatch(ui_index_unaddcollection(deviceid));
                           }
-                        }>取消收藏车辆</Button>}
+                        }>取消收藏</Button>}
                         <Button icon="play-circle-o" style={{background : "#5cbeaa", color: "#FFF"}} onClick={()=>{console.log("轨迹回放")}}>轨迹回放</Button>
                     </div>
                 </div>

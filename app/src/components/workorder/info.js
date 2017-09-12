@@ -13,6 +13,8 @@ import Updataimg from "../../img/18.png";
 import { Button } from 'antd';
 import _ from 'lodash';
 import dataworks from '../../test/workorder.json';
+import {ui_selworkorder} from '../../actions';
+
 
 class Page extends React.Component {
     constructor(props) {
@@ -29,6 +31,11 @@ class Page extends React.Component {
     }
     selworkorders=(v)=>{
         this.setState({selworkorder : v});
+    }
+
+    pointdevice =(id)=>{
+        console.log(id);
+        this.props.dispatch(ui_selworkorder(id));
     }
     render() {
         const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p} = this.props;
@@ -47,7 +54,8 @@ class Page extends React.Component {
                 }}>
                 <div className="navhead">
                     <a className="back" onClick={()=>{this.props.history.goBack()}}></a>
-                    <span className="title" style={{paddingRight : "30px"}}>待处理工单</span>
+                    <span className="title" style={{paddingLeft : "34px"}}>待处理工单</span>
+                    <a onClick={this.pointdevice.bind(this, data.DeviceId)} style={{color : "#FFF", fontSize: "16px"}}>定位设备</a>
                 </div>
                 <div className="workerorderinfo">
                     <ul>
