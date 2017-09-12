@@ -8,6 +8,7 @@ import {List, ListItem} from 'material-ui/List';
 import Rightlnk from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import Divider from 'material-ui/Divider';
 import Avatar from '../../img/19.png';
+import Toggle from 'material-ui/Toggle';
 
 class Page extends React.Component {
     
@@ -20,17 +21,19 @@ class Page extends React.Component {
             <div className="settingPage AppPage" style={{height : `${window.innerHeight}px`,overflow: "hidden",paddingBottom:"0"}}>
                 <div className="navhead">
                     <a className="back" onClick={()=>{this.props.history.goBack()}}></a>
-                    <span className="title" style={{paddingRight : "30px"}}>帐号绑定设置</span>
+                    <span className="title" style={{paddingRight : "30px"}}>消息隐私设置  </span>
                 </div>
                 <br/>
                 <div className="settingmessage">
-                    <List style={{background: "#FFF",padding: "0"}}>
-                        <Divider />
-                        <ListItem primaryText="帐号绑定设置" rightIcon={<Rightlnk />} onClick={()=>{this.props.history.push("/settinguser")}} />
-                        <Divider/>
-                        <ListItem primaryText="消息隐私设置" rightIcon={<Rightlnk />} onClick={()=>{this.props.history.push("/settingmessage")}} />
-                        <Divider />
-                    </List>
+                    <div className="title">消息设置</div>
+                    <div className="li">
+                        <Toggle label="预警信息推送提醒" style={{padding: "15px", background: "#FFF",borderBottom: "1px solid #EEE"}}/>
+                        <Toggle label="工单处理推送提醒" style={{padding: "15px", background: "#FFF"}}/>
+                    </div>
+                    <div className="title">隐私设置</div>
+                    <div className="li selli">
+                        <span>谁可以看到我的个人欣喜</span>
+                    </div>
                 </div>
             </div>
         );
