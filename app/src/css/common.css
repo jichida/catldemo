@@ -76,6 +76,11 @@
     background: #5cbeaa;
     padding: 20px 15px 10px 15px;
     justify-content: space-between;
+    align-items: center;
+}
+.navhead a{
+    display: flex;
+    align-items: center;
 }
 .mydevicePage .navhead .navlist{
     display: flex;
@@ -176,7 +181,7 @@
     background: #F2F2F2;
 }
 .footerPage ul li img{
-    width: 46%;
+    width: 32px;
 }
 .footerPage ul li span{
     font-size: 12px;
@@ -273,6 +278,8 @@
 .navhead .title{
     color: #FFF;
     font-size: 18px;
+    flex-grow: 1;
+    text-align: center;
 }
 .deviceinfocontent >div{
     display: flex;
@@ -292,12 +299,92 @@
     text-align: center;
     padding: 10px 0;
 }
-
-
-
-
-
-
+.workordernav {
+    display: flex;
+    justify-content: space-around;
+}
+.workordernav span{
+    display: inline-block;
+    position: relative;
+    line-height: 40px;
+    font-size: 16px;
+}
+.workordernav span.sel:after{
+    content: "";
+    display: inline-block;
+    height: 2px;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    background: rgb(92, 190, 170);
+}
+.playbackPage .set{
+    position: fixed;
+    top: 60px;
+    width: 100%;
+}
+.workerorderinfo{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.workerorderinfo li{
+    padding: 10px 15px;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
+.workerorderinfo li span{
+    display: inline-block;
+    flex-grow: 1;
+    max-width: 50%;
+    flex-shrink: 1;
+}
+.workerorderinfo li span.full{
+    flex-shrink: 0;
+    max-width: 100%;
+}
+.workerorderinfo li:nth-child(odd){
+    background: #F4F4F4;
+}
+.workerorderinfo .tit{
+    background: #FFF;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    padding: 10px 15px;
+    font-size:  16px;
+    position: relative;
+}
+.workerorderinfo .tit:after{
+    content: "";
+    height: 14px;
+    width: 14px;
+    display: inline-block;
+    border: 1px solid #666;
+    transform: rotate(45deg); 
+    -moz-transform:rotate(45deg);    /* Firefox */
+    -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
+    position: absolute;
+    right: 15px;
+    top: 12px;
+    border-top: none;
+    border-left:  none;
+}
+.workerorderinfo .infoimg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    border-bottom: 1px solid #EEE;
+}
+.workerorderinfo .ant-btn-primary{
+    background: #5cbeaa;
+    border-color: #5cbeaa;
+    margin:  15px 20%;
+    height: 40px;
+    font-size: 16px;
+}
 
 
 

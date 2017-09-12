@@ -7,29 +7,30 @@ import { Table, Icon } from 'antd';
 import _ from 'lodash';
 import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
+import { withRouter } from 'react-router-dom';
 import "../../css/antd.min.css";
 
 const data = [{
-    carid: '1',//车牌
-    vin: '0012',//vin
-    year: "3", //运营年限
-    mileage: "34", //总里程
-    baoyou: "22", //容量保有率
-    point: "常州武进", //当前位置
+    workerid: '1',//车牌
+    status: '0012',//vin
+    carid: "3", //运营年限
+    proname: "34", //总里程
+    workername: "22", //容量保有率
+    reason: "1级报警", //当前位置
 }, {
-    carid: '1',//车牌
-    vin: '0012',//vin
-    year: "3", //运营年限
-    mileage: "34", //总里程
-    baoyou: "22", //容量保有率
-    point: "常州武进", //当前位置
+    workerid: '2',//车牌
+    status: '0012',//vin
+    carid: "3", //运营年限
+    proname: "34", //总里程
+    workername: "22", //容量保有率
+    reason: "2级报警", //当前位置
 }, {
-    carid: '1',//车牌
-    vin: '0012',//vin
-    year: "3", //运营年限
-    mileage: "34", //总里程
-    baoyou: "22", //容量保有率
-    point: "常州武进", //当前位置
+    workerid: '3',//车牌
+    status: '0012',//vin
+    carid: "3", //运营年限
+    proname: "34", //总里程
+    workername: "22", //容量保有率
+    reason: "3级报警", //当前位置
 }];
 
 class Page extends React.Component {
@@ -57,12 +58,20 @@ class Page extends React.Component {
             key: 'workername',
         }, {
             title: '原因',
+            dataIndex: 'reason',
             key: 'reason'
         }];
         return (
-            <Table columns={columns} dataSource={data} pagination={false} style={{flexGrow: 1}} />
+            <Table 
+                columns={columns} 
+                dataSource={data} 
+                pagination={false} 
+                style={{flexGrow: 1}} 
+                onRowClick={()=>{this.props.history.push("/workorderinfo")}}
+                />
         );
     }
 }
 
+Page = withRouter(Page);
 export default connect()(Page);

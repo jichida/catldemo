@@ -15,11 +15,12 @@ import Collection from './collection/collection';
 import Playback from './playback';
 import Warning from './warning/';
 import Warningdevice from './warningdevice';
-import Warningdevicelist from './warningdevice/datalist.js';
+import Warningdevicelist from './warningdevice/data.js';
 import Mydevice from './mydevice';
 import Systems from './system';
 import Deviceinfo from './mydevice/deviceinfo';
 import Workorder from './workorder';
+import Workorderinfo from './workorder/info';
 import "../css/common.css";
 
 class AppRoot extends React.Component {
@@ -62,6 +63,7 @@ class AppRoot extends React.Component {
                     <Route path="/mydevice" component={Mydevice} />
                     <Route path="/deviceinfo" component={Deviceinfo} />
                     <Route path="/workorder" component={Workorder} />
+                    <Route path="/workorderinfo" component={Workorderinfo} />
 
                 </Switch>
             </div>

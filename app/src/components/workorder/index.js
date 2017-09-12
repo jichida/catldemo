@@ -16,14 +16,17 @@ class Page extends React.Component {
         super(props);
         this.state = {
             innerWidth : window.innerWidth,
-            selstatus : 0
+            selstatus : 0,
+            selworkorder : 0
         };
     }
     indexnavclick=(v)=>{
         console.log(v);
         this.setState({selstatus : v});
     }
-    
+    selworkorders=(v)=>{
+        this.setState({selworkorder : v});
+    }
     render() {
         const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p} = this.props;
         const pushurl = (name)=>{
@@ -43,6 +46,11 @@ class Page extends React.Component {
                 </div>
                 <div className="workorderlist">
                     <div className="contenttit">过去7天内工共发生<span style={colorred}>50</span>起故障,已处理<span style={colorred}>10</span>起,未处理<span style={colorred}>20</span>起</div>
+                    <div className="workordernav">
+                        <span className={this.state.selworkorder===0?"sel":""} onClick={this.selworkorders.bind(this,0)}>待处理</span>
+                        <span className={this.state.selworkorder===1?"sel":""} onClick={this.selworkorders.bind(this,1)}>已完成</span>
+                        <span className={this.state.selworkorder===2?"sel":""} onClick={this.selworkorders.bind(this,2)}>所有工单</span>
+                    </div>
                     <Datalist />
                 </div>
                 <Footer sel={3} />

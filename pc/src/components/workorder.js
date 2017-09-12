@@ -36,8 +36,9 @@ class MessageAllDevice extends React.Component {
     constructor(props) {
         super(props);
     }
+    
     onClickQuery(query){
-      this.props.dispatch(searchbatteryalarm_request(query));
+        this.props.dispatch(searchbatteryalarm_request(query));
     }
 
     render(){

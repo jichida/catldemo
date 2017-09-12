@@ -26,18 +26,67 @@ import {
     TableRowColumn,
 } from 'material-ui/Table';
 import TreeSearchreport from './search/searchreport';
+import { Modal, Button } from 'antd';
 import {
-  ui_selcurdevice_request,
-  searchbatteryalarm_request
+    ui_selcurdevice_request,
+    searchbatteryalarm_request
 } from '../actions';
+
+class ModalApp extends React.Component {
+    state = {
+        ModalText: 'Content of the modal',
+        visible: false,
+    }
+    showModal = () => {
+        this.setState({
+            visible: true,
+        });
+    }
+    handleOk = () => {
+        this.setState({
+            ModalText: 'The modal will be closed after two seconds',
+            confirmLoading: true,
+        });
+        setTimeout(() => {
+            this.setState({
+                visible: false,
+                confirmLoading: false,
+            });
+        }, 2000);
+    }
+    handleCancel = () => {
+        console.log('Clicked cancel button');
+        this.setState({
+            visible: false,
+        });
+    }
+    render() {
+        const { visible, confirmLoading, ModalText } = this.state;
+        return (
+            <div>
+                <Button type="primary" onClick={this.showModal}>Open</Button>
+                <Modal
+                    title="Title"
+                    visible={visible}
+                    onOk={this.handleOk}
+                    confirmLoading={confirmLoading}
+                    onCancel={this.handleCancel}
+                    >
+                    <p>{ModalText}</p>
+                </Modal>
+            </div>
+        );
+    }
+}
 
 class MessageAllDevice extends React.Component {
 
     constructor(props) {
         super(props);
     }
+
     onClickQuery(query){
-      this.props.dispatch(searchbatteryalarm_request(query));
+        this.props.dispatch(searchbatteryalarm_request(query));
     }
 
     render(){
@@ -62,8 +111,8 @@ class MessageAllDevice extends React.Component {
     }
 }
 
-
 const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram,alarms}}) => {
+    
     const alaram_data = [{
         key: 1,
         "设备ID" : "001",
@@ -99,9 +148,11 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
             }
         }
     })
+
     let delrow = (row)=>{
         console.log(row);
     }
+
     let columns_action ={
         title: "操作",
         dataIndex: '',
@@ -110,8 +161,10 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
             return (<a onClick={()=>{delrow(row)}}>派发工单</a>);
         }
     }
+
     columns.push(columns_action);
 
     return {g_devicesdb,alarms,searchresult_alaram, alaram_data, columns};
 }
+
 export default connect(mapStateToProps)(MessageAllDevice);
