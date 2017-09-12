@@ -18,6 +18,7 @@ class Page extends React.Component {
         super(props);
         this.state = {
             innerWidth : window.innerWidth,
+
         };
     }
     indexnavclick=(v)=>{
@@ -51,8 +52,8 @@ class Page extends React.Component {
                     <span className={this.props.selstatus===1?"sel":''} onClick={this.indexnavclick.bind(this,1)}>我的收藏</span>
                 </div>
                 {
-                    this.state.selstatus===0 &&
-                        <div className="content" style={{pointerEvents: "none"}}>
+                    this.props.selstatus===0 &&
+                        <div className="content" style={{pointerEvents: "none",background : "none"}}>
  
                         </div>
                 }
