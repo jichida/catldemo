@@ -48,7 +48,7 @@ class Page extends React.Component {
                     <span className="title" style={{paddingLeft : "30px"}}>轨迹回放</span>
                     <a className="searchlnk"><img src={Searchimg} /></a>
                 </div>
-                <div className="set">
+                <div className="set seltimewamp">
                     <div className="seltimecontent">
                         <img src={Searchimg2} />
                         <span>起始时间</span>

@@ -14,13 +14,17 @@ import Carlist from './mycars/carlist';
 import Collection from './collection/collection';
 import Playback from './playback';
 import Warning from './warning/';
-import Warningdevice from './warningdevice';
+import Warningdevice from './warningdevice/data.js';
 import Warningdevicelist from './warningdevice/data.js';
 import Mydevice from './mydevice';
 import Systems from './system';
 import Deviceinfo from './mydevice/deviceinfo';
 import Workorder from './workorder';
 import Workorderinfo from './workorder/info';
+import Usercenter from './user';
+import Setting from './index/setting';
+import Settinguser from './index/settinguser';
+import Settingmessage from './index/settingmessage';
 import "../css/common.css";
 
 class AppRoot extends React.Component {
@@ -64,6 +68,11 @@ class AppRoot extends React.Component {
                     <Route path="/deviceinfo" component={Deviceinfo} />
                     <Route path="/workorder" component={Workorder} />
                     <Route path="/workorderinfo" component={Workorderinfo} />
+                    <Route path="/usercenter" component={Usercenter} />
+                    <Route path="/setting" component={Setting} />
+                    <Route path="/settinguser" component={Settinguser} />
+                    <Route path="/settingmessage" component={Settingmessage} />
+
 
                 </Switch>
             </div>

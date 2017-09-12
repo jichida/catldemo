@@ -165,7 +165,7 @@
     padding: 0;
     display: flex;
     justify-content: space-around;
-    border-top: 1px solid #000;
+    border: 1px solid #000;
     background: #FFF;
 }
 .footerPage ul li {
@@ -308,11 +308,13 @@
     position: relative;
     line-height: 40px;
     font-size: 16px;
+    font-weight: bold;
 }
+
 .workordernav span.sel:after{
     content: "";
     display: inline-block;
-    height: 2px;
+    height: 3px;
     width: 100%;
     left: 0;
     bottom: 0;
@@ -323,6 +325,16 @@
     position: fixed;
     top: 60px;
     width: 100%;
+    bottom: 62px;
+    background: rgba(0,0,0,.1);
+
+}
+.playbackPage .set.seltimewamp{
+    background: #FFF;
+    position: inherit;
+}
+.playbackPage .formlist{
+    background: #FFF;
 }
 .workerorderinfo{
     flex-grow: 1;
@@ -385,10 +397,69 @@
     height: 40px;
     font-size: 16px;
 }
+.usercenterPage .content{
+    flex-grow: 1;
+    background: #EEE;
+}
+.usercenterPage .content .head{
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #EEE;
+    background: #FFF;
+    margin-bottom: 20px;
+}
+.usercenterPage .content .head img{
+    width: 70px;
+    height: 83px;
+}
+.usercenterPage .content .username{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    font-size:  16px;
+    justify-content: center;
+}
+.usercenterPage .content .changepwd{
+    height: 30px;
+    border: 1px solid #5cbeaa;
+    border-radius: 30px;
+    padding:  0 15px;
+    line-height: 30px;
+    color: #5cbeaa;
+    align-self: center;
+}
+.usercenterPage .content .changepwd:active{
+    background: #5cbeaa;
+    color: #FFF;
+}
+.settingPage{
+    background: #EEE;
+    flex-grow:1;
+}
 
 
-
-
+.settinguserinfo{
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #EEE;
+    background: #FFF;
+    margin-bottom: 20px;
+}
+.settinguserinfo img{
+    width: 60px;
+    height: 73px;
+}
+.settinguserinfo .username{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    font-size:  16px;
+    justify-content: center;
+}
 
 
 

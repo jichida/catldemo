@@ -35,11 +35,11 @@ class Page extends React.Component {
                     minHeight : `${window.innerHeight}px`
                 }}>
                 <div className="navhead">
-                    <a className="userlnk"><img src={Userlnk} /></a>
+                    
                     <div className="headsearch">
                         <input name="search" placeholder="搜索设备ID" />
                     </div>
-                    <a className="setting"><img src={Setting} /></a>
+                    <a className="userlnk" onClick={()=>{this.props.history.push("/usercenter")}}><img src={Userlnk} /></a>
                 </div>
                 <div className="indexnav">
                     <span className={this.state.selstatus===0?"sel":''} onClick={this.indexnavclick.bind(this,0)}>所有设备</span>

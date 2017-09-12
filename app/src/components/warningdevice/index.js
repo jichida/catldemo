@@ -32,12 +32,6 @@ class Page extends React.Component {
       this.props.dispatch(mapplayback_start({isloop:false,speed:5000}));
     }
     render() {
-        // const {mapseldeviceid,devices} = this.props;
-        // let DeviceId;
-        // let deviceitem = devices[mapseldeviceid];
-        // if(!!deviceitem){
-        //   DeviceId = deviceitem.DeviceId;
-        // }
         const formstyle={width:"100%",flexGrow:"1"};
         const textFieldStyle={width:"100%",flexGrow:"1"};
         const height =  window.innerHeight - 65 - 66.08;
@@ -47,7 +41,7 @@ class Page extends React.Component {
                 >
                 <div className="navhead">
                     <span className="title" style={{paddingLeft : "30px"}}>预警信息</span>
-                    <a className="searchlnk" onClick={()=>{this.setState({showdata: !this.state.showdata})}} ><img src={Searchimg} /></a>
+                    <a className="searchlnk" onClick={()=>{this.setState({showdata: true})}} ><img src={Searchimg} /></a>
                 </div>
                 <div className="set">
                     {
@@ -69,8 +63,8 @@ class Page extends React.Component {
                                     <DatePicker hintText="开始时间" style={{flexGrow: "1",marginLeft: "10px", marginBottom: "10px"}} textFieldStyle={textFieldStyle}/>
                                 </div>
                                 <RaisedButton
-                                    onTouchTap={()=>{this.props.history.push("/warningdevicelist")}}
-                                    label="搜索"
+                                    onTouchTap={()=>{this.setState({showdata: false})}}
+                                    label="搜索是"
                                     backgroundColor={"#5cbeaa"}
                                     labelStyle={{fontSize: "16px",color : "#FFF"}}
                                     style={{ margin: "0 15px 20px 15px", width: "auto"}}

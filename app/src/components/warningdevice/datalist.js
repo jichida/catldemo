@@ -10,59 +10,46 @@ import Footer from "../index/footer.js";
 import "../../css/antd.min.css";
 
 const data = [{
-    key: '1',
-    deviceid: '0012',//设备ID
-    pack: "PK0023", //PACK号
-    pdb: "PDB23", //pdb
-    liaohao: "22", //料号
-    city: "常州武进", //省市区
+    time: '2017/09/07',//预警时间
+    deviceid: '0012',//预警设备
+    errorinfo: "1级警报", //故障信息
+    address: "上海浦东", //地理信息
 }, {
-    key: '2',
-    deviceid: '0013',//设备ID
-    pack: "PK0024", //PACK号
-    pdb: "PDB23", //pdb
-    liaohao: "22", //料号
-    city: "常州武进", //省市区
+    time: '2017/09/07',//预警时间
+    deviceid: '0012',//预警设备
+    errorinfo: "1级警报", //故障信息
+    address: "上海浦东", //地理信息
 }, {
-    key: '3',
-    deviceid: '0014',//设备ID
-    pack: "PK0026", //PACK号
-    pdb: "PDB23", //pdb
-    liaohao: "22", //料号
-    city: "常州武进", //省市区
-}];
+    time: '2017/09/07',//预警时间
+    deviceid: '0012',//预警设备
+    errorinfo: "1级警报", //故障信息
+    address: "上海浦东", //地理信息
+}, {
+    time: '2017/09/07',//预警时间
+    deviceid: '0012',//预警设备
+    errorinfo: "1级警报", //故障信息
+    address: "上海浦东", //地理信息
+}, ];
 
 class Page extends React.Component {
 
     render() {
         const columns = [{
-            title: 'key',
-            dataIndex: 'key',
-            key: 'key'
+            title: '预警时间',
+            dataIndex: 'time',
+            key: 'time'
         }, {
-            title: '设备ID',
+            title: '预警设备',
             dataIndex: 'deviceid',
             key: 'deviceid',
         }, {
-            title: 'PACK号',
-            dataIndex: 'pack',
-            key: 'pack',
+            title: '故障信息',
+            dataIndex: 'errorinfo',
+            key: 'errorinfo',
         }, {
-            title: 'PDB',
-            dataIndex: 'pdb',
-            key: 'pdb',
-        },{
-            title: '料号',
-            dataIndex: 'liaohao',
-            key: 'liaohao',
-        }, {
-            title: '操作',
-            key: 'action',
-            render: (text, record) => (
-                <span>
-                    <a href="#">操作</a>
-                </span>
-            ),
+            title: '所在位置',
+            dataIndex: 'address',
+            key: 'address',
         }];
         return (
             <Table columns={columns} dataSource={data} pagination={false} style={{flexGrow: 1}} />
