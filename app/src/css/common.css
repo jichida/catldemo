@@ -256,6 +256,7 @@
 .mydevicePage .mydevicecontent {
     flex-grow: 1;
     background: #FFF;
+    pointer-events: auto;
 }
 .mydevicecontentlist .devicenum{
     margin: auto;
