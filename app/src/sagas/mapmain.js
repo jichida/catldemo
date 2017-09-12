@@ -32,8 +32,8 @@ import {
 
   searchbattery_result,
   ui_searchbattery_result,
-
-  ui_mycarselcurdevice_request,
+  ui_alarm_elcurdevice,
+  ui_mycar_selcurdevice,
 } from '../actions';
 import async from 'async';
 import {getgeodatabatch,getgeodata} from './mapmain_getgeodata';
@@ -970,26 +970,49 @@ export function* createmapmainflow(){
           //
       }
       catch(e){
-
+        console.log(e);
       }
     });
 
     //devicelistgeochange_geotreemenu
     yield takeLatest(`${searchbattery_result}`, function*(action) {
-      const {payload:{list}} = action;
-      let devicelist = [];
-      _.map(list,(device)=>{
-        devicelist.push(device.DeviceId);
-        g_devicesdb[device.DeviceId] = device;
-      });
-      yield put(ui_searchbattery_result({g_devicesdb,devicelist}));
+        try{
+          const {payload:{list}} = action;
+          let devicelist = [];
+          _.map(list,(device)=>{
+            devicelist.push(device.DeviceId);
+            g_devicesdb[device.DeviceId] = device;
+          });
+          yield put(ui_searchbattery_result({g_devicesdb,devicelist}));
+        }
+        catch(e){
+          console.log(e);
+        }
     });
 
 
     //ui_mycarselcurdevice_request
-    yield takeLatest(`${ui_mycarselcurdevice_request}`, function*(action) {
+    yield takeLatest(`${ui_mycar_selcurdevice}`, function*(action) {
       //地图模式选择车辆
+      try{
+
+      }
+      catch(e){
+        console.log(e);
+      }
     });
+
+    yield takeLatest(`${ui_alarm_elcurdevice}`, function*(action) {
+      //预警模式选择车辆
+      try{
+
+      }
+      catch(e){
+        console.log(e);
+      }
+    });
+
+
 }
 
 export {g_devicesdb};
