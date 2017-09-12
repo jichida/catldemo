@@ -150,9 +150,12 @@ let createmap =({mapcenterlocation,zoomlevel})=> {
 
 const listenmapevent = (eventname)=>{
   return new Promise(resolve => {
-    window.amaptrackhistoryplayback.on(eventname, (e)=> {
-        resolve(eventname);
-    });
+    if(!!window.amaptrackhistoryplayback){
+      window.amaptrackhistoryplayback.on(eventname, (e)=> {
+          resolve(eventname);
+      });
+    }
+
   });
 }
 

@@ -65,7 +65,7 @@ class AppRoot extends React.Component {
                     <Route path="/warning" component={Warning} />
                     <Route path="/system" component={Systems} />
                     <Route path="/mydevice" component={Mydevice} />
-                    <Route path="/deviceinfo" component={Deviceinfo} />
+                    <Route path="/deviceinfo/:deviceid" component={Deviceinfo} />
                     <Route path="/workorder" component={Workorder} />
                     <Route path="/workorderinfo/:workid" component={Workorderinfo} />
                     <Route path="/usercenter" component={Usercenter} />

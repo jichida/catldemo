@@ -20,6 +20,10 @@ export const ui_btnclick_alaramyellow =  createAction('ui_btnclick_alaramyellow'
 export const ui_menuclick_settings = createAction('ui_menuclick_settings');
 export const ui_menuclick_logout = createAction('ui_menuclick_logout');
 export const ui_btnclick_devicehistorytrackplayback = createAction('ui_btnclick_devicehistorytrackplayback');
+
+export const ui_mycarselcurdevice_request = createAction('ui_mycarselcurdevice_request');
+export const ui_mycarselcurdevice_result = createAction('ui_mycarselcurdevice_result');
+export const ui_mycar_showtype= createAction('ui_mycarselcurdevice_result');
 //轨迹回放
 export const mapplayback_start = createAction('mapplayback_start');
 export const mapplayback_end = createAction('mapplayback_end');
