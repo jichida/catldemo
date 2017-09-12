@@ -36,7 +36,7 @@ import {
   ui_alarm_elcurdevice,
   ui_mycar_selcurdevice,
   ui_index_selstatus,
-
+  ui_selworkorder,
   ui_sel_tabindex,
 } from '../actions';
 import async from 'async';
@@ -1040,6 +1040,31 @@ export function* createmapmainflow(){
         console.log(e);
       }
     });
+
+
+        yield takeLatest(`${ui_selworkorder}`, function*(action) {
+          //预警模式选择车辆
+          try{
+            //切换到首页
+            let {payload:DeviceId} = action;
+            // if(typeof DeviceId === 'string'){
+            //   DeviceId = parseInt(DeviceId);
+            // }
+            //先定位到地图模式,然后选择车辆
+            let deviceitem = g_devicesdb[DeviceId];
+            console.log(`${deviceitem}`)
+            yield put(ui_sel_tabindex(0));
+            //选择第一个tab
+            yield put(ui_index_selstatus(0));
+            //选择车辆
+            if(!!deviceitem){
+              yield put(ui_selcurdevice_request({DeviceId,deviceitem}));
+            }
+          }
+          catch(e){
+            console.log(e);
+          }
+        });
 
 
 }
