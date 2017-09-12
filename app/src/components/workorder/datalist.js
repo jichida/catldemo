@@ -32,24 +32,25 @@ class Page extends React.Component {
             key: 'workerid'
         }, {
             title: '工单状态',
-            dataIndex: 'status',
-            key: 'status',
+            dataIndex: 'isdone',
+            key: 'isdone',
+            render: text => <span>{text?"待处理":"已完成"}</span>,
         }, {
             title: '车牌',
-            dataIndex: 'carid',
-            key: 'carid',
+            dataIndex: '车牌',
+            key: '车牌',
         }, {
             title: '项目',
-            dataIndex: 'proname',
-            key: 'proname',
+            dataIndex: '项目',
+            key: '项目',
         },{
             title: '处理人员',
-            dataIndex: 'workername',
-            key: 'workername',
+            dataIndex: '联系人',
+            key: '联系人',
         }, {
-            title: '原因',
-            dataIndex: 'reason',
-            key: 'reason'
+            title: '故障类型',
+            dataIndex: '故障类型',
+            key: '故障类型'
         }];
         return (
             <Table

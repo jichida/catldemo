@@ -51,15 +51,15 @@ class Page extends React.Component {
                 </div>
                 <div className="workerorderinfo">
                     <ul>
-                        <li><span>车牌：沪A88888 </span><span>派单时间：2017.8.17</span></li>
-                        <li><span>项目：ZZT-60KWH </span><span>故障类型：告警排查</span></li>
-                        <li><span>电池厂商：C01</span></li>
-                        <li><span className="full">工单来源：监控平台一级报警</span></li>
-                        <li><span>电机厂商：AZ2</span><span>单号：CK21001</span></li>
-                        <li><span>联系人：谢师傅</span><span>联系方式：139****8888</span></li>
-                        <li><span className="full">当前位置：上海市浦东新区</span></li>
-                        <li><span className="full">故障描述：8次报出一级报警，已通知路边司机停车维修</span></li>
-                        <li><span className="full">备注：1小时内到达现场，3小时内处理故障</span></li>
+                        <li><span>车牌：{data['车牌']} </span><span>派单时间：{data['派单时间']}</span></li>
+                        <li><span>项目：{data['项目']}</span><span>故障类型：{data['故障类型']}</span></li>
+                        <li><span>电池厂商：{data['电池厂商']}</span></li>
+                        <li><span className="full">工单来源：{data['工单来源']}</span></li>
+                        <li><span>电机厂商：{data['电机厂商']}</span><span>单号：{data['单号']}</span></li>
+                        <li><span>联系人：{data['联系人']}</span><span>联系方式：{data['联系方式']}</span></li>
+                        <li><span className="full">当前位置：{data['当前位置']}</span></li>
+                        <li><span className="full">故障描述：{data['故障描述']}</span></li>
+                        <li><span className="full">备注：{data['备注']}</span></li>
 
                     </ul>
                     <div className="tit">维修反馈</div>
