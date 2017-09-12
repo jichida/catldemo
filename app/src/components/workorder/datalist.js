@@ -9,33 +9,23 @@ import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 import { withRouter } from 'react-router-dom';
 import "../../css/antd.min.css";
+import data from '../../test/workorder.json';
 
-const data = [{
-    workerid: '1',//车牌
-    status: '0012',//vin
-    carid: "3", //运营年限
-    proname: "34", //总里程
-    workername: "22", //容量保有率
-    reason: "1级报警", //当前位置
-}, {
-    workerid: '2',//车牌
-    status: '0012',//vin
-    carid: "3", //运营年限
-    proname: "34", //总里程
-    workername: "22", //容量保有率
-    reason: "2级报警", //当前位置
-}, {
-    workerid: '3',//车牌
-    status: '0012',//vin
-    carid: "3", //运营年限
-    proname: "34", //总里程
-    workername: "22", //容量保有率
-    reason: "3级报警", //当前位置
-}];
 
 class Page extends React.Component {
 
     render() {
+        const {selworkorder} = this.props;
+        let dataworkorder = [];
+        dataworkorder = _.filter(data,(item) => {
+          if(selworkorder === 0){
+            return !item.isdone;
+          }
+          if(selworkorder === 1){
+            return item.isdone;
+          }
+          return true;
+        });
         const columns = [{
             title: '工单号',
             dataIndex: 'workerid',
@@ -62,12 +52,12 @@ class Page extends React.Component {
             key: 'reason'
         }];
         return (
-            <Table 
-                columns={columns} 
-                dataSource={data} 
-                pagination={false} 
-                style={{flexGrow: 1}} 
-                onRowClick={()=>{this.props.history.push("/workorderinfo")}}
+            <Table
+                columns={columns}
+                dataSource={dataworkorder}
+                pagination={false}
+                style={{flexGrow: 1}}
+                onRowClick={(item)=>{this.props.history.push(`/workorderinfo/${item.workerid}`)}}
                 />
         );
     }

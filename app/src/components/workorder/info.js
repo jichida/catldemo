@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import Avatar from "../../img/2.png"; 
+import Avatar from "../../img/2.png";
 import Userlnk from "../../img/11.png";
 import Setting from "../../img/12.png";
 import Footer from "../index/footer.js";
@@ -11,6 +11,8 @@ import Collectiondevice from "../collectiondevice";
 import Datalist from "./datalist";
 import Updataimg from "../../img/18.png";
 import { Button } from 'antd';
+import _ from 'lodash';
+import dataworks from '../../test/workorder.json';
 
 class Page extends React.Component {
     constructor(props) {
@@ -33,6 +35,9 @@ class Page extends React.Component {
         const pushurl = (name)=>{
             this.props.history.push(name);
         }
+        let data = _.find(dataworks,(item)=>{
+          return item.workerid === this.props.match.params.workid;
+        });
         const colorred = {color: "#C00"};
         return (
             <div className="indexPage AppPage"

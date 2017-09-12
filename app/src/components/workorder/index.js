@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import Avatar from "../../img/2.png"; 
+import Avatar from "../../img/2.png";
 import Userlnk from "../../img/11.png";
 import Setting from "../../img/12.png";
 import Footer from "../index/footer.js";
@@ -51,7 +51,7 @@ class Page extends React.Component {
                         <span className={this.state.selworkorder===1?"sel":""} onClick={this.selworkorders.bind(this,1)}>已完成</span>
                         <span className={this.state.selworkorder===2?"sel":""} onClick={this.selworkorders.bind(this,2)}>所有工单</span>
                     </div>
-                    <Datalist />
+                    <Datalist selworkorder={this.state.selworkorder}/>
                 </div>
                 <Footer sel={3} />
             </div>
