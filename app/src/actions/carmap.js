@@ -21,8 +21,8 @@ export const ui_menuclick_settings = createAction('ui_menuclick_settings');
 export const ui_menuclick_logout = createAction('ui_menuclick_logout');
 export const ui_btnclick_devicehistorytrackplayback = createAction('ui_btnclick_devicehistorytrackplayback');
 
-export const ui_mycarselcurdevice_request = createAction('ui_mycarselcurdevice_request');
-export const ui_mycarselcurdevice_result = createAction('ui_mycarselcurdevice_result');
+export const ui_alarm_elcurdevice = createAction('ui_alarm_elcurdevice');
+export const ui_mycar_selcurdevice = createAction('ui_mycar_selcurdevice');
 export const ui_mycar_showtype= createAction('ui_mycar_showtype');
 
 export const ui_index_selstatus= createAction('ui_index_selstatus');
