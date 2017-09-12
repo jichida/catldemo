@@ -40,9 +40,9 @@ class Page extends React.Component {
                     minHeight : `${window.innerHeight}px`
                 }}>
                 <div className="navhead">
-                    <a className="userlnk"><img src={Userlnk} /></a>
+                    <a className="userlnk" onClick={()=>{this.props.history.push("/usercenter")}}><img src={Userlnk} /></a>
                     <span className="title">工单处理</span>
-                    <a className="setting"><img src={Setting} /></a>
+                    <a className="setting" onClick={()=>{this.props.history.push("/setting")}}><img src={Setting} /></a>
                 </div>
                 <div className="workorderlist">
                     <div className="contenttit">过去7天内工共发生<span style={colorred}>50</span>起故障,已处理<span style={colorred}>10</span>起,未处理<span style={colorred}>20</span>起</div>
