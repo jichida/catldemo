@@ -1,6 +1,7 @@
 import { select,put,call,take,takeEvery,takeLatest,cancel,fork,join,throttle } from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {
+  md_mapmain_setzoomlevel,
   mapmain_setzoomlevel,
   mapmain_setmapcenter,
   map_setmapinited,
@@ -65,6 +66,40 @@ let groupStyleMap = {};
 let g_devicesdb = {};
 let gmap_acode_treecount = {};
 let gmap_acode_devices = {};
+let getmapzoollevel = (nowzoomlevel,oldzoomlevel)=>{
+  console.log(`当前:${nowzoomlevel},上次:${oldzoomlevel}`);
+  return nowzoomlevel;
+  // if(nowzoomlevel >= oldzoomlevel){
+  //   //放大
+  //   if(nowzoomlevel <= 3){
+  //     return 3;
+  //   }
+  //   if(nowzoomlevel <= 7){
+  //     return 7;
+  //   }
+  //   if(nowzoomlevel <= 11){
+  //     return 11;
+  //   }
+  //   if(nowzoomlevel <= 17){
+  //     return nowzoomlevel;
+  //   }
+  // }
+  // //缩小
+  // if(nowzoomlevel >= 17){
+  //   return 17;
+  // }
+  // if(nowzoomlevel >= 11){
+  //   return nowzoomlevel;
+  // }
+  // if(nowzoomlevel >= 7){
+  //   return 7;
+  // }
+  // if(nowzoomlevel >= 3){
+  //   return 3;
+  // }
+  //
+  // return 3;
+}
 //新建行政区域&海量点
 const CreateMapUI_PointSimplifier =  (map)=>{
   return new Promise((resolve,reject) => {
@@ -549,7 +584,7 @@ export function* createmapmainflow(){
               yield call(listenmapevent,eventname);
               // let centerlocation = window.amapmain.getCenter();
               // let centerlatlng = L.latLng(centerlocation.lat, centerlocation.lng);
-              yield put(mapmain_setzoomlevel(window.amapmain.getZoom()));
+              yield put(md_mapmain_setzoomlevel(window.amapmain.getZoom()));
             }
           },'zoomend');
 
@@ -700,16 +735,37 @@ export function* createmapmainflow(){
     });
 
     //显示地图区域
-    yield takeLatest(`${mapmain_setzoomlevel}`, function*(action_showflag) {
-        let {payload:zoollevel} = action_showflag;
-        if(zoollevel > 12){
-          yield put(ui_showhugepoints(true));
-          yield put(ui_showdistcluster(false));
+    yield takeLatest(`${md_mapmain_setzoomlevel}`, function*(action_showflag) {
+      try{
+        let {payload:zoomlevel} = action_showflag;
+        let oldzoomlevel = yield select((state)=>{
+          return state.carmap.zoomlevel;
+        });
+        if(zoomlevel !== oldzoomlevel){
+          zoomlevel = getmapzoollevel(zoomlevel,oldzoomlevel);
+          if(!!window.amapmain){
+            window.amapmain.setZoom(zoomlevel);
+          }
+          console.log(`结果:${zoomlevel}`)
+          if(zoomlevel > 12){
+            yield put(ui_showhugepoints(true));
+            yield put(ui_showdistcluster(false));
+          }
+          else{
+            yield put(ui_showhugepoints(false));
+            yield put(ui_showdistcluster(true));
+          }
+          yield put(mapmain_setzoomlevel(zoomlevel));
         }
         else{
-          yield put(ui_showhugepoints(false));
-          yield put(ui_showdistcluster(true));
+          console.log(`两次zoom相同,都是:${zoomlevel}`)
         }
+
+      }
+      catch(e){
+        console.log(e);
+      }
+
     });
 
 
@@ -786,13 +842,14 @@ export function* createmapmainflow(){
                   });
 
                   if(latlngs.length > 0){
-                     let polyline = L.polyline(latlngs);
-                     let lBounds = polyline.getBounds();//LatLngBounds
-                     let southWest = new window.AMap.LngLat(lBounds.getSouthWest().lng,lBounds.getSouthWest().lat);
-                     let northEast = new window.AMap.LngLat(lBounds.getNorthEast().lng,lBounds.getNorthEast().lat);
-                     let amapboounds = new window.AMap.Bounds(southWest,northEast);
-                     window.amapmain.setBounds(amapboounds);
-
+                    //  let polyline = L.polyline(latlngs);
+                    //  let lBounds = polyline.getBounds();//LatLngBounds
+                    //  let southWest = new window.AMap.LngLat(lBounds.getSouthWest().lng,lBounds.getSouthWest().lat);
+                    //  let northEast = new window.AMap.LngLat(lBounds.getNorthEast().lng,lBounds.getNorthEast().lat);
+                    //  let amapboounds = new window.AMap.Bounds(southWest,northEast);
+                    //  window.amapmain.setBounds(amapboounds);
+                    let center = new window.AMap.LngLat(latlngs[0][1],latlngs[0][0]);
+                     window.amapmain.setZoomAndCenter(17,center);
                   }
 
               }
@@ -805,7 +862,7 @@ export function* createmapmainflow(){
           }
         }
         catch(e){
-
+          console.log(e);
         }
 
         //在树中将其他结点搜索，该节点展开

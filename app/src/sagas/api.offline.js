@@ -222,7 +222,7 @@ export function* apiflow(){//仅执行一次
             let items = [];
             for(let i = 0;i < list.length; i++){
               let item = {...list[i]};
-              let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,10*1000);
+              let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,1000);
               item.LastHistoryTrack.Latitude = locationsz[1];
               item.LastHistoryTrack.Longitude  =  locationsz[0];
               let cor = [item.LastHistoryTrack.Longitude,item.LastHistoryTrack.Latitude];
