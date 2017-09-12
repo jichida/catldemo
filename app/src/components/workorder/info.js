@@ -12,7 +12,7 @@ import Datalist from "./datalist";
 import Updataimg from "../../img/18.png";
 import { Button } from 'antd';
 import _ from 'lodash';
-import {data_bms_workorder} from '../../test/bmsdata';
+import {jsondata_bms_workorder} from '../../test/bmsdata';
 import {ui_selworkorder} from '../../actions';
 
 
@@ -42,7 +42,7 @@ class Page extends React.Component {
         const pushurl = (name)=>{
             this.props.history.push(name);
         }
-        let data = _.find(data_bms_workorder,(item)=>{
+        let data = _.find(jsondata_bms_workorder,(item)=>{
           return item.workerid === this.props.match.params.workid;
         });
         const colorred = {color: "#C00"};

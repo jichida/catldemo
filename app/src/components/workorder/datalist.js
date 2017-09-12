@@ -9,14 +9,14 @@ import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 import { withRouter } from 'react-router-dom';
 import "../../css/antd.min.css";
-import {data_bms_workorder} from '../../test/bmsdata.js';
+import {jsondata_bms_workorder} from '../../test/bmsdata.js';
 
 class Page extends React.Component {
 
     render() {
         const {selworkorder} = this.props;
         let dataworkorder = [];
-        dataworkorder = _.filter(data_bms_workorder,(item) => {
+        dataworkorder = _.filter(jsondata_bms_workorder,(item) => {
           if(selworkorder === 0){
             return !item.isdone;
           }
@@ -33,7 +33,7 @@ class Page extends React.Component {
             title: '状态',
             dataIndex: 'isdone',
             key: 'isdone',
-            render: text => <span>{text?"待处理":"已完成"}</span>,
+            render: isdone => <span>{!isdone?"待处理":"已完成"}</span>,
         }, {
             title: '车牌',
             dataIndex: '车牌',
