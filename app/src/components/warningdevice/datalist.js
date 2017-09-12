@@ -32,6 +32,7 @@ class Page extends React.Component {
             title: '车辆ID',
             dataIndex: 'deviceid',
             key: 'deviceid',
+            render: text => <span onClick={()=>{console.log(`点击车辆${text}`)}}>{text}</span>,
         }, {
             title: '故障信息',
             dataIndex: 'errorinfo',

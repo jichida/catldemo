@@ -27,11 +27,11 @@ class Page extends React.Component {
           return true;
         });
         const columns = [{
-            title: '工单号',
+            title: '工号',
             dataIndex: 'workerid',
             key: 'workerid'
         }, {
-            title: '工单状态',
+            title: '状态',
             dataIndex: 'isdone',
             key: 'isdone',
             render: text => <span>{text?"待处理":"已完成"}</span>,
@@ -44,11 +44,11 @@ class Page extends React.Component {
             dataIndex: '项目',
             key: '项目',
         },{
-            title: '处理人员',
+            title: '处理人',
             dataIndex: '联系人',
             key: '联系人',
         }, {
-            title: '故障类型',
+            title: '类型',
             dataIndex: '故障类型',
             key: '故障类型'
         }];
