@@ -10,7 +10,14 @@ import Footer from "../index/footer.js";
 import "../../css/antd.min.css";
 import data from '../../test/bms_alarm.json';
 
+import {ui_mycar_selcurdevice} from '../../actions';
+
 class Page extends React.Component {
+
+    rowClick = (record, index, event)=>{
+        console.log(record.DeviceId);
+        this.props.dispatch(ui_mycar_selcurdevice(record.DeviceId));
+    }
 
     render() {
         const {seltype} = this.props;
@@ -31,8 +38,7 @@ class Page extends React.Component {
         }, {
             title: '车辆ID',
             dataIndex: 'DeviceId',
-            key: 'deviceid',
-            render: text => <span onClick={()=>{console.log(`点击车辆${text}`)}}>{text}</span>,
+            key: 'deviceid'
         }, {
             title: '故障信息',
             dataIndex: 'errorinfo',
@@ -45,7 +51,7 @@ class Page extends React.Component {
 
         // const columns = _.map
         return (
-            <Table columns={columns} dataSource={dataalarm} pagination={false} style={{flexGrow: 1}} />
+            <Table columns={columns} dataSource={dataalarm} pagination={false} style={{flexGrow: 1}} onRowClick={this.rowClick} />
         );
     }
 }
