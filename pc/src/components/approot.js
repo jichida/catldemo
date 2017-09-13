@@ -11,6 +11,7 @@ import Datatable from './datatable/index.js';
 import Message from './message.js';
 import Device from './device.js';
 import Deviceinfo from './deviceinfo.js';
+import Chargingpileinfo from './chargingpileinfo.js';
 import Devicemessage from './devicemessage.js';
 import Historyplay from './historytrackplayback';
 import Chartlist from './chartlist';
@@ -62,6 +63,7 @@ class AppRoot extends React.Component {
                     <Route path="/message" component={requireAuthentication(Message)} />
                     <Route path="/device" component={requireAuthentication(Device)} />
                     <Route path="/deviceinfo/:id" component={requireAuthentication(Deviceinfo)} />
+                    <Route path="/chargingpileinfo/:id" component={requireAuthentication(Chargingpileinfo)} />      
                     <Route path="/devicemessage/:id" component={requireAuthentication(Devicemessage)} />
                     <Route path="/historyplay/:id" component={requireAuthentication(Historyplay)} />
                     <Route path="/workorder" component={requireAuthentication(Workorder)} />

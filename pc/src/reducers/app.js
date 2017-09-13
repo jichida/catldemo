@@ -6,12 +6,18 @@ import {
   ui_showhistoryplay,
   ui_showdistcluster,
   ui_showhugepoints,
-  ui_changemodeview
+  ui_changemodeview,
+  ui_mycar_showtype,
+  ui_index_selstatus,
+  ui_sel_tabindex
 } from '../actions';
 
 
 const initial = {
   app: {
+    tabindex:0,
+    selstatus:0,//for index
+    ui_mydeivce_showtype:0,
     showdistcluster:true,
     showhugepoints:true,
     showhistoryplay:false,
@@ -23,6 +29,18 @@ const initial = {
 };
 
 const app = createReducer({
+  [ui_sel_tabindex]:(state,payload)=>{
+    let tabindex = payload;
+    return {...state,tabindex};
+  },
+  [ui_index_selstatus]:(state,payload)=>{
+    let selstatus = payload;
+    return {...state,selstatus};
+  },
+  [ui_mycar_showtype]:(state,payload)=>{
+    let ui_mydeivce_showtype = payload;
+    return {...state,ui_mydeivce_showtype};
+  },
   [ui_changemodeview]:(state,payload)=>{
     let modeview = payload;
     return {...state,modeview};

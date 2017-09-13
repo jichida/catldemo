@@ -34,51 +34,15 @@ import {
 
   ui_changemodeview
 } from '../actions';
-import jsondatareadonly_device from '../test/bmsdata_device.json';
-import jsondatareadonly_chargingpile from '../test/bmsdata_chargingpile.json';
-import jsondatatrack from '../test/1602010008.json';
-import jsondataalarm from '../test/json-BMS2.json';
+import  {jsondata,jsondata_chargingpile,jsondatatrack,jsondataalarm} from '../test/bmsdata.js';
+
 import {getRandomLocation} from '../env/geo';
 import coordtransform from 'coordtransform';
 import {g_devicesdb} from './mapmain';
 import _ from 'lodash';
 import {getgeodata} from '../sagas/mapmain_getgeodata';
 //获取地理位置信息，封装为promise
-let jsondata = _.filter(jsondatareadonly_device,(item) => {
-  let thisdata = false;
-  if(!!item.LastHistoryTrack){
-    if(!!item.LastHistoryTrack.Latitude){
-      if(item.LastHistoryTrack.Latitude > 0){
-        thisdata = true;
-      }
-    }
-  }
-  return thisdata;
-});
-_.map(jsondata,(item)=>{
-    item.imagetype = '0';
-});
 
-//模拟10万+
-// for(let i = 0;i < 0; i++){
-//   _.map(jsondatareadonly,(itemonly) => {
-//     const item = {...itemonly};
-//     if(!!item.LastHistoryTrack){
-//       if(!!item.LastHistoryTrack.Latitude){
-//         if(item.LastHistoryTrack.Latitude > 0){
-//           let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,300);
-//           item.LastHistoryTrack.Latitude = item.LastHistoryTrack.Latitude;
-//           item.LastHistoryTrack.Longitude  = item.LastHistoryTrack.Longitude;
-//           item.DeviceId = `${i}${item.DeviceId}`;
-//           jsondata.push(item);
-//         }
-//       }
-//     }
-//   });
-// }
-
-// jsondata = _.sampleSize(jsondata, 1000);
-// console.log(`\n${JSON.stringify(jsondata)}\n`)
 
 export function* apiflow(){//仅执行一次
   yield takeEvery(`${querydeviceinfo_request}`, function*(action) {
@@ -96,7 +60,11 @@ export function* apiflow(){//仅执行一次
     try{
       yield put(getsystemconfig_result({}));
 
-
+      yield call(delay,3000);
+      yield put(login_request({
+        username:'15961125167',
+        password:'123456'
+      }));
     }
     catch(e){
       console.log(e);
@@ -129,28 +97,15 @@ export function* apiflow(){//仅执行一次
   yield takeEvery(`${ui_changemodeview}`, function*(action) {
     try{
         let viewmode = action.payload;
-        let jsondata_result;
+        let jsondata_result_2;
         if(viewmode === 'device'){
-          jsondata_result = jsondata;
+          jsondata_result_2 = jsondata;
         }
         else{
-          jsondata_result = _.filter(jsondatareadonly_chargingpile,(item) => {
-            let thisdata = false;
-            if(!!item.LastHistoryTrack){
-              if(!!item.LastHistoryTrack.Latitude){
-                if(item.LastHistoryTrack.Latitude > 0){
-                  thisdata = true;
-                }
-              }
-            }
-            return thisdata;
-          });
-          _.map(jsondata_result,(item)=>{
-              item.imagetype = '4';
-          });
+          jsondata_result_2 = jsondata_chargingpile;
         }
 
-        yield put(querydevice_result({list:jsondata_result}));
+        yield put(querydevice_result({list:jsondata_result_2}));
       }
       catch(e){
         console.log(e);
@@ -267,7 +222,7 @@ export function* apiflow(){//仅执行一次
             let items = [];
             for(let i = 0;i < list.length; i++){
               let item = {...list[i]};
-              let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,10*1000);
+              let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,1000);
               item.LastHistoryTrack.Latitude = locationsz[1];
               item.LastHistoryTrack.Longitude  =  locationsz[0];
               let cor = [item.LastHistoryTrack.Longitude,item.LastHistoryTrack.Latitude];

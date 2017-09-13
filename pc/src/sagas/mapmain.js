@@ -1,6 +1,7 @@
 import { select,put,call,take,takeEvery,takeLatest,cancel,fork,join,throttle } from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {
+  md_mapmain_setzoomlevel,
   mapmain_setzoomlevel,
   mapmain_setmapcenter,
   map_setmapinited,
@@ -32,11 +33,17 @@ import {
 
   searchbattery_result,
   ui_searchbattery_result,
+  ui_mycar_showtype,
+  ui_alarm_elcurdevice,
+  ui_mycar_selcurdevice,
+  ui_index_selstatus,
+  ui_selworkorder,
+  ui_sel_tabindex,
 } from '../actions';
 import async from 'async';
 import {getgeodatabatch,getgeodata} from './mapmain_getgeodata';
 import {getcurrentpos} from './getcurrentpos';
-import { push } from 'react-router-redux';
+import { push,replace } from 'react-router-redux';
 import L from 'leaflet';
 import _ from 'lodash';
 import moment from 'moment';
@@ -59,10 +66,48 @@ let groupStyleMap = {};
 let g_devicesdb = {};
 let gmap_acode_treecount = {};
 let gmap_acode_devices = {};
+let getmapzoollevel = (nowzoomlevel,oldzoomlevel)=>{
+  console.log(`当前:${nowzoomlevel},上次:${oldzoomlevel}`);
+  return nowzoomlevel;
+  // if(nowzoomlevel >= oldzoomlevel){
+  //   //放大
+  //   if(nowzoomlevel <= 3){
+  //     return 3;
+  //   }
+  //   if(nowzoomlevel <= 7){
+  //     return 7;
+  //   }
+  //   if(nowzoomlevel <= 11){
+  //     return 11;
+  //   }
+  //   if(nowzoomlevel <= 17){
+  //     return nowzoomlevel;
+  //   }
+  // }
+  // //缩小
+  // if(nowzoomlevel >= 17){
+  //   return 17;
+  // }
+  // if(nowzoomlevel >= 11){
+  //   return nowzoomlevel;
+  // }
+  // if(nowzoomlevel >= 7){
+  //   return 7;
+  // }
+  // if(nowzoomlevel >= 3){
+  //   return 3;
+  // }
+  //
+  // return 3;
+}
 //新建行政区域&海量点
 const CreateMapUI_PointSimplifier =  (map)=>{
   return new Promise((resolve,reject) => {
-
+      if(!window.AMapUI){
+        alert('未加载到AMapUI！');
+        reject();
+        return;
+      }
       window.AMapUI.load(['ui/misc/PointSimplifier',
     ],(PointSimplifier)=> {
            if (!PointSimplifier.supportCanvas) {
@@ -142,7 +187,11 @@ const CreateMapUI_PointSimplifier =  (map)=>{
 //新建行政区域
 const CreateMapUI_DistrictCluster =  (map)=>{
   return new Promise((resolve,reject) => {
-
+      if(!window.AMapUI){
+        alert('未加载到AMapUI！');
+        reject();
+        return;
+      }
       window.AMapUI.load(['ui/geo/DistrictCluster',
       'lib/utils',
       'lib/dom.utils',
@@ -301,9 +350,11 @@ let CreateMap =({mapcenterlocation,zoomlevel})=> {
 //监听地图事件
 const listenmapevent = (eventname)=>{
   return new Promise(resolve => {
-    window.amapmain.on(eventname, (e)=> {
-        resolve(eventname);
-    });
+    if(!!window.amapmain){
+      window.amapmain.on(eventname, (e)=> {
+          resolve(eventname);
+      });
+    }
   });
 }
 
@@ -352,7 +403,12 @@ const listenclusterevent = (eventname)=>{
 
 
 const showinfowindow = (deviceitem)=>{
-  return new Promise(resolve =>{
+  return new Promise((resolve,reject) =>{
+      if(!window.AMapUI){
+        alert('未加载到AMapUI！');
+        reject();
+        return;
+      }
       let locz = deviceitem.locz;
       window.AMapUI.loadUI(['overlay/SimpleInfoWindow'], function(SimpleInfoWindow) {
           infoWindow = new SimpleInfoWindow(getpopinfowindowstyle(deviceitem));
@@ -476,10 +532,12 @@ export function* createmapmainflow(){
       try{
         let {payload:{divmapid}} = action_createmap;
         if(divmapid === divmapid_mapmain){
-          while(!window.AMap || !window.AMapUI){
-            yield call(delay,500);
-          }
-
+          //wait js script loaded
+          // while(!window.AMap){
+          //   console.log(`wait here...${!!window.AMap},ui:${!!window.AMapUI}`);
+          //   yield call(delay,500);
+          // }
+          console.log(`js script init`);
           //take
           let mapcarprops = yield select((state) => {
             const {carmap} = state;
@@ -487,8 +545,11 @@ export function* createmapmainflow(){
           });
           if(!mapcarprops.isMapInited){//仅在第一次加载页面初始化时进入
             //等待地图初始化
+            console.log(`wait for mapcarprops.isMapInited`);
             yield take(`${map_setmapinited}`);
           }
+
+          console.log(`start create map`);
           let {mapcenterlocation,zoomlevel} = mapcarprops;
           if(mapcenterlocation.equals(loczero)){//仅在第一次加载页面初始化时进入
             const centerpos = yield call(getcurrentpos);
@@ -523,7 +584,7 @@ export function* createmapmainflow(){
               yield call(listenmapevent,eventname);
               // let centerlocation = window.amapmain.getCenter();
               // let centerlatlng = L.latLng(centerlocation.lat, centerlocation.lng);
-              yield put(mapmain_setzoomlevel(window.amapmain.getZoom()));
+              yield put(md_mapmain_setzoomlevel(window.amapmain.getZoom()));
             }
           },'zoomend');
 
@@ -540,6 +601,15 @@ export function* createmapmainflow(){
               //
             }
           },'pointClick');//'pointClick pointMouseover pointMouseout'
+
+          //如果已经登录,并且有数据了！，重新加载数据
+          let deivcelist = [];
+          _.map(g_devicesdb,(v)=>{
+            deivcelist.push(v);
+          });
+          if(deivcelist.length > 0){
+            yield put(querydevice_result({list:deivcelist}));
+          }
           //监听事件
           //  pointSimplifierIns.on('pointClick pointMouseover pointMouseout', function(e, record) {
           //
@@ -648,6 +718,15 @@ export function* createmapmainflow(){
           const childadcodelist = yield call(getclustertree_root);
           yield put(mapmain_init_device({g_devicesdb,gmap_acode_devices,gmap_acode_treecount}));
 
+          if(window.amapmain.getZoom() > 12){
+            yield put(ui_showhugepoints(true));
+            yield put(ui_showdistcluster(false));
+          }
+          else{
+            yield put(ui_showhugepoints(false));
+            yield put(ui_showdistcluster(true));
+          }
+
         }
         catch(e){
 
@@ -656,6 +735,40 @@ export function* createmapmainflow(){
     });
 
     //显示地图区域
+    yield takeLatest(`${md_mapmain_setzoomlevel}`, function*(action_showflag) {
+      try{
+        let {payload:zoomlevel} = action_showflag;
+        let oldzoomlevel = yield select((state)=>{
+          return state.carmap.zoomlevel;
+        });
+        if(zoomlevel !== oldzoomlevel){
+          zoomlevel = getmapzoollevel(zoomlevel,oldzoomlevel);
+          if(!!window.amapmain){
+            window.amapmain.setZoom(zoomlevel);
+          }
+          console.log(`结果:${zoomlevel}`)
+          if(zoomlevel > 12){
+            yield put(ui_showhugepoints(true));
+            yield put(ui_showdistcluster(false));
+          }
+          else{
+            yield put(ui_showhugepoints(false));
+            yield put(ui_showdistcluster(true));
+          }
+          yield put(mapmain_setzoomlevel(zoomlevel));
+        }
+        else{
+          console.log(`两次zoom相同,都是:${zoomlevel}`)
+        }
+
+      }
+      catch(e){
+        console.log(e);
+      }
+
+    });
+
+
     yield takeEvery(`${ui_showdistcluster}`, function*(action_showflag) {
         let {payload:isshow} = action_showflag;
         try{
@@ -729,13 +842,14 @@ export function* createmapmainflow(){
                   });
 
                   if(latlngs.length > 0){
-                     let polyline = L.polyline(latlngs);
-                     let lBounds = polyline.getBounds();//LatLngBounds
-                     let southWest = new window.AMap.LngLat(lBounds.getSouthWest().lng,lBounds.getSouthWest().lat);
-                     let northEast = new window.AMap.LngLat(lBounds.getNorthEast().lng,lBounds.getNorthEast().lat);
-                     let amapboounds = new window.AMap.Bounds(southWest,northEast);
-                     window.amapmain.setBounds(amapboounds);
-
+                    //  let polyline = L.polyline(latlngs);
+                    //  let lBounds = polyline.getBounds();//LatLngBounds
+                    //  let southWest = new window.AMap.LngLat(lBounds.getSouthWest().lng,lBounds.getSouthWest().lat);
+                    //  let northEast = new window.AMap.LngLat(lBounds.getNorthEast().lng,lBounds.getNorthEast().lat);
+                    //  let amapboounds = new window.AMap.Bounds(southWest,northEast);
+                    //  window.amapmain.setBounds(amapboounds);
+                    let center = new window.AMap.LngLat(latlngs[0][1],latlngs[0][0]);
+                     window.amapmain.setZoomAndCenter(17,center);
                   }
 
               }
@@ -748,7 +862,7 @@ export function* createmapmainflow(){
           }
         }
         catch(e){
-
+          console.log(e);
         }
 
         //在树中将其他结点搜索，该节点展开
@@ -935,20 +1049,102 @@ export function* createmapmainflow(){
           //
       }
       catch(e){
-
+        console.log(e);
       }
     });
 
     //devicelistgeochange_geotreemenu
     yield takeLatest(`${searchbattery_result}`, function*(action) {
-      const {payload:{list}} = action;
-      let devicelist = [];
-      _.map(list,(device)=>{
-        devicelist.push(device.DeviceId);
-        g_devicesdb[device.DeviceId] = device;
-      });
-      yield put(ui_searchbattery_result({g_devicesdb,devicelist}));
+        try{
+          const {payload:{list}} = action;
+          let devicelist = [];
+          _.map(list,(device)=>{
+            devicelist.push(device.DeviceId);
+            g_devicesdb[device.DeviceId] = device;
+          });
+          yield put(ui_searchbattery_result({g_devicesdb,devicelist}));
+        }
+        catch(e){
+          console.log(e);
+        }
     });
+
+
+    //ui_mycarselcurdevice_request
+    yield takeLatest(`${ui_mycar_selcurdevice}`, function*(action) {
+      //地图模式选择车辆
+      try{
+        let {payload:DeviceId} = action;
+        // if(typeof DeviceId === 'string'){
+        //   DeviceId = parseInt(DeviceId);
+        // }
+        //先定位到地图模式,然后选择车辆
+        let deviceitem = g_devicesdb[DeviceId];
+        console.log(`${deviceitem}`)
+        yield put(ui_mycar_showtype(0));
+        if(!!deviceitem){
+          yield put(ui_selcurdevice_request({DeviceId,deviceitem}));
+        }
+
+      }
+      catch(e){
+        console.log(e);
+      }
+    });
+
+    yield takeLatest(`${ui_alarm_elcurdevice}`, function*(action) {
+      //预警模式选择车辆
+      try{
+        //切换到首页
+        let {payload:DeviceId} = action;
+        // if(typeof DeviceId === 'string'){
+        //   DeviceId = parseInt(DeviceId);
+        // }
+        //先定位到地图模式,然后选择车辆
+        let deviceitem = g_devicesdb[DeviceId];
+        console.log(`${deviceitem}`)
+        yield put(ui_sel_tabindex(0));
+        yield put(replace('/index'));
+        //选择第一个tab
+        yield put(ui_index_selstatus(0));
+        //选择车辆
+        if(!!deviceitem){
+          yield put(ui_selcurdevice_request({DeviceId,deviceitem}));
+        }
+      }
+      catch(e){
+        console.log(e);
+      }
+    });
+
+
+        yield takeLatest(`${ui_selworkorder}`, function*(action) {
+          //预警模式选择车辆
+          try{
+            //切换到首页
+            let {payload:DeviceId} = action;
+            // if(typeof DeviceId === 'string'){
+            //   DeviceId = parseInt(DeviceId);
+            // }
+            //先定位到地图模式,然后选择车辆
+            let deviceitem = g_devicesdb[DeviceId];
+            console.log(`${deviceitem}`)
+            yield put(ui_sel_tabindex(0));
+            //选择第一个tab
+            yield put(ui_index_selstatus(0));
+
+            yield put(replace('/index'));
+            //选择车辆
+            if(!!deviceitem){
+              yield put(ui_selcurdevice_request({DeviceId,deviceitem}));
+            }
+          }
+          catch(e){
+            console.log(e);
+          }
+        });
+
+
 }
 
 export {g_devicesdb};
