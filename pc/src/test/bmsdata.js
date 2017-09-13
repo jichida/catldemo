@@ -24,7 +24,7 @@ _.map(jsondata,(item)=>{
     item.imagetype = '0';
 });
 
-
+let gmap_chargingpile = {};
 let jsondata_chargingpile = _.filter(jsondatareadonly_chargingpile,(item) => {
   return true;
 });
@@ -35,6 +35,7 @@ _.map(jsondata_chargingpile,(item)=>{
       Longitude:item.LastHistoryTrack__Longitude
     }
     item.imagetype = '4';
+    gmap_chargingpile[item.DeviceId] = item;
 });
 
 
@@ -42,6 +43,8 @@ let jsondatasamle_bms_mydevice = _.sampleSize(jsondata,data_bms_mydevice.length)
 let jsondata_bms_mydevice = [];
 let jsondata_bms_alarm = [];
 let jsondata_bms_workorder =[];
+
+
 _.map(data_bms_mydevice,(item,index)=>{
   item.DeviceId = jsondatasamle_bms_mydevice[index].DeviceId;
   jsondata_bms_mydevice.push(item);
@@ -55,4 +58,13 @@ _.map(data_bms_workorder,(item,index)=>{
   jsondata_bms_workorder.push(item);
 });
 
-export {jsondata,jsondata_chargingpile,jsondatatrack,jsondataalarm,jsondata_bms_mydevice,jsondata_bms_alarm,jsondata_bms_workorder};
+export {
+  jsondata,
+  jsondata_chargingpile,
+  jsondatatrack,
+  jsondataalarm,
+  jsondata_bms_mydevice,
+  jsondata_bms_alarm,
+  jsondata_bms_workorder,
+  gmap_chargingpile
+};

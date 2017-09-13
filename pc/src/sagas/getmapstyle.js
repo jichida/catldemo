@@ -87,7 +87,7 @@ window.clickfn_device =(DeviceId)=>{
   store.dispatch(push(`/deviceinfo/${DeviceId}`));
 }
 window.clickfn_chargingpile =(DeviceId)=>{
-  store.dispatch(push(`/deviceinfo/${DeviceId}`));
+  store.dispatch(push(`/chargingpileinfo/${DeviceId}`));
 }
 const getpop_device =(deviceitem)=>{
   let DeviceId = _.get(deviceitem,'DeviceId','');
