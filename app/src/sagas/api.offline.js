@@ -34,7 +34,7 @@ import {
 
   ui_changemodeview
 } from '../actions';
-import  {jsondata,jsondata_result,jsondatatrack,jsondataalarm} from '../test/bmsdata.js';
+import  {jsondata,jsondata_chargingpile,jsondatatrack,jsondataalarm} from '../test/bmsdata.js';
 
 import {getRandomLocation} from '../env/geo';
 import coordtransform from 'coordtransform';
@@ -42,7 +42,6 @@ import {g_devicesdb} from './mapmain';
 import _ from 'lodash';
 import {getgeodata} from '../sagas/mapmain_getgeodata';
 //获取地理位置信息，封装为promise
-import {jsondata_charging_pile} from  '../test/bmsdata.js';
 
 
 export function* apiflow(){//仅执行一次
@@ -103,7 +102,7 @@ export function* apiflow(){//仅执行一次
           jsondata_result_2 = jsondata;
         }
         else{
-          jsondata_result_2 = jsondata_result;
+          jsondata_result_2 = jsondata_chargingpile;
         }
 
         yield put(querydevice_result({list:jsondata_result_2}));
@@ -238,20 +237,4 @@ export function* apiflow(){//仅执行一次
         console.log(e);
       }
    });
-
-
-
-  //  yield fork(function*(){
-  //    yield call(delay,5000);
-  //    let result = [];
-  //    for(let i = 0;i < jsondata_charging_pile.length ;i++){
-  //      let item = jsondata_charging_pile[i];
-  //      let address = yield getgeodata(item);
-  //      item.address = address;
-  //      result.push(item);
-  //    }
-  //    console.log(`----------------`);
-  //    console.log(JSON.stringify(result));
-  //    console.log(`----------------`);
-  //  });
 }
