@@ -221,144 +221,156 @@ class Page extends React.Component {
         iconstyle4.color = "#5cbeaa";
         iconstyle4.fontSize = "30px";
 
-        const {count_online,count_offline,count_all,count_yellow,count_red,count_orange} = this.props;
+        const {count_online,count_offline,count_all,count_yellow,count_red,count_orange,modeview} = this.props;
+        if(modeview === 'device'){
+          return (
+              <div className="BadgeStyle">
 
+                  <Badge
+                      badgeContent={count_online}
+                      className="Badge"
+                      secondary={true}
+                      style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
+                      badgeStyle={{
+                          top : "auto",
+                          bottom: "-4px",
+                          right: "-4px",
+                          backgroundColor: "none",
+                          color : "#111",
+                          position: "relative",
+                          bottom: "-8px",
+                          fontSize: "18px",
+                          width : "auto",
+                          color : "#5cbeaa"
+                      }}
+                      >
+                      <img src={CarOnline} style={{marginBottom: "-6px"}} onClick={this.onClickMenu.bind(this,'online')} />
+                  </Badge>
+                  <Badge
+                      badgeContent={count_offline}
+                      className="Badge"
+                      secondary={true}
+                      style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
+                      badgeStyle={{
+                          top : "auto",
+                          bottom: "-4px",
+                          right: "-4px",
+                          backgroundColor: "none",
+                          color : "#111",
+                          position: "relative",
+                          bottom: "-8px",
+                          fontSize: "18px",
+                          width : "auto",
+                          color : "#999"
+                      }}
+                      >
+                      <img src={CarOutline} style={{marginBottom: "-6px"}}  onClick={this.onClickMenu.bind(this,'offline')} />
+                  </Badge>
+                  <Badge
+                      badgeContent={`(${count_red})`}
+                      className="Badge"
+                      secondary={true}
+                      style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
+                      badgeStyle={{
+                          top : "auto",
+                          bottom: "-4px",
+                          right: "-4px",
+                          backgroundColor: "none",
+                          color : "#111",
+                          position: "relative",
+                          bottom: "-8px",
+                          fontSize: "18px",
+                          width : "auto",
+                          color : "#d21d24"
+                      }}
+                      >
+                      <i className="fa fa-bus"  aria-hidden="true"   style={iconstyle1} onClick={this.onClickMenu.bind(this,'red')} />
+                  </Badge>
+                  <Badge
+                      badgeContent={`(${count_orange})`}
+                      className="Badge"
+                      secondary={true}
+                      style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
+                      badgeStyle={{
+                          top : "auto",
+                          bottom: "-4px",
+                          right: "-4px",
+                          backgroundColor: "none",
+                          color : "#111",
+                          position: "relative",
+                          bottom: "-8px",
+                          fontSize: "18px",
+                          width : "auto",
+                          color : "#ed942f"
+                      }}
+                      >
+                      <i className="fa fa-bus"  aria-hidden="true"   style={iconstyle2} onClick={this.onClickMenu.bind(this,'orange')} />
+                  </Badge>
+                  <Badge
+                      badgeContent={`(${count_yellow})`}
+                      className="Badge"
+                      secondary={true}
+                      style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
+                      badgeStyle={{
+                          top : "auto",
+                          bottom: "-4px",
+                          right: "-4px",
+                          backgroundColor: "none",
+                          color : "#111",
+                          position: "relative",
+                          bottom: "-8px",
+                          fontSize: "18px",
+                          width : "auto",
+                          color : "#f6d06b"
+                      }}
+                      >
+                      <i className="fa fa-bus"  aria-hidden="true"   style={iconstyle3} onClick={this.onClickMenu.bind(this,'yellow')} />
+                  </Badge>
+
+                  <Badge
+                      badgeContent={`${count_all}`}
+                      className="Badge"
+                      secondary={true}
+                      style={{
+                          padding:"0",width:"36px",height:"36px",display: "flex",marginRight: "10px"}}
+                      badgeStyle={{
+                          top: "-4px", right: "-4px",
+                          backgroundColor : "#FFF",
+                          color : "#C00",
+                          border : "2px solid #C00",
+                          width : "28px",
+                          height : "28px",
+                          lineHeight : "28px",
+                          fontSize : "11px"
+                      }}
+                      >
+                      <i className="fa fa-envelope-o"  aria-hidden="true"   style={iconstyle1}  onClick={this.onClickMenu.bind(this,'all')}  />
+                  </Badge>
+
+
+                  <UserMenu />
+
+              </div>
+          );
+        }
+
+        //充电桩模式
         return (
             <div className="BadgeStyle">
-
-                <Badge
-                    badgeContent={count_online}
-                    className="Badge"
-                    secondary={true}
-                    style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
-                    badgeStyle={{
-                        top : "auto",
-                        bottom: "-4px",
-                        right: "-4px",
-                        backgroundColor: "none",
-                        color : "#111",
-                        position: "relative",
-                        bottom: "-8px",
-                        fontSize: "18px",
-                        width : "auto",
-                        color : "#5cbeaa"
-                    }}
-                    >
-                    <img src={CarOnline} style={{marginBottom: "-6px"}} onClick={this.onClickMenu.bind(this,'online')} />
-                </Badge>
-                <Badge
-                    badgeContent={count_offline}
-                    className="Badge"
-                    secondary={true}
-                    style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
-                    badgeStyle={{
-                        top : "auto",
-                        bottom: "-4px",
-                        right: "-4px",
-                        backgroundColor: "none",
-                        color : "#111",
-                        position: "relative",
-                        bottom: "-8px",
-                        fontSize: "18px",
-                        width : "auto",
-                        color : "#999"
-                    }}
-                    >
-                    <img src={CarOutline} style={{marginBottom: "-6px"}}  onClick={this.onClickMenu.bind(this,'offline')} />
-                </Badge>
-                <Badge
-                    badgeContent={`(${count_red})`}
-                    className="Badge"
-                    secondary={true}
-                    style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
-                    badgeStyle={{
-                        top : "auto",
-                        bottom: "-4px",
-                        right: "-4px",
-                        backgroundColor: "none",
-                        color : "#111",
-                        position: "relative",
-                        bottom: "-8px",
-                        fontSize: "18px",
-                        width : "auto",
-                        color : "#d21d24"
-                    }}
-                    >
-                    <i className="fa fa-bus"  aria-hidden="true"   style={iconstyle1} onClick={this.onClickMenu.bind(this,'red')} />
-                </Badge>
-                <Badge
-                    badgeContent={`(${count_orange})`}
-                    className="Badge"
-                    secondary={true}
-                    style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
-                    badgeStyle={{
-                        top : "auto",
-                        bottom: "-4px",
-                        right: "-4px",
-                        backgroundColor: "none",
-                        color : "#111",
-                        position: "relative",
-                        bottom: "-8px",
-                        fontSize: "18px",
-                        width : "auto",
-                        color : "#ed942f"
-                    }}
-                    >
-                    <i className="fa fa-bus"  aria-hidden="true"   style={iconstyle2} onClick={this.onClickMenu.bind(this,'orange')} />
-                </Badge>
-                <Badge
-                    badgeContent={`(${count_yellow})`}
-                    className="Badge"
-                    secondary={true}
-                    style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
-                    badgeStyle={{
-                        top : "auto",
-                        bottom: "-4px",
-                        right: "-4px",
-                        backgroundColor: "none",
-                        color : "#111",
-                        position: "relative",
-                        bottom: "-8px",
-                        fontSize: "18px",
-                        width : "auto",
-                        color : "#f6d06b"
-                    }}
-                    >
-                    <i className="fa fa-bus"  aria-hidden="true"   style={iconstyle3} onClick={this.onClickMenu.bind(this,'yellow')} />
-                </Badge>
-
-                <Badge
-                    badgeContent={`${count_all}`}
-                    className="Badge"
-                    secondary={true}
-                    style={{
-                        padding:"0",width:"36px",height:"36px",display: "flex",marginRight: "10px"}}
-                    badgeStyle={{
-                        top: "-4px", right: "-4px",
-                        backgroundColor : "#FFF",
-                        color : "#C00",
-                        border : "2px solid #C00",
-                        width : "28px",
-                        height : "28px",
-                        lineHeight : "28px",
-                        fontSize : "11px"
-                    }}
-                    >
-                    <i className="fa fa-envelope-o"  aria-hidden="true"   style={iconstyle1}  onClick={this.onClickMenu.bind(this,'all')}  />
-                </Badge>
-
 
                 <UserMenu />
 
             </div>
-        );
+        )
+
     }
 }
 
 
 //this.onClickMenu.bind(this,'low')
 Page = withRouter(Page);
-const mapStateToPropsTip = ({device}) => {
+const mapStateToPropsTip = ({device,app}) => {
+  const {modeview} = app;
    const {g_devicesdb} = device;
    let count_online = 6000;
    let count_offline = 70;
@@ -372,6 +384,6 @@ const mapStateToPropsTip = ({device}) => {
     }
 
 
-   return {count_online,count_offline,count_all,count_yellow,count_red,count_orange};
+   return {count_online,count_offline,count_all,count_yellow,count_red,count_orange,modeview};
  }
 export default connect(mapStateToPropsTip)(Page);
