@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 import jsondatatrack from '../test/1602010008.json';
 import jsondataalarm from '../test/json-BMS2.json';
-
+import data_bms_Charging_pile from '../test/Charging_pile.json';
 //获取地理位置信息，封装为promise
 let jsondata = _.filter(jsondatareadonly_device,(item) => {
   let thisdata = false;
@@ -58,4 +58,20 @@ _.map(data_bms_workorder,(item,index)=>{
   jsondata_bms_workorder.push(item);
 });
 
-export {jsondata,jsondata_result,jsondatatrack,jsondataalarm,jsondata_bms_mydevice,jsondata_bms_alarm,jsondata_bms_workorder};
+let jsondata_charging_pile = [];
+_.map(data_bms_Charging_pile,(item,data)=>{
+  if( typeof(item.LastHistoryTrack__Latitude) === 'string'){
+    item.LastHistoryTrack__Latitude = parseFloat(item.LastHistoryTrack__Latitude);
+  }
+  if( typeof(item.LastHistoryTrack__Longitude) === 'string'){
+    item.LastHistoryTrack__Longitude  = parseFloat(item.LastHistoryTrack__Longitude);
+  }
+
+  ////[116.396574, 39.992706];//地图上所标点的坐标
+  item.locz = [item.LastHistoryTrack__Longitude,item.LastHistoryTrack__Latitude];
+  jsondata_charging_pile.push(item);
+});
+
+console.log(`jsondata_charging_pile==>`);
+console.log(`${JSON.stringify(jsondata_charging_pile)}`);
+export {jsondata,jsondata_result,jsondatatrack,jsondataalarm,jsondata_bms_mydevice,jsondata_bms_alarm,jsondata_bms_workorder,jsondata_charging_pile};

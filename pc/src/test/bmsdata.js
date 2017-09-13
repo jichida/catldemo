@@ -25,18 +25,15 @@ _.map(jsondata,(item)=>{
 });
 
 
-let jsondata_result = _.filter(jsondatareadonly_chargingpile,(item) => {
-  let thisdata = false;
-  if(!!item.LastHistoryTrack){
-    if(!!item.LastHistoryTrack.Latitude){
-      if(item.LastHistoryTrack.Latitude > 0){
-        thisdata = true;
-      }
-    }
-  }
-  return thisdata;
+let jsondata_chargingpile = _.filter(jsondatareadonly_chargingpile,(item) => {
+  return true;
 });
-_.map(jsondata_result,(item)=>{
+_.map(jsondata_chargingpile,(item)=>{
+    item.DeviceId = item['充电桩编号'];
+    item.LastHistoryTrack = {
+      Latitude:item.LastHistoryTrack__Latitude,
+      Longitude:item.LastHistoryTrack__Longitude
+    }
     item.imagetype = '4';
 });
 
@@ -58,4 +55,4 @@ _.map(data_bms_workorder,(item,index)=>{
   jsondata_bms_workorder.push(item);
 });
 
-export {jsondata,jsondata_result,jsondatatrack,jsondataalarm,jsondata_bms_mydevice,jsondata_bms_alarm,jsondata_bms_workorder};
+export {jsondata,jsondata_chargingpile,jsondatatrack,jsondataalarm,jsondata_bms_mydevice,jsondata_bms_alarm,jsondata_bms_workorder};

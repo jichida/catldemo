@@ -34,7 +34,7 @@ import {
 
   ui_changemodeview
 } from '../actions';
-import  {jsondata,jsondata_result,jsondatatrack,jsondataalarm} from '../test/bmsdata.js';
+import  {jsondata,jsondata_chargingpile,jsondatatrack,jsondataalarm} from '../test/bmsdata.js';
 
 import {getRandomLocation} from '../env/geo';
 import coordtransform from 'coordtransform';
@@ -102,7 +102,7 @@ export function* apiflow(){//仅执行一次
           jsondata_result_2 = jsondata;
         }
         else{
-          jsondata_result_2 = jsondata_result;
+          jsondata_result_2 = jsondata_chargingpile;
         }
 
         yield put(querydevice_result({list:jsondata_result_2}));
