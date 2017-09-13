@@ -100,11 +100,13 @@ const getpop_device =(deviceitem)=>{
   let formattedAddress = _.get(deviceitem,'formattedAddress','');
 
   return {
-      infoTitle: `<p>车辆id:<span class='color_warning'>${DeviceId}</span></p>`,
-      infoBody: `<p>位置:纬度<span class='color_warning'>${txtLatitude}</span>,经度:<span class='color_warning'>${txtLongitude}</span> </p>
-      <p>行政编码:<span class='color_warning'>${adcode}</span></p>
-      <p>省市区:<span class='color_warning'>${province}${city}${district}</span></p>
-      <p>地址:<span class='color_warning'>${formattedAddress}</span></p><p><button onclick="clickfn_device(${DeviceId})">查看详情</button></p>`
+      infoBody: `<p>车辆id:${DeviceId}</p>
+      <p class='l'><span class='t'>位置:纬度</span><span class='color_warning'>${txtLatitude}</span></p>
+      <p class='l'><span class='t'>经度:</span><span class='color_warning'>${txtLongitude}</span> </p>
+      <p class='l'><span class='t'>行政编码:</span><span class='color_warning'>${adcode}</span></p>
+      <p class='l'><span class='t'>省市区:</span><span class='color_warning'>${province}${city}${district}</span></p>
+      <p class='l'><span class='t'>地址:</span><span class='color_warning'>${formattedAddress}</span></p>
+      <button onclick="clickfn_device(${DeviceId})">查看详情</button>`
   };
 }
 //充电桩
@@ -123,13 +125,14 @@ const getpop_chargingpile =(deviceitem)=>{
   let formattedAddress = _.get(deviceitem,'formattedAddress','');
 
   return {
-      infoTitle: `<p>充电桩编号:<span class='color_warning'>${no}</span></p>`,
-      infoBody: `<p>生产厂家:<span class='color_warning'>${f1}</span></p>
-      <p>当前状态:<span class='color_warning'>${f2}</span></p>
-      <p>使用时长:<span class='color_warning'>${f3}</span></p>
-      <p>累计电耗:<span class='color_warning'>${f4}</span></p>
-      <p>省市区:<span class='color_warning'>${province}${city}${district}</span></p>
-      <p>地址:<span class='color_warning'>${formattedAddress}</span></p><p><button onclick="clickfn_chargingpile('${DeviceId}')">查看详情</button></p>`
+      infoTitle: `<p>充电桩编号: ${no}</p>`,
+      infoBody: `<p  class='l'><span class='t'>生产厂家:</span><span class='color_warning'>${f1}</span></p>
+      <p class='l'><span class='t'>当前状态:</span><span class='color_warning'>${f2}</span></p>
+      <p class='l'><span class='t'>使用时长:</span><span class='color_warning'>${f3}</span></p>
+      <p class='l'><span class='t'>累计电耗:</span><span class='color_warning'>${f4}</span></p>
+      <p class='l'><span class='t'>省市区:</span><span class='color_warning'>${province}${city}${district}</span></p>
+      <p class='l'><span class='t'>地址:</span><span class='color_warning'>${formattedAddress}</span></p>
+      <button onclick="clickfn_chargingpile('${DeviceId}')">查看详情</button>`
   };
 }
 
