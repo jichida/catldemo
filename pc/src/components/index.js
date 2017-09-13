@@ -95,7 +95,6 @@ class Page extends React.Component {
     render() {
         const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p,modeview} = this.props;
         const treestyle = this.getdrawstyle("400px");
-        const MapPage = this.props.map;
 
         return (
             <div className="AppPage">
@@ -145,9 +144,11 @@ class Page extends React.Component {
                             <AdminContent />
                         </div>
 
+
                         <div className="warningtips">
                             <Warningtips/>
                         </div>
+
 
                         <Menu lesswidth={showmenu==="addressbox"?400:100} />
 
