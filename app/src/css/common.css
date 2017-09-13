@@ -303,6 +303,7 @@
     border-bottom: none;
     border-left: none;
     right: 20px;
+    top: 20px;
     transform: rotate(45deg); 
     -moz-transform:rotate(45deg);    /* Firefox */
     -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
