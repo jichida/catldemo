@@ -7,24 +7,31 @@ import './index.css';
 import Avatar from "../../img/2.png";
 import Userlnk from "../../img/11.png";
 import Setting from "../../img/12.png";
+import Searchimg from "../../img/22.png";
+
 import Footer from "./footer.js";
 import Collectiondevice from "../collectiondevice";
 import MapPage from '../admincontent';
 import {ui_index_selstatus} from '../../actions';
-
 
 class Page extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             innerWidth : window.innerWidth,
-
+            searchonfocus : false
         };
     }
     indexnavclick=(v)=>{
         this.props.dispatch(ui_index_selstatus(v));
         console.log(v);
         //this.setState({selstatus : v});
+    }
+    onfocusinput=()=>{
+        this.setState({searchonfocus : true});
+    }
+    onblurinput=()=>{
+        this.setState({searchonfocus : false})
     }
     render() {
         const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p} = this.props;
@@ -42,8 +49,11 @@ class Page extends React.Component {
                 }}>
                 <div className="navhead">
 
-                    <div className="headsearch">
-                        <input name="search" placeholder="搜索车辆ID" />
+                    <div className="headsearch"  style={{marginLeft : "30px"}}>
+
+                        { this.state.searchonfocus && <input name="search" onBlur={this.onblurinput} autoFocus /> }
+                        { !this.state.searchonfocus && <input name="search" onBlur={this.onblurinput} /> }
+                        { !this.state.searchonfocus && <span className="searchplaceholder" onClick={this.onfocusinput}><img src={Searchimg} /><span>搜索车辆ID</span></span> }
                     </div>
                     <a className="userlnk" onClick={()=>{this.props.history.push("/usercenter")}}><img src={Userlnk} /></a>
                 </div>

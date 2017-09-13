@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import {map_setmapinited, carmapshow_destorymap} from '../actions';
+import {map_setmapinited, carmapshow_destorymap, ui_setmapstyle} from '../actions';
 import { Route,Redirect,Switch} from 'react-router-dom';
 
 
@@ -27,6 +27,23 @@ import Settinguser from './index/settinguser';
 import Settingmessage from './index/settingmessage';
 import MapPage from './admincontent';
 import "../css/common.css";
+
+class AppMap extends React.Component {
+    componentWillMount() {
+        this.props.dispatch(ui_setmapstyle({height : (window.innerHeight-98-66) + "px", top: "98px"}))
+    }
+    render (){
+        return (
+            <div className="commonmap" style={this.props.mapstyle}>
+                <MapPage height={this.props.mapstyle.height}/>
+            </div>
+        )
+    }
+}
+const mapstyledata = ({app: {mapstyle}}) => {
+    return {mapstyle};
+}
+AppMap = connect(mapstyledata)(AppMap);
 
 class AppRoot extends React.Component {
 
@@ -78,9 +95,7 @@ class AppRoot extends React.Component {
                     <Route path="/settinguser" component={Settinguser} />
                     <Route path="/settingmessage" component={Settingmessage} />
                 </Switch>
-                <div className="commonmap" style={{height : (window.innerHeight-60)+"px"}}>
-                    <MapPage height={window.innerHeight}/>
-                </div>
+                <AppMap />
             </div>
         );
     }

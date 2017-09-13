@@ -35,11 +35,27 @@ class Page extends React.Component {
         return (
             <div className="footerPage">
                 <ul>
-                    <li onClick={this.pushurl.bind(this, "/",0)}><img src={tabindex===0?Footer1:Footer2} /><span>总览</span></li>
-                    <li onClick={this.pushurl.bind(this, "/warningdevice",1)}><img src={tabindex===1?Footer3:Footer4} /><span>预警信息</span></li>
-                    <li onClick={this.pushurl.bind(this, "/mydevice",2)}><img src={tabindex===2?Footer5:Footer6} /><span>我的车辆</span></li>
-                    <li onClick={this.pushurl.bind(this, "/workorder",3)}><img src={tabindex===3?Footer7:Footer8} /><span>工单处理</span></li>
-                    <li onClick={this.pushurl.bind(this, "/playback",4)}><img src={tabindex===4?Footer9:Footer10} /><span>轨迹回放</span></li>
+                    <li onClick={this.pushurl.bind(this, "/",0)}>
+                        <img src={tabindex===0?Footer1:Footer2} />
+                        <span className={tabindex===0?"sel":""}>总览</span>
+                    </li>
+                    <li onClick={this.pushurl.bind(this, "/warningdevice",1)}>
+                        <img src={tabindex===1?Footer3:Footer4} />
+                        <span className={tabindex===1?"sel":""}>预警信息</span>
+                        <span className="num">3</span>
+                    </li>
+                    <li onClick={this.pushurl.bind(this, "/mydevice",2)}>
+                        <img src={tabindex===2?Footer5:Footer6} />
+                        <span className={tabindex===2?"sel":""}>我的车辆</span>
+                    </li>
+                    <li onClick={this.pushurl.bind(this, "/workorder",3)}>
+                        <img src={tabindex===3?Footer7:Footer8} />
+                        <span className={tabindex===3?"sel":""}>工单处理</span>
+                        <span className="num">2</span>
+                    </li>
+                    <li onClick={this.pushurl.bind(this, "/playback",4)}>
+                        <img src={tabindex===4?Footer9:Footer10} />
+                        <span className={tabindex===4?"sel":""}>轨迹回放</span></li>
                 </ul>
             </div>
         );

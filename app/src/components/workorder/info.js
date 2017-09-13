@@ -43,7 +43,7 @@ class Page extends React.Component {
             this.props.history.push(name);
         }
         let data = _.find(jsondata_bms_workorder,(item)=>{
-          return item.workerid === this.props.match.params.workid;
+            return item.workerid === this.props.match.params.workid;
         });
         const colorred = {color: "#C00"};
         return (

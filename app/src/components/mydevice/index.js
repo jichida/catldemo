@@ -11,12 +11,21 @@ import Datalist from "./datalist";
 import MapPage from '../admincontent';
 import {ui_mycar_showtype} from '../../actions';
 import {jsondata_bms_mydevice} from '../../test/bmsdata.js';
+import Searchimg from "../../img/22.png";
 
 class Page extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            searchonfocus : false
+        };
     }
-
+    onfocusinput=()=>{
+        this.setState({searchonfocus : true});
+    }
+    onblurinput=()=>{
+        this.setState({searchonfocus : false})
+    }
     render() {
         const height =  window.innerHeight - 70 - 60 - 66.08;
         const mydevicecontentstyle = this.props.ui_mydeivce_showtype===0?{pointerEvents: "none",background : "none"}:{};
@@ -42,7 +51,11 @@ class Page extends React.Component {
                     </div>
                     <a className="moresetting"><img src={Moresetting} width="30" /></a>
                 </div>
-                <div className="searchcontent"><input name="searchinput" placeholder="搜索车辆ID" /></div>
+                <div className="searchcontent headsearch">
+                    { this.state.searchonfocus && <input name="searchinput" onBlur={this.onblurinput} autoFocus /> }
+                    { !this.state.searchonfocus && <input name="searchinput" onBlur={this.onblurinput} /> }
+                    { !this.state.searchonfocus && <span className="searchplaceholder" onClick={this.onfocusinput}><img src={Searchimg} /><span>搜索车辆ID</span></span> }
+                </div>
                 <div className="mydevicecontent" style={mydevicecontentstyle}>
 
                     {

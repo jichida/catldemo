@@ -48,13 +48,11 @@ class Page extends React.Component {
                     minHeight : `${window.innerHeight}px`
                 }}>
                 <div className="navhead">
-                    <a className="userlnk" onClick={()=>{this.props.history.push("/usercenter")}}><img src={Userlnk} /></a>
                     <span className="title">工单处理</span>
-                    <a className="setting" onClick={()=>{this.props.history.push("/setting")}}><img src={Setting} /></a>
                 </div>
                 <div className="workorderlist">
-                    <div className="contenttit">过去7天内工共发生<span style={colorred}>{`${jsondata_bms_workorder.length}`}</span>
-                    起故障,已处理<span style={colorred}>{`${countdone.length}`}</span>起,未处理<span style={colorred}>{`${uncountdone.length}`}</span>起</div>
+                    <div className="contenttit">过去7天内工共发生<span style={colorred}> {`${jsondata_bms_workorder.length}`} </span>
+                    起故障,已处理<span style={colorred}> {`${countdone.length}`} </span>起,未处理 <span style={colorred}>{`${uncountdone.length}`} </span>起</div>
                     <div className="workordernav">
                         <span className={this.state.selworkorder===0?"sel":""} onClick={this.selworkorders.bind(this,0)}>待处理</span>
                         <span className={this.state.selworkorder===1?"sel":""} onClick={this.selworkorders.bind(this,1)}>已完成</span>

@@ -39,7 +39,7 @@ class Page extends React.Component {
         // }
         const formstyle={width:"100%",flexGrow:"1"};
         const textFieldStyle={width:"100%",flexGrow:"1"};
-        const height = window.innerHeight-(65+120+66.08);
+        const height = window.innerHeight-(66+58+122);
         return (
             <div className="playbackPage AppPage"
                 style={{height : `${window.innerHeight}px`,overflow: "hidden",paddingBottom:"0"}}
@@ -54,8 +54,17 @@ class Page extends React.Component {
                         <span>起始时间</span>
                     </div>
                     <div className="seltimebtn">
-                        <Button style={{background: "#67bd82",color: "#FFF", marginRight:"20px"}} onClick={this.onClickStart.bind(this)}>开始</Button>
-                        <Button style={{background: "#3a52a2",color: "#FFF"}} onClick={this.onClickEnd.bind(this)}>结束</Button>
+                        <RaisedButton label="开始" 
+                            backgroundColor={"#67bd82"} labelColor={"#FFF"} 
+                            onClick={this.onClickStart.bind(this)}
+                            buttonStyle={{width:"100px",height : "30px", lineHeight : "30px"}}
+                            />
+                        <RaisedButton label="结束" 
+                            backgroundColor={"#3a52a2"} labelColor={"#FFF"} 
+                            onClick={this.onClickEnd.bind(this)} 
+                            style={{marginLeft: "30px"}}
+                            buttonStyle={{width:"100px",height : "30px", lineHeight : "30px"}}
+                            />
                     </div>
                 </div>
                 <Map height={height}/>
