@@ -9,6 +9,9 @@ import IconButton from 'material-ui/IconButton';
 import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import CarOnline from "../img/1.png";
 import CarOutline from "../img/3.png";
+import Pow1 from "../img/pow1.png";
+import Pow2 from "../img/pow2.png";
+import Pow3 from "../img/pow3.png";
 import { ui_showmenu } from '../actions';
 import Paper from 'material-ui/Paper';
 import Menu from 'material-ui/Menu';
@@ -214,7 +217,7 @@ class Page extends React.Component {
 
         const {count_online,count_offline,count_all,count_yellow,count_red,count_orange,modeview} = this.props;
         if(modeview === 'device'){
-          return (
+            return (
               <div className="BadgeStyle">
 
                   <Badge
@@ -336,19 +339,78 @@ class Page extends React.Component {
                       }}
                       >
                       <i className="fa fa-envelope-o"  aria-hidden="true"   style={iconstyle1}  onClick={this.onClickMenu.bind(this,'all')}  />
-                  </Badge>
+                    </Badge>
 
 
-                  <UserMenu />
+                    <UserMenu />
 
-              </div>
-          );
+                </div>
+            );
         }
 
         //充电桩模式
         return (
             <div className="BadgeStyle">
-
+                <Badge
+                    badgeContent="维修"
+                    className="Badge"
+                    secondary={true}
+                    style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
+                    badgeStyle={{
+                        top : "auto",
+                        bottom: "-4px",
+                        right: "-4px",
+                        backgroundColor: "none",
+                        color : "#111",
+                        position: "relative",
+                        bottom: "-8px",
+                        fontSize: "18px",
+                        width : "auto",
+                        color : "#666"
+                    }}
+                    >
+                    <img src={Pow3} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenu.bind(this,'online')} />
+                </Badge>
+                <Badge
+                    badgeContent="工作"
+                    className="Badge"
+                    secondary={true}
+                    style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
+                    badgeStyle={{
+                        top : "auto",
+                        bottom: "-4px",
+                        right: "-4px",
+                        backgroundColor: "none",
+                        color : "#111",
+                        position: "relative",
+                        bottom: "-8px",
+                        fontSize: "18px",
+                        width : "auto",
+                        color : "#666"
+                    }}
+                    >
+                    <img src={Pow1} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenu.bind(this,'online')} />
+                </Badge>
+                <Badge
+                    badgeContent="空闲"
+                    className="Badge"
+                    secondary={true}
+                    style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
+                    badgeStyle={{
+                        top : "auto",
+                        bottom: "-4px",
+                        right: "-4px",
+                        backgroundColor: "none",
+                        color : "#111",
+                        position: "relative",
+                        bottom: "-8px",
+                        fontSize: "18px",
+                        width : "auto",
+                        color : "#666"
+                    }}
+                    >
+                    <img src={Pow2} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenu.bind(this,'online')} />
+                </Badge>
                 <UserMenu />
 
             </div>
