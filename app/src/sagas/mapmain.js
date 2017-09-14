@@ -287,6 +287,20 @@ const CreateMapUI_DistrictCluster =  (map)=>{
                      return deviceitem.locz;
                  },
                  renderOptions:{
+                   featureStyleByLevel:{
+                      country: {
+                        fillStyle: 'rgba(169, 217, 85, 0.8)'
+                      },
+                      province: {
+                        fillStyle: 'rgba(116, 196, 118, 0.7)'
+                      },
+                      city: {
+                        fillStyle: 'rgba(161, 217, 155, 0.6)'
+                      },
+                      district: {
+                        fillStyle: 'rgba(199, 233, 192, 0.5)'
+                      }
+                  },
                   //  featureClickToShowSub:true,
                    clusterMarkerRecycleLimit:1000,
                    clusterMarkerKeepConsistent:false,

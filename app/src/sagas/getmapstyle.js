@@ -139,8 +139,13 @@ const getpop_chargingpile =(deviceitem)=>{
 
 export const getpopinfowindowstyle = (deviceitem)=>{
   let imagetype = _.get(deviceitem,'imagetype','0');
-  if(imagetype === '0'){
-    return getpop_device(deviceitem);
+  if(typeof imagetype === 'string'){
+    imagetype = parseInt(imagetype);
   }
-  return getpop_chargingpile(deviceitem);
+
+  if(imagetype >= 4){
+    return getpop_chargingpile(deviceitem);
+  }
+
+  return getpop_device(deviceitem);  
 }

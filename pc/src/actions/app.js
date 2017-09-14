@@ -21,3 +21,5 @@ export const ui_searchbattery_result= createAction('ui_searchbattery_result');
 
 export const ui_changemodeview = createAction('ui_changemodeview');
 export const ui_sel_tabindex = createAction('ui_sel_tabindex');
+
+export const ui_setmapstyle = createAction('ui_setmapstyle');
