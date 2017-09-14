@@ -110,12 +110,16 @@ const getpop_device =(deviceitem)=>{
   let formattedAddress = _.get(deviceitem,'formattedAddress','');
 
   return {
-      infoBody: `<p>车辆id:${DeviceId}</p>
-      <p class='l'><span class='t'>位置:纬度</span><span class='color_warning'>${txtLatitude}</span></p>
-      <p class='l'><span class='t'>经度:</span><span class='color_warning'>${txtLongitude}</span> </p>
-      <p class='l'><span class='t'>行政编码:</span><span class='color_warning'>${adcode}</span></p>
-      <p class='l'><span class='t'>省市区:</span><span class='color_warning'>${province}${city}${district}</span></p>
-      <p class='l'><span class='t'>地址:</span><span class='color_warning'>${formattedAddress}</span></p>
+      infoBody: `<p>车辆编号:${DeviceId}</p>
+      <p class='l'><span class='t'>总电流</span><span class='color_warning'>374.0V</span></p>
+      <p class='l'><span class='t'>总电压</span><span class='color_warning'>50V</span></p>
+      <p class='l'><span class='t'>SOC</span><span class='color_warning'>76.0%</span></p>
+      <p class='l'><span class='t'>车速</span><span class='color_warning'>14.0km/h</span> </p>
+      <p class='l'><span class='t'>总里程</span><span class='color_warning'>27196km</span></p>
+      <p class='l'><span class='t'>绝缘阻抗</span><span class='color_warning'>3015KΩ</span></p>
+      <p class='l'><span class='t'>最高温度</span><span class='color_warning'>39℃</span></p>
+      <p class='l'><span class='t'>车辆当前位置</span><span class='color_warning'>${province}${city}${district}</span></p>
+      <p class='l'><span class='t'>当前报警信息</span><span class='color_warning'>无</span></p>
       <button onclick="clickfn_device(${DeviceId})">查看详情</button>`
   };
 }
@@ -123,10 +127,14 @@ const getpop_device =(deviceitem)=>{
 const getpop_chargingpile =(deviceitem)=>{
   let DeviceId = _.get(deviceitem,'DeviceId','');
   let no = _.get(deviceitem,'充电桩编号','');
-  let f1 = _.get(deviceitem,'生产厂家','');
-  let f2 = _.get(deviceitem,'当前状态','');
-  let f3 = _.get(deviceitem,'使用时长','');
-  let f4 = _.get(deviceitem,'累计电耗','');
+  let sccj = _.get(deviceitem,'生产厂家','');
+  let cdms = _.get(deviceitem,'生产厂家','');
+  let dqzt = _.get(deviceitem,'当前状态','');
+  let sysc = _.get(deviceitem,'使用时长','');
+  let ljsh = _.get(deviceitem,'累计电耗','');
+  let dqdl = _.get(deviceitem,'当前电流','');
+  let jyzk = _.get(deviceitem,'绝缘阻抗','');
+  let dqgl = _.get(deviceitem,'当前功率','');
 
   let adcode = _.get(deviceitem,'adcode','');
   let province = _.get(deviceitem,'province','');
@@ -136,12 +144,14 @@ const getpop_chargingpile =(deviceitem)=>{
 
   return {
       infoTitle: `<p>充电桩编号: ${no}</p>`,
-      infoBody: `<p  class='l'><span class='t'>生产厂家:</span><span class='color_warning'>${f1}</span></p>
-      <p class='l'><span class='t'>当前状态:</span><span class='color_warning'>${f2}</span></p>
-      <p class='l'><span class='t'>使用时长:</span><span class='color_warning'>${f3}</span></p>
-      <p class='l'><span class='t'>累计电耗:</span><span class='color_warning'>${f4}</span></p>
-      <p class='l'><span class='t'>省市区:</span><span class='color_warning'>${province}${city}${district}</span></p>
-      <p class='l'><span class='t'>地址:</span><span class='color_warning'>${formattedAddress}</span></p>
+      infoBody: `
+      <p class='l'><span class='t'>当前状态:</span><span class='color_warning'>${dqzt}</span></p>
+      <p class='l'><span class='t'>充电模式:</span><span class='color_warning'>${cdms}</span></p>
+      <p class='l'><span class='t'>当前电流:</span><span class='color_warning'>${dqdl}</span></p>
+      <p class='l'><span class='t'>当前功率:</span><span class='color_warning'>${dqgl}</span></p>
+      <p class='l'><span class='t'>绝缘阻抗:</span><span class='color_warning'>${jyzk}</span></p>
+      <p class='l'><span class='t'>充电桩位置:</span><span class='color_warning'>${formattedAddress}</span></p>
+      <p class='l'><span class='t'>当前报警状态:</span><span class='color_warning'>无</span></p>
       <button onclick="clickfn_chargingpile('${DeviceId}')">查看详情</button>`
   };
 }
@@ -157,5 +167,5 @@ export const getpopinfowindowstyle = (deviceitem)=>{
     return getpop_chargingpile(deviceitem);
   }
 
-  return getpop_device(deviceitem);  
+  return getpop_device(deviceitem);
 }

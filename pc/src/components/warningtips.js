@@ -154,6 +154,10 @@ class UserMenu extends React.Component {
                     this.handleRequestClose();
                     window.open(`${mapcontent[2].link}`,'_blank');
             }}/>
+            <MenuItem primaryText="轨迹回放" leftIcon={<Assignment />} onClick={()=>{
+                this.handleRequestClose();
+                this.props.history.push("/historyplay/0");
+            }}/>
             <MenuItem primaryText="工单查询" leftIcon={<Assignment />} onClick={()=>{
                 this.handleRequestClose();
                 this.props.history.push("/workorder");
@@ -164,7 +168,7 @@ class UserMenu extends React.Component {
             }}/>
             <MenuItem primaryText="设置" leftIcon={<Settings />} onClick={()=>{
                 this.handleRequestClose();
-                window.open('http://yunqi.com28.cn:12004/admin/#/','_blank');
+                window.open('http://catldemo.com28.cn/admin/build/','_blank');
                 // this.props.dispatch(ui_menuclick_settings({}));
             }}/>
             <MenuItem primaryText="退出登录" leftIcon={<Exit />} onClick={()=>{
