@@ -750,7 +750,10 @@
 .deviceinfoPage.devicePage .deviceinfolist .li>div{
     margin:0 10px;
     border-bottom: 1px solid #EEE;
-    width: 100%
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
 }
 .headcontent .titlenav {
     font-size: 18px;

@@ -48,7 +48,7 @@ export const getgroupStyleMap = ()=>{
     },
     {
       name:'4',
-      image:`${process.env.PUBLIC_URL}/images/power_online.png`,
+      image:`${process.env.PUBLIC_URL}/images/pow1.png`,
       width: 16,
       //高度
       height: 16,
@@ -58,7 +58,17 @@ export const getgroupStyleMap = ()=>{
     },
     {
       name:'5',
-      image:`${process.env.PUBLIC_URL}/images/power_offline.png`,
+      image:`${process.env.PUBLIC_URL}/images/pow2.png`,
+      width: 16,
+      //高度
+      height: 16,
+      //定位点为中心
+      offset: ['-50%', '-50%'],
+      fillStyle: null,
+    },
+    {
+      name:'6',
+      image:`${process.env.PUBLIC_URL}/images/pow3.png`,
       width: 16,
       //高度
       height: 16,
