@@ -101,7 +101,7 @@ class UserMenu extends React.Component {
     const {username} = this.props;
     let mapcontent = {
       '0':{
-        title:'统计分析',
+        title:'减排量统计页',
         link:"https://app.powerbi.com/view?r=eyJrIjoiMjE3YWJmZDMtOTU2NC00MzI0LWE2N2ItZTYzZGEyOTNhYmJhIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9"
       },
       '1':{
@@ -132,21 +132,12 @@ class UserMenu extends React.Component {
           animation={PopoverAnimationVertical}
         >
           <Menu>
-            <MenuItem primaryText="仪表盘1" leftIcon={<Chart />} onClick={()=>{
+            <MenuItem primaryText="减排量统计" leftIcon={<Chart />} onClick={()=>{
                 this.handleRequestClose();
                 // this.props.history.push("/chartlist/1");
-                window.open(`${mapcontent[1].link}`,'_blank');
+                window.open(`${mapcontent[0].link}`,'_blank');
             }}/>
-            <MenuItem primaryText="仪表盘2" leftIcon={<Chart />} onClick={()=>{
-                this.handleRequestClose();
-                // this.props.history.push("/chartlist/2");
-                window.open(`${mapcontent[2].link}`,'_blank');
-            }}/>
-            <MenuItem primaryText="仪表盘3" leftIcon={<Chart />} onClick={()=>{
-                this.handleRequestClose();
-                // this.props.history.push("/chartlist/3");
-                window.open(`${mapcontent[3].link}`,'_blank');
-            }}/>
+
             <MenuItem primaryText="工单查询" leftIcon={<Assignment />} onClick={()=>{
                 this.handleRequestClose();
                 this.props.history.push("/workorder");

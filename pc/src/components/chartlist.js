@@ -8,7 +8,7 @@ class Page extends React.Component {
     render(){
         let mapcontent = {
           '0':{
-            title:'统计分析',
+            title:'减排量统计页',
             link:"https://app.powerbi.com/view?r=eyJrIjoiMjE3YWJmZDMtOTU2NC00MzI0LWE2N2ItZTYzZGEyOTNhYmJhIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9"
           },
           '1':{
