@@ -13,6 +13,7 @@ import {
     ui_setmapstyle
 } from '../actions';
 
+
 const initial = {
     app: {
         tabindex:0,
