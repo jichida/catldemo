@@ -102,15 +102,15 @@ class UserMenu extends React.Component {
     let mapcontent = {
       '0':{
         title:'运营分析',
-        link:"https://app.powerbi.com/view?r=eyJrIjoiMjE3YWJmZDMtOTU2NC00MzI0LWE2N2ItZTYzZGEyOTNhYmJhIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9"
+        link:"https://app.powerbi.com/view?r=eyJrIjoiNmMzYjA1ZGEtMTJlMi00YTIzLTllOWEtMzA5ZTkwY2YxYWVhIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9"
       },
       '1':{
         title:'充电桩分布',
-        link:'https://app.powerbi.com/view?r=eyJrIjoiOWFiZGQ5NDMtZGIyMy00MWVmLWEzODQtNzhkNTUwODA3ODExIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9'
+        link:'https://app.powerbi.com/view?r=eyJrIjoiYTJlZDRiMWMtYjY3Yy00NzdmLThlODMtN2EyMGI3NmZhYjg4IiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9'
       },
       '2':{
         title:'减排量统计',
-        link:'https://app.powerbi.com/view?r=eyJrIjoiNWQ3NWU3NzUtYmU3Yi00NWZmLWEzMjItMjA1ZDYxZjFiOWNkIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9'
+        link:'https://app.powerbi.com/view?r=eyJrIjoiMTA0M2I4YWMtMzE3Ni00MWFmLWFkNTUtMWJlMDIyM2MxZTYxIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9'
       },
       '3':{
         title:'仪表盘1',
