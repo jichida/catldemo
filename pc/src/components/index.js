@@ -21,6 +21,7 @@ import Message from "./message";
 import Device from "./device";
 import Warningtips from "./warningtips";
 import { Icon } from "antd";
+import Logo from "../img/logo.png";
 import {
     ui_showmenu,
     ui_showhistoryplay,
@@ -118,7 +119,7 @@ class Page extends React.Component {
                                 marginTop: "0",
                                 marginLeft: "0"
                             }}
-                            iconElementLeft={<div className="logo" onClick={()=>{this.props.dispatch(ui_showmenu("addressbox"))}}>logo</div>}
+                            iconElementLeft={<div className="logo" onClick={()=>{this.props.dispatch(ui_showmenu("addressbox"))}}><img src={Logo} /></div>}
                             className="appbar"
                         />
                     </div>
