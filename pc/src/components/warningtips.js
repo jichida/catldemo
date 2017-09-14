@@ -101,18 +101,26 @@ class UserMenu extends React.Component {
     const {username} = this.props;
     let mapcontent = {
       '0':{
-        title:'减排量统计页',
+        title:'运营分析',
         link:"https://app.powerbi.com/view?r=eyJrIjoiMjE3YWJmZDMtOTU2NC00MzI0LWE2N2ItZTYzZGEyOTNhYmJhIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9"
       },
       '1':{
-        title:'仪表盘1',
+        title:'充电桩分布',
         link:'https://app.powerbi.com/view?r=eyJrIjoiOWFiZGQ5NDMtZGIyMy00MWVmLWEzODQtNzhkNTUwODA3ODExIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9'
       },
       '2':{
-        title:'仪表盘2',
+        title:'减排量统计',
         link:'https://app.powerbi.com/view?r=eyJrIjoiNWQ3NWU3NzUtYmU3Yi00NWZmLWEzMjItMjA1ZDYxZjFiOWNkIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9'
       },
       '3':{
+        title:'仪表盘1',
+        link:'https://app.powerbi.com/view?r=eyJrIjoiOWFiZGQ5NDMtZGIyMy00MWVmLWEzODQtNzhkNTUwODA3ODExIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9'
+      },
+      '4':{
+        title:'仪表盘2',
+        link:'https://app.powerbi.com/view?r=eyJrIjoiNWQ3NWU3NzUtYmU3Yi00NWZmLWEzMjItMjA1ZDYxZjFiOWNkIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9'
+      },
+      '5':{
         title:'仪表盘3',
         link:'https://app.powerbi.com/view?r=eyJrIjoiMGRmZDY5NzAtMmU0YS00OTQyLWFiMzMtMjRiZGIwYWQzNWU2IiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9'
       },
@@ -132,12 +140,20 @@ class UserMenu extends React.Component {
           animation={PopoverAnimationVertical}
         >
           <Menu>
-            <MenuItem primaryText="减排量统计" leftIcon={<Chart />} onClick={()=>{
+            <MenuItem primaryText="运营分析" leftIcon={<Chart />} onClick={()=>{
                 this.handleRequestClose();
                 // this.props.history.push("/chartlist/1");
                 window.open(`${mapcontent[0].link}`,'_blank');
             }}/>
-
+            <MenuItem primaryText="充电桩分布" leftIcon={<Chart />} onClick={()=>{
+                this.handleRequestClose();
+                // this.props.history.push("/chartlist/1");
+                window.open(`${mapcontent[1].link}`,'_blank');
+            }}/>
+             <MenuItem primaryText="减排量统计" leftIcon={<Chart />} onClick={()=>{
+                    this.handleRequestClose();
+                    window.open(`${mapcontent[2].link}`,'_blank');
+            }}/>
             <MenuItem primaryText="工单查询" leftIcon={<Assignment />} onClick={()=>{
                 this.handleRequestClose();
                 this.props.history.push("/workorder");

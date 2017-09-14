@@ -28,13 +28,14 @@ let gmap_chargingpile = {};
 let jsondata_chargingpile = _.filter(jsondatareadonly_chargingpile,(item) => {
   return true;
 });
-_.map(jsondata_chargingpile,(item)=>{
+_.map(jsondata_chargingpile,(item,index)=>{
     item.DeviceId = item['充电桩编号'];
     item.LastHistoryTrack = {
       Latitude:item.LastHistoryTrack__Latitude,
       Longitude:item.LastHistoryTrack__Longitude
     }
-    item.imagetype = '4';
+    let imagetype = 4+index%3;
+    item.imagetype = ''+imagetype;
     gmap_chargingpile[item.DeviceId] = item;
 });
 
