@@ -42,7 +42,7 @@ import {g_devicesdb} from './mapmain';
 import _ from 'lodash';
 import {getgeodata} from '../sagas/mapmain_getgeodata';
 //获取地理位置信息，封装为promise
-
+import jsondataprovinces from '../util/provinces.json';
 
 export function* apiflow(){//仅执行一次
   yield takeEvery(`${querydeviceinfo_request}`, function*(action) {
@@ -176,12 +176,13 @@ export function* apiflow(){//仅执行一次
        try{
       // yield put(querydevicegroup_result({list:jsondata}));
           let groups = [];
-          for(let i = 0;i < 200;i++){
+          _.map(jsondataprovinces,(v,index)=>{
             groups.push({
-              _id:`${i}`,
-              name:`分组${i}`
+              _id:`${v.code}`,
+              name:`${v.name}`
             });
-          }
+          });
+
           yield put(querydevicegroup_result({list:groups}));
         }
         catch(e){
@@ -222,7 +223,7 @@ export function* apiflow(){//仅执行一次
             let items = [];
             for(let i = 0;i < list.length; i++){
               let item = {...list[i]};
-              let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,1000);
+              let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,5.6);
               item.LastHistoryTrack.Latitude = locationsz[1];
               item.LastHistoryTrack.Longitude  =  locationsz[0];
               let cor = [item.LastHistoryTrack.Longitude,item.LastHistoryTrack.Latitude];

@@ -14,7 +14,7 @@ let jsondata = _.filter(jsondatareadonly_device,(item) => {
   if(!!item.LastHistoryTrack){
     if(!!item.LastHistoryTrack.Latitude){
       if(item.LastHistoryTrack.Latitude > 0){
-        thisdata = true;
+        thisdata = !!item.LastHistoryTrack.Province;
       }
     }
   }
