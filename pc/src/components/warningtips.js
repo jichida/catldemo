@@ -170,7 +170,7 @@ class UserMenu extends React.Component {
                 this.handleRequestClose();
                 this.props.history.push("/device");
             }}/>
-            <MenuItem primaryText="设置" leftIcon={<Settings />} onClick={()=>{
+            <MenuItem primaryText="后台管理" leftIcon={<Settings />} onClick={()=>{
                 this.handleRequestClose();
                 window.open('http://catldemo.com28.cn/admin/build/','_blank');
                 // this.props.dispatch(ui_menuclick_settings({}));

@@ -37,7 +37,14 @@ import {
   getcurallalarm_request,
   getcurallalarm_result
 } from '../actions';
-import  {jsondata,jsondata_chargingpile,jsondatatrack,jsondataalarm,jsondata_bms_alarm} from '../test/bmsdata.js';
+import  {
+  jsondata,
+  jsondata_chargingpile,
+  jsondatatrack,
+  jsondataalarm,
+  jsondata_bms_alarm,
+  getrandom
+} from '../test/bmsdata.js';
 
 import {getRandomLocation} from '../env/geo';
 import coordtransform from 'coordtransform';
@@ -153,16 +160,26 @@ export function* apiflow(){//仅执行一次
   yield takeEvery(`${searchbatteryalarm_request}`, function*(action) {
     try{
       const {payload:{query}} = action;
-      const list = [];
-      const listdevice = _.sampleSize(jsondata, 20);
-      let iddate = new Date();
-      _.map(listdevice,(device,index)=>{
-        let alarm = {...jsondataalarm};
-        alarm.DeviceId = device.DeviceId;
-        alarm._id = iddate.getTime() + index;
-        list.push(alarm);
-      });
+      let list = [];
+      if(!!query){
+        let warninglevel = _.get(query,'warninglevel',-1);
+        if(warninglevel !== -1){
+          //报警等级
+          list = _.filter(jsondata_bms_alarm,(item)=>{
+            return item.warninglevel === query.warninglevel;
+          });
+        }
+        else{
+          //随机生成
+            list = _.sampleSize(jsondata_bms_alarm, getrandom(0,jsondata_bms_alarm.length));
+        }
+      }
+      else{
+        //all
+        list = jsondata_bms_alarm;
+      }
       yield put(searchbatteryalarm_result({list}));
+
     }
     catch(e){
       console.log(e);
