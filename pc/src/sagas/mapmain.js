@@ -151,6 +151,13 @@ const CreateMapUI_PointSimplifier =  (map)=>{
                    //return [LastHistoryTrack.Latitude,LastHistoryTrack.Longitude];
                },
                getHoverTitle: (deviceitem, idx)=> {
+                   let imagetype = deviceitem.imagetype || 0;
+                   if(typeof imagetype === 'string'){
+                     imagetype = parseInt(imagetype);
+                   }
+                   if(imagetype >= 4 ){
+                     return `充电桩编号:${deviceitem.DeviceId}`;
+                   }
                    return `车辆编号:${deviceitem.DeviceId}`;
                },
                //使用GroupStyleRender
@@ -616,6 +623,16 @@ export function* createmapmainflow(){
             }
           },'pointClick');//'pointClick pointMouseover pointMouseout'
 
+          let task_mapclick = yield fork(function*(eventname){
+            while(true){
+              yield call(listenmapevent,eventname);
+              console.log(`click map!!!`);
+              if(!!infoWindow){
+                infoWindow.close();
+              }
+            }
+          },'click');//'click'
+
           //如果已经登录,并且有数据了！，重新加载数据
           let deivcelist = [];
           _.map(g_devicesdb,(v)=>{
@@ -626,11 +643,14 @@ export function* createmapmainflow(){
           }
           //监听事件
           //  pointSimplifierIns.on('pointClick pointMouseover pointMouseout', function(e, record) {
-          //
+          //listentask task_dragend task_zoomend task_markclick task_mapclick
           //  })
           yield take(`${carmapshow_destorymap}`);
+          yield cancel(listentask);
           yield cancel(task_dragend);
           yield cancel(task_zoomend);
+          yield cancel(task_markclick);
+          yield cancel(task_mapclick);
         }
       }
       catch(e){
