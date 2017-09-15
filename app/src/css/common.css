@@ -80,6 +80,7 @@
     justify-content: space-between;
     align-items: center;
     pointer-events: auto;
+    flex-shrink: 0;
 }
 .navhead a{
     display: flex;
@@ -349,7 +350,7 @@
     flex-grow: 1;
     text-align: center;
 }
-.deviceinfocontent >div{
+.deviceinfocontent div.li{
     display: flex;
     margin: 0 15px;
     border-bottom: 1px solid #EEE;
@@ -358,7 +359,12 @@
     display: flex;
     justify-content: space-between;
 }
-
+.deviceinfocontent .tit{
+    background: #EEE;
+    line-height: 36px;
+    text-align: center;
+    font-size: 16px;
+}
 .indexPage .workorderlist{
     flex-grow: 1;
 }
@@ -561,10 +567,15 @@
     -webkit-transform: rotate(45deg);
 
 }
-.deviceinfocontent >div.mydevicebtn{
+.deviceinfocontent{
+    flex-grow: 1;
+    overflow-y: scroll;    
+}
+div.mydevicebtn{
     display: flex;
     border-bottom: none;
-    padding-top: 20px;
+    padding: 10px 15px;
+    flex-shrink: 0;
 }
 .mydevicebtn button{
     flex-grow:1;
