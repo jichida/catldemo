@@ -28,7 +28,7 @@ import {
 import TreeSearchreport from './search/searchdevicemessage';
 import {
   ui_selcurdevice_request,
-  searchbatteryalarm_request
+  searchbatteryalarmsingle_request
 } from '../actions';
 
 class MessageAllDevice extends React.Component {
@@ -38,13 +38,15 @@ class MessageAllDevice extends React.Component {
     }
     onClickQuery(query){
       const id = this.props.match.params.id;
-      query = query || {};
-      query['DeviceId'] = id;
-      this.props.dispatch(searchbatteryalarm_request(query));
+      let payload = query || {};
+      payload.query.DeviceId = id;
+      console.log(`onClickQuery==>${JSON.stringify(payload)}`);
+
+      this.props.dispatch(searchbatteryalarmsingle_request(payload));
     }
 
     render(){
-        const {g_devicesdb,alarms,searchresult_alaram,alaram_data,columns} = this.props;
+        const {g_devicesdb,alarms,alaram_data,columns} = this.props;
         const id = this.props.match.params.id;
         return (
             <div className="warningPage" style={{height : window.innerHeight+"px"}}>
@@ -66,33 +68,20 @@ class MessageAllDevice extends React.Component {
 }
 
 
-const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram,alarms}}) => {
-    const alaram_data = [{
-        key: 1,
-        "车辆ID" : "001",
-        "PACK号码" : "pack001",
-        "PDB编号" : "pdb001",
-        "料号" : "liaohao001",
-        "省市区" : "江苏常州武进区"
-    },
-    {
-        key: 2,
-        "车辆ID" : "002",
-        "PACK号码" : "pack002",
-        "PDB编号" : "pdb002",
-        "料号" : "liaohao002",
-        "省市区" : "江苏常州武进区"
-    },
-    {
-        key: 3,
-        "车辆ID" : "003",
-        "PACK号码" : "pack003",
-        "PDB编号" : "pdb003",
-        "料号" : "liaohao003",
-        "省市区" : "江苏常州武进区"
-    }];
+const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaramsingle,alarms}}) => {
+    const column_data = {
+      "车辆ID" : "",
+      "告警时间" : "",
+      "告警等级" : "",
+      "告警位置" : "江苏常州武进区",
+      "报警信息" : "绝缘故障",
+    };
+    const alaram_data = [];
+    _.map(searchresult_alaramsingle,(aid)=>{
+      alaram_data.push(alarms[aid]);
+    });
 
-    let columns = _.map(alaram_data[0], (data, index)=>{
+    let columns = _.map(column_data, (data, index)=>{
         return {
             title: index,
             dataIndex: index,
@@ -115,6 +104,6 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
     }
     columns.push(columns_action);
 
-    return {g_devicesdb,alarms,searchresult_alaram, alaram_data, columns};
+    return {g_devicesdb,alarms,searchresult_alaramsingle, alaram_data, columns};
 }
 export default connect(mapStateToProps)(MessageAllDevice);

@@ -189,13 +189,15 @@ export function* apiflow(){//仅执行一次
   yield takeEvery(`${searchbatteryalarmsingle_request}`, function*(action) {
     try{
         const {payload:{query}} = action;
-        const list = [];
-        let iddate = new Date();
-        for(let i = 0;i < 20 ;i++){
-          let alarm = {...jsondataalarm};
-          alarm._id = iddate.getTime() + i;
-          list.push(alarm);
+        let list = [];
+        if(!!query){
+           list = _.filter(jsondata_bms_alarm,(item)=>{
+            return item.DeviceId === query.DeviceId;
+          });
+          // console.log(jsondata_bms_alarm);
+          // console.log(`query.DeviceId:${query.DeviceId},list:${JSON.stringify(list)}`);
         }
+
         yield put(searchbatteryalarmsingle_result({list}));
       }
       catch(e){

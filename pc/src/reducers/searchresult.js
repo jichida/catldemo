@@ -49,9 +49,8 @@ const searchresult = createReducer({
     return { ...state, searchresult_alaram};
   },
   [searchbatteryalarmsingle_request]: (state, payload) => {
-    const {querydevice:{_id:curseldeviceid}} = payload;
     let searchresult_alaramsingle = [];
-    return { ...state, searchresult_alaramsingle,curseldeviceid};
+    return { ...state, searchresult_alaramsingle};
   },
   [searchbattery_result]: (state, payload) => {
     let searchresult_battery = [];

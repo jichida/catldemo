@@ -60,13 +60,13 @@ _.map(data_bms_mydevice,(item,index)=>{
 const test_alaram_text=['绝缘故障','高压互锁','SOC过低'];
 const test_warning_level_text=['严重告警','紧急告警','一般告警'];
 let indexalarm  = 0;
-for(let i=0;i<100;i++){
+for(let i=0;i<3000;i++){
   _.map(data_bms_alarm,(item,index)=>{
     let cloneitem = {...item};
     indexalarm++;
-    let deviceindexalarm = indexalarm%jsondatasamle_bms_mydevice.length;
+    let deviceindexalarm = indexalarm%jsondata.length;
 
-    cloneitem.DeviceId = jsondatasamle_bms_mydevice[deviceindexalarm].DeviceId;
+    cloneitem.DeviceId = jsondata[deviceindexalarm].DeviceId;
     //修改数据
     cloneitem.warninglevel = getrandom(0,2);
     cloneitem.key = indexalarm + '';

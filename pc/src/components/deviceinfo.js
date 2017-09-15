@@ -7,7 +7,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 import RaisedButton from 'material-ui/RaisedButton';
-import {ui_showhistoryplay,ui_showmenu,searchbatteryalarm_request} from '../actions';
+import {
+  ui_showhistoryplay,
+  ui_showmenu,
+  searchbatteryalarm_request,
+  ui_btnclick_devicemessage
+} from '../actions';
 import translate from 'redux-polyglot/translate';
 import TableComponents from "./table.js";
 import TreeSearchmessage from './search/searchmessage';
@@ -310,7 +315,11 @@ class Page extends React.Component {
                     <div className="title">车辆详情</div>
                     <div className="devicebtnlist">
                         <Button type="primary" icon="play-circle-o" onClick={()=>this.props.history.push(`/historyplay/${mapseldeviceid}`)}>轨迹回放</Button>
-                        <Button type="primary" icon="clock-circle-o" onClick={()=>this.props.history.push(`/devicemessage/${mapseldeviceid}`)}>历史警告</Button>
+                        <Button type="primary" icon="clock-circle-o" onClick={()=>{
+                          const id = this.props.match.params.id;
+                          this.props.dispatch(ui_btnclick_devicemessage({DeviceId:id}));
+                          //this.props.history.push(`/devicemessage/${mapseldeviceid}`)
+                        }}>历史警告</Button>
                     </div>
                 </div>
 

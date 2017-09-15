@@ -1,4 +1,4 @@
-import {takeEvery,put,fork,call,select,take} from 'redux-saga/effects';
+import {takeLatest,put,fork,call,select,take} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {
   ui_btnclick_deviceonline,
@@ -7,31 +7,48 @@ import {
   ui_btnclick_alaramred,
   ui_btnclick_alaramorange,
   ui_btnclick_alaramyellow,
+  ui_btnclick_devicemessage,
 
   ui_menuclick_settings,
   ui_menuclick_logout,
 
   searchbatteryalarm_request,
-  searchbatteryalarm_result
+  searchbatteryalarm_result,
+
+  searchbatteryalarmsingle_request,
+  searchbatteryalarmsingle_result
 }from '../actions';
 import { push } from 'react-router-redux';
 
 export function* uiflow(){//仅执行一次
-  yield takeEvery(`${ui_btnclick_deviceonline}`, function*(action) {
+  //ui_btnclick_devicemessage
+
+  yield takeLatest(`${ui_btnclick_devicemessage}`, function*(action) {
+    const {payload:{DeviceId}} = action;
+    yield put(searchbatteryalarmsingle_request({
+      query:{
+        DeviceId
+      }
+    }));
+    yield take(`${searchbatteryalarmsingle_result}`);
+    yield put(push(`/devicemessage/${DeviceId}`));
+  });
+
+  yield takeLatest(`${ui_btnclick_deviceonline}`, function*(action) {
     console.log(`点击在线`);
   });
 
-  yield takeEvery(`${ui_btnclick_deviceoffline}`, function*(action) {
+  yield takeLatest(`${ui_btnclick_deviceoffline}`, function*(action) {
     console.log(`点击在线`);
   });
 
-  yield takeEvery(`${ui_btnclick_alaramall}`, function*(action) {
+  yield takeLatest(`${ui_btnclick_alaramall}`, function*(action) {
     yield put(searchbatteryalarm_request({}));
     console.log(`点击所有告警`);
     yield put(push('/message'));
   });
 
-  yield takeEvery(`${ui_btnclick_alaramred}`, function*(action) {
+  yield takeLatest(`${ui_btnclick_alaramred}`, function*(action) {
     yield put(searchbatteryalarm_request({
       query:{
         warninglevel:0
@@ -42,7 +59,7 @@ export function* uiflow(){//仅执行一次
     yield put(push('/message'));
   });
 
-  yield takeEvery(`${ui_btnclick_alaramorange}`, function*(action) {
+  yield takeLatest(`${ui_btnclick_alaramorange}`, function*(action) {
     yield put(searchbatteryalarm_request({
       query:{
         warninglevel:1
@@ -53,7 +70,7 @@ export function* uiflow(){//仅执行一次
     yield put(push('/message'));
   });
 
-  yield takeEvery(`${ui_btnclick_alaramyellow}`, function*(action) {
+  yield takeLatest(`${ui_btnclick_alaramyellow}`, function*(action) {
     yield put(searchbatteryalarm_request({
       query:{
         warninglevel:2
@@ -64,11 +81,11 @@ export function* uiflow(){//仅执行一次
     yield put(push('/message'));
   });
 
-  yield takeEvery(`${ui_menuclick_settings}`, function*(action) {
+  yield takeLatest(`${ui_menuclick_settings}`, function*(action) {
     console.log(`点击设置`);
   });
 
-  yield takeEvery(`${ui_menuclick_logout}`, function*(action) {
+  yield takeLatest(`${ui_menuclick_logout}`, function*(action) {
     console.log(`点击注销`);
   });
 
