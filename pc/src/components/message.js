@@ -112,14 +112,15 @@ class MessageAllDevice extends React.Component {
 }
 
 const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram,alarms}}) => {
-    
+
     const alaram_data = [{
         key: 1,
         "车辆ID" : "001",
         "PACK号码" : "pack001",
         "PDB编号" : "pdb001",
         "料号" : "liaohao001",
-        "省市区" : "江苏常州武进区"
+        "省市区" : "江苏常州武进区",
+        "报警信息" : "电池不足",
     },
     {
         key: 2,
@@ -127,7 +128,9 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
         "PACK号码" : "pack002",
         "PDB编号" : "pdb002",
         "料号" : "liaohao002",
-        "省市区" : "江苏常州武进区"
+        "省市区" : "江苏常州武进区",
+        "报警信息" : "充电器故障",
+
     },
     {
         key: 3,
@@ -135,7 +138,9 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
         "PACK号码" : "pack003",
         "PDB编号" : "pdb003",
         "料号" : "liaohao003",
-        "省市区" : "江苏常州武进区"
+        "省市区" : "江苏常州武进区",
+        "报警信息" : "制动器不工作",
+
     }];
 
     let columns = _.map(alaram_data[0], (data, index)=>{
