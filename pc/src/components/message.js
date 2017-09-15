@@ -120,7 +120,7 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
         "PDB编号" : "pdb001",
         "料号" : "liaohao001",
         "省市区" : "江苏常州武进区",
-        "报警信息" : "电池不足",
+        "报警信息" : "绝缘故障",
     },
     {
         key: 2,
@@ -129,7 +129,7 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
         "PDB编号" : "pdb002",
         "料号" : "liaohao002",
         "省市区" : "江苏常州武进区",
-        "报警信息" : "充电器故障",
+        "报警信息" : "高压互锁",
 
     },
     {
@@ -139,7 +139,7 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
         "PDB编号" : "pdb003",
         "料号" : "liaohao003",
         "省市区" : "江苏常州武进区",
-        "报警信息" : "制动器不工作",
+        "报警信息" : "SOC过低",
 
     }];
 

@@ -13,7 +13,7 @@ export const getgroupStyleMap = ()=>{
       //高度
       height: 16,
       //定位点为中心
-      offset: ['-50%', '-50%'],
+      offset: ['-50%', '0%'],
       fillStyle: null,
     },
     {
@@ -23,7 +23,7 @@ export const getgroupStyleMap = ()=>{
       //高度
       height: 16,
       //定位点为中心
-      offset: ['-50%', '-50%'],
+      offset: ['-50%', '0%'],
       fillStyle: null,
     },
     {
@@ -33,7 +33,7 @@ export const getgroupStyleMap = ()=>{
       //高度
       height: 16,
       //定位点为中心
-      offset: ['-50%', '-50%'],
+      offset: ['-50%', '0%'],
       fillStyle: null,
     },
     {
@@ -43,7 +43,7 @@ export const getgroupStyleMap = ()=>{
       //高度
       height: 16,
       //定位点为中心
-      offset: ['-50%', '-50%'],
+      offset: ['-50%', '0%'],
       fillStyle: null,
     },
     {
@@ -53,7 +53,7 @@ export const getgroupStyleMap = ()=>{
       //高度
       height: 48,
       //定位点为中心
-      offset: ['-50%', '-50%'],
+      offset: ['-50%', '0%'],
       fillStyle: null,
     },
     {
@@ -63,7 +63,7 @@ export const getgroupStyleMap = ()=>{
       //高度
       height: 48,
       //定位点为中心
-      offset: ['-50%', '-50%'],
+      offset: ['-50%', '0%'],
       fillStyle: null,
     },
     {
@@ -73,7 +73,7 @@ export const getgroupStyleMap = ()=>{
       //高度
       height: 48,
       //定位点为中心
-      offset: ['-50%', '-50%'],
+      offset: ['-50%', '0%'],
       fillStyle: null,
     },
   ];
