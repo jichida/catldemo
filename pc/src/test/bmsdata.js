@@ -4,10 +4,13 @@ import data_bms_workorder from '../test/workorder.json';
 import jsondatareadonly_device from '../test/bmsdata_device.json';
 import jsondatareadonly_chargingpile from '../test/bmsdata_chargingpile.json';
 import _ from 'lodash';
-
+import moment from 'moment';
 import jsondatatrack from '../test/1602010008.json';
 import jsondataalarm from '../test/json-BMS2.json';
 
+const getrandom=(min,max)=>{
+  return parseInt(Math.random()*(max-min+1)+min,10);
+}
 //获取地理位置信息，封装为promise
 let jsondata = _.filter(jsondatareadonly_device,(item) => {
   let thisdata = false;
@@ -22,6 +25,8 @@ let jsondata = _.filter(jsondatareadonly_device,(item) => {
 });
 _.map(jsondata,(item)=>{
     item.imagetype = '0';
+    //车辆
+    item.isonline = getrandom(0,1)===0?true:false;
 });
 
 let gmap_chargingpile = {};
@@ -50,10 +55,35 @@ _.map(data_bms_mydevice,(item,index)=>{
   item.DeviceId = jsondatasamle_bms_mydevice[index].DeviceId;
   jsondata_bms_mydevice.push(item);
 });
-_.map(data_bms_alarm,(item,index)=>{
-  item.DeviceId = jsondatasamle_bms_mydevice[index].DeviceId;
-  jsondata_bms_alarm.push(item);
-});
+
+//制造报警数据
+const test_alaram_text=['绝缘故障','高压互锁','SOC过低'];
+const test_warning_level_text=['严重告警','紧急告警','一般告警'];
+let indexalarm  = 0;
+for(let i=0;i<100;i++){
+  _.map(data_bms_alarm,(item,index)=>{
+    let cloneitem = {...item};
+    indexalarm++;
+    let deviceindexalarm = indexalarm%jsondatasamle_bms_mydevice.length;
+
+    cloneitem.DeviceId = jsondatasamle_bms_mydevice[deviceindexalarm].DeviceId;
+    //修改数据
+    cloneitem.warninglevel = getrandom(0,2);
+    cloneitem.key = indexalarm + '';
+    cloneitem._id = cloneitem.key;
+    cloneitem['告警等级'] = test_warning_level_text[cloneitem.warninglevel];
+    cloneitem['车辆ID'] = cloneitem.DeviceId;
+    let secago = getrandom(0,60*60*12);
+    cloneitem['告警时间'] = moment().subtract(secago, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+    cloneitem['报警信息'] = test_alaram_text[getrandom(0,test_alaram_text.length-1)];
+    cloneitem['告警位置'] = jsondatareadonly_chargingpile[getrandom(0,jsondatareadonly_chargingpile.length-1)].address.formattedAddress;
+
+    jsondata_bms_alarm.push(cloneitem);
+  });
+}
+// console.log(jsondata_bms_alarm);
+
+
 _.map(data_bms_workorder,(item,index)=>{
   item.DeviceId = jsondatasamle_bms_mydevice[index].DeviceId;
   jsondata_bms_workorder.push(item);
@@ -67,5 +97,6 @@ export {
   jsondata_bms_mydevice,
   jsondata_bms_alarm,
   jsondata_bms_workorder,
-  gmap_chargingpile
+  gmap_chargingpile,
+  getrandom
 };

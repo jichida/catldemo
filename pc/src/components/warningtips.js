@@ -170,7 +170,7 @@ class UserMenu extends React.Component {
                 this.handleRequestClose();
                 this.props.history.push("/device");
             }}/>
-            <MenuItem primaryText="设置" leftIcon={<Settings />} onClick={()=>{
+            <MenuItem primaryText="后台管理" leftIcon={<Settings />} onClick={()=>{
                 this.handleRequestClose();
                 window.open('http://catldemo.com28.cn/admin/build/','_blank');
                 // this.props.dispatch(ui_menuclick_settings({}));
@@ -458,15 +458,38 @@ class Page extends React.Component {
 
 //this.onClickMenu.bind(this,'low')
 Page = withRouter(Page);
-const mapStateToPropsTip = ({device,app}) => {
+const mapStateToPropsTip = ({device,app,searchresult:{curallalarm,alarms}}) => {
   const {modeview} = app;
    const {g_devicesdb} = device;
-   let count_online = 6000;
-   let count_offline = 70;
-   let count_all = 450;
-   let count_yellow = 40;
-   let count_red = 20;
-   let count_orange = 33;
+
+   let count_online = 0;
+   let count_offline = 0;
+   _.map(g_devicesdb,(item)=>{
+      if(item.isonline){
+        count_online++;
+      }
+      else{
+        count_offline++;
+      }
+   });
+
+   let count_all = 0;
+   let count_yellow = 0;
+   let count_red = 0;
+   let count_orange = 0;
+
+   _.map(curallalarm,(aid)=>{
+     if(alarms[aid].warninglevel === 0){
+       count_red++;
+     }
+     if(alarms[aid].warninglevel === 1){
+       count_orange++;
+     }
+     if(alarms[aid].warninglevel === 2){
+       count_yellow++;
+     }
+   });
+   count_all = count_red + count_orange + count_yellow;
 
     if(count_all>99){
         count_all = "99+";

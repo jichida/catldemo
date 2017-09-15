@@ -1,4 +1,4 @@
-import {takeEvery,put,fork,call,select} from 'redux-saga/effects';
+import {takeEvery,put,fork,call,select,take} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {
   ui_btnclick_deviceonline,
@@ -9,7 +9,10 @@ import {
   ui_btnclick_alaramyellow,
 
   ui_menuclick_settings,
-  ui_menuclick_logout
+  ui_menuclick_logout,
+
+  searchbatteryalarm_request,
+  searchbatteryalarm_result
 }from '../actions';
 import { push } from 'react-router-redux';
 
@@ -23,22 +26,41 @@ export function* uiflow(){//仅执行一次
   });
 
   yield takeEvery(`${ui_btnclick_alaramall}`, function*(action) {
+    yield put(searchbatteryalarm_request({}));
     console.log(`点击所有告警`);
     yield put(push('/message'));
   });
 
   yield takeEvery(`${ui_btnclick_alaramred}`, function*(action) {
+    yield put(searchbatteryalarm_request({
+      query:{
+        warninglevel:0
+      }
+    }));
     console.log(`点击红色告警`);
+    yield take(`${searchbatteryalarm_result}`);
     yield put(push('/message'));
   });
 
   yield takeEvery(`${ui_btnclick_alaramorange}`, function*(action) {
+    yield put(searchbatteryalarm_request({
+      query:{
+        warninglevel:1
+      }
+    }));
     console.log(`点击橙色告警`);
+    yield take(`${searchbatteryalarm_result}`);
     yield put(push('/message'));
   });
 
   yield takeEvery(`${ui_btnclick_alaramyellow}`, function*(action) {
+    yield put(searchbatteryalarm_request({
+      query:{
+        warninglevel:2
+      }
+    }));
     console.log(`点击黄色告警`);
+    yield take(`${searchbatteryalarm_result}`);
     yield put(push('/message'));
   });
 
