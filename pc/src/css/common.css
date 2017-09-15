@@ -564,6 +564,7 @@
     height: 45px;
     text-align: center;
     line-height: 45px;
+    font-size: 16px;
 }
 .topuser {
     display: -webkit-box;
@@ -601,6 +602,7 @@
     font-size: 22px;
     height: 60px;
     line-height: 60px;
+    flex-shrink: 0;
 }
 .appbar .fa.back{
     font-size:30px;
@@ -735,6 +737,15 @@
 .searchreport >div .ant-input-group{
     width: auto;
 }
+.deviceinfoPage.devicePage{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -moz-box-direction:normal;
+    flex-direction:column;
+    -webkit-flex-direction:column;
+}
 .deviceinfoPage.devicePage .deviceinfolist{
     padding: 20px;
     display: -webkit-box;
@@ -814,15 +825,27 @@
 .amap-overlays .amap-ui-infowindow-body.amap-ui-smp-ifwn-info-content p span{
     display: inline-block;
 }
+
 .amap-overlays .amap-ui-infowindow-body.amap-ui-smp-ifwn-info-content p span:first-child{
-    width: 25%;
-    text-align: right;
+    width: 28%;
+    text-align: left;
     flex-shrink: 0;
+    text-indent: 10px;
 }
 .amap-overlays .amap-ui-infowindow-body.amap-ui-smp-ifwn-info-content p span:last-child{
     padding-left: 15px;
     flex-grow: 1;
-    margin-right: 60px;
+    margin-right: 100px;
+}
+.amap-overlays .amap-ui-infowindow-body.amap-ui-smp-ifwn-info-content p:first-child span:last-child,
+.amap-overlays .amap-ui-infowindow-body.amap-ui-smp-ifwn-info-content p:first-child span:first-child{
+    padding: 0;
+    flex-grow: 0;
+    margin: 0;
+    width: auto;
+    text-align: left;
+    flex-shrink: 0;
+    text-indent: 0;
 }
 .amap-overlays .amap-ui-infowindow-body.amap-ui-smp-ifwn-info-content button{
     position: absolute;

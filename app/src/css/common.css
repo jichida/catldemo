@@ -413,6 +413,9 @@
     background: #FFF;
     position: inherit;
     top:0;
+    position: fixed;
+    height: 208px;
+    top:58px;
 }
 .playbackPage .formlist{
     background: #FFF;

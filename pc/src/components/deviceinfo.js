@@ -314,8 +314,13 @@ class Page extends React.Component {
                     </div>
                 </div>
 
-                <div className="lists deviceinfolist">
-                  {
+                <div className="lists deviceinfolist"
+                    style={{
+                        flexGrow: 1,
+                        overflow: "scroll"
+                    }}
+                    >
+                    {
                       _.map(datadevice,(item,i)=>{
                           return (
                               <div className="li" key={i}>

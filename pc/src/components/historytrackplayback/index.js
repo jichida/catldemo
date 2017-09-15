@@ -82,7 +82,7 @@ class Page extends React.Component {
         const enddate_moment = this.state.endDate;
         return (
             <div className="historytrackplayback" id="historytrackplayback">
-                <div className="appbar">
+                <div className="appbar" style={{height: "72px"}}>
                     <i className="fa fa-angle-left back" aria-hidden="true" onClick={()=>{this.props.history.goBack();}}></i>
                     <div className="title">车辆编号：{DeviceId || ''}</div>
                     <div className="anddday">

@@ -145,7 +145,7 @@ const getpop_chargingpile =(deviceitem)=>{
   return {
       infoTitle: `<p>充电桩编号: ${no}</p>`,
       infoBody: `
-      <p class='l'><span class='t'>当前状态:</span><span class='color_warning'>${dqzt}</span></p>
+      <p class='l'><span class='t'>当前状态:</span><span>${dqzt}</span></p>
       <p class='l'><span class='t'>充电模式:</span><span class='color_warning'>${cdms}</span></p>
       <p class='l'><span class='t'>当前电流:</span><span class='color_warning'>${dqdl}</span></p>
       <p class='l'><span class='t'>当前功率:</span><span class='color_warning'>${dqgl}</span></p>
