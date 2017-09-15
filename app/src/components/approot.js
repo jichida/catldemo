@@ -17,6 +17,8 @@ import Warning from './warning/';
 import Warningdevice from './warningdevice/data.js';
 import Warningdevicelist from './warningdevice/data.js';
 import Mydevice from './mydevice';
+import Myproject from './mydevice/project';
+
 import Systems from './system';
 import Deviceinfo from './mydevice/deviceinfo';
 import Workorder from './workorder';
@@ -87,6 +89,7 @@ class AppRoot extends React.Component {
                     <Route path="/warning" component={Warning} />
                     <Route path="/system" component={Systems} />
                     <Route path="/mydevice" component={Mydevice} />
+                    <Route path="/project/:id" component={Myproject} />
                     <Route path="/deviceinfo/:deviceid" component={Deviceinfo} />
                     <Route path="/workorder" component={Workorder} />
                     <Route path="/workorderinfo/:workid" component={Workorderinfo} />

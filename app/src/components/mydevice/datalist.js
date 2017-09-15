@@ -10,12 +10,14 @@ import Footer from "../index/footer.js";
 import "../../css/antd.min.css";
 import {jsondata_bms_mydevice} from '../../test/bmsdata.js';
 import {ui_mycar_selcurdevice} from '../../actions';
+import { withRouter } from 'react-router-dom';
 
 class Page extends React.Component {
 
     rowClick = (record, index, event)=>{
         console.log(record.carid);
-        this.props.dispatch(ui_mycar_selcurdevice(record.carid));
+        // this.props.dispatch(ui_mycar_selcurdevice(record.carid));
+        this.props.history.push(`/deviceinfo/${record.carid}`);
     }
 
     render() {
@@ -48,5 +50,5 @@ class Page extends React.Component {
         );
     }
 }
-
+Page = withRouter(Page);
 export default connect()(Page);

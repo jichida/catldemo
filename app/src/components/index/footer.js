@@ -46,7 +46,7 @@ class Page extends React.Component {
                     </li>
                     <li onClick={this.pushurl.bind(this, "/mydevice",2)}>
                         <img src={tabindex===2?Footer5:Footer6} />
-                        <span className={tabindex===2?"sel":""}>我的车辆</span>
+                        <span className={tabindex===2?"sel":""}>车辆信息</span>
                     </li>
                     <li onClick={this.pushurl.bind(this, "/workorder",3)}>
                         <img src={tabindex===3?Footer7:Footer8} />

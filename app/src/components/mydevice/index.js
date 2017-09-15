@@ -7,7 +7,7 @@ import _ from 'lodash';
 import Devicestar from "../../img/16.png";
 import Moresetting from "../../img/17.png";
 import Footer from "../index/footer.js";
-import Datalist from "./datalist";
+import Datapro from "./datapro";
 import MapPage from '../admincontent';
 import {ui_mycar_showtype} from '../../actions';
 import {jsondata_bms_mydevice} from '../../test/bmsdata.js';
@@ -37,36 +37,15 @@ class Page extends React.Component {
                     pointerEvents: "none",
                 }}>
                 <div className="navhead">
-                    <div className="navlist">
-                        <span className={this.props.ui_mydeivce_showtype==0?"":"sel"} onClick={()=>
-                          {
-                            this.props.dispatch(ui_mycar_showtype(0));
-                          }
-                        }>地图模式</span>
-                        <span className={this.props.ui_mydeivce_showtype==1?"":"sel"} onClick={
-                          ()=>{
-                            this.props.dispatch(ui_mycar_showtype(1));
-                          }
-                        }>列表模式</span>
+                    <div className="title">
+                        车辆信息
                     </div>
-                    <a className="moresetting"><img src={Moresetting} width="30" /></a>
                 </div>
-                <div className="searchcontent headsearch">
-                    { this.state.searchonfocus && <input name="searchinput" onBlur={this.onblurinput} autoFocus /> }
-                    { !this.state.searchonfocus && <input name="searchinput" onBlur={this.onblurinput} /> }
-                    { !this.state.searchonfocus && <span className="searchplaceholder" onClick={this.onfocusinput}><img src={Searchimg} /><span>搜索车辆ID</span></span> }
-                </div>
-                <div className="mydevicecontent" style={mydevicecontentstyle}>
-
-                    {
-                        this.props.ui_mydeivce_showtype===1 &&
-                        <div className="mydevicecontentlist">
-                            <div className="devicenum"><span>联网车辆：{`${jsondata_bms_mydevice.length}`}辆</span>
-                            <span className='c'>运行车辆：{`${jsondata_bms_mydevice.length}`}辆</span>
-                            <span>故障车辆：1辆</span></div>
-                            <Datalist />
-                        </div>
-                    }
+                <div className="mydevicecontentlist">
+                    <div className="devicenum"><span>联网车辆：{`${jsondata_bms_mydevice.length}`}辆</span>
+                    <span className='c'>运行车辆：{`${jsondata_bms_mydevice.length}`}辆</span>
+                    <span>故障车辆：1辆</span></div>
+                    <Datapro />
                 </div>
                 <Footer sel={2} />
             </div>

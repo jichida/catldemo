@@ -45,20 +45,21 @@ class Page extends React.Component {
                         </div>
                         <span className="changepwd">修改密码</span>
                     </div>
-                    <List>
+                    <List style={{background: "#FFF",padding:"0"}}>
                         <ListItem 
                             primaryText="设置" 
                             leftIcon={<img src={Settingicon} />} 
                             rightIcon={<Rightlnk />} 
-                            style={{background : "#FFF",marginBottom: "1px"}}
+                            style={{marginBottom: "1px"}}
                             onClick={()=>{this.props.history.push("/setting")}}
                             />
+                            <div style={{height:"1px",width : "100%", background:"#EEE"}}></div>
                         <ListItem 
                             primaryText="关于" 
                             leftIcon={<img src={Users} />} 
                             rightIcon={<Rightlnk />}  
                             style={{background : "#FFF"}}
-                            onClick={()=>{this.props.history.push("/aboutus")}}
+                            onClick={()=>{}}
                             />
                     </List>
                 </div>
