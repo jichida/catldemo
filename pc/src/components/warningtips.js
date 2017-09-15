@@ -49,6 +49,10 @@ import {
   ui_menuclick_settings,
   ui_menuclick_logout
 }from '../actions';
+
+import _ from 'lodash';
+import {jsondata_chargingpile} from '../test/bmsdata.js';
+
 /**
  * The `maxHeight` property limits the height of the menu, above which it will be scrollable.
  */
@@ -211,6 +215,9 @@ class Page extends React.Component {
         }
         //this.props.dispatch(ui_showmenu('showmessage'));
     }
+    onClickMenuPipleinfo(tiptype){
+      console.log(`onClickMenuPipleinfo:${tiptype}`)
+    }
 
     render(){
 
@@ -367,12 +374,21 @@ class Page extends React.Component {
                 </div>
             );
         }
-
+        // let count_0 = _.countBy(jsondata_chargingpile,(item)=>{
+        //   return item.imagetype == 4;
+        // });
+        // let count_1 = _.countBy(jsondata_chargingpile,(item)=>{
+        //   return item.imagetype == 5;
+        // });
+        // let count_2 = _.countBy(jsondata_chargingpile,(item)=>{
+        //   return item.imagetype == 6;
+        // });
+        let count_chargingpile_obj = _.countBy(jsondata_chargingpile,'imagetype');
         //充电桩模式
         return (
             <div className="BadgeStyle">
                 <Badge
-                    badgeContent="维修"
+                    badgeContent={`维修(${count_chargingpile_obj['4']})`}
                     className="Badge"
                     secondary={true}
                     style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
@@ -389,10 +405,10 @@ class Page extends React.Component {
                         color : "#666"
                     }}
                     >
-                    <img src={Pow3} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenu.bind(this,'online')} />
+                    <img src={Pow3} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenuPipleinfo.bind(this,'4')} />
                 </Badge>
                 <Badge
-                    badgeContent="工作"
+                    badgeContent={`工作(${count_chargingpile_obj['5']})`}
                     className="Badge"
                     secondary={true}
                     style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
@@ -409,10 +425,10 @@ class Page extends React.Component {
                         color : "#666"
                     }}
                     >
-                    <img src={Pow1} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenu.bind(this,'online')} />
+                    <img src={Pow1} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenuPipleinfo.bind(this,'5')} />
                 </Badge>
                 <Badge
-                    badgeContent="空闲"
+                    badgeContent={`空闲(${count_chargingpile_obj['6']})`}
                     className="Badge"
                     secondary={true}
                     style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
@@ -429,7 +445,7 @@ class Page extends React.Component {
                         color : "#666"
                     }}
                     >
-                    <img src={Pow2} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenu.bind(this,'online')} />
+                    <img src={Pow2} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenuPipleinfo.bind(this,'6')} />
                 </Badge>
                 <UserMenu />
 
