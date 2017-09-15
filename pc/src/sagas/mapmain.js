@@ -39,6 +39,8 @@ import {
   ui_index_selstatus,
   ui_selworkorder,
   ui_sel_tabindex,
+
+  ui_changemodeview
 } from '../actions';
 import async from 'async';
 import {getgeodatabatch,getgeodata} from './mapmain_getgeodata';
@@ -659,6 +661,11 @@ export function* createmapmainflow(){
 
     });
 
+    yield takeEvery(`${ui_changemodeview}`, function*(action) {
+      if(!!infoWindow){
+        infoWindow.close();
+      }
+    });
     //销毁地图
     yield takeEvery(`${carmapshow_destorymap}`, function*(action_destorymap) {
       let {payload:{divmapid}} = action_destorymap;
