@@ -194,6 +194,23 @@ export function* apiflow(){//仅执行一次
            list = _.filter(jsondata_bms_alarm,(item)=>{
             return item.DeviceId === query.DeviceId;
           });
+
+          let warninglevel = _.get(query,'queryalarm.warninglevel',-1);
+          if(warninglevel != -1){
+            list = _.filter(list,(item)=>{
+             return item.warninglevel === warninglevel;
+           });
+          }
+
+          let startdatestring = _.get(query,'queryalarm.startDate','');
+          let enddatestring = _.get(query,'queryalarm.endDate','');
+          if(startdatestring !== '' && enddatestring !== ''){
+            list = _.filter(list,(item)=>{
+              let waringtime = item['告警时间'];
+              let match = (startdatestring <= waringtime) && (waringtime <= enddatestring);
+              return match;
+           });
+          }
           // console.log(jsondata_bms_alarm);
           // console.log(`query.DeviceId:${query.DeviceId},list:${JSON.stringify(list)}`);
         }

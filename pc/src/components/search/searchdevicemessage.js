@@ -41,12 +41,19 @@ const selitem_alarmfields = [
         text:'故障代码'
     },
 ];
+
+const gmap_warninglevel = {
+  'all':-1,
+  'red':0,
+  'orange':1,
+  'yellow':2
+};
 class TreeSearchBattery extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-        alarmlevel:'',
-        startDate:moment(),
+        alarmlevel:'red',
+        startDate:moment().subtract(3600*12, 'seconds'),
         endDate:moment(),
       };
   }
@@ -65,10 +72,10 @@ class TreeSearchBattery extends React.Component {
       queryalarm:{
       }
     };
-    query.queryalarm['startDate'] = this.state.startDate;
-    query.queryalarm['endDate'] = this.state.endDate;
+    query.queryalarm['startDate'] = this.state.startDate.format('YYYY-MM-DD HH:mm:ss');
+    query.queryalarm['endDate'] = this.state.endDate.format('YYYY-MM-DD HH:mm:ss');
     if(this.state.alarmlevel !== ''){
-      query.queryalarm['alarmlevel'] = this.state.alarmlevel;
+      query.queryalarm['warninglevel'] = gmap_warninglevel[this.state.alarmlevel];
     }
     console.log(`【searchdevicemessage】查询条件:${JSON.stringify(query)}`);
     if(!!this.props.onClickQuery){
@@ -84,7 +91,8 @@ class TreeSearchBattery extends React.Component {
                       startDate = {this.state.startDate}
                       endDate = {this.state.endDate}
                      onChangeSelDate={this.onChangeSelDate.bind(this)}/>
-                     <Select defaultValue={"选择警告级别"}   onChange={this.onChange_alarmlevel.bind(this)}>
+                     <Select defaultValue={"all"}   onChange={this.onChange_alarmlevel.bind(this)}>
+                         <Option value="all" >全部</Option>
                          <Option value="red" >严重告警</Option>
                          <Option value="orange" >紧急告警</Option>
                          <Option value="yellow" >一般告警</Option>
