@@ -32,9 +32,12 @@ import {
   serverpush_devicegeo_sz_result,
   start_serverpush_devicegeo_sz,
 
-  ui_changemodeview
+  ui_changemodeview,
+
+  getcurallalarm_request,
+  getcurallalarm_result
 } from '../actions';
-import  {jsondata,jsondata_chargingpile,jsondatatrack,jsondataalarm} from '../test/bmsdata.js';
+import  {jsondata,jsondata_chargingpile,jsondatatrack,jsondataalarm,jsondata_bms_alarm} from '../test/bmsdata.js';
 
 import {getRandomLocation} from '../env/geo';
 import coordtransform from 'coordtransform';
@@ -45,6 +48,19 @@ import {getgeodata} from '../sagas/mapmain_getgeodata';
 import jsondataprovinces from '../util/provinces.json';
 
 export function* apiflow(){//仅执行一次
+
+  yield takeEvery(`${getcurallalarm_request}`, function*(action) {
+    try{
+      //获取今天所有告警信息列表
+      // jsondata_bms_alarm
+      yield put(getcurallalarm_result({list:jsondata_bms_alarm}));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+
   yield takeEvery(`${querydeviceinfo_request}`, function*(action) {
     try{
     const {payload:{query:{DeviceId}}} = action;

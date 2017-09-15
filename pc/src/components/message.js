@@ -111,7 +111,7 @@ class MessageAllDevice extends React.Component {
     }
 }
 
-const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram,alarms}}) => {
+const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram,curallalarm,alarms}}) => {
 
     const alaram_data = [{
         key: 1,

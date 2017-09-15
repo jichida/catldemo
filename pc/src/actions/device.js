@@ -14,6 +14,9 @@ export const queryrealtimealarm_result = createAction('queryrealtimealarm_result
 //查询历史轨迹数据
 export const queryhistorytrack_request  = createAction('queryhistorytrack_request');
 export const queryhistorytrack_result  = createAction('queryhistorytrack_result');
+//查询今天所有告警信息列表
+export const getcurallalarm_request= createAction('getcurallalarm_request');
+export const getcurallalarm_result = createAction('getcurallalarm_result');
 
 //查询电池包
 export const searchbattery_request = createAction('searchbattery_request');

@@ -8,6 +8,9 @@ import _ from 'lodash';
 import jsondatatrack from '../test/1602010008.json';
 import jsondataalarm from '../test/json-BMS2.json';
 
+const getrandom=(min,max)=>{
+  return parseInt(Math.random()*(max-min+1)+min,10);
+}
 //获取地理位置信息，封装为promise
 let jsondata = _.filter(jsondatareadonly_device,(item) => {
   let thisdata = false;
@@ -22,6 +25,8 @@ let jsondata = _.filter(jsondatareadonly_device,(item) => {
 });
 _.map(jsondata,(item)=>{
     item.imagetype = '0';
+    //车辆
+    item.isonline = getrandom(0,1)===0?true:false;
 });
 
 let gmap_chargingpile = {};
@@ -50,10 +55,26 @@ _.map(data_bms_mydevice,(item,index)=>{
   item.DeviceId = jsondatasamle_bms_mydevice[index].DeviceId;
   jsondata_bms_mydevice.push(item);
 });
-_.map(data_bms_alarm,(item,index)=>{
-  item.DeviceId = jsondatasamle_bms_mydevice[index].DeviceId;
-  jsondata_bms_alarm.push(item);
-});
+
+//制造报警数据
+let indexalarm  = 0;
+for(let i=0;i<100;i++){
+  _.map(data_bms_alarm,(item,index)=>{
+    let cloneitem = {...item};
+    indexalarm++;
+    let deviceindexalarm = indexalarm%jsondatasamle_bms_mydevice.length;
+
+    cloneitem.DeviceId = jsondatasamle_bms_mydevice[deviceindexalarm].DeviceId;
+    //修改数据
+    cloneitem.warninglevel = getrandom(0,2);
+    cloneitem.key = indexalarm + '';
+    cloneitem._id = cloneitem.key;
+    jsondata_bms_alarm.push(cloneitem);
+  });
+}
+// console.log(jsondata_bms_alarm);
+
+
 _.map(data_bms_workorder,(item,index)=>{
   item.DeviceId = jsondatasamle_bms_mydevice[index].DeviceId;
   jsondata_bms_workorder.push(item);
