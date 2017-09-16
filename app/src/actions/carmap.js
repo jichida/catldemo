@@ -20,6 +20,7 @@ export const ui_btnclick_alaramyellow =  createAction('ui_btnclick_alaramyellow'
 export const ui_menuclick_settings = createAction('ui_menuclick_settings');
 export const ui_menuclick_logout = createAction('ui_menuclick_logout');
 export const ui_btnclick_devicehistorytrackplayback = createAction('ui_btnclick_devicehistorytrackplayback');
+export const ui_btnclick_devicemessage = createAction('ui_btnclick_devicemessage');
 
 export const ui_alarm_elcurdevice = createAction('ui_alarm_elcurdevice');
 export const ui_mycar_selcurdevice = createAction('ui_mycar_selcurdevice');

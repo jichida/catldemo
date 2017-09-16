@@ -9,12 +9,14 @@ import {
   searchbatteryalarmsingle_result,
 
   ui_selcurdevice_result,
+  getcurallalarm_result,
 } from '../actions';
 import _ from 'lodash';
 
 const initial = {
   searchresult:{
     curseldeviceid:undefined,
+    curallalarm:[],
     searchresult_battery:[],
     searchresult_alaram:[],
     searchresult_alaramsingle:[],
@@ -23,6 +25,16 @@ const initial = {
 };
 
 const searchresult = createReducer({
+  [getcurallalarm_result]:(state,payload)=>{
+      let curallalarm =[];
+      let alarms = {...state.alarms};
+      const {list} = payload;
+      _.map(list,(alarm)=>{
+        curallalarm.push(alarm._id);
+        alarms[alarm._id] = alarm;
+      });
+      return {...state,alarms,curallalarm};
+  },
   [ui_selcurdevice_result]:(state,payload)=>{
     const curseldeviceid = payload.DeviceId;
     let searchresult_alaramsingle = [];
@@ -37,9 +49,8 @@ const searchresult = createReducer({
     return { ...state, searchresult_alaram};
   },
   [searchbatteryalarmsingle_request]: (state, payload) => {
-    const {querydevice:{_id:curseldeviceid}} = payload;
     let searchresult_alaramsingle = [];
-    return { ...state, searchresult_alaramsingle,curseldeviceid};
+    return { ...state, searchresult_alaramsingle};
   },
   [searchbattery_result]: (state, payload) => {
     let searchresult_battery = [];

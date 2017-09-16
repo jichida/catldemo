@@ -1,4 +1,4 @@
-import {takeEvery,put,fork,call,select} from 'redux-saga/effects';
+import {takeLatest,takeEvery,put,fork,call,select} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {
   querydevicegroup_request,
@@ -32,9 +32,29 @@ import {
   serverpush_devicegeo_sz_result,
   start_serverpush_devicegeo_sz,
 
-  ui_changemodeview
+  ui_changemodeview,
+
+  getcurallalarm_request,
+  getcurallalarm_result,
+
+  logout_request,
+  logout_result,
+
+  getallworkorder_request,
+  getallworkorder_result,
+
+  queryworkorder_request,
+  queryworkorder_result,
 } from '../actions';
-import  {jsondata,jsondata_chargingpile,jsondatatrack,jsondataalarm} from '../test/bmsdata.js';
+import  {
+  jsondata,
+  jsondata_chargingpile,
+  jsondatatrack,
+  jsondataalarm,
+  jsondata_bms_alarm,
+  jsondata_bms_workorder,
+  getrandom
+} from '../test/bmsdata.js';
 
 import {getRandomLocation} from '../env/geo';
 import coordtransform from 'coordtransform';
@@ -43,8 +63,50 @@ import _ from 'lodash';
 import {getgeodata} from '../sagas/mapmain_getgeodata';
 //获取地理位置信息，封装为promise
 import jsondataprovinces from '../util/provinces.json';
+import moment from 'moment';
 
-export function* apiflow(){//仅执行一次
+export function* apiflow(){//
+  yield takeLatest(`${getallworkorder_request}`, function*(action) {
+    try{
+      yield put(getallworkorder_result({list:jsondata_bms_workorder}));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+  yield takeLatest(`${queryworkorder_request}`, function*(action) {
+    try{
+      let list =  _.sampleSize(jsondata_bms_workorder, getrandom(0,jsondata_bms_workorder.length-1));
+      yield put(queryworkorder_result({list}));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+  //========
+  yield takeLatest(`${logout_request}`, function*(action) {
+    try{
+      yield put(logout_result({}));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+  yield takeEvery(`${getcurallalarm_request}`, function*(action) {
+    try{
+      //获取今天所有告警信息列表
+      // jsondata_bms_alarm
+      yield put(getcurallalarm_result({list:jsondata_bms_alarm}));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+
   yield takeEvery(`${querydeviceinfo_request}`, function*(action) {
     try{
     const {payload:{query:{DeviceId}}} = action;
@@ -137,16 +199,26 @@ export function* apiflow(){//仅执行一次
   yield takeEvery(`${searchbatteryalarm_request}`, function*(action) {
     try{
       const {payload:{query}} = action;
-      const list = [];
-      const listdevice = _.sampleSize(jsondata, 20);
-      let iddate = new Date();
-      _.map(listdevice,(device,index)=>{
-        let alarm = {...jsondataalarm};
-        alarm.DeviceId = device.DeviceId;
-        alarm._id = iddate.getTime() + index;
-        list.push(alarm);
-      });
+      let list = [];
+      if(!!query){
+        let warninglevel = _.get(query,'warninglevel',-1);
+        if(warninglevel !== -1){
+          //报警等级
+          list = _.filter(jsondata_bms_alarm,(item)=>{
+            return item.warninglevel === query.warninglevel;
+          });
+        }
+        else{
+          //随机生成
+            list = _.sampleSize(jsondata_bms_alarm, getrandom(0,jsondata_bms_alarm.length));
+        }
+      }
+      else{
+        //all
+        list = jsondata_bms_alarm;
+      }
       yield put(searchbatteryalarm_result({list}));
+
     }
     catch(e){
       console.log(e);
@@ -156,13 +228,32 @@ export function* apiflow(){//仅执行一次
   yield takeEvery(`${searchbatteryalarmsingle_request}`, function*(action) {
     try{
         const {payload:{query}} = action;
-        const list = [];
-        let iddate = new Date();
-        for(let i = 0;i < 20 ;i++){
-          let alarm = {...jsondataalarm};
-          alarm._id = iddate.getTime() + i;
-          list.push(alarm);
+        let list = [];
+        if(!!query){
+           list = _.filter(jsondata_bms_alarm,(item)=>{
+            return item.DeviceId === query.DeviceId;
+          });
+
+          let warninglevel = _.get(query,'queryalarm.warninglevel',-1);
+          if(warninglevel != -1){
+            list = _.filter(list,(item)=>{
+             return item.warninglevel === warninglevel;
+           });
+          }
+
+          let startdatestring = _.get(query,'queryalarm.startDate','');
+          let enddatestring = _.get(query,'queryalarm.endDate','');
+          if(startdatestring !== '' && enddatestring !== ''){
+            list = _.filter(list,(item)=>{
+              let waringtime = item['告警时间'];
+              let match = (startdatestring <= waringtime) && (waringtime <= enddatestring);
+              return match;
+           });
+          }
+          // console.log(jsondata_bms_alarm);
+          // console.log(`query.DeviceId:${query.DeviceId},list:${JSON.stringify(list)}`);
         }
+
         yield put(searchbatteryalarmsingle_result({list}));
       }
       catch(e){
@@ -205,7 +296,21 @@ export function* apiflow(){//仅执行一次
 
    yield takeEvery(`${queryhistorytrack_request}`, function*(action) {
      try{
-        yield put(queryhistorytrack_result({list:jsondatatrack}));
+        const {payload} = action;
+        const {query} = payload;
+        const {startDate,endDate} = query;
+        let mstart = moment(startDate).format('2017-07-31 HH:mm:ss');
+        let mend = moment(endDate).format('2017-07-31 HH:mm:ss');
+        if(mstart >= mend){
+          let tmp = mstart;
+          mstart = mend;
+          mend = tmp;
+        }
+        let list = [];
+        list = _.filter(jsondatatrack,(item)=>{
+          return (item.GPSTime >= mstart) && (item.GPSTime <= mend);
+        });
+        yield put(queryhistorytrack_result({list:list}));
       }
       catch(e){
         console.log(e);

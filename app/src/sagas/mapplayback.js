@@ -206,8 +206,13 @@ export function* createmaptrackhistoryplaybackflow(){
             }
           },'zoomend');
 
+          while(true){
+            let {payload:{divmapid}} = yield take(`${carmapshow_destorymap}`);
+            if(divmapid === divmapid_maptrackhistoryplayback){
+              break;
+            }
+          }
 
-          yield take(`${carmapshow_destorymap}`);
           yield cancel(task_zoomend);
         }
       }

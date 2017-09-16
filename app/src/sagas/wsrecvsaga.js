@@ -24,6 +24,8 @@ import {
   start_serverpush_devicegeo_sz,
   stop_serverpush_devicegeo_sz,
 
+  getcurallalarm_request,
+
 } from '../actions';
 import { push,goBack,go,replace } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 import _ from 'lodash';
@@ -42,7 +44,7 @@ export function* wsrecvsagaflow() {
         while(true){
           const { resstop, timeout } = yield race({
              resstop: take(`${stop_serverpush_devicegeo_sz}`),
-             timeout: call(delay, 5000)
+             timeout: call(delay, 500000)
           });
           if(!!resstop){
             break;
@@ -70,6 +72,9 @@ export function* wsrecvsagaflow() {
       if(result.loginsuccess){
         localStorage.setItem('bms_pc_token',result.token);
         yield put(querydevicegroup_request({}));
+
+        //登录成功,获取今天所有报警信息列表
+        yield put(getcurallalarm_request({}));
       }
   });
 

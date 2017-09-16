@@ -647,7 +647,12 @@ export function* createmapmainflow(){
           //  pointSimplifierIns.on('pointClick pointMouseover pointMouseout', function(e, record) {
           //listentask task_dragend task_zoomend task_markclick task_mapclick
           //  })
-          yield take(`${carmapshow_destorymap}`);
+          while(true){
+            let {payload:{divmapid}} = yield take(`${carmapshow_destorymap}`);
+            if(divmapid === divmapid_mapmain){
+              break;
+            }
+          }
           yield cancel(listentask);
           yield cancel(task_dragend);
           yield cancel(task_zoomend);
