@@ -16,7 +16,10 @@ import {
   searchbatteryalarm_result,
 
   searchbatteryalarmsingle_request,
-  searchbatteryalarmsingle_result
+  searchbatteryalarmsingle_result,
+
+  logout_request,
+  logout_result
 }from '../actions';
 import { push } from 'react-router-redux';
 
@@ -87,6 +90,9 @@ export function* uiflow(){//仅执行一次
 
   yield takeLatest(`${ui_menuclick_logout}`, function*(action) {
     console.log(`点击注销`);
+    yield put(logout_request());
+    yield take(`${logout_result}`);
+    yield put(push('/login'));
   });
 
 }

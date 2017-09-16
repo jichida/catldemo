@@ -1,4 +1,4 @@
-import {takeEvery,put,fork,call,select} from 'redux-saga/effects';
+import {takeLatest,takeEvery,put,fork,call,select} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {
   querydevicegroup_request,
@@ -35,7 +35,10 @@ import {
   ui_changemodeview,
 
   getcurallalarm_request,
-  getcurallalarm_result
+  getcurallalarm_result,
+
+  logout_request,
+  logout_result
 } from '../actions';
 import  {
   jsondata,
@@ -54,7 +57,16 @@ import {getgeodata} from '../sagas/mapmain_getgeodata';
 //获取地理位置信息，封装为promise
 import jsondataprovinces from '../util/provinces.json';
 
-export function* apiflow(){//仅执行一次
+export function* apiflow(){//
+  yield takeLatest(`${logout_request}`, function*(action) {
+    try{
+      
+      yield put(logout_result({}));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
 
   yield takeEvery(`${getcurallalarm_request}`, function*(action) {
     try{
