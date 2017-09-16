@@ -166,10 +166,10 @@ class UserMenu extends React.Component {
                 this.handleRequestClose();
                 this.props.history.push("/workorder");
             }}/>
-            <MenuItem primaryText="查询报表" leftIcon={<Car />} onClick={()=>{
+            {/* <MenuItem primaryText="查询报表" leftIcon={<Car />} onClick={()=>{
                 this.handleRequestClose();
                 this.props.history.push("/device");
-            }}/>
+            }}/> */}
             <MenuItem primaryText="后台管理" leftIcon={<Settings />} onClick={()=>{
                 this.handleRequestClose();
                 window.open('http://catldemo.com28.cn/admin/build/','_blank');
