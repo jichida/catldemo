@@ -50,7 +50,7 @@ class Page extends React.Component {
       constructor(props) {
           super(props);
           this.state = {
-            startDate:moment(),
+            startDate:moment().subtract(5, 'hours'),
             endDate:moment(),
           }
       }

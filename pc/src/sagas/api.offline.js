@@ -63,6 +63,7 @@ import _ from 'lodash';
 import {getgeodata} from '../sagas/mapmain_getgeodata';
 //获取地理位置信息，封装为promise
 import jsondataprovinces from '../util/provinces.json';
+import moment from 'moment';
 
 export function* apiflow(){//
   yield takeLatest(`${getallworkorder_request}`, function*(action) {
@@ -295,7 +296,21 @@ export function* apiflow(){//
 
    yield takeEvery(`${queryhistorytrack_request}`, function*(action) {
      try{
-        yield put(queryhistorytrack_result({list:jsondatatrack}));
+        const {payload} = action;
+        const {query} = payload;
+        const {startDate,endDate} = query;
+        let mstart = moment(startDate).format('2017-07-31 HH:mm:ss');
+        let mend = moment(endDate).format('2017-07-31 HH:mm:ss');
+        if(mstart >= mend){
+          let tmp = mstart;
+          mstart = mend;
+          mend = tmp;
+        }
+        let list = [];
+        list = _.filter(jsondatatrack,(item)=>{
+          return (item.GPSTime >= mstart) && (item.GPSTime <= mend);
+        });
+        yield put(queryhistorytrack_result({list:list}));
       }
       catch(e){
         console.log(e);
