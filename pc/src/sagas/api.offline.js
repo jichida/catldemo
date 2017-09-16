@@ -38,7 +38,13 @@ import {
   getcurallalarm_result,
 
   logout_request,
-  logout_result
+  logout_result,
+
+  getallworkorder_request,
+  getallworkorder_result,
+
+  queryworkorder_request,
+  queryworkorder_result,
 } from '../actions';
 import  {
   jsondata,
@@ -46,6 +52,7 @@ import  {
   jsondatatrack,
   jsondataalarm,
   jsondata_bms_alarm,
+  jsondata_bms_workorder,
   getrandom
 } from '../test/bmsdata.js';
 
@@ -58,9 +65,28 @@ import {getgeodata} from '../sagas/mapmain_getgeodata';
 import jsondataprovinces from '../util/provinces.json';
 
 export function* apiflow(){//
+  yield takeLatest(`${getallworkorder_request}`, function*(action) {
+    try{
+      yield put(getallworkorder_result({list:jsondata_bms_workorder}));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+  yield takeLatest(`${queryworkorder_request}`, function*(action) {
+    try{
+      let list =  _.sampleSize(jsondata_bms_workorder, getrandom(0,jsondata_bms_workorder.length-1));
+      yield put(queryworkorder_result({list}));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+  //========
   yield takeLatest(`${logout_request}`, function*(action) {
     try{
-      
       yield put(logout_result({}));
    }
    catch(e){

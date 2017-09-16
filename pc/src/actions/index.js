@@ -7,3 +7,4 @@ export * from './userlogin';
 export * from './md';
 export * from './notifymessage';
 export * from './device';
+export * from './workorder';

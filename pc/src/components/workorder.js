@@ -28,7 +28,10 @@ import {
 import TreeSearchreport from './search/searchreport';
 import {
   ui_selcurdevice_request,
-  searchbatteryalarm_request
+  searchbatteryalarm_request,
+
+  getallworkorder_request,
+  queryworkorder_request
 } from '../actions';
 
 class MessageAllDevice extends React.Component {
@@ -36,13 +39,17 @@ class MessageAllDevice extends React.Component {
     constructor(props) {
         super(props);
     }
-    
+
+    componentWillMount() {
+      this.props.dispatch(getallworkorder_request({}));
+    }
+
     onClickQuery(query){
-        this.props.dispatch(searchbatteryalarm_request(query));
+        this.props.dispatch(queryworkorder_request(query));
     }
 
     render(){
-        const {g_devicesdb,alarms,searchresult_alaram,alaram_data,columns} = this.props;
+        const {g_devicesdb,workorder_data,columns} = this.props;
 
         return (
             <div className="warningPage" style={{height : window.innerHeight+"px"}}>
@@ -55,7 +62,7 @@ class MessageAllDevice extends React.Component {
                     <TreeSearchreport onClickQuery={this.onClickQuery.bind(this)}/>
                 </div>
                 <div className="tablelist">
-                    <TableComponents data={alaram_data} columns={columns}/>
+                    <TableComponents data={workorder_data} columns={columns}/>
                 </div>
             </div>
 
@@ -64,42 +71,23 @@ class MessageAllDevice extends React.Component {
 }
 
 //序号、工单号、营运公司、车牌号、故障地点、故障代码、部位、故障描述、责任人
-const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram,alarms}}) => {
-    const alaram_data = [{
-        "序号": 1,
-        "工单号" : "001",
-        "营运公司" : "pack001",
-        "车牌号" : "pdb001",
-        "故障地点" : "liaohao001",
-        "故障代码" : "江苏常州武进区",
-        "部位" : "liaohao001",
-        "故障描述" : "江苏常州武进区",
-        "责任人" : "江苏常州武进区",
-    },
-    {
-      "序号": 2,
-      "工单号" : "001",
-      "营运公司" : "pack001",
-      "车牌号" : "pdb001",
-      "故障地点" : "liaohao001",
-      "故障代码" : "江苏常州武进区",
-      "部位" : "liaohao001",
-      "故障描述" : "江苏常州武进区",
-      "责任人" : "江苏常州武进区",
-    },
-    {
-      "序号": 3,
-      "工单号" : "001",
-      "营运公司" : "pack001",
-      "车牌号" : "pdb001",
-      "故障地点" : "liaohao001",
-      "故障代码" : "江苏常州武进区",
-      "部位" : "liaohao001",
-      "故障描述" : "江苏常州武进区",
-      "责任人" : "江苏常州武进区",
-    }];
+const mapStateToProps = ({device:{g_devicesdb},workorder:{searchresult_workorder,workorders}}) => {
+  const column_data = {
+    "工单号" : "",
+    "营运公司" : "",
+    "车辆ID" : "",
+    "故障地点" : "",
+    "故障代码" : "",
+    "部位" : "",
+    "故障描述" : "",
+    "责任人" : "",
+  };
+  const workorder_data = [];
+  _.map(searchresult_workorder,(aid)=>{
+    workorder_data.push(workorders[aid]);
+  });
 
-    let columns = _.map(alaram_data[0], (data, index)=>{
+    let columns = _.map(column_data, (data, index)=>{
         return {
             title: index,
             dataIndex: index,
@@ -121,7 +109,7 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
         }
     }
     columns.push(columns_action);
-
-    return {g_devicesdb,alarms,searchresult_alaram, alaram_data, columns};
+    console.log(workorder_data);
+    return {g_devicesdb,workorders,searchresult_workorder, workorder_data, columns};
 }
 export default connect(mapStateToProps)(MessageAllDevice);

@@ -83,11 +83,38 @@ for(let i=0;i<3000;i++){
 }
 // console.log(jsondata_bms_alarm);
 
+// "工单号" : "",
+// "营运公司" : "",
+// "车辆ID" : "",
+// "故障地点" : "",
+// "故障代码" : "",
+// "部位" : "",
+// "故障描述" : "",
+// "责任人" : "",
+const test_workorder_company_text = ['上海巴士','北京巴士','江苏巴士','安徽巴士'];
+const test_workorder_errorcode_text = ['U87','S22','F34','E22'];
+const test_workorder_part_text = ['车身','发动机','方向盘','坐骑'];
+const test_workorder_assgin_text = ['张三','李四','王五','赵六'];
+let indexworkorder  = 0;
+for(let i=0;i<3000;i++){
+  _.map(data_bms_workorder,(item,index)=>{
+    let cloneitem = {...item};
+    indexworkorder++;
+    let deviceindexalarm = indexalarm%jsondata.length;
+    cloneitem.DeviceId = jsondata[deviceindexalarm].DeviceId;
+    cloneitem.key = indexworkorder + '';
+    cloneitem._id = cloneitem.key;
+    cloneitem['工单号'] = cloneitem.key;
+    cloneitem['车辆ID'] = cloneitem.DeviceId;
+    cloneitem['营运公司'] = test_workorder_company_text[getrandom(0,test_workorder_company_text.length-1)];
+    cloneitem['故障代码'] = test_workorder_errorcode_text[getrandom(0,test_workorder_errorcode_text.length-1)];
+    cloneitem['部位'] = test_workorder_part_text[getrandom(0,test_workorder_part_text.length-1)];
+    cloneitem['责任人'] = test_workorder_assgin_text[getrandom(0,test_workorder_assgin_text.length-1)];
+    cloneitem['故障地点'] = jsondatareadonly_chargingpile[getrandom(0,jsondatareadonly_chargingpile.length-1)].address.formattedAddress;
 
-_.map(data_bms_workorder,(item,index)=>{
-  item.DeviceId = jsondatasamle_bms_mydevice[index].DeviceId;
-  jsondata_bms_workorder.push(item);
-});
+    jsondata_bms_workorder.push(cloneitem);
+  });
+}
 
 export {
   jsondata,
