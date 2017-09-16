@@ -56,8 +56,9 @@ class Page extends React.Component {
                 columns={columns}
                 dataSource={dataworkorder}
                 pagination={false}
-                style={{flexGrow: 1}}
+                style={{flexGrow: 1,overflow: "scroll"}}
                 onRowClick={(item)=>{this.props.history.push(`/workorderinfo/${item.workerid}`)}}
+                scroll={{ y: this.props.tableheight }}
                 />
         );
     }

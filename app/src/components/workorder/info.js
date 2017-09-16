@@ -14,17 +14,55 @@ import { Button } from 'antd';
 import _ from 'lodash';
 import {jsondata_bms_workorder} from '../../test/bmsdata';
 import {ui_selworkorder} from '../../actions';
+// import co from 'co';
+// import OSS from 'ali-oss';
+import $ from "jquery";
+
 
 
 class Page extends React.Component {
+
+
+
+
     constructor(props) {
         super(props);
         this.state = {
             innerWidth : window.innerWidth,
             selstatus : 0,
-            selworkorder : 0
+            selworkorder : 0,
+            fileobj : ''
         };
     }
+
+    componentWillMount(){
+        console.log($);
+        this.uploadfile();
+    }
+
+    setfile =(e)=>{
+        console.log(e);
+
+    }
+
+    uploadfile =()=>{
+        $.ajax("http://10.10.1.4:3000/users", {}, (d)=>{
+            console.log(d);
+        })
+        // let client = new OSS({
+        //     region: 'oss-cn-beijing',
+        //     accessKeyId: 'LTAIiHKjGyXdxpUy',
+        //     accessKeySecret: '2u6NipTBmHML2QYu8mYoIlmwXTAXEn',
+        //     bucket: 'yinuonet-img'
+        // });
+        // co(function* () {
+        //     let result = yield client.put((new Date()).getTime(), 'local-file');
+        //     console.log(result);
+        // }).catch(function (err) {
+        //     console.log(err);
+        // });
+    }
+
     indexnavclick=(v)=>{
         console.log(v);
         this.setState({selstatus : v});
@@ -72,7 +110,9 @@ class Page extends React.Component {
                     <div className="tit">维修反馈</div>
                     <div className="infoimg">
                         <img src={Updataimg} style={{width: "40px"}} />
+                        <input type="file" onChange={(e)=>{this.setfile(e)}} />
                     </div>
+
                     <Button type="primary">确认并提交审单员</Button>
                 </div>
             </div>

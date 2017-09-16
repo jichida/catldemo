@@ -93,7 +93,7 @@ class Page extends React.Component {
                     <span className={this.state.seltype===1?"sel":""} onClick={this.seltype.bind(this,1)}>已读报警</span>
                     <span className={this.state.seltype===2?"sel":""} onClick={this.seltype.bind(this,2)}>所有报警</span>
                 </div>
-                <Datalist seltype={this.state.seltype}/>
+                <Datalist seltype={this.state.seltype} tableheight={window.innerHeight-58-116}/>
                 <Footer sel={1} />
             </div>
         );

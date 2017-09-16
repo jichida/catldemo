@@ -41,11 +41,15 @@ class Page extends React.Component {
           return !item.isdone;
         });
         const colorred = {color: "#C00"};
+        let newselworkorder = this.state.selworkorder;
+        if(newselworkorder.length>20){
+            newselworkorder.length = 20
+        }
         return (
             <div className="indexPage AppPage"
                 style={{
                     backgroundSize: "100% 100%",
-                    minHeight : `${window.innerHeight}px`
+                    height : `${window.innerHeight}px`
                 }}>
                 <div className="navhead">
                     <span className="title">工单处理</span>
@@ -58,7 +62,7 @@ class Page extends React.Component {
                         <span className={this.state.selworkorder===1?"sel":""} onClick={this.selworkorders.bind(this,1)}>已完成</span>
                         <span className={this.state.selworkorder===2?"sel":""} onClick={this.selworkorders.bind(this,2)}>所有工单</span>
                     </div>
-                    <Datalist selworkorder={this.state.selworkorder}/>
+                    <Datalist selworkorder={newselworkorder} tableheight={window.innerHeight-(55+38+40+50+66)}/>
                 </div>
                 <Footer sel={3} />
             </div>

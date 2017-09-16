@@ -22,6 +22,68 @@ import Seltime from "../tools/seltime.js";
 import { Button } from 'antd';
 import moment from 'moment';
 
+import { TreeSelect } from 'antd';
+const TreeNode = TreeSelect.TreeNode;
+
+const treeData = [
+    {
+        label: 'Child Node1',
+        value: '0-0-1',
+        key: '0-0-1',
+    },
+    {
+        label: 'Child Node2',
+        value: '0-0-2',
+        key: '0-0-2',
+    },
+    {
+        label: 'Node2',
+        value: '0-1',
+        key: '0-1',
+    },
+    {
+        label: 'Node2',
+        value: '0-1',
+        key: '0-2',
+    },
+    {
+        label: 'Node2',
+        value: '0-1',
+        key: '0-3',
+    },
+    {
+        label: 'Node2',
+        value: '0-1',
+        key: '0-4',
+    }];
+
+class SelectDevice extends React.Component {
+  state = {
+    value: undefined,
+  }
+  onChange = (value) => {
+    console.log(arguments);
+    this.setState({ value });
+  }
+  render() {
+    return (
+      <TreeSelect
+        showSearch
+        style={{ width: '100%',fontSize: "16px" }}
+        value={this.state.value}
+        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+        placeholder={this.props.placeholder}
+        allowClear
+        treeDefaultExpandAll
+        onChange={this.onChange}
+        treeData={treeData}
+        />
+        
+    );
+  }
+}
+
+
 class Page extends React.Component {
     constructor(props) {
         super(props);
@@ -109,7 +171,7 @@ class Page extends React.Component {
                         <div className="deviceinfo">
                             <img src={Car} />
                             <span>车辆信息</span>
-                            <span><input name='deviceinfo' placeholder={"请输入设备ID"} /></span>
+                            <span><SelectDevice placeholder={"请输入设备ID"} /></span>
                         </div>
                         <div className="seltimecontent" onClick={this.handleClick.bind(this, 0)}>
                             <img src={Searchimg2} />

@@ -373,6 +373,7 @@
 }
 .indexPage .workorderlist{
     flex-grow: 1;
+    overflow:hidden;
 }
 .indexPage .workorderlist .contenttit{
     background: #EEE;
@@ -407,7 +408,6 @@
     width: 100%;
     bottom: 0;
     background: rgba(0,0,0,.1);
-
 }
 .playbackPage .set.seltimewamp{
     background: #FFF;
@@ -416,6 +416,7 @@
     position: fixed;
     height: 208px;
     top:58px;
+    z-index: 1000;
 }
 .playbackPage .formlist{
     background: #FFF;

@@ -10,6 +10,7 @@
     "coordtransform": "^2.1.2",
     "geolib": "^2.0.22",
     "idcard": "^3.2.4",
+    "jquery": "^3.2.1",
     "leaflet": "^1.1.0",
     "lodash": "^4.17.4",
     "material-ui": "^0.18.7",

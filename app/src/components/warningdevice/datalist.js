@@ -51,7 +51,14 @@ class Page extends React.Component {
 
         // const columns = _.map
         return (
-            <Table columns={columns} dataSource={dataalarm} pagination={false} style={{flexGrow: 1}} onRowClick={this.rowClick} />
+            <Table 
+                columns={columns} 
+                dataSource={dataalarm} 
+                pagination={false} 
+                style={{flexGrow: 1}} 
+                onRowClick={this.rowClick} 
+                scroll={{ y: this.props.tableheight }}
+                />
         );
     }
 }
