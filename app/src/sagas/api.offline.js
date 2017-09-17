@@ -45,6 +45,9 @@ import {
 
   queryworkorder_request,
   queryworkorder_result,
+
+  setalarmreaded_request,
+  setalarmreaded_result
 } from '../actions';
 import  {
   jsondata_bms_chargingpile,
@@ -66,6 +69,24 @@ import {getgeodata} from '../sagas/mapmain_getgeodata';
 import moment from 'moment';
 
 export function* apiflow(){//
+  yield takeLatest(`${setalarmreaded_request}`, function*(action) {
+    try{
+      const {payload} = action;
+      let item;
+      _.map(jsondata_bms_alarm,(alarm)=>{
+        if(alarm._id === payload){
+          alarm.isreaded = true;
+          item = alarm;
+        }
+      });
+      yield put(setalarmreaded_result(item));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+
   yield takeLatest(`${getallworkorder_request}`, function*(action) {
     try{
       yield put(getallworkorder_result({list:jsondata_bms_workorder}));

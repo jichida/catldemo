@@ -12,6 +12,7 @@ import {
   getcurallalarm_result,
 
   ui_resetsearch,
+  setalarmreaded_result
 } from '../actions';
 import _ from 'lodash';
 
@@ -27,6 +28,12 @@ const initial = {
 };
 
 const searchresult = createReducer({
+  [setalarmreaded_result]:(state,payload)=>{
+    let item = payload;
+    let alarms = {...state.alarms};
+    alarms[item._id] = item;
+    return { ...state, alarms};
+  },
   [ui_resetsearch]:(state,payload)=>{
     let searchresult_alaram = [...state.curallalarm];
     return { ...state, searchresult_alaram};

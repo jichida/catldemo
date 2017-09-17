@@ -13,7 +13,8 @@ import { Button } from 'antd';
 import {
     ui_index_addcollection,
     ui_index_unaddcollection,
-    ui_alarm_selcurdevice
+    ui_alarm_selcurdevice,
+    setalarmreaded_request
 } from '../../actions';
 
 
@@ -24,7 +25,9 @@ class Page extends React.Component {
             showtype : 0
         };
     }
-
+    componentWillMount () {
+        this.props.dispatch(setalarmreaded_request(this.props.match.params.alarmid));
+    }
     render() {
         const {carcollections,g_devicesdb,alarms} = this.props;
         let alarmid = this.props.match.params.alarmid;
