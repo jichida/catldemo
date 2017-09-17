@@ -22,7 +22,7 @@ export const ui_menuclick_logout = createAction('ui_menuclick_logout');
 export const ui_btnclick_devicehistorytrackplayback = createAction('ui_btnclick_devicehistorytrackplayback');
 export const ui_btnclick_devicemessage = createAction('ui_btnclick_devicemessage');
 
-export const ui_alarm_elcurdevice = createAction('ui_alarm_elcurdevice');
+export const ui_alarm_selcurdevice = createAction('ui_alarm_selcurdevice');
 export const ui_mycar_selcurdevice = createAction('ui_mycar_selcurdevice');
 export const ui_mycar_showtype= createAction('ui_mycar_showtype');
 export const ui_selworkorder = createAction('ui_selworkorder');

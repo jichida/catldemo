@@ -34,7 +34,7 @@ import {
   searchbattery_result,
   ui_searchbattery_result,
   ui_mycar_showtype,
-  ui_alarm_elcurdevice,
+  ui_alarm_selcurdevice,
   ui_mycar_selcurdevice,
   ui_index_selstatus,
   ui_selworkorder,
@@ -1138,7 +1138,7 @@ export function* createmapmainflow(){
       }
     });
 
-    yield takeLatest(`${ui_alarm_elcurdevice}`, function*(action) {
+    yield takeLatest(`${ui_alarm_selcurdevice}`, function*(action) {
       //预警模式选择车辆
       try{
         //切换到首页

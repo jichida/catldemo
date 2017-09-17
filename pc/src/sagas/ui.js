@@ -19,11 +19,26 @@ import {
   searchbatteryalarmsingle_result,
 
   logout_request,
-  logout_result
+  logout_result,
+
+  ui_sel_tabindex
 }from '../actions';
 import { push } from 'react-router-redux';
 
 export function* uiflow(){//仅执行一次
+  //app点击底部菜单
+  yield takeLatest(`${ui_sel_tabindex}`, function*(action) {
+    const {payload} = action;
+    console.log(`点击在线`);
+    if(payload === 1){
+      yield put(searchbatteryalarm_request({
+        query:{
+        }
+      }));
+    }
+  });
+
+
   //ui_btnclick_devicemessage
 
   yield takeLatest(`${ui_btnclick_devicemessage}`, function*(action) {

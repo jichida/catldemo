@@ -12,7 +12,6 @@ import TimePicker from 'material-ui/TimePicker';
 import NavBar from "../tools/nav.js";
 import Map from './map';
 import "./map.css";
-import {mapplayback_start} from '../../actions';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import Searchimg from '../../img/13.png';
@@ -21,6 +20,9 @@ import Searchimg3 from '../../img/15.png';
 import Footer from "../index/footer.js";
 import Datalist from "./datalist";
 import MapPage from '../admincontent';
+import {searchbatteryalarm_request} from '../../actions';
+
+
 class Page extends React.Component {
     constructor(props) {
         super(props);
@@ -29,11 +31,28 @@ class Page extends React.Component {
             seltype : 0
         };
     }
-    onClickStart(){
-      this.props.dispatch(mapplayback_start({isloop:false,speed:5000}));
+    onClickSearch(){
+      this.setState({showdata: false});
+      let v = this.state.seltype;
+      let query = {};
+      if(v === 0){
+        query.isreaded = false;
+      }
+      else if(v === 1){
+        query.isreaded = true;
+      }
+      this.props.dispatch(searchbatteryalarm_request({query}));
     }
     seltype=(v)=>{
         this.setState({seltype : v});
+        let query = {};
+        if(v === 0){
+          query.isreaded = false;
+        }
+        else if(v === 1){
+          query.isreaded = true;
+        }
+        this.props.dispatch(searchbatteryalarm_request({query}));
     }
     render() {
         // const {mapseldeviceid,devices} = this.props;
@@ -55,7 +74,7 @@ class Page extends React.Component {
                 }}
                 >
                 <div className="navhead">
-                    
+
                     <span className="title" style={{paddingLeft : "30px"}}>预警信息</span>
                     <a className="searchlnk" onClick={()=>{this.setState({showdata: !this.state.showdata})}} ><img src={Searchimg} /></a>
 
@@ -79,7 +98,8 @@ class Page extends React.Component {
                                 <DatePicker hintText="开始时间" style={{flexGrow: "1",marginLeft: "10px", marginBottom: "10px"}} textFieldStyle={textFieldStyle}/>
                             </div>
                             <RaisedButton
-                                onTouchTap={()=>{this.setState({showdata: false})}}
+                                onTouchTap={this.onClickSearch.bind(this)
+                                }
                                 label="搜索"
                                 backgroundColor={"#5cbeaa"}
                                 labelStyle={{fontSize: "16px",color : "#FFF"}}

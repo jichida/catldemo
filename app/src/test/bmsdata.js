@@ -60,7 +60,7 @@ _.map(data_bms_mydevice,(item,index)=>{
 const test_alaram_text=['绝缘故障','高压互锁','SOC过低'];
 const test_warning_level_text=['严重告警','紧急告警','一般告警'];
 let indexalarm  = 0;
-for(let i=0;i<3000;i++){
+for(let i=0;i<30;i++){
   _.map(data_bms_alarm,(item,index)=>{
     let cloneitem = {...item};
     indexalarm++;
@@ -74,6 +74,7 @@ for(let i=0;i<3000;i++){
     cloneitem['告警等级'] = test_warning_level_text[cloneitem.warninglevel];
     cloneitem['车辆ID'] = cloneitem.DeviceId;
     let secago = getrandom(0,60*60*12);
+    cloneitem.isreaded = getrandom(0,1);
     cloneitem['告警时间'] = moment().subtract(secago, 'seconds').format('YYYY-MM-DD HH:mm:ss');
     cloneitem['报警信息'] = test_alaram_text[getrandom(0,test_alaram_text.length-1)];
     cloneitem['告警位置'] = jsondatareadonly_chargingpile[getrandom(0,jsondatareadonly_chargingpile.length-1)].address.formattedAddress;
@@ -96,7 +97,7 @@ const test_workorder_errorcode_text = ['U87','S22','F34','E22'];
 const test_workorder_part_text = ['车身','发动机','方向盘','坐骑'];
 const test_workorder_assgin_text = ['张三','李四','王五','赵六'];
 let indexworkorder  = 0;
-for(let i=0;i<3000;i++){
+for(let i=0;i<10;i++){
   _.map(data_bms_workorder,(item,index)=>{
     let cloneitem = {...item};
     indexworkorder++;
@@ -104,6 +105,7 @@ for(let i=0;i<3000;i++){
     cloneitem.DeviceId = jsondata[deviceindexalarm].DeviceId;
     cloneitem.key = indexworkorder + '';
     cloneitem._id = cloneitem.key;
+    
     cloneitem['工单号'] = cloneitem.key;
     cloneitem['车辆ID'] = cloneitem.DeviceId;
     cloneitem['营运公司'] = test_workorder_company_text[getrandom(0,test_workorder_company_text.length-1)];

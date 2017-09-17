@@ -8,21 +8,23 @@ import _ from 'lodash';
 import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 import "../../css/antd.min.css";
-import {jsondata_bms_alarm} from '../../test/bmsdata.js';
 
-import {ui_alarm_elcurdevice} from '../../actions';
+import {ui_alarm_selcurdevice} from '../../actions';
 
 class Page extends React.Component {
 
     rowClick = (record, index, event)=>{
         console.log(record.DeviceId);
-        this.props.dispatch(ui_alarm_elcurdevice(record.DeviceId));
+        this.props.dispatch(ui_alarm_selcurdevice(record.DeviceId));
     }
 
     render() {
+        const {g_devicesdb,alarms,searchresult_alaram,alaram_data} = this.props;
+        // const columns = _.map
         const {seltype} = this.props;
+
         let dataalarm = [];
-        dataalarm = _.filter(jsondata_bms_alarm,(item) => {
+        dataalarm = _.filter(alaram_data,(item) => {
           if(seltype === 0){
             return !item.isreaded;
           }
@@ -33,34 +35,76 @@ class Page extends React.Component {
         });
         const columns = [{
             title: '预警时间',
-            dataIndex: 'time',
-            key: 'time'
+            dataIndex: '告警时间',
+            key: '告警时间'
         }, {
             title: '车辆ID',
             dataIndex: 'DeviceId',
             key: 'deviceid'
         }, {
             title: '故障信息',
-            dataIndex: 'errorinfo',
-            key: 'errorinfo',
+            dataIndex: '报警信息',
+            key: '报警信息',
         }, {
             title: '所在位置',
-            dataIndex: 'address',
-            key: 'address',
+            dataIndex: '告警位置',
+            key: '告警位置',
         }];
 
-        // const columns = _.map
         return (
-            <Table 
-                columns={columns} 
-                dataSource={dataalarm} 
-                pagination={false} 
-                style={{flexGrow: 1}} 
-                onRowClick={this.rowClick} 
+            <Table
+                columns={columns}
+                dataSource={alaram_data}
+                pagination={false}
+                style={{flexGrow: 1}}
+                onRowClick={this.rowClick}
                 scroll={{ y: this.props.tableheight }}
                 />
         );
     }
 }
 
-export default connect()(Page);
+
+
+const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram,alarms}}) => {
+    const column_data = {
+      "车辆ID" : "",
+      "告警时间" : "",
+      "告警等级" : "",
+      "告警位置" : "江苏常州武进区",
+      "报警信息" : "绝缘故障",
+    };
+    const alaram_data = [];
+    _.map(searchresult_alaram,(aid)=>{
+      alaram_data.push(alarms[aid]);
+    });
+
+    let columns = _.map(column_data, (data, index)=>{
+        return {
+            title: index,
+            dataIndex: index,
+            key: index,
+            render: (text, row, index) => {
+                return <span>{text}</span>;
+            }
+        }
+    })
+
+    // let delrow = (row)=>{
+    //     console.log(row);
+    // }
+    //
+    // let columns_action ={
+    //     title: "操作",
+    //     dataIndex: '',
+    //     key: 'x',
+    //     render: (text, row, index) => {
+    //         return (<a onClick={()=>{delrow(row)}}>派发工单</a>);
+    //     }
+    // }
+    //
+    // columns.push(columns_action);
+
+    return {g_devicesdb,alarms,searchresult_alaram, alaram_data, columns};
+}
+export default connect(mapStateToProps)(Page);
