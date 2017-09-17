@@ -15,19 +15,19 @@ else{
   groups =
   [
     {
-      _id:0,
+      _id:'0',
       name:'ZZT_12KWH'
     },
     {
-      _id:1,
+      _id:'1',
       name:'ZZT_60KWH'
     },
     {
-      _id:2,
+      _id:'2',
       name:'ZZT_89KWH'
     },
     {
-      _id:3,
+      _id:'3',
       name:'ZZT_287KWH'
     },
   ];

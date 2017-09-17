@@ -128,7 +128,7 @@ const getpop_chargingpile =(deviceitem)=>{
   let DeviceId = _.get(deviceitem,'DeviceId','');
   let no = _.get(deviceitem,'充电桩编号','');
   let sccj = _.get(deviceitem,'生产厂家','');
-  let cdms = _.get(deviceitem,'生产厂家','');
+  let cdms = _.get(deviceitem,'充电模式','');
   let dqzt = _.get(deviceitem,'当前状态','');
   let sysc = _.get(deviceitem,'使用时长','');
   let ljsh = _.get(deviceitem,'累计电耗','');
@@ -143,8 +143,7 @@ const getpop_chargingpile =(deviceitem)=>{
   let formattedAddress = _.get(deviceitem,'formattedAddress','');
 
   return {
-      infoTitle: `<p>充电桩编号: ${no}</p>`,
-      infoBody: `
+      infoBody: `<p>充电桩编号: ${no}</p>,
       <p class='l'><span class='t'>当前状态:</span><span>${dqzt}</span></p>
       <p class='l'><span class='t'>充电模式:</span><span class='color_warning'>${cdms}</span></p>
       <p class='l'><span class='t'>当前电流:</span><span class='color_warning'>${dqdl}</span></p>

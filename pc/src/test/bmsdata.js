@@ -18,10 +18,11 @@ let jsondata_bms_groups = groups;
 
 //充电桩
 let gmap_chargingpile = {};
-let jsondata_bms_chargingpile = _.filter(jsondatareadonly_chargingpile,(item) => {
+let jsondata_bms_chargingpile = [];
+let jsondata_chargingpile = _.filter(jsondatareadonly_chargingpile,(item) => {
   return true;
 });
-_.map(jsondata_bms_chargingpile,(item,index)=>{
+_.map(jsondata_chargingpile,(item,index)=>{
     item.DeviceId = item['充电桩编号'];
     item.LastHistoryTrack = {
       Latitude:item.LastHistoryTrack__Latitude,
@@ -29,7 +30,33 @@ _.map(jsondata_bms_chargingpile,(item,index)=>{
     }
     let imagetype = 4+index%3;
     item.imagetype = ''+imagetype;
+
+
+    let sample = {
+      "采集时间":"N.A",
+      "额定功率":"180（kW）",
+      "额定电压":"220（V）",
+      "最大输出电流":"250（A）",
+      "定位状态":"有效定位",
+      "纬度信息":"N.A",
+      "经度信息":"N.A",
+      "经度":"N.A",
+      "纬度":"N.A",
+      "位置描述":"N.A",
+      "当前状态":"工作中",
+      "累计充电次数":"5139",
+      "累计充电量（MWh）":"256.95",
+      "累计放电量（MWh）":"106.9294359",
+      "充电模式":"直流",
+      "绝缘阻抗":"8287.2",
+      "当前电流":"215.22（A）",
+      "当前功率":"66.9506376（kW）",
+      "开机时长":"26.5（h）"
+    };
+    item = {...item,...sample};
+
     gmap_chargingpile[item.DeviceId] = item;
+    jsondata_bms_chargingpile.push(item);
 });
 
 //设备
