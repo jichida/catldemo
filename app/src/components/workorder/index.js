@@ -10,8 +10,10 @@ import Footer from "../index/footer.js";
 import Collectiondevice from "../collectiondevice";
 import Datalist from "./datalist";
 import _ from 'lodash';
-import {jsondata_bms_workorder} from '../../test/bmsdata.js';
-
+import {
+  getallworkorder_request,
+  queryworkorder_request
+} from '../../actions';
 
 class Page extends React.Component {
     constructor(props) {
@@ -19,32 +21,55 @@ class Page extends React.Component {
         this.state = {
             innerWidth : window.innerWidth,
             selstatus : 0,
-            selworkorder : 0
         };
     }
+
+    componentWillMount() {
+      // this.props.dispatch(getallworkorder_request({}));
+    }
+
+    onClickQuery(query){
+        this.props.dispatch(queryworkorder_request(query));
+    }
+
+
     indexnavclick=(v)=>{
         console.log(v);
         this.setState({selstatus : v});
     }
-    selworkorders=(v)=>{
-        this.setState({selworkorder : v});
-    }
+
     render() {
-        const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p} = this.props;
-        const pushurl = (name)=>{
-            this.props.history.push(name);
-        }
-        let countdone = _.filter(jsondata_bms_workorder,(item)=>{
-          return item.isdone;
+        const {curallworkorder,workorders} = this.props;
+        const {selstatus} = this.state;
+
+        let workorder_datas = [];
+        let count_done = 0;
+        let count_undo = 0;
+        _.map(curallworkorder,(id)=>{
+          let item = workorders[id];
+          if(selstatus === 0 && !item.isdone){
+            workorder_datas.push(item);
+          }
+          else if(selstatus === 1 && item.isdone){
+            workorder_datas.push(item);
+          }
+          else if(selstatus === 2){
+            workorder_datas.push(item);
+          }
+
+          //统计
+          if(item.isdone){
+            count_done++;
+          }
+          else{
+            count_undo++;
+          }
         });
-        let uncountdone = _.filter(jsondata_bms_workorder,(item)=>{
-          return !item.isdone;
-        });
+
+        let count_all = count_done + count_undo;
+
         const colorred = {color: "#C00"};
-        let newselworkorder = this.state.selworkorder;
-        if(newselworkorder.length>20){
-            newselworkorder.length = 20
-        }
+
         return (
             <div className="indexPage AppPage"
                 style={{
@@ -55,18 +80,24 @@ class Page extends React.Component {
                     <span className="title">工单处理</span>
                 </div>
                 <div className="workorderlist">
-                    <div className="contenttit">过去7天内工共发生<span style={colorred}> {`${jsondata_bms_workorder.length}`} </span>
-                    起故障,已处理<span style={colorred}> {`${countdone.length}`} </span>起,未处理 <span style={colorred}>{`${uncountdone.length}`} </span>起</div>
+                    <div className="contenttit">过去7天内工共发生<span style={colorred}>
+                      {`${count_all}`} </span>
+                    起故障,已处理<span style={colorred}> {`${count_done}`} </span>
+                    起,未处理 <span style={colorred}>{`${count_undo}`} </span>起</div>
                     <div className="workordernav">
-                        <span className={this.state.selworkorder===0?"sel":""} onClick={this.selworkorders.bind(this,0)}>待处理</span>
-                        <span className={this.state.selworkorder===1?"sel":""} onClick={this.selworkorders.bind(this,1)}>已完成</span>
-                        <span className={this.state.selworkorder===2?"sel":""} onClick={this.selworkorders.bind(this,2)}>所有工单</span>
+                        <span className={selstatus===0?"sel":""} onClick={this.indexnavclick.bind(this,0)}>待处理</span>
+                        <span className={selstatus===1?"sel":""} onClick={this.indexnavclick.bind(this,1)}>已完成</span>
+                        <span className={selstatus===2?"sel":""} onClick={this.indexnavclick.bind(this,2)}>所有工单</span>
                     </div>
-                    <Datalist selworkorder={newselworkorder} tableheight={window.innerHeight-(55+38+40+50+66)}/>
+                    <Datalist workorder_datas={workorder_datas} tableheight={window.innerHeight-(55+38+40+50+66)}/>
                 </div>
-                <Footer sel={3} />
+                <Footer />
             </div>
         );
     }
 }
-export default connect()(Page);
+const mapStateToProps = ({workorder}) => {
+  const {curallworkorder,workorders} = workorder;
+  return {curallworkorder,workorders};
+}
+export default connect(mapStateToProps)(Page);

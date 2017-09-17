@@ -14,17 +14,7 @@ import {jsondata_bms_workorder} from '../../test/bmsdata.js';
 class Page extends React.Component {
 
     render() {
-        const {selworkorder} = this.props;
-        let dataworkorder = [];
-        dataworkorder = _.filter(jsondata_bms_workorder,(item) => {
-          if(selworkorder === 0){
-            return !item.isdone;
-          }
-          if(selworkorder === 1){
-            return item.isdone;
-          }
-          return true;
-        });
+        const {workorder_datas} = this.props;
         const columns = [{
             title: '工号',
             dataIndex: 'workerid',
@@ -54,7 +44,7 @@ class Page extends React.Component {
         return (
             <Table
                 columns={columns}
-                dataSource={dataworkorder}
+                dataSource={workorder_datas}
                 pagination={false}
                 style={{flexGrow: 1,overflow: "scroll"}}
                 onRowClick={(item)=>{this.props.history.push(`/workorderinfo/${item.workerid}`)}}

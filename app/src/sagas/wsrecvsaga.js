@@ -25,7 +25,7 @@ import {
   stop_serverpush_devicegeo_sz,
 
   getcurallalarm_request,
-
+  getallworkorder_request,
 } from '../actions';
 import { push,goBack,go,replace } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 import _ from 'lodash';
@@ -75,6 +75,9 @@ export function* wsrecvsagaflow() {
 
         //登录成功,获取今天所有报警信息列表
         yield put(getcurallalarm_request({}));
+        //获取所有工单
+        yield put(getallworkorder_request({}));
+
       }
   });
 

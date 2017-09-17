@@ -9,10 +9,12 @@ import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 import { withRouter } from 'react-router-dom';
 import "../../css/antd.min.css";
-
+import {ui_resetsearch} from '../../actions';
 
 class Page extends React.Component {
-
+    componentWillMount() {
+      this.props.dispatch(ui_resetsearch({}));
+    }
     rowClick(record, index, event){
         console.log(record.DeviceId);
         this.props.history.push(`/alarminfo/${record._id}`)

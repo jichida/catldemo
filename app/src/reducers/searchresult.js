@@ -10,6 +10,8 @@ import {
 
   ui_selcurdevice_result,
   getcurallalarm_result,
+
+  ui_resetsearch,
 } from '../actions';
 import _ from 'lodash';
 
@@ -25,6 +27,10 @@ const initial = {
 };
 
 const searchresult = createReducer({
+  [ui_resetsearch]:(state,payload)=>{
+    let searchresult_alaram = [...state.curallalarm];
+    return { ...state, searchresult_alaram};
+  },
   [getcurallalarm_result]:(state,payload)=>{
       let curallalarm =[];
       let alarms = {...state.alarms};
