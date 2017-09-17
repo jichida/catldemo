@@ -7,10 +7,13 @@ import _ from 'lodash';
 import moment from 'moment';
 import jsondatatrack from '../test/1602010008.json';
 import jsondataalarm from '../test/json-BMS2.json';
+import {groups} from './bmsdata_group.js';
 
 const getrandom=(min,max)=>{
   return parseInt(Math.random()*(max-min+1)+min,10);
 }
+
+let jsondata_bms_groups = groups;
 //获取地理位置信息，封装为promise
 let jsondata = _.filter(jsondatareadonly_device,(item) => {
   let thisdata = false;
@@ -25,6 +28,7 @@ let jsondata = _.filter(jsondatareadonly_device,(item) => {
 });
 _.map(jsondata,(item)=>{
     item.imagetype = '0';
+    item.groupid = jsondata_bms_groups[getrandom(0,jsondata_bms_groups.length-1)]._id;
     //车辆
     item.isonline = getrandom(0,1)===0?true:false;
 });
@@ -105,7 +109,7 @@ for(let i=0;i<10;i++){
     cloneitem.DeviceId = jsondata[deviceindexalarm].DeviceId;
     cloneitem.key = indexworkorder + '';
     cloneitem._id = cloneitem.key;
-    
+
     cloneitem['工单号'] = cloneitem.key;
     cloneitem['车辆ID'] = cloneitem.DeviceId;
     cloneitem['营运公司'] = test_workorder_company_text[getrandom(0,test_workorder_company_text.length-1)];
@@ -127,5 +131,6 @@ export {
   jsondata_bms_alarm,
   jsondata_bms_workorder,
   gmap_chargingpile,
+  jsondata_bms_groups,
   getrandom
 };

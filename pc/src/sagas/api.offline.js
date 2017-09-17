@@ -53,6 +53,7 @@ import  {
   jsondataalarm,
   jsondata_bms_alarm,
   jsondata_bms_workorder,
+  jsondata_bms_groups,
   getrandom
 } from '../test/bmsdata.js';
 
@@ -62,7 +63,7 @@ import {g_devicesdb} from './mapmain';
 import _ from 'lodash';
 import {getgeodata} from '../sagas/mapmain_getgeodata';
 //获取地理位置信息，封装为promise
-import jsondataprovinces from '../util/provinces.json';
+
 import moment from 'moment';
 
 export function* apiflow(){//
@@ -266,15 +267,23 @@ export function* apiflow(){//
    yield takeEvery(`${querydevicegroup_request}`, function*(action) {
        try{
       // yield put(querydevicegroup_result({list:jsondata}));
-          let groups = [];
-          _.map(jsondataprovinces,(v,index)=>{
-            groups.push({
-              _id:`${v.code}`,
-              name:`${v.name}`
-            });
-          });
+          // let groups = [];
+          // if(config.softmode === 'pc'){
+          //   _.map(jsondataprovinces,(v,index)=>{
+          //     groups.push({
+          //       _id:`${v.code}`,
+          //       name:`${v.name}`
+          //     });
+          //   });
+          // }
+          // else{
+          //   _.map(jsondata_bms_groups,(v,index)=>{
+          //     groups.push(v);
+          //   });
+          // }
 
-          yield put(querydevicegroup_result({list:groups}));
+
+          yield put(querydevicegroup_result({list:jsondata_bms_groups}));
         }
         catch(e){
           console.log(e);

@@ -18,7 +18,6 @@ import{
 } from '../actions';
 import _ from 'lodash';
 import {getadcodeinfo} from '../util/addressutil';
-import {getgroupnamebydevice} from '../util/device';
 import {get_initgeotree} from '../util/treedata';
 
 const {datatree,gmap_acode_treename,gmap_acode_treecount} = get_initgeotree();
@@ -261,8 +260,9 @@ const device = createReducer({
       type:'group_root',
       children:[]
     };
+
     const devicesgroups = _.groupBy(list,(dev)=>{
-      return getgroupnamebydevice(dev)._id;
+      return dev.groupid;
     });
     _.map(devicesgroups,(csz,ckey)=>{
         let name = _.get(state.groups[ckey],'name','');
