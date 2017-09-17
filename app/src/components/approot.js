@@ -28,6 +28,7 @@ import Setting from './index/setting';
 import Settinguser from './index/settinguser';
 import Settingmessage from './index/settingmessage';
 import MapPage from './admincontent';
+import Alaraminfo from './warningdevice/alarminfo';
 import "../css/common.css";
 
 class AppMap extends React.Component {
@@ -97,6 +98,7 @@ class AppRoot extends React.Component {
                     <Route path="/setting" component={Setting} />
                     <Route path="/settinguser" component={Settinguser} />
                     <Route path="/settingmessage" component={Settingmessage} />
+                    <Route path="/alarminfo/:alarmid" component={Alaraminfo} />
                 </Switch>
                 <AppMap />
             </div>

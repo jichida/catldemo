@@ -7,15 +7,15 @@ import { Table, Icon } from 'antd';
 import _ from 'lodash';
 import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
+import { withRouter } from 'react-router-dom';
 import "../../css/antd.min.css";
 
-import {ui_alarm_selcurdevice} from '../../actions';
 
 class Page extends React.Component {
 
-    rowClick = (record, index, event)=>{
+    rowClick(record, index, event){
         console.log(record.DeviceId);
-        this.props.dispatch(ui_alarm_selcurdevice(record.DeviceId));
+        this.props.history.push(`/alarminfo/${record._id}`)
     }
 
     render() {
@@ -57,7 +57,7 @@ class Page extends React.Component {
                 dataSource={alaram_data}
                 pagination={false}
                 style={{flexGrow: 1}}
-                onRowClick={this.rowClick}
+                onRowClick={this.rowClick.bind(this)}
                 scroll={{ y: this.props.tableheight }}
                 />
         );
@@ -90,21 +90,7 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
         }
     })
 
-    // let delrow = (row)=>{
-    //     console.log(row);
-    // }
-    //
-    // let columns_action ={
-    //     title: "操作",
-    //     dataIndex: '',
-    //     key: 'x',
-    //     render: (text, row, index) => {
-    //         return (<a onClick={()=>{delrow(row)}}>派发工单</a>);
-    //     }
-    // }
-    //
-    // columns.push(columns_action);
-
     return {g_devicesdb,alarms,searchresult_alaram, alaram_data, columns};
 }
+Page = withRouter(Page);
 export default connect(mapStateToProps)(Page);
