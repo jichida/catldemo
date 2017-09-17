@@ -8,7 +8,6 @@ import _ from 'lodash';
 import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 import "../../css/antd.min.css";
-import {jsondata_bms_mydevice} from '../../test/bmsdata.js';
 import {ui_mycar_selcurdevice} from '../../actions';
 import { withRouter } from 'react-router-dom';
 
@@ -16,39 +15,50 @@ class Page extends React.Component {
 
     rowClick = (record, index, event)=>{
         console.log(record.carid);
-        // this.props.dispatch(ui_mycar_selcurdevice(record.carid));
-        this.props.history.push(`/deviceinfo/${record.carid}`);
+        this.props.history.push(`/deviceinfo/${record.DeviceId}`);
     }
 
     render() {
+        const { groupid,g_devicesdb} = this.props;
+        let mydevices = [];
+        _.map(g_devicesdb,(item)=>{
+          if(item.groupid === groupid){
+            mydevices.push(item);
+          }
+        });
         const columns = [{
             title: '车牌',
-            dataIndex: 'carid',
-            key: 'carid'
+            dataIndex: 'DeviceId',
+            key: 'DeviceId'
         }, {
             title: 'VIN',
-            dataIndex: 'vin',
-            key: 'vin',
+            dataIndex: 'VIN',
+            key: 'VIN',
         }, {
             title: '运营年限',
-            dataIndex: 'year',
-            key: 'year',
+            dataIndex: '运营年限',
+            key: '运营年限',
         }, {
             title: '总里程',
-            dataIndex: 'mileage',
-            key: 'mileage',
+            dataIndex: '总里程',
+            key: '总里程',
         },{
             title: '容量保有率',
-            dataIndex: 'baoyou',
-            key: 'baoyou',
+            dataIndex: '容量保有率',
+            key: '容量保有率',
         }, {
             title: '位置',
-            key: 'point'
+            dataIndex: '位置',
+            key: '位置'
         }];
         return (
-            <Table columns={columns} dataSource={jsondata_bms_mydevice} pagination={false} style={{flexGrow: 1}} onRowClick={this.rowClick} />
+            <Table columns={columns} dataSource={mydevices} pagination={false} style={{flexGrow: 1}} onRowClick={this.rowClick} />
         );
     }
 }
 Page = withRouter(Page);
-export default connect()(Page);
+const mapStateToProps = ({device}) => {
+  const {g_devicesdb} = device;
+  return {g_devicesdb};
+}
+export default connect(mapStateToProps)(Page);

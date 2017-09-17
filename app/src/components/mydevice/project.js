@@ -10,7 +10,6 @@ import Footer from "../index/footer.js";
 import Datalist from "./datalist";
 import MapPage from '../admincontent';
 import {ui_mycar_showtype} from '../../actions';
-import {jsondata_bms_mydevice} from '../../test/bmsdata.js';
 import Searchimg from "../../img/22.png";
 
 class Page extends React.Component {
@@ -29,6 +28,24 @@ class Page extends React.Component {
     render() {
         const height =  window.innerHeight - 70 - 60 - 66.08;
         const mydevicecontentstyle = {pointerEvents: "none",background : "#FFF", flexGrow : "1"};
+        let groupid = this.props.match.params.groupid;
+        let count_connected = 0;
+        let count_running = 0;
+        let count_error = 0;
+        const {g_devicesdb} = this.props;
+        _.map(g_devicesdb,(item)=>{
+          if(item.groupid === groupid){
+            if(item.isconnected){
+              count_connected++;
+            }
+            if(item.isrunning){
+              count_running++;
+            }
+            if(item.iserror){
+              count_error++;
+            }
+          }
+        });
         return (
             <div className="mydevicePage AppPage"
                 style={{
@@ -48,20 +65,21 @@ class Page extends React.Component {
                     { !this.state.searchonfocus && <span className="searchplaceholder" onClick={this.onfocusinput}><img src={Searchimg} /><span>搜索车辆ID</span></span> }
                 </div>
                 <div className="mydevicecontent" style={mydevicecontentstyle}>
-
                     <div className="mydevicecontentlist">
-                        <div className="devicenum"><span>联网车辆：{`${jsondata_bms_mydevice.length}`}辆</span>
-                        <span className='c'>运行车辆：{`${jsondata_bms_mydevice.length}`}辆</span>
-                        <span>故障车辆：1辆</span></div>
-                        <Datalist />
+                        <div className="devicenum"><span>联网车辆：{`${count_connected}`}辆</span>
+                        <span className='c'>运行车辆：{`${count_running}`}辆</span>
+                        <span>故障车辆：{`${count_error}`}辆</span></div>
+                        <Datalist groupid={groupid}/>
                     </div>
                 </div>
             </div>
         );
     }
 }
-const data = ({app}) => {
+const mapStateToProps = ({app,device}) => {
   const {ui_mydeivce_showtype} = app;
-  return {ui_mydeivce_showtype};
+  const {groups,g_devicesdb} = device;
+  return {ui_mydeivce_showtype,groups,g_devicesdb};
 }
-export default connect(data)(Page);
+
+export default connect(mapStateToProps)(Page);

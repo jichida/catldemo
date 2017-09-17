@@ -1,43 +1,27 @@
 import data_bms_mydevice from '../test/bms_mydevice.json';
 import data_bms_alarm from '../test/bms_alarm.json';
 import data_bms_workorder from '../test/workorder.json';
-import jsondatareadonly_device from '../test/bmsdata_device.json';
 import jsondatareadonly_chargingpile from '../test/bmsdata_chargingpile.json';
 import _ from 'lodash';
 import moment from 'moment';
 import jsondatatrack from '../test/1602010008.json';
 import jsondataalarm from '../test/json-BMS2.json';
 import {groups} from './bmsdata_group.js';
+import {jsondata} from './bms_devices';
 
 const getrandom=(min,max)=>{
   return parseInt(Math.random()*(max-min+1)+min,10);
 }
 
+//分组【项目】
 let jsondata_bms_groups = groups;
-//获取地理位置信息，封装为promise
-let jsondata = _.filter(jsondatareadonly_device,(item) => {
-  let thisdata = false;
-  if(!!item.LastHistoryTrack){
-    if(!!item.LastHistoryTrack.Latitude){
-      if(item.LastHistoryTrack.Latitude > 0){
-        thisdata = !!item.LastHistoryTrack.Province;
-      }
-    }
-  }
-  return thisdata;
-});
-_.map(jsondata,(item)=>{
-    item.imagetype = '0';
-    item.groupid = jsondata_bms_groups[getrandom(0,jsondata_bms_groups.length-1)]._id;
-    //车辆
-    item.isonline = getrandom(0,1)===0?true:false;
-});
 
+//充电桩
 let gmap_chargingpile = {};
-let jsondata_chargingpile = _.filter(jsondatareadonly_chargingpile,(item) => {
+let jsondata_bms_chargingpile = _.filter(jsondatareadonly_chargingpile,(item) => {
   return true;
 });
-_.map(jsondata_chargingpile,(item,index)=>{
+_.map(jsondata_bms_chargingpile,(item,index)=>{
     item.DeviceId = item['充电桩编号'];
     item.LastHistoryTrack = {
       Latitude:item.LastHistoryTrack__Latitude,
@@ -48,17 +32,15 @@ _.map(jsondata_chargingpile,(item,index)=>{
     gmap_chargingpile[item.DeviceId] = item;
 });
 
+//设备
+let jsondata_bms_mydevice = jsondata;
 
-let jsondatasamle_bms_mydevice = _.sampleSize(jsondata,data_bms_mydevice.length);
-let jsondata_bms_mydevice = [];
+//报警
 let jsondata_bms_alarm = [];
+
+//工单
 let jsondata_bms_workorder =[];
 
-
-_.map(data_bms_mydevice,(item,index)=>{
-  item.DeviceId = jsondatasamle_bms_mydevice[index].DeviceId;
-  jsondata_bms_mydevice.push(item);
-});
 
 //制造报警数据
 const test_alaram_text=['绝缘故障','高压互锁','SOC过低'];
@@ -96,6 +78,7 @@ for(let i=0;i<30;i++){
 // "部位" : "",
 // "故障描述" : "",
 // "责任人" : "",
+//制造工单数据
 const test_workorder_company_text = ['上海巴士','北京巴士','江苏巴士','安徽巴士'];
 const test_workorder_errorcode_text = ['U87','S22','F34','E22'];
 const test_workorder_part_text = ['车身','发动机','方向盘','坐骑'];
@@ -122,15 +105,15 @@ for(let i=0;i<10;i++){
   });
 }
 
+let jsondata_bms_track = jsondatatrack;
 export {
-  jsondata,
-  jsondata_chargingpile,
-  jsondatatrack,
-  jsondataalarm,
+  jsondata_bms_chargingpile,
+  jsondata_bms_track,
   jsondata_bms_mydevice,
   jsondata_bms_alarm,
   jsondata_bms_workorder,
-  gmap_chargingpile,
   jsondata_bms_groups,
+
+  gmap_chargingpile,
   getrandom
 };

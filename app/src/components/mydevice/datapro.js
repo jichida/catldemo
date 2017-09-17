@@ -15,67 +15,44 @@ import { withRouter } from 'react-router-dom';
 class Page extends React.Component {
 
     rowClick = (record, index, event)=>{
-        console.log(record.proid);
-        this.props.history.push(`/project/${record.proid}`);
-        // this.props.dispatch(ui_mycar_selcurdevice(record.carid));
-        
+        this.props.history.push(`/project/${record._id}`);
     }
     render() {
+        const {groupidlist,groups,g_devicesdb} = this.props;
+        let data = [];
+        _.map(groupidlist,(gid)=>{
+          let item = groups[gid];
+          let devicenum = 0;
+          _.map(g_devicesdb,(device)=>{
+            if(device.groupid === gid){
+              devicenum++;
+            }
+          });
+          item['devicenum'] = devicenum;
+          data.push(groups[gid]);
+        });
 
-        const data =[{  
-            "key" : 0,
-            "proname": "ZZT-12KWH",
-            "devicenum": "3",
-            "proid": "1602010003",
-            "powcreate": "3",
-            "engincreate": "34",
-            "controlcreate": "22"
-        }, {
-            "key" : 1,
-            "proname": "ZZT-60KWH",
-            "devicenum": "3",
-            "proid": "1602000002",
-            "powcreate": "3",
-            "engincreate": "34",
-            "controlcreate": "22"
-        }, {
-            "key" : 3,
-            "proname": "ZZT-89KWH",
-            "devicenum": "40",
-            "proid": "1602010001",
-            "powcreate": "3",
-            "engincreate": "34",
-            "controlcreate": "22"
-        }, {
-            "key" : 4,
-            "proname": "ZZT-287KWH",
-            "devicenum": "3",
-            "proid": "1602010007",
-            "powcreate": "3",
-            "engincreate": "34",
-            "controlcreate": "22"
-        }]
 
         const columns = [{
             title: '项目',
-            dataIndex: 'proname',
-            key: 'proname'
+            dataIndex: 'name',
+            key: 'name'
         }, {
             title: '车辆数',
             dataIndex: 'devicenum',
             key: 'devicenum',
         }, {
             title: '电池厂商',
-            dataIndex: 'powcreate',
-            key: 'powcreate',
+            dataIndex: '电池厂商',
+            key: '电池厂商',
         }, {
             title: '电机厂商',
-            dataIndex: 'engincreate',
-            key: 'engincreate',
+            dataIndex: '电机厂商',
+            key: '电机厂商',
         },{
             title: '电控厂商',
-            dataIndex: 'controlcreate',
-            key: 'controlcreate',
+            dataIndex: '电控厂商',
+            key: '电控厂商',
         }];
         return (
             <Table columns={columns} dataSource={data} pagination={false} style={{flexGrow: 1}} onRowClick={this.rowClick} />
@@ -84,4 +61,8 @@ class Page extends React.Component {
 }
 
 Page = withRouter(Page);
-export default connect()(Page);
+const mapStateToProps = ({device}) => {
+    const {groupidlist,groups,g_devicesdb} = device;
+    return {groupidlist,groups,g_devicesdb};
+}
+export default connect(mapStateToProps)(Page);
