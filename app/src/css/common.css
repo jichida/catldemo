@@ -170,7 +170,7 @@
     align-items: center;
     justify-content: center;
     left: 0;
-    top:  0; 
+    top:  0;
     height: 30px;
     color:  #DDD;
     background: #FFF;
@@ -203,7 +203,7 @@
     height: 4px;
     left: 0;
     content: "";
-    background: #5cbeaa;    
+    background: #5cbeaa;
 }
 .footerPage{
      pointer-events: auto;
@@ -305,7 +305,7 @@
     border-left: none;
     right: 20px;
     top: 20px;
-    transform: rotate(45deg); 
+    transform: rotate(45deg);
     -moz-transform:rotate(45deg);    /* Firefox */
     -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
 }
@@ -346,7 +346,7 @@
     border-top: none;
     border-right: none;
     right: 20px;
-    transform: rotate(45deg); 
+    transform: rotate(45deg);
     -moz-transform:rotate(45deg);    /* Firefox */
     -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
 }
@@ -459,7 +459,7 @@
     width: 14px;
     display: inline-block;
     border: 1px solid #666;
-    transform: rotate(45deg); 
+    transform: rotate(45deg);
     -moz-transform:rotate(45deg);    /* Firefox */
     -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
     position: absolute;
@@ -555,7 +555,7 @@
     position: relative;
 }
 .settingmessage .selli:active{
-    background: #EEE; 
+    background: #EEE;
 }
 .settingmessage label{
     font-size: 16px;
@@ -579,7 +579,7 @@
 }
 .deviceinfocontent{
     flex-grow: 1;
-    overflow-y: scroll;    
+    overflow-y: scroll;
 }
 div.mydevicebtn{
     display: flex;
@@ -662,7 +662,7 @@ div.mydevicebtn{
     font-size: 16px;
     background: none;
     padding-right: 10px;
-}   
+}
 .amap-overlays .amap-ui-infowindow-body.amap-ui-smp-ifwn-info-content button:after{
     content: "";
     display: inline-block;
@@ -682,14 +682,3 @@ div.mydevicebtn{
 .amap-overlays .amap-info > div:first-child {
     width: 100%;
 }
-
-
-
-
-
-
-
-
-
-
-
