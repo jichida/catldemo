@@ -47,7 +47,10 @@ import {
   queryworkorder_result,
 
   setalarmreaded_request,
-  setalarmreaded_result
+  setalarmreaded_result,
+
+  setworkorderdone_request,
+  setworkorderdone_result
 } from '../actions';
 import  {
   jsondata_bms_chargingpile,
@@ -80,6 +83,23 @@ export function* apiflow(){//
         }
       });
       yield put(setalarmreaded_result(item));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+  yield takeLatest(`${setworkorderdone_request}`, function*(action) {
+    try{
+      const {payload:{query,data}} = action;
+      let item;
+      _.map(jsondata_bms_workorder,(workorder)=>{
+        if(workorder._id === query._id){
+          workorder = {...workorder,...data};
+          item = workorder;
+        }
+      });
+      yield put(setworkorderdone_result(item));
    }
    catch(e){
      console.log(e);

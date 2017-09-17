@@ -5,3 +5,7 @@ export const getallworkorder_result = createAction('getallworkorder_result');
 
 export const queryworkorder_request = createAction('queryworkorder_request');
 export const queryworkorder_result = createAction('queryworkorder_result');
+
+//设置工单为已处理
+export const setworkorderdone_request  = createAction('setworkorderdone_request');
+export const setworkorderdone_result = createAction('setworkorderdone_result');

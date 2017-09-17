@@ -9,7 +9,7 @@ import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 import { withRouter } from 'react-router-dom';
 import "../../css/antd.min.css";
-import {jsondata_bms_workorder} from '../../test/bmsdata.js';
+
 
 class Page extends React.Component {
 
@@ -17,8 +17,8 @@ class Page extends React.Component {
         const {workorder_datas} = this.props;
         const columns = [{
             title: '工号',
-            dataIndex: 'workerid',
-            key: 'workerid'
+            dataIndex: '_id',
+            key: '_id'
         }, {
             title: '状态',
             dataIndex: 'isdone',
@@ -47,7 +47,7 @@ class Page extends React.Component {
                 dataSource={workorder_datas}
                 pagination={false}
                 style={{flexGrow: 1,overflow: "scroll"}}
-                onRowClick={(item)=>{this.props.history.push(`/workorderinfo/${item.workerid}`)}}
+                onRowClick={(item)=>{this.props.history.push(`/workorderinfo/${item._id}`)}}
                 scroll={{ y: this.props.tableheight }}
                 />
         );

@@ -12,18 +12,14 @@ import Datalist from "./datalist";
 import Updataimg from "../../img/18.png";
 import { Button } from 'antd';
 import _ from 'lodash';
-import {jsondata_bms_workorder} from '../../test/bmsdata';
-import {ui_selworkorder} from '../../actions';
+
+import {ui_selworkorder,setworkorderdone_request} from '../../actions';
 // import co from 'co';
 // import OSS from 'ali-oss';
 import $ from "jquery";
 
 
-
 class Page extends React.Component {
-
-
-
 
     constructor(props) {
         super(props);
@@ -43,6 +39,12 @@ class Page extends React.Component {
     setfile =(e)=>{
         console.log(e);
 
+    }
+    onWorkorderdone(){
+      this.props.dispatch(setworkorderdone_request({
+        query:{_id:this.props.match.params.workid},
+        data:{isdone:true}
+      }));
     }
 
     uploadfile =()=>{
@@ -76,14 +78,11 @@ class Page extends React.Component {
         this.props.dispatch(ui_selworkorder(id));
     }
     render() {
-        const {showmenu,showhistoryplay,showdistcluster,showhugepoints,p} = this.props;
-        const pushurl = (name)=>{
-            this.props.history.push(name);
-        }
-        let data = _.find(jsondata_bms_workorder,(item)=>{
-            return item.workerid === this.props.match.params.workid;
-        });
+        const {workorders} = this.props;
+
+        let data = workorders[this.props.match.params.workid];
         const colorred = {color: "#C00"};
+        let title = data.isdone?`已处理工单:${data._id}`:`待处理工单:${data._id}`
         return (
             <div className="indexPage AppPage"
                 style={{
@@ -92,7 +91,7 @@ class Page extends React.Component {
                 }}>
                 <div className="navhead">
                     <a className="back" onClick={()=>{this.props.history.goBack()}}></a>
-                    <span className="title" style={{paddingLeft : "34px"}}>待处理工单</span>
+                    <span className="title" style={{paddingLeft : "34px"}}>{title}</span>
                     <a onClick={this.pointdevice.bind(this, data.DeviceId)} style={{color : "#FFF", fontSize: "16px"}}>定位设备</a>
                 </div>
                 <div className="workerorderinfo">
@@ -113,10 +112,15 @@ class Page extends React.Component {
                         <input type="file" onChange={(e)=>{this.setfile(e)}} />
                     </div>
 
-                    <Button type="primary">确认并提交审单员</Button>
+                    <Button type="primary" onClick={this.onWorkorderdone.bind(this)}>确认并提交审单员</Button>
                 </div>
             </div>
         );
     }
 }
-export default connect()(Page);
+
+const mapStateToProps = ({workorder}) => {
+  const {workorders} = workorder;
+  return {workorders};
+}
+export default connect(mapStateToProps)(Page);

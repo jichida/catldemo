@@ -26,6 +26,9 @@ import {
 
   getcurallalarm_request,
   getallworkorder_request,
+
+  setworkorderdone_request,
+  setworkorderdone_result
 } from '../actions';
 import { push,goBack,go,replace } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 import _ from 'lodash';
@@ -33,7 +36,13 @@ import coordtransform from 'coordtransform';
 import {getgeodata} from '../sagas/mapmain_getgeodata';
 import {g_devicesdb} from './mapmain';
 
+
 export function* wsrecvsagaflow() {
+  yield takeLatest(`${setworkorderdone_request}`, function*(action) {
+      yield take(`${setworkorderdone_result}`);
+      yield put(goBack());
+  });
+
   yield takeLatest(`${querydevice_result}`, function*(action) {
     yield put(start_serverpush_devicegeo_sz({}));
   });
