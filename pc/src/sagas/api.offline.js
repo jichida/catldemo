@@ -47,10 +47,9 @@ import {
   queryworkorder_result,
 } from '../actions';
 import  {
-  jsondata,
-  jsondata_chargingpile,
-  jsondatatrack,
-  jsondataalarm,
+  jsondata_bms_chargingpile,
+  jsondata_bms_track,
+  jsondata_bms_mydevice,
   jsondata_bms_alarm,
   jsondata_bms_workorder,
   jsondata_bms_groups,
@@ -162,10 +161,10 @@ export function* apiflow(){//
         let viewmode = action.payload;
         let jsondata_result_2;
         if(viewmode === 'device'){
-          jsondata_result_2 = jsondata;
+          jsondata_result_2 = jsondata_bms_mydevice;
         }
         else{
-          jsondata_result_2 = jsondata_chargingpile;
+          jsondata_result_2 = jsondata_bms_chargingpile;
         }
 
         yield put(querydevice_result({list:jsondata_result_2}));
@@ -177,7 +176,7 @@ export function* apiflow(){//
 
   yield takeEvery(`${querydevice_request}`, function*(action) {
     try{
-       yield put(querydevice_result({list:jsondata}));
+       yield put(querydevice_result({list:jsondata_bms_mydevice}));
      }
      catch(e){
        console.log(e);
@@ -188,7 +187,7 @@ export function* apiflow(){//
   yield takeEvery(`${searchbattery_request}`, function*(action) {
     try{
         const {payload:{query}} = action;
-        const list = _.sampleSize(jsondata, 20);
+        const list = _.sampleSize(jsondata_bms_mydevice, 20);
         yield put(searchbattery_result({list}));
       }
       catch(e){
@@ -316,7 +315,7 @@ export function* apiflow(){//
           mend = tmp;
         }
         let list = [];
-        list = _.filter(jsondatatrack,(item)=>{
+        list = _.filter(jsondata_bms_track,(item)=>{
           return (item.GPSTime >= mstart) && (item.GPSTime <= mend);
         });
         yield put(queryhistorytrack_result({list:list}));
@@ -333,7 +332,7 @@ export function* apiflow(){//
           return state.app.modeview;
         });
         if('device' === modeview){
-            const list = _.sampleSize(jsondata, 1000);
+            const list = _.sampleSize(jsondata_bms_mydevice, 1000);
             let items = [];
             for(let i = 0;i < list.length; i++){
               let item = {...list[i]};

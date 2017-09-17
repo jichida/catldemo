@@ -51,7 +51,7 @@ import {
 }from '../actions';
 
 import _ from 'lodash';
-import {jsondata_chargingpile} from '../test/bmsdata.js';
+import {jsondata_bms_chargingpile} from '../test/bmsdata.js';
 
 /**
  * The `maxHeight` property limits the height of the menu, above which it will be scrollable.
@@ -374,16 +374,16 @@ class Page extends React.Component {
                 </div>
             );
         }
-        // let count_0 = _.countBy(jsondata_chargingpile,(item)=>{
+        // let count_0 = _.countBy(jsondata_bms_chargingpile,(item)=>{
         //   return item.imagetype == 4;
         // });
-        // let count_1 = _.countBy(jsondata_chargingpile,(item)=>{
+        // let count_1 = _.countBy(jsondata_bms_chargingpile,(item)=>{
         //   return item.imagetype == 5;
         // });
-        // let count_2 = _.countBy(jsondata_chargingpile,(item)=>{
+        // let count_2 = _.countBy(jsondata_bms_chargingpile,(item)=>{
         //   return item.imagetype == 6;
         // });
-        let count_chargingpile_obj = _.countBy(jsondata_chargingpile,'imagetype');
+        let count_chargingpile_obj = _.countBy(jsondata_bms_chargingpile,'imagetype');
         //充电桩模式
         return (
             <div className="BadgeStyle">
