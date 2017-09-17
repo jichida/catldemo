@@ -275,7 +275,7 @@ class Page extends React.Component {
                       })
                     }
 
-                    
+
                 </div>
                 <div className="mydevicebtn">
                         {!isincollections &&
@@ -293,7 +293,7 @@ class Page extends React.Component {
                              ()=>{
                                console.log("轨迹回放");
                                this.props.dispatch(ui_sel_tabindex(4));
-                               this.props.history.replace('/playback');
+                               this.props.history.replace(`/playback/${deviceid}`);
                              }
                          }>轨迹回放</Button>
                     </div>

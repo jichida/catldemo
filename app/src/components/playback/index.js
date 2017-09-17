@@ -21,51 +21,36 @@ import Footer from "../index/footer.js";
 import Seltime from "../tools/seltime.js";
 import { Button } from 'antd';
 import moment from 'moment';
+import _ from 'lodash';
 
 import { TreeSelect } from 'antd';
 const TreeNode = TreeSelect.TreeNode;
 
-const treeData = [
-    {
-        label: 'Child Node1',
-        value: '0-0-1',
-        key: '0-0-1',
-    },
-    {
-        label: 'Child Node2',
-        value: '0-0-2',
-        key: '0-0-2',
-    },
-    {
-        label: 'Node2',
-        value: '0-1',
-        key: '0-1',
-    },
-    {
-        label: 'Node2',
-        value: '0-1',
-        key: '0-2',
-    },
-    {
-        label: 'Node2',
-        value: '0-1',
-        key: '0-3',
-    },
-    {
-        label: 'Node2',
-        value: '0-1',
-        key: '0-4',
-    }];
 
 class SelectDevice extends React.Component {
-  state = {
-    value: undefined,
+  constructor(props) {
+      super(props);
+      this.state = {
+        value:props.initdeviceid
+      }
   }
+
   onChange = (value) => {
     console.log(arguments);
     this.setState({ value });
+    this.props.onSelDeviceid(value);
   }
   render() {
+    const treeData = [];
+    const {g_devicesdb} = this.props;
+    _.map(g_devicesdb,(item)=>{
+      let data = {
+          label: `${item.DeviceId}`,
+          value: `${item.DeviceId}`,
+          key: `${item.DeviceId}`,
+      };
+      treeData.push(data);
+    });
     return (
       <TreeSelect
         showSearch
@@ -78,52 +63,82 @@ class SelectDevice extends React.Component {
         onChange={this.onChange}
         treeData={treeData}
         />
-        
+
     );
   }
 }
-
+const mapStateToPropsSelectDevice = ({device}) => {
+    const {g_devicesdb} = device;
+    return {g_devicesdb};
+}
+SelectDevice = connect(mapStateToPropsSelectDevice)(SelectDevice);
 
 class Page extends React.Component {
     constructor(props) {
         super(props);
+        let deviceid =  this.props.match.params.deviceid;
+        if(deviceid === '0'){
+          deviceid = '';
+        }
         this.state = {
             time: new Date(),
             isOpen: false,
             seltype : 0,
-            starttime : '',
-            endtime : '',
-            deviceid : '',
+            startDate:moment().subtract(5, 'hours'),
+            endDate:moment(),
+            deviceid,
             mindata : new Date(1970, 0, 1),
             showset : false,
         };
     }
+    onSelDeviceid(deviceid){
+      this.setState({
+        deviceid
+      });
+    }
     onClickStart(){
-        const {mapseldeviceid,g_devicesdb} = this.props;
-        // const {startDate,endDate} = this.state;
-        this.props.dispatch(mapplayback_start({isloop:false,speed:5000,query:{}}));
-        this.showset();
+        const {deviceid,startDate,endDate} = this.state;
+        const {g_devicesdb} = this.props;
+        if(!!g_devicesdb[deviceid]){
+          this.props.dispatch(mapplayback_start({isloop:false,speed:5000,query:{DeviceId:deviceid,startDate,endDate}}));
+          this.showset();
+        }
+        else{
+          console.log(`无效的设备id`);
+        }
     }
     onClickEnd(){
         this.showset();
         this.props.dispatch(mapplayback_end({}));
-
     }
-    
+
     handleClick = (v) => {
-        this.setState({ 
-            isOpen: true, 
+        this.setState({
+            isOpen: true,
             seltype : v
         });
+
+        //选中当前时间
+        if(v === 0){
+          this.setState({
+              time: new Date(this.state.startDate)
+          });
+        }
+        else{
+          this.setState({
+              time: new Date(this.state.endDate)
+          });
+        }
+        //限制时间
         if(v===1){
             if(this.state.starttime!==''){
-                this.setState({ 
-                    mindata: new Date(this.state.starttime)
+                this.setState({
+                    mindata: new Date(this.state.startDate)
                 });
             }
         }else{
-            this.setState({ 
-                mindata: new Date(1970, 0, 1) 
+            this.setState({
+                mindata: new Date(1970, 0, 1)
             });
         }
     }
@@ -132,18 +147,17 @@ class Page extends React.Component {
 
     }
     showset =()=>{
-        this.setState({ 
+        this.setState({
             showset: !this.state.showset
         });
     }
     handleSelect = (time) => {
-        const t = moment(time).format("YYYY-MM-DD, H:mm");
+        const t = moment(time);
         if(this.state.seltype===0){
-            this.setState({ starttime: t, isOpen: false });
+            this.setState({ startDate: t, isOpen: false});
         }
         if(this.state.seltype===1){
-
-            this.setState({ endtime: t, isOpen: false });
+            this.setState({ endDate: t, isOpen: false });
         }
     }
     render() {
@@ -166,37 +180,41 @@ class Page extends React.Component {
                         <img src={Searchimg} /></a>
                 </div>
                 {
-                    this.state.showset && 
+                    this.state.showset &&
                     <div className="set seltimewamp">
                         <div className="deviceinfo">
                             <img src={Car} />
                             <span>车辆信息</span>
-                            <span><SelectDevice placeholder={"请输入设备ID"} /></span>
+                            <span>
+                              <SelectDevice placeholder={"请输入设备ID"}
+                                 initdeviceid={this.state.deviceid}
+                                 onSelDeviceid={this.onSelDeviceid.bind(this)}/>
+                            </span>
                         </div>
                         <div className="seltimecontent" onClick={this.handleClick.bind(this, 0)}>
                             <img src={Searchimg2} />
-                            <span>{ this.state.starttime!==''? this.state.starttime : "起始时间"}</span>
+                            <span>起始时间:{ this.state.startDate.format('YYYY-MM-DD HH:mm')}</span>
                         </div>
                         <div className="seltimecontent" onClick={this.handleClick.bind(this, 1)}>
                             <img src={Searchimg2} />
-                            <span>{ this.state.endtime!==''? this.state.endtime : "结束时间"}</span>
+                            <span>结束时间:{ this.state.endDate.format('YYYY-MM-DD HH:mm')}</span>
                         </div>
                         <div className="seltimebtn">
-                            <RaisedButton label="开始" 
-                                backgroundColor={"#67bd82"} labelColor={"#FFF"} 
+                            <RaisedButton label="开始"
+                                backgroundColor={"#67bd82"} labelColor={"#FFF"}
                                 onClick={this.onClickStart.bind(this)}
                                 buttonStyle={{width:"100px",height : "30px", lineHeight : "30px"}}
                                 />
-                            <RaisedButton label="结束" 
-                                backgroundColor={"#3a52a2"} labelColor={"#FFF"} 
-                                onClick={this.onClickEnd.bind(this)} 
+                            <RaisedButton label="结束"
+                                backgroundColor={"#3a52a2"} labelColor={"#FFF"}
+                                onClick={this.onClickEnd.bind(this)}
                                 style={{marginLeft: "30px"}}
                                 buttonStyle={{width:"100px",height : "30px", lineHeight : "30px"}}
                                 />
                         </div>
                     </div>
                 }
-                
+
                 <Map height={height}/>
                 <Footer sel={4} />
                 <DatePicker
@@ -212,7 +230,8 @@ class Page extends React.Component {
         );
     }
 }
-const mapStateToProps = ({device:{mapseldeviceid,devices}}) => {
-  return {mapseldeviceid,devices};
+const mapStateToProps= ({device}) => {
+    const {g_devicesdb} = device;
+    return {g_devicesdb};
 }
 export default connect(mapStateToProps)(Page);

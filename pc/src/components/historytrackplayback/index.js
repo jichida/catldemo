@@ -49,9 +49,14 @@ class Page extends React.Component {
 
       constructor(props) {
           super(props);
+          let deviceid =  this.props.match.params.deviceid;
+          if(deviceid === '0'){
+            deviceid = '';
+          }
           this.state = {
             startDate:moment().subtract(5, 'hours'),
             endDate:moment(),
+            deviceid,
           }
       }
 
@@ -63,17 +68,23 @@ class Page extends React.Component {
     }
 
     onClickStart(){
-      const {mapseldeviceid,g_devicesdb} = this.props;
-      const {startDate,endDate} = this.state;
-      this.props.dispatch(mapplayback_start({isloop:false,speed:5000,query:{DeviceId:mapseldeviceid,startDate,endDate}}));
-    }
+      const {deviceid,startDate,endDate} = this.state;
+      const {g_devicesdb} = this.props;
+      if(!!g_devicesdb[deviceid]){
+        this.props.dispatch(mapplayback_start({isloop:false,speed:5000,query:{DeviceId:deviceid,startDate,endDate}}));
+      }
+      else{
+        console.log(`无效的设备id`);
+      }
+  }
     onClickEnd(){
       this.props.dispatch(mapplayback_end({}));
     }
     render() {
-        const {mapseldeviceid,g_devicesdb} = this.props;
+        const {deviceid} = this.state;
+        const {g_devicesdb} = this.props;
         let DeviceId;
-        let deviceitem = g_devicesdb[mapseldeviceid];
+        let deviceitem = g_devicesdb[deviceid];
         if(!!deviceitem){
           DeviceId = deviceitem.DeviceId;
         }
@@ -118,7 +129,7 @@ class Page extends React.Component {
         );
     }
 }
-const mapStateToProps = ({device:{mapseldeviceid,g_devicesdb}}) => {
-  return {mapseldeviceid,g_devicesdb};
+const mapStateToProps = ({device:{g_devicesdb}}) => {
+  return {g_devicesdb};
 }
 export default connect(mapStateToProps)(Page);
