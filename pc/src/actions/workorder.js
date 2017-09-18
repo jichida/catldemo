@@ -9,3 +9,7 @@ export const queryworkorder_result = createAction('queryworkorder_result');
 //设置工单为已处理
 export const setworkorderdone_request  = createAction('setworkorderdone_request');
 export const setworkorderdone_result = createAction('setworkorderdone_result');
+
+//新建工单
+export const createworkorder_request  = createAction('createworkorder_request');
+export const createworkorder_result = createAction('createworkorder_result');

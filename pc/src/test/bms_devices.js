@@ -23,7 +23,7 @@ let jsondata = _.filter(jsondatareadonly_device,(item) => {
 if(config.softmode === 'pc'){
 }
 else{
-  jsondata = _.sampleSize(jsondata,30);
+  jsondata = _.sampleSize(jsondata,456);
 }
 
 
@@ -37,9 +37,9 @@ _.map(jsondata,(item,index)=>{
     item.iserror = getrandom(0,1)===0?true:false;
     item['车牌'] = `车牌${index}`;
     item['VIN'] = `VIN${index}`;
-    item['运营年限'] = `运营年限${index}`;
-    item['总里程'] = `总里程${index}`;
-    item['容量保有率'] = `容量保有率${index}`;
+    item['运营年限'] = `${getrandom(5,10)}`;
+    item['总里程'] = `${getrandom(50000,500000)}`;
+    item['容量保有率'] = `${getrandom(1,100)}`;
     item['位置'] =jsondatareadonly_chargingpile[getrandom(0,jsondatareadonly_chargingpile.length-1)].address.formattedAddress;
 
 });

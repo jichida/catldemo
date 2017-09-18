@@ -29,7 +29,6 @@ const loczero = L.latLng(0,0);
 let gPathSimplifier,pathSimplifierIns;
 const CreateMapUI =  (map)=>{
     return new Promise((resolve,reject) => {
-
         //加载PathSimplifier，loadUI的路径参数为模块名中 'ui/' 之后的部分
          window.AMapUI.load(['ui/misc/PathSimplifier'], (PathSimplifier)=> {
           gPathSimplifier = PathSimplifier;
@@ -108,7 +107,6 @@ const startplayback = ({isloop,speed})=>{
 }
 
 let createmap =({mapcenterlocation,zoomlevel})=> {
-
   return new Promise((resolve,reject) => {
     if(!mapcenterlocation.equals(loczero) && !window.amaptrackhistoryplayback ){
       let center = new window.AMap.LngLat(mapcenterlocation.lng,mapcenterlocation.lat);
@@ -148,17 +146,17 @@ let createmap =({mapcenterlocation,zoomlevel})=> {
   });
 }
 
-const listenmapevent = (eventname)=>{
-  return new Promise(resolve => {
-    if(!!window.amaptrackhistoryplayback){
-      window.amaptrackhistoryplayback.on(eventname, (e)=> {
-          resolve(eventname);
-      });
-    }
-
-  });
-}
-
+// const listenmapevent = (eventname)=>{
+//   return new Promise(resolve => {
+//     if(!!window.amaptrackhistoryplayback){
+//       window.amaptrackhistoryplayback.on(eventname, (e)=> {
+//           resolve(eventname);
+//       });
+//     }
+//
+//   });
+// }
+//
 
 const getmapstate_curdevice = (state) => {
   const {device:{g_devicesdb,mapseldeviceid}} = state;
@@ -197,14 +195,14 @@ export function* createmaptrackhistoryplaybackflow(){
           yield call(CreateMapUI,window.amaptrackhistoryplayback);
 
 
-          let task_zoomend =  yield fork(function*(eventname){
-            while(true){
-              yield call(listenmapevent,eventname);
-              // let centerlocation = window.amapmain.getCenter();
-              // let centerlatlng = L.latLng(centerlocation.lat, centerlocation.lng);
-              yield put(mapmain_setzoomlevel(window.amaptrackhistoryplayback.getZoom()));
-            }
-          },'zoomend');
+          // let task_zoomend =  yield fork(function*(eventname){
+          //   while(true){
+          //     yield call(listenmapevent,eventname);
+          //     // let centerlocation = window.amapmain.getCenter();
+          //     // let centerlatlng = L.latLng(centerlocation.lat, centerlocation.lng);
+          //     yield put(mapmain_setzoomlevel(window.amaptrackhistoryplayback.getZoom()));
+          //   }
+          // },'zoomend');
 
           while(true){
             let {payload:{divmapid}} = yield take(`${carmapshow_destorymap}`);
@@ -213,26 +211,29 @@ export function* createmaptrackhistoryplaybackflow(){
             }
           }
 
-          yield cancel(task_zoomend);
+          // yield cancel(task_zoomend);
         }
       }
       catch(e){
-
-
+        console.log(e);
       }
 
     });
 
     //销毁地图
     yield takeEvery(`${carmapshow_destorymap}`, function*(action_destorymap) {
-      let {payload:{divmapid}} = action_destorymap;
-      if(divmapid === divmapid_maptrackhistoryplayback){
-        window.amaptrackhistoryplayback = null;
-      }
+        let {payload:{divmapid}} = action_destorymap;
+        if(divmapid === divmapid_maptrackhistoryplayback){
+          window.amaptrackhistoryplayback = null;
+        }
+        navg0 = null;
+        gPathSimplifier = null;
+        pathSimplifierIns = null;
     });
 
     yield takeLatest(`${ui_selcurdevice_request}`,function*(actioncurdevice){
       try{
+        if(!!window.amaptrackhistoryplayback){
           const {payload:{DeviceId,deviceitem}} = actioncurdevice;
           if(!!deviceitem){
             const LastHistoryTrack = deviceitem.LastHistoryTrack;
@@ -245,10 +246,10 @@ export function* createmaptrackhistoryplaybackflow(){
             }
           }
         }
-        catch(e){
-
-
-        }
+      }
+      catch(e){
+        console.log(e);
+      }
     });
 
     //mapplayback_start
@@ -287,8 +288,7 @@ export function* createmaptrackhistoryplaybackflow(){
 
         }
         catch(e){
-
-
+          console.log(e);
         }
     });
     //mapplayback_end
@@ -300,8 +300,7 @@ export function* createmaptrackhistoryplaybackflow(){
         }
       }
       catch(e){
-
-
+        console.log(e);
       }
     });
 }
