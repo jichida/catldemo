@@ -127,7 +127,13 @@ for(let i=0;i<10;i++){
     cloneitem['部位'] = test_workorder_part_text[getrandom(0,test_workorder_part_text.length-1)];
     cloneitem['责任人'] = test_workorder_assgin_text[getrandom(0,test_workorder_assgin_text.length-1)];
     cloneitem['故障地点'] = jsondatareadonly_chargingpile[getrandom(0,jsondatareadonly_chargingpile.length-1)].address.formattedAddress;
-
+    cloneitem.isdone = getrandom(0,1);
+    cloneitem.pics = [];
+    if(cloneitem.isdone){
+      for(let i=0;i<getrandom(1,5);i++){
+        cloneitem.pics.push(`https://unsplash.it/300/200/?random`);
+      }
+    }
     jsondata_bms_workorder.push(cloneitem);
   });
 }
