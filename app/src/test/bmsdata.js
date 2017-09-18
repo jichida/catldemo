@@ -120,6 +120,8 @@ for(let i=0;i<10;i++){
     cloneitem.key = indexworkorder + '';
     cloneitem._id = cloneitem.key;
 
+    let secago = getrandom(0,60*60*24*5);
+    cloneitem.createtime = moment().subtract(secago, 'seconds').format('YYYY-MM-DD HH:mm:ss');
     cloneitem['工单号'] = cloneitem.key;
     cloneitem['车辆ID'] = cloneitem.DeviceId;
     cloneitem['营运公司'] = test_workorder_company_text[getrandom(0,test_workorder_company_text.length-1)];
@@ -127,7 +129,7 @@ for(let i=0;i<10;i++){
     cloneitem['部位'] = test_workorder_part_text[getrandom(0,test_workorder_part_text.length-1)];
     cloneitem['责任人'] = test_workorder_assgin_text[getrandom(0,test_workorder_assgin_text.length-1)];
     cloneitem['故障地点'] = jsondatareadonly_chargingpile[getrandom(0,jsondatareadonly_chargingpile.length-1)].address.formattedAddress;
-    cloneitem.isdone = getrandom(0,1);
+    cloneitem.isdone = getrandom(0,1)?true:false;
     cloneitem.pics = [];
     if(cloneitem.isdone){
       for(let i=0;i<getrandom(1,5);i++){

@@ -23,7 +23,7 @@ let jsondata = _.filter(jsondatareadonly_device,(item) => {
 if(config.softmode === 'pc'){
 }
 else{
-  jsondata = _.sampleSize(jsondata,30);
+  jsondata = _.sampleSize(jsondata,456);
 }
 
 
