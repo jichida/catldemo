@@ -45,6 +45,12 @@ import {
 
   queryworkorder_request,
   queryworkorder_result,
+
+  setalarmreaded_request,
+  setalarmreaded_result,
+
+  setworkorderdone_request,
+  setworkorderdone_result
 } from '../actions';
 import  {
   jsondata_bms_chargingpile,
@@ -66,6 +72,41 @@ import {getgeodata} from '../sagas/mapmain_getgeodata';
 import moment from 'moment';
 
 export function* apiflow(){//
+  yield takeLatest(`${setalarmreaded_request}`, function*(action) {
+    try{
+      const {payload} = action;
+      let item;
+      _.map(jsondata_bms_alarm,(alarm)=>{
+        if(alarm._id === payload){
+          alarm.isreaded = true;
+          item = alarm;
+        }
+      });
+      yield put(setalarmreaded_result(item));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+  yield takeLatest(`${setworkorderdone_request}`, function*(action) {
+    try{
+      const {payload:{query,data}} = action;
+      let item;
+      _.map(jsondata_bms_workorder,(workorder)=>{
+        if(workorder._id === query._id){
+          workorder = {...workorder,...data};
+          item = workorder;
+        }
+      });
+      yield put(setworkorderdone_result(item));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+
   yield takeLatest(`${getallworkorder_request}`, function*(action) {
     try{
       yield put(getallworkorder_result({list:jsondata_bms_workorder}));
@@ -210,7 +251,24 @@ export function* apiflow(){//
         }
         else{
           //随机生成
-            list = _.sampleSize(jsondata_bms_alarm, getrandom(0,jsondata_bms_alarm.length));
+            list = jsondata_bms_alarm;//_.sampleSize(jsondata_bms_alarm, getrandom(0,jsondata_bms_alarm.length));
+        }
+
+        let startdatestring = _.get(query,'queryalarm.startDate','');
+        let enddatestring = _.get(query,'queryalarm.endDate','');
+        if(startdatestring !== '' && enddatestring !== ''){
+          list = _.filter(list,(item)=>{
+            let waringtime = item['告警时间'];
+            let match = (startdatestring <= waringtime) && (waringtime <= enddatestring);
+            return match;
+         });
+        }
+
+        //是否已读
+        if(query.hasOwnProperty('isreaded')){
+          list = _.filter(list,(item)=>{
+            return item.isreaded === query.isreaded;
+         });
         }
       }
       else{

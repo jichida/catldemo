@@ -51,7 +51,7 @@ class Page extends React.Component {
         const {deviceid,startDate,endDate} = this.state;
         const {g_devicesdb} = this.props;
         if(!!g_devicesdb[deviceid]){
-          this.props.dispatch(mapplayback_start({isloop:false,speed:5000,query:{DeviceId:deviceid,startDate,endDate}}));
+          this.props.dispatch(mapplayback_start({isloop:false,speed:60,query:{DeviceId:deviceid,startDate,endDate}}));
           this.showset();
         }
         else{

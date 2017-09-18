@@ -45,3 +45,7 @@ export const serverpush_devicegeo_sz_result = createAction('serverpush_devicegeo
 
 export const start_serverpush_devicegeo_sz= createAction('start_serverpush_devicegeo_sz');
 export const stop_serverpush_devicegeo_sz= createAction('stop_serverpush_devicegeo_sz');
+
+//设置报警信息已读
+export const setalarmreaded_request= createAction('setalarmreaded_request');
+export const setalarmreaded_result= createAction('setalarmreaded_result');

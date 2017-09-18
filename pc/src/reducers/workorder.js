@@ -3,6 +3,7 @@ import {
   //登录
     getallworkorder_result,
     queryworkorder_result,
+    setworkorderdone_result,
 } from '../actions';
 import _ from 'lodash';
 
@@ -15,6 +16,12 @@ const initial = {
 };
 
 const workorder = createReducer({
+  [setworkorderdone_result]:(state,payload)=>{
+    let item = payload;
+    let workorders = {...state.workorders};
+    workorders[item._id] = item;
+    return { ...state, workorders};
+  },
   [getallworkorder_result]: (state, payload) => {
     let curallworkorder =[];
     let workorders = {...state.workorders};

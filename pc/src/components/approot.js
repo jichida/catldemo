@@ -21,8 +21,8 @@ import Login from './login/login.js';
 import MapPage from './admincontent';
 import WeuiTool from './tools/weuitool';
 
-
-
+import Alaraminfo from './alarm/alarminfo';
+import Workorderinfo from './workorder/info';
 
 
 import {requireAuthentication} from './requireauthentication';
@@ -63,11 +63,13 @@ class AppRoot extends React.Component {
                     <Route path="/message" component={requireAuthentication(Message)} />
                     <Route path="/device" component={requireAuthentication(Device)} />
                     <Route path="/deviceinfo/:id" component={requireAuthentication(Deviceinfo)} />
-                    <Route path="/chargingpileinfo/:id" component={requireAuthentication(Chargingpileinfo)} />      
+                    <Route path="/chargingpileinfo/:id" component={requireAuthentication(Chargingpileinfo)} />
                     <Route path="/devicemessage/:id" component={requireAuthentication(Devicemessage)} />
                     <Route path="/historyplay/:id" component={requireAuthentication(Historyplay)} />
                     <Route path="/workorder" component={requireAuthentication(Workorder)} />
                     <Route path="/chartlist/:id" component={requireAuthentication(Chartlist)} />
+                    <Route path="/alarminfo/:alarmid" component={Alaraminfo} />
+                    <Route path="/workorderinfo/:workid" component={Workorderinfo} />
                 </Switch>
                 <div>
                     <Index history={this.props.history}/>

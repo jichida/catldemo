@@ -10,8 +10,9 @@ import userlogin from './userlogin';
 import carmap from './carmap';
 import searchresult from './searchresult';
 import workorder from './workorder';
-
+import pic from './pic';
 export default combineReducers({
+  pic,
   app,
   carmap,
   searchresult,
