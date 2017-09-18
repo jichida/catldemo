@@ -42,17 +42,12 @@ const selitem_alarmfields = [
     },
 ];
 
-const gmap_warninglevel = {
-  'all':-1,
-  'red':0,
-  'orange':1,
-  'yellow':2
-};
+
 class TreeSearchBattery extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-        alarmlevel:'red',
+        alarmlevel:'-1',
         startDate:moment().subtract(3600*12, 'seconds'),
         endDate:moment(),
       };
@@ -74,8 +69,8 @@ class TreeSearchBattery extends React.Component {
     };
     query.queryalarm['startDate'] = this.state.startDate.format('YYYY-MM-DD HH:mm:ss');
     query.queryalarm['endDate'] = this.state.endDate.format('YYYY-MM-DD HH:mm:ss');
-    if(this.state.alarmlevel !== ''){
-      query.queryalarm['warninglevel'] = gmap_warninglevel[this.state.alarmlevel];
+    if(this.state.alarmlevel !== '-1'){
+      query.queryalarm['warninglevel'] = parseInt(this.state.alarmlevel);
     }
     console.log(`【searchdevicemessage】查询条件:${JSON.stringify(query)}`);
     if(!!this.props.onClickQuery){
@@ -91,11 +86,11 @@ class TreeSearchBattery extends React.Component {
                       startDate = {this.state.startDate}
                       endDate = {this.state.endDate}
                      onChangeSelDate={this.onChangeSelDate.bind(this)}/>
-                     <Select defaultValue={"all"}   onChange={this.onChange_alarmlevel.bind(this)}>
-                         <Option value="all" >全部</Option>
-                         <Option value="red" >严重告警</Option>
-                         <Option value="orange" >紧急告警</Option>
-                         <Option value="yellow" >一般告警</Option>
+                     <Select defaultValue={'-1'}   onChange={this.onChange_alarmlevel.bind(this)}>
+                         <Option value={'-1'} >全部</Option>
+                         <Option value={'0'} >严重告警</Option>
+                         <Option value={'1'} >紧急告警</Option>
+                         <Option value={'2'} >一般告警</Option>
                      </Select>
                 </div>
                 <div className="b">

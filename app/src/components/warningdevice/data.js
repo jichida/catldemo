@@ -45,19 +45,20 @@ class Page extends React.Component {
       this.setState({showdata: false});
       let v = this.state.seltype;
       let query = {};
-      if(warninglevel != -1){
-        query.warninglevel = warninglevel;
-      }
-      if(v === 0){
-        query.isreaded = false;
-      }
-      else if(v === 1){
-        query.isreaded = true;
-      }
+
       query.queryalarm = {
         startDate:startDate.format('YYYY-MM-DD HH:mm:ss'),
         endDate:endDate.format('YYYY-MM-DD HH:mm:ss'),
       };
+      if(warninglevel != -1){
+        query.queryalarm.warninglevel = warninglevel;
+      }
+      if(v === 0){
+        query.queryalarm.isreaded = false;
+      }
+      else if(v === 1){
+        query.queryalarm.isreaded = true;
+      }
       this.props.dispatch(searchbatteryalarm_request({query}));
     }
     onChangeWarninglevel(event, index, value){
@@ -69,19 +70,20 @@ class Page extends React.Component {
         const {startDate,endDate,warninglevel} = this.state;
         this.setState({seltype : v});
         let query = {};
-        if(warninglevel != -1){
-          query.warninglevel = warninglevel;
-        }
-        if(v === 0){
-          query.isreaded = false;
-        }
-        else if(v === 1){
-          query.isreaded = true;
-        }
+
         query.queryalarm = {
           startDate:startDate.format('YYYY-MM-DD HH:mm:ss'),
           endDate:endDate.format('YYYY-MM-DD HH:mm:ss'),
         };
+        if(warninglevel != -1){
+          query.queryalarm.warninglevel = warninglevel;
+        }
+        if(v === 0){
+          query.queryalarm.isreaded = false;
+        }
+        else if(v === 1){
+          query.queryalarm.isreaded = true;
+        }
         this.props.dispatch(searchbatteryalarm_request({query}));
     }
     handleClick = (v) => {

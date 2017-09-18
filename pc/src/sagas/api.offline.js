@@ -242,11 +242,11 @@ export function* apiflow(){//
       const {payload:{query}} = action;
       let list = [];
       if(!!query){
-        let warninglevel = _.get(query,'warninglevel',-1);
+        let warninglevel = _.get(query,'queryalarm.warninglevel',-1);
         if(warninglevel !== -1){
           //报警等级
           list = _.filter(jsondata_bms_alarm,(item)=>{
-            return item.warninglevel === query.warninglevel;
+            return item.warninglevel === warninglevel;
           });
         }
         else{
@@ -265,11 +265,14 @@ export function* apiflow(){//
         }
 
         //是否已读
-        if(query.hasOwnProperty('isreaded')){
-          list = _.filter(list,(item)=>{
-            return item.isreaded === query.isreaded;
-         });
+        if(!!query.queryalarm){
+          if(query.queryalarm.hasOwnProperty('isreaded')){
+            list = _.filter(list,(item)=>{
+              return item.isreaded === query.queryalarm.isreaded;
+           });
+          }
         }
+
       }
       else{
         //all

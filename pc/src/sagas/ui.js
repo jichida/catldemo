@@ -69,7 +69,9 @@ export function* uiflow(){//仅执行一次
   yield takeLatest(`${ui_btnclick_alaramred}`, function*(action) {
     yield put(searchbatteryalarm_request({
       query:{
-        warninglevel:0
+        queryalarm:{
+          warninglevel:0
+        }
       }
     }));
     console.log(`点击红色告警`);
@@ -80,7 +82,9 @@ export function* uiflow(){//仅执行一次
   yield takeLatest(`${ui_btnclick_alaramorange}`, function*(action) {
     yield put(searchbatteryalarm_request({
       query:{
-        warninglevel:1
+        queryalarm:{
+          warninglevel:1
+        }
       }
     }));
     console.log(`点击橙色告警`);
@@ -91,7 +95,9 @@ export function* uiflow(){//仅执行一次
   yield takeLatest(`${ui_btnclick_alaramyellow}`, function*(action) {
     yield put(searchbatteryalarm_request({
       query:{
-        warninglevel:2
+        queryalarm:{
+          warninglevel:2
+        }
       }
     }));
     console.log(`点击黄色告警`);
