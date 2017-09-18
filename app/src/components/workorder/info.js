@@ -98,14 +98,14 @@ class Page extends React.Component {
                     <div className="tit">维修反馈</div>
                     <div className="infoimg">
                         {
-                          !data.isdone && <PicturesWall value={pics} onChange={this.onChangePics.bind(this)} />
+                          !data.isdone ? <PicturesWall value={pics} onChange={this.onChangePics.bind(this)} />:null
                         }
                         {
-                          data.isdone && <div>这里显示照片列表:{`${JSON.stringify(pics)}`},点击放大 </div>
+                          data.isdone ? <div>这里显示照片列表:{`${JSON.stringify(pics)}`},点击放大 </div>:null
                         }
                     </div>
 
-                    <Button type="primary" onClick={this.onWorkorderdone.bind(this)}>确认并提交审单员</Button>
+                    {!data.isdone ? <Button type="primary" onClick={this.onWorkorderdone.bind(this)}>确认并提交审单员</Button>:null}
                 </div>
             </div>
         );
