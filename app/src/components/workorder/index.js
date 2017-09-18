@@ -10,6 +10,7 @@ import Footer from "../index/footer.js";
 import Collectiondevice from "../collectiondevice";
 import Datalist from "./datalist";
 import _ from 'lodash';
+import moment from 'moment';
 import {
   getallworkorder_request,
   queryworkorder_request
@@ -70,6 +71,19 @@ class Page extends React.Component {
 
         const colorred = {color: "#C00"};
 
+        let leastdays = 1;
+        let earlytimeo = _.minBy(workorder_datas,(o)=>{
+          return o.createtime;
+        });
+        if(!!earlytimeo){
+          try{
+            let days = moment().diff(moment(earlytimeo.createtime),'days');
+            leastdays = days+1;
+          }
+          catch(e){
+            console.log(e);
+          }
+        }
         return (
             <div className="indexPage AppPage"
                 style={{
@@ -80,7 +94,7 @@ class Page extends React.Component {
                     <span className="title">工单处理</span>
                 </div>
                 <div className="workorderlist">
-                    <div className="contenttit">过去7天内工共发生<span style={colorred}>
+                    <div className="contenttit">过去<span style={colorred}>{`${leastdays}`}</span>天内工共发生<span style={colorred}>
                       {`${count_all}`} </span>
                     起故障,已处理<span style={colorred}> {`${count_done}`} </span>
                     起,未处理 <span style={colorred}>{`${count_undo}`} </span>起</div>

@@ -58,6 +58,7 @@ class Page extends React.Component {
         }
         else{
           console.log(`无效的设备id`);
+          alert(`请选择可用车辆`);
         }
     }
     onClickEnd(){
