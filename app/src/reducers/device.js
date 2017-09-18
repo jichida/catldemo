@@ -19,12 +19,13 @@ import{
 import _ from 'lodash';
 import {getadcodeinfo} from '../util/addressutil';
 import {get_initgeotree} from '../util/treedata';
+import {jsondata_bms_carcollections} from '../test/bmsdata';
 
 const {datatree,gmap_acode_treename,gmap_acode_treecount} = get_initgeotree();
 const initial = {
   device:{
     treefilter:undefined,
-    carcollections:['1602000001','1602000002'],
+    carcollections:jsondata_bms_carcollections,
     mapseldeviceid:undefined,//当前选中的车辆
     // mapdeviceidlist:[],
     gmap_acode_treename,//key:acode/value:name

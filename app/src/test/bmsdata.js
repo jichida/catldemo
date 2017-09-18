@@ -145,6 +145,11 @@ for(let i=0;i<20;i++){
   });
 }
 
+let jsondata_bms_carcollections = [];
+for(let i=0;i<5;i++){
+  jsondata_bms_carcollections.push(jsondata[i].DeviceId);
+}
+
 let jsondata_bms_track = jsondatatrack;
 export {
   jsondata_bms_chargingpile,
@@ -153,6 +158,7 @@ export {
   jsondata_bms_alarm,
   jsondata_bms_workorder,
   jsondata_bms_groups,
+  jsondata_bms_carcollections,
 
   gmap_chargingpile,
   getrandom
