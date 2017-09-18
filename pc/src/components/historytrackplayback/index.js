@@ -20,7 +20,8 @@ import {
 } from '../../actions';
 import Seltime from '../search/seltime.js';
 import moment from 'moment';
-
+import _ from 'lodash';
+import SelectDevice from './selectdevice.js';
 
 const fGetCurrentWeek=function(m){
         let sWeek=m.format('dddd');
@@ -59,7 +60,11 @@ class Page extends React.Component {
             deviceid,
           }
       }
-
+      onSelDeviceid(deviceid){
+          this.setState({
+              deviceid
+          });
+      }
     onChangeSelDate(startDate,endDate){
       this.setState({
         startDate,
@@ -88,6 +93,10 @@ class Page extends React.Component {
         if(!!deviceitem){
           DeviceId = deviceitem.DeviceId;
         }
+        let deviceidlist = [];
+        _.map(g_devicesdb,(item)=>{
+            deviceidlist.push(item.DeviceId);
+        });
         const formstyle={width:"10px",flexGrow:"1"};
         const startdate_moment = this.state.startDate;
         const enddate_moment = this.state.endDate;
@@ -95,7 +104,17 @@ class Page extends React.Component {
             <div className="historytrackplayback" id="historytrackplayback">
                 <div className="appbar" style={{height: "72px"}}>
                     <i className="fa fa-angle-left back" aria-hidden="true" onClick={()=>{this.props.history.goBack();}}></i>
-                    <div className="title">车辆编号：{DeviceId || ''}</div>
+                    <div className="deviceinfo">
+
+                        <span>车辆信息</span>
+                        <span>
+                            <SelectDevice placeholder={"请输入设备ID"}
+                                initdeviceid={this.state.deviceid}
+                                onSelDeviceid={this.onSelDeviceid.bind(this)}
+                                deviceidlist={deviceidlist}
+                            />
+                        </span>
+                    </div>
                     <div className="anddday">
                         <div className="seldayli">
                             <Day color={"#333"} style={{width: "26px", height : "26px"}} />
