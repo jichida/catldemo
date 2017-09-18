@@ -3,27 +3,16 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import Avatar from "../../img/2.png";
-import Userlnk from "../../img/11.png";
-import Setting from "../../img/12.png";
-import Footer from "../index/footer.js";
-import Collectiondevice from "../collectiondevice";
-import Datalist from "./datalist";
-import Updataimg from "../../img/18.png";
 import { Button } from 'antd';
 import _ from 'lodash';
-import PicturesWall  from '../controls/pictureswall.js';
-import {ui_selworkorder,setworkorderdone_request} from '../../actions';
+import {ui_selworkorder} from '../../actions';
+
 
 class Page extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            innerWidth : window.innerWidth,
-            selstatus : 0,
-            selworkorder : 0,
-            fileobj : '',
             pics:[],
         };
     }
@@ -38,26 +27,12 @@ class Page extends React.Component {
       }
     }
 
-    onWorkorderdone(){
-      this.props.dispatch(setworkorderdone_request({
-        query:{_id:this.props.match.params.workid},
-        data:{
-          pics:this.state.pics,
-          isdone:true,
-        }
-      }));
-    }
-
     pointdevice =(id)=>{
         console.log(id);
         //定位设备
         this.props.dispatch(ui_selworkorder(id));
     }
-    onChangePics(picsurl){
-      this.setState({
-        pics:picsurl || []
-      });
-    }
+
     render() {
         const {workorders} = this.props;
         const {pics} = this.state;
@@ -89,10 +64,14 @@ class Page extends React.Component {
                     </ul>
                     <div className="tit">维修反馈</div>
                     <div className="infoimg">
-                        <PicturesWall value={pics} onChange={this.onChangePics.bind(this)} isdone={data.isdone} candel={false} />
+                        {
+                          !data.isdone ? <div>已完成</div>:null
+                        }
+                        {
+                          data.isdone ? <div>这里显示照片列表:{`${JSON.stringify(pics)}`},点击放大 </div>:null
+                        }
                     </div>
 
-                    {!data.isdone ? <Button type="primary" onClick={this.onWorkorderdone.bind(this)}>确认并提交审单员</Button>:null}
                 </div>
             </div>
         );

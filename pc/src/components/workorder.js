@@ -49,8 +49,21 @@ class MessageAllDevice extends React.Component {
     }
 
     render(){
-        const {g_devicesdb,workorder_data,columns} = this.props;
+        let {g_devicesdb,workorder_data,columns} = this.props;
 
+        let delrow = (row)=>{
+            console.log(row);
+            this.props.history.push(`/workorderinfo/${row._id}`);
+        }
+        let columns_action ={
+            title: "操作",
+            dataIndex: '',
+            key: 'x',
+            render: (text, row, index) => {
+                return (<a onClick={()=>{delrow(row)}}>查看</a>);
+            }
+        }
+        columns.push(columns_action);
         return (
             <div className="warningPage" style={{height : window.innerHeight+"px"}}>
 
@@ -97,18 +110,7 @@ const mapStateToProps = ({device:{g_devicesdb},workorder:{searchresult_workorder
             }
         }
     })
-    let delrow = (row)=>{
-        console.log(row);
-    }
-    let columns_action ={
-        title: "操作",
-        dataIndex: '',
-        key: 'x',
-        render: (text, row, index) => {
-            return (<a onClick={()=>{delrow(row)}}>删除</a>);
-        }
-    }
-    columns.push(columns_action);
+
     console.log(workorder_data);
     return {g_devicesdb,workorders,searchresult_workorder, workorder_data, columns};
 }

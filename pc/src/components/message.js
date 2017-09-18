@@ -90,8 +90,22 @@ class MessageAllDevice extends React.Component {
     }
 
     render(){
-        const {g_devicesdb,alarms,searchresult_alaram,alaram_data,columns} = this.props;
+        let {g_devicesdb,alarms,searchresult_alaram,alaram_data,columns} = this.props;
+        let delrow = (row)=>{
+            console.log(row);
+            this.props.history.push(`/alarminfo/${row._id}`);
+        }
 
+        let columns_action ={
+            title: "操作",
+            dataIndex: '',
+            key: 'x',
+            render: (text, row, index) => {
+                return (<a onClick={()=>{delrow(row)}}>查看</a>);
+            }
+        }
+
+        columns.push(columns_action);
         return (
             <div className="warningPage" style={{height : window.innerHeight+"px"}}>
 
@@ -135,20 +149,7 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
         }
     })
 
-    let delrow = (row)=>{
-        console.log(row);
-    }
 
-    let columns_action ={
-        title: "操作",
-        dataIndex: '',
-        key: 'x',
-        render: (text, row, index) => {
-            return (<a onClick={()=>{delrow(row)}}>派发工单</a>);
-        }
-    }
-
-    columns.push(columns_action);
 
     return {g_devicesdb,alarms,searchresult_alaram, alaram_data, columns};
 }

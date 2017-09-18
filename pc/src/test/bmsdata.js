@@ -73,7 +73,7 @@ let jsondata_bms_workorder =[];
 const test_alaram_text=['绝缘故障','高压互锁','SOC过低'];
 const test_warning_level_text=['严重告警','紧急告警','一般告警'];
 let indexalarm  = 0;
-for(let i=0;i<10;i++){
+for(let i=0;i<30;i++){
   _.map(data_bms_alarm,(item,index)=>{
     let cloneitem = {...item};
     indexalarm++;
@@ -87,7 +87,7 @@ for(let i=0;i<10;i++){
     cloneitem['告警等级'] = test_warning_level_text[cloneitem.warninglevel];
     cloneitem['车辆ID'] = cloneitem.DeviceId;
     let secago = getrandom(0,60*60*12);
-    cloneitem.isreaded = getrandom(0,1);
+    cloneitem.isreaded = getrandom(0,1)?false:true;
     cloneitem['告警时间'] = moment().subtract(secago, 'seconds').format('YYYY-MM-DD HH:mm:ss');
     cloneitem['报警信息'] = test_alaram_text[getrandom(0,test_alaram_text.length-1)];
     cloneitem['告警位置'] = jsondatareadonly_chargingpile[getrandom(0,jsondatareadonly_chargingpile.length-1)].address.formattedAddress;
@@ -127,7 +127,13 @@ for(let i=0;i<10;i++){
     cloneitem['部位'] = test_workorder_part_text[getrandom(0,test_workorder_part_text.length-1)];
     cloneitem['责任人'] = test_workorder_assgin_text[getrandom(0,test_workorder_assgin_text.length-1)];
     cloneitem['故障地点'] = jsondatareadonly_chargingpile[getrandom(0,jsondatareadonly_chargingpile.length-1)].address.formattedAddress;
-
+    cloneitem.isdone = getrandom(0,1);
+    cloneitem.pics = [];
+    if(cloneitem.isdone){
+      for(let i=0;i<getrandom(1,5);i++){
+        cloneitem.pics.push(`https://unsplash.it/300/200/?random`);
+      }
+    }
     jsondata_bms_workorder.push(cloneitem);
   });
 }

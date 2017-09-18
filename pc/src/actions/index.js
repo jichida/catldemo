@@ -8,3 +8,4 @@ export * from './md';
 export * from './notifymessage';
 export * from './device';
 export * from './workorder';
+export * from './pic';
