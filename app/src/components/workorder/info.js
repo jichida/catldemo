@@ -12,11 +12,9 @@ import Datalist from "./datalist";
 import Updataimg from "../../img/18.png";
 import { Button } from 'antd';
 import _ from 'lodash';
-
+import PicturesWall  from '../controls/pictureswall.js';
 import {ui_selworkorder,setworkorderdone_request} from '../../actions';
-// import co from 'co';
-// import OSS from 'ali-oss';
-import $ from "jquery";
+
 
 
 class Page extends React.Component {
@@ -27,19 +25,21 @@ class Page extends React.Component {
             innerWidth : window.innerWidth,
             selstatus : 0,
             selworkorder : 0,
-            fileobj : ''
+            fileobj : '',
+            pics:[],
         };
     }
 
     componentWillMount(){
-        console.log($);
-        this.uploadfile();
+      const {workorders} = this.props;
+      let data = workorders[this.props.match.params.workid];
+      if(!!data){
+        this.setState({
+          pics:data.pics || []
+        });
+      }
     }
 
-    setfile =(e)=>{
-        console.log(e);
-
-    }
     onWorkorderdone(){
       this.props.dispatch(setworkorderdone_request({
         query:{_id:this.props.match.params.workid},
@@ -47,39 +47,28 @@ class Page extends React.Component {
       }));
     }
 
-    uploadfile =()=>{
-        $.ajax("http://10.10.1.4:3000/users", {}, (d)=>{
-            console.log(d);
-        })
-        // let client = new OSS({
-        //     region: 'oss-cn-beijing',
-        //     accessKeyId: 'LTAIiHKjGyXdxpUy',
-        //     accessKeySecret: '2u6NipTBmHML2QYu8mYoIlmwXTAXEn',
-        //     bucket: 'yinuonet-img'
-        // });
-        // co(function* () {
-        //     let result = yield client.put((new Date()).getTime(), 'local-file');
-        //     console.log(result);
-        // }).catch(function (err) {
-        //     console.log(err);
-        // });
-    }
 
-    indexnavclick=(v)=>{
-        console.log(v);
-        this.setState({selstatus : v});
-    }
-    selworkorders=(v)=>{
-        this.setState({selworkorder : v});
-    }
+    // indexnavclick=(v)=>{
+    //     console.log(v);
+    //     this.setState({selstatus : v});
+    // }
+    // selworkorders=(v)=>{
+    //     this.setState({selworkorder : v});
+    // }
 
     pointdevice =(id)=>{
         console.log(id);
+        //定位设备
         this.props.dispatch(ui_selworkorder(id));
+    }
+    onChangePics(picsurl){
+      this.setState({
+        pics:picsurl || []
+      });
     }
     render() {
         const {workorders} = this.props;
-
+        const {pics} = this.state;
         let data = workorders[this.props.match.params.workid];
         const colorred = {color: "#C00"};
         let title = data.isdone?`已处理工单:${data._id}`:`待处理工单:${data._id}`
@@ -108,8 +97,7 @@ class Page extends React.Component {
                     </ul>
                     <div className="tit">维修反馈</div>
                     <div className="infoimg">
-                        <img src={Updataimg} style={{width: "40px"}} />
-                        <input type="file" onChange={(e)=>{this.setfile(e)}} />
+                        <PicturesWall value={pics} onChange={this.onChangePics.bind(this)}/>
                     </div>
 
                     <Button type="primary" onClick={this.onWorkorderdone.bind(this)}>确认并提交审单员</Button>
