@@ -66,14 +66,22 @@ class Page extends React.Component {
       });
     }
     seltype=(v)=>{
+        const {startDate,endDate,warninglevel} = this.state;
         this.setState({seltype : v});
         let query = {};
+        if(warninglevel != -1){
+          query.warninglevel = warninglevel;
+        }
         if(v === 0){
           query.isreaded = false;
         }
         else if(v === 1){
           query.isreaded = true;
         }
+        query.queryalarm = {
+          startDate:startDate.format('YYYY-MM-DD HH:mm:ss'),
+          endDate:endDate.format('YYYY-MM-DD HH:mm:ss'),
+        };
         this.props.dispatch(searchbatteryalarm_request({query}));
     }
     handleClick = (v) => {

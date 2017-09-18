@@ -251,7 +251,7 @@ export function* apiflow(){//
         }
         else{
           //随机生成
-            list = _.sampleSize(jsondata_bms_alarm, getrandom(0,jsondata_bms_alarm.length));
+            list = jsondata_bms_alarm;//_.sampleSize(jsondata_bms_alarm, getrandom(0,jsondata_bms_alarm.length));
         }
 
         let startdatestring = _.get(query,'queryalarm.startDate','');
@@ -261,6 +261,13 @@ export function* apiflow(){//
             let waringtime = item['告警时间'];
             let match = (startdatestring <= waringtime) && (waringtime <= enddatestring);
             return match;
+         });
+        }
+
+        //是否已读
+        if(query.hasOwnProperty('isreaded')){
+          list = _.filter(list,(item)=>{
+            return item.isreaded === query.isreaded;
          });
         }
       }
