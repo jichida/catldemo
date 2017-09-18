@@ -240,12 +240,12 @@
 }
 .footerPage ul li span.num{
     position: absolute;
-    height: 16px;
-    width: 16px;
+    height: 18px;
+    width: 18px;
     background: #C00;
     color:  #FFF;
-    line-height: 16px;
-    border-radius: 16px;
+    line-height: 18px;
+    border-radius: 18px;
     right: -20px;
     margin-right: 50%;
     top: 5px;
