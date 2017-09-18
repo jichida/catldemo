@@ -55,7 +55,7 @@ class Page extends React.Component {
             key: '电控厂商',
         }];
         return (
-            <Table columns={columns} dataSource={data} pagination={false} style={{flexGrow: 1}} onRowClick={this.rowClick} />
+            <Table columns={columns} dataSource={data} pagination={false} style={{flexGrow: 1}} onRowClick={this.rowClick}  scroll={{ y: this.props.tableheight }}/>
         );
     }
 }

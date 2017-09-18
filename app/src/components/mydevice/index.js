@@ -11,7 +11,7 @@ import Datapro from "./datapro";
 import MapPage from '../admincontent';
 import {ui_mycar_showtype} from '../../actions';
 import Searchimg from "../../img/22.png";
-
+const innerHeight = window.innerHeight;
 class Page extends React.Component {
     constructor(props) {
         super(props);
@@ -59,7 +59,7 @@ class Page extends React.Component {
                     <div className="devicenum"><span>联网车辆：{`${count_connected}`}辆</span>
                     <span className='c'>运行车辆：{`${count_running}`}辆</span>
                     <span>故障车辆：{`${count_error}`}辆</span></div>
-                    <Datapro />
+                    <Datapro tableheight = {innerHeight-38-50-55-68} />
                 </div>
                 <Footer sel={2} />
             </div>
