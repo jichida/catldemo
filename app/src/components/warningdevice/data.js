@@ -39,7 +39,8 @@ class Page extends React.Component {
             showset : false,
         };
     }
-    onClickSearch(){
+    onClickSearch(e){
+        e.stopPropagation();
       const {startDate,endDate,warninglevel} = this.state;
       this.setState({showdata: false});
       let v = this.state.seltype;
@@ -110,9 +111,8 @@ class Page extends React.Component {
 
     }
     showset =()=>{
-        this.setState({
-            showset: !this.state.showset
-        });
+        console.log("sssss")
+        this.setState({ showset: !this.state.showset });
     }
     handleSelect = (time) => {
         const t = moment(time);
@@ -134,7 +134,7 @@ class Page extends React.Component {
         const textFieldStyle={width:"100%",flexGrow:"1"};
         const height =  window.innerHeight - 65 - 209;
         return (
-            <div className="playbackPage AppPage"
+            <div className="playbackPage AppPage warningmessagePage"
                 style={{
                     height : `${window.innerHeight}px`,
                     overflow: "hidden",
@@ -148,7 +148,7 @@ class Page extends React.Component {
                 </div>
                 {
                     this.state.showdata &&
-                    <div className="set">
+                    <div className="set warningmessageset">
                         <div className="title">告警车辆搜索</div>
                         <div className="formlist">
                             <div className="li">
@@ -163,22 +163,22 @@ class Page extends React.Component {
                                 </SelectField>
                             </div>
                             <div className="seltimecontent" onClick={this.handleClick.bind(this, 0)}>
-                                <img src={Searchimg2} />
+                                <img src={Searchimg3} />
                                 <span>起始时间:{ this.state.startDate.format('YYYY-MM-DD HH:mm')}</span>
                             </div>
-                            <div className="seltimecontent" onClick={this.handleClick.bind(this, 1)}>
-                                <img src={Searchimg2} />
+                            <div className="seltimecontent" onClick={this.handleClick.bind(this, 1)} style={{marginBottom: "10px"}}>
+                                <img src={Searchimg3} />
                                 <span>结束时间:{ this.state.endDate.format('YYYY-MM-DD HH:mm')}</span>
                             </div>
                             <RaisedButton
-                                onTouchTap={this.onClickSearch.bind(this)
-                                }
+                                onClick={(e)=>{this.onClickSearch(e);}}
                                 label="搜索"
                                 backgroundColor={"#5cbeaa"}
                                 labelStyle={{fontSize: "16px",color : "#FFF"}}
                                 style={{ margin: "0 15px 20px 15px", width: "auto"}}
                                 />
                         </div>
+                        <div style={{flexGrow: 1}} onClick={()=>{this.setState({showdata: !this.state.showdata})}}></div>
                     </div>
                 }
                 <div className="workordernav">
@@ -186,7 +186,7 @@ class Page extends React.Component {
                     <span className={this.state.seltype===1?"sel":""} onClick={this.seltype.bind(this,1)}>已读报警</span>
                     <span className={this.state.seltype===2?"sel":""} onClick={this.seltype.bind(this,2)}>所有报警</span>
                 </div>
-                <Datalist seltype={this.state.seltype} tableheight={window.innerHeight-58-40-65}/>
+                <Datalist seltype={this.state.seltype} tableheight={window.innerHeight-58-40-65-50}/>
                 <Footer sel={1} />
                 <DatePicker
                     value={this.state.time}

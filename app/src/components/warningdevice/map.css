@@ -11,6 +11,56 @@
     position: relative;
     z-index: 2;
 }
+.playbackPage .set.warningmessageset{
+    display: flex;
+    flex-direction: column;
+}
+.playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:first-child{
+    width: 96px;
+}
+.playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:last-child span{
+    white-space: nowrap;
+    text-overflow:ellipsis; 
+    width: 90px;
+    height: 20px;
+    overflow:hidden;
+    line-height: 20px;
+    display: inline-block;
+}
+.playbackPage.warningmessagePage .ant-table-tbody>tr>td,
+.playbackPage.warningmessagePage .ant-table-thead>tr>th{
+    word-break: normal;
+    width: 25%;
+}
+
+.playbackPage.warningmessagePage .seltimecontent {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid #EEE;
+    position: relative;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+.playbackPage.warningmessagePage .seltimecontent:active{
+    background: #EEE;
+}
+.playbackPage.warningmessagePage .seltimecontent:after{
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #999;
+    right: 20px;
+    top: 20px;
+    position: absolute;
+    transform: rotate(45deg);
+    -moz-transform: rotate(45deg);    /* Firefox */  
+    -webkit-transform: rotate(45deg); /* Safari 和 Chrome */
+    border-bottom: none;
+    border-left: none;
+}
+
 .playbackPage .set .title{
     text-align: center;
     background: #EEE;

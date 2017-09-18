@@ -51,6 +51,7 @@ class Page extends React.Component {
             title: '所在位置',
             dataIndex: '告警位置',
             key: '告警位置',
+            render: (v) => <span>{v}</span>,
         }];
 
         return (

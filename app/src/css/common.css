@@ -383,6 +383,7 @@
 .workordernav {
     display: flex;
     justify-content: space-around;
+    flex-shrink: 0;
 }
 .workordernav span{
     display: inline-block;
@@ -420,6 +421,7 @@
 }
 .playbackPage .formlist{
     background: #FFF;
+    pointer-events: auto;
 }
 .workerorderinfo{
     flex-grow: 1;
