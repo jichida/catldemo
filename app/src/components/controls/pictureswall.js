@@ -42,7 +42,7 @@ class PicturesWall extends React.Component {
     }
 
     console.log('onClick handlePreview fileobj:' + JSON.stringify(fileobj));
-    this.props.dispatch(pic_fileuploadreset({
+    this.props.dispatch(pic_fileuploadsetpreview({
       previewImage: fileobj.url || fileobj.thumbUrl,
       previewVisible: true,
     }));
@@ -79,7 +79,7 @@ class PicturesWall extends React.Component {
 
     });
 
-    this.props.dispatch(pic_fileuploadreset({ fileList:filelistnew }));
+    this.props.dispatch(pic_fileuploadsetpreview({ fileList:filelistnew }));
 
     console.log('uploadedfiles:' + JSON.stringify(uploadedfiles));
     this.props.onChange(uploadedfiles);
@@ -124,7 +124,7 @@ class PicturesWall extends React.Component {
           onPreview={this.handlePreview}
           onChange={this.handleChange}
         >
-          {fileList.length >= 9 ? null : uploadButton}
+          {fileList.length < 3 && uploadButton}
         </Upload>
         <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
           <img alt="example" style={{ width: '100%' }} src={previewImage} />
