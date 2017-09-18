@@ -13,3 +13,6 @@ export const setworkorderdone_result = createAction('setworkorderdone_result');
 //新建工单
 export const createworkorder_request  = createAction('createworkorder_request');
 export const createworkorder_result = createAction('createworkorder_result');
+//获取项目用户（工单用户）
+export const getworkusers_request  = createAction('getworkusers_request');
+export const getworkusers_result = createAction('getworkusers_result');

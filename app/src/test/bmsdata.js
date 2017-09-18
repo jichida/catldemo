@@ -8,6 +8,7 @@ import jsondatatrack from '../test/1602010008.json';
 import jsondataalarm from '../test/json-BMS2.json';
 import {groups} from './bmsdata_group.js';
 import {jsondata} from './bms_devices';
+import {workusers} from './bms_workusers.js';
 
 const getrandom=(min,max)=>{
   return parseInt(Math.random()*(max-min+1)+min,10);
@@ -96,7 +97,7 @@ for(let i=0;i<30;i++){
   });
 }
 // console.log(jsondata_bms_alarm);
-
+let jsondata_bms_workusers = workusers;
 // "工单号" : "",
 // "营运公司" : "",
 // "车辆ID" : "",
@@ -124,6 +125,7 @@ for(let i=0;i<20;i++){
 
     let secago = getrandom(0,60*60*24*5);
     cloneitem.createtime = moment().subtract(secago, 'seconds').format('YYYY-MM-DD HH:mm:ss');
+    cloneitem['assignto'] = jsondata_bms_workusers[getrandom(0,jsondata_bms_workusers.length-1)]._id;
     cloneitem['车牌'] = test_workorder_carid_text[getrandom(0,test_workorder_carid_text.length-1)];
     cloneitem['项目'] = groups[getrandom(0,groups.length-1)].name;
     cloneitem['故障类型'] = test_workorder_type_text[getrandom(0,test_workorder_type_text.length-1)];
@@ -158,6 +160,7 @@ export {
   jsondata_bms_alarm,
   jsondata_bms_workorder,
   jsondata_bms_groups,
+  jsondata_bms_workusers,
   jsondata_bms_carcollections,
 
   gmap_chargingpile,

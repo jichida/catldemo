@@ -50,7 +50,13 @@ import {
   setalarmreaded_result,
 
   setworkorderdone_request,
-  setworkorderdone_result
+  setworkorderdone_result,
+
+  createworkorder_request,
+  createworkorder_result,
+
+  getworkusers_request,
+  getworkusers_result
 } from '../actions';
 import  {
   jsondata_bms_chargingpile,
@@ -59,8 +65,10 @@ import  {
   jsondata_bms_alarm,
   jsondata_bms_workorder,
   jsondata_bms_groups,
+  jsondata_bms_workusers,
   getrandom
 } from '../test/bmsdata.js';
+
 
 import {getRandomLocation} from '../env/geo';
 import coordtransform from 'coordtransform';
@@ -72,6 +80,30 @@ import {getgeodata} from '../sagas/mapmain_getgeodata';
 import moment from 'moment';
 
 export function* apiflow(){//
+  yield takeLatest(`${createworkorder_request}`, function*(action) {
+    try{
+      const {payload} = action;
+      let indexalarm = jsondata_bms_workorder.length;
+      payload.key = indexalarm + '';
+      payload._id = payload.key;
+      payload['工单号'] = payload.key;
+      jsondata_bms_workorder.push(payload);
+      yield put(createworkorder_result(payload));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+  yield takeLatest(`${getworkusers_request}`, function*(action) {
+    try{
+      yield put(getworkusers_result({list:jsondata_bms_workusers}));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
   yield takeLatest(`${setalarmreaded_request}`, function*(action) {
     try{
       const {payload} = action;

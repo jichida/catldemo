@@ -28,7 +28,9 @@ import {
   getallworkorder_request,
 
   setworkorderdone_request,
-  setworkorderdone_result
+  setworkorderdone_result,
+
+  getworkusers_request
 } from '../actions';
 import { push,goBack,go,replace } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
 import _ from 'lodash';
@@ -81,7 +83,8 @@ export function* wsrecvsagaflow() {
       if(result.loginsuccess){
         localStorage.setItem('bms_pc_token',result.token);
         yield put(querydevicegroup_request({}));
-
+        //
+        yield put(getworkusers_request({}));
         //登录成功,获取今天所有报警信息列表
         yield put(getcurallalarm_request({}));
         //获取所有工单

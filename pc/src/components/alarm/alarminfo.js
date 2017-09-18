@@ -5,27 +5,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Button, Modal, Icon, message } from 'antd';
-import { ui_alarm_selcurdevice } from '../../actions';
-
-//工作人员烈白哦
-const workers  = [
-  {
-    name : "关云长",
-    id: "A001"
-  },
-  {
-    name : "张翼德",
-    id: "A002"
-  },
-  {
-    name : "赵子龙",
-    id: "A003"
-  },
-  {
-    name : "刘玄德",
-    id: "A004"
-  }
-]
+import { ui_alarm_selcurdevice,createworkorder_request } from '../../actions';
+import moment from 'moment';
 
 class Page extends React.Component {
     constructor(props) {
@@ -45,13 +26,30 @@ class Page extends React.Component {
             message.warning('您还没有制定派单人员！');
         }else{
             console.log(`开始派发工单给${this.state.selworderid}`);
+            const {g_devicesdb,alarms,workusers} = this.props;
+            let alarmid = this.props.match.params.alarmid;
+            let curalarm =  alarms[alarmid];
+            let cloneitem = {};
+            cloneitem.createtime = moment().format('YYYY-MM-DD HH:mm:ss');
+            cloneitem['assignto'] = this.state.selworderid;
+            cloneitem['车牌'] = '';
+            cloneitem['项目'] = '';
+            cloneitem['故障类型'] = '';
+            cloneitem['车辆ID'] = curalarm['车辆ID'];
+            // cloneitem['部位'] = test_workorder_part_text[getrandom(0,test_workorder_part_text.length-1)];
+            cloneitem['责任人'] = workusers[this.state.selworderid].name;
+            cloneitem['故障地点'] =curalarm['告警位置'];
+            cloneitem.isdone = false;
+            cloneitem.pics = [];
+            this.props.dispatch(createworkorder_request(cloneitem));
+            this.showworderlist(false);
         }
     }
     selworderfn=(selworderid)=>{
         this.setState({ selworderid });
     }
     render() {
-        const {g_devicesdb,alarms} = this.props;
+        const {g_devicesdb,alarms,workusers} = this.props;
         let alarmid = this.props.match.params.alarmid;
         let curalarm =  alarms[alarmid];
         let deviceid = curalarm.DeviceId;
@@ -83,26 +81,26 @@ class Page extends React.Component {
           ],
         };
         return (
-            
+
             <div className="warningPage devicePage deviceinfoPage workorderinfoPage alarminfoPage" style={{height : window.innerHeight+"px"}}>
 
                 <div className="appbar">
                     <i className="fa fa-angle-left back" aria-hidden="true" onClick={()=>{this.props.history.goBack()}}></i>
                     <div className="title">告警详情</div>
-                    <div className="devicebtnlist">   
-                        <Button 
-                            type="primary" 
+                    <div className="devicebtnlist">
+                        <Button
+                            type="primary"
                             icon="environment"
                             onClick={()=>{this.props.dispatch(ui_alarm_selcurdevice(deviceid));}}
                             >定位车辆</Button>
-                        <Button 
-                            type="primary" 
+                        <Button
+                            type="primary"
                             icon="contacts"
                             onClick={()=>{this.showworderlist(true)}}
-                            >派发工单</Button>  
+                            >派发工单</Button>
                     </div>
                 </div>
-                <div 
+                <div
                     className="lists deviceinfolist"
                     style={{overflowY: "scroll"}}
                     >
@@ -121,7 +119,7 @@ class Page extends React.Component {
                         );
                       })
                     }
-                    
+
                 </div>
                 <Modal
                     title="派发工单"
@@ -131,15 +129,15 @@ class Page extends React.Component {
                     onCancel={() => {this.showworderlist(false)}}
                     className="showworderlist"
                     >
-                    { 
-                        _.map(workers, (worder, index)=>{
+                    {
+                        _.map(workusers, (worder, index)=>{
                             return (
-                                <p 
-                                    onClick={()=>{this.selworderfn(worder.id)}}
-                                    key={index}
+                                <p
+                                    onClick={()=>{this.selworderfn(worder._id)}}
+                                    key={worder._id}
                                     >
                                     <span>{worder.name}</span>
-                                    { this.state.selworderid ===worder.id ?
+                                    { this.state.selworderid ===worder._id ?
                                         <Icon type="check-circle" style={{color: "#4DB361"}} />
                                         :<Icon type="check-circle" style={{color: "#EEEEEE"}} />}</p>);
                         })
@@ -150,10 +148,11 @@ class Page extends React.Component {
     }
 }
 
-const mapStateToProps = ({device,searchresult}) => {
+const mapStateToProps = ({device,searchresult,workorder}) => {
     const {g_devicesdb} = device;
     const {alarms} = searchresult;
-    return {g_devicesdb,alarms};
+    const {workusers} = workorder;
+    return {g_devicesdb,alarms,workusers};
 }
 
 export default connect(mapStateToProps)(Page);
