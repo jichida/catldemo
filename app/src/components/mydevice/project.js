@@ -11,12 +11,14 @@ import Datalist from "./datalist";
 import MapPage from '../admincontent';
 import {ui_mycar_showtype} from '../../actions';
 import Searchimg from "../../img/22.png";
+import SelectDevice from '../mydevice/selectdevice.js';
 
 class Page extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchonfocus : false
+            searchonfocus : false,
+            deviceid:''
         };
     }
     onfocusinput=()=>{
@@ -25,7 +27,13 @@ class Page extends React.Component {
     onblurinput=()=>{
         this.setState({searchonfocus : false})
     }
+    onSelDeviceid(deviceid){
+        this.setState({
+          deviceid
+        });
+    }
     render() {
+        let deviceidlist = [];
         const height =  window.innerHeight - 70 - 60 - 66.08;
         const mydevicecontentstyle = {pointerEvents: "none",background : "#FFF", flexGrow : "1"};
         let groupid = this.props.match.params.groupid;
@@ -35,6 +43,7 @@ class Page extends React.Component {
         const {g_devicesdb} = this.props;
         _.map(g_devicesdb,(item)=>{
           if(item.groupid === groupid){
+            deviceidlist.push(item.DeviceId);
             if(item.isconnected){
               count_connected++;
             }
@@ -60,16 +69,18 @@ class Page extends React.Component {
                     </div>
                 </div>
                 <div className="searchcontent headsearch">
-                    { this.state.searchonfocus && <input name="searchinput" onBlur={this.onblurinput} autoFocus /> }
-                    { !this.state.searchonfocus && <input name="searchinput" onBlur={this.onblurinput} /> }
-                    { !this.state.searchonfocus && <span className="searchplaceholder" onClick={this.onfocusinput}><img src={Searchimg} /><span>搜索车辆ID</span></span> }
+                  <SelectDevice placeholder={"请输入设备ID"}
+                     initdeviceid={this.state.deviceid}
+                     onSelDeviceid={this.onSelDeviceid.bind(this)}
+                     deviceidlist={deviceidlist}
+                 />
                 </div>
                 <div className="mydevicecontent" style={mydevicecontentstyle}>
                     <div className="mydevicecontentlist">
                         <div className="devicenum"><span>联网车辆：{`${count_connected}`}辆</span>
                         <span className='c'>运行车辆：{`${count_running}`}辆</span>
                         <span>故障车辆：{`${count_error}`}辆</span></div>
-                        <Datalist groupid={groupid}/>
+                        <Datalist groupid={groupid} curdeviceid={this.state.deviceid}/>
                     </div>
                 </div>
             </div>

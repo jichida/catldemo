@@ -22,56 +22,7 @@ import Seltime from "../tools/seltime.js";
 import { Button } from 'antd';
 import moment from 'moment';
 import _ from 'lodash';
-
-import { TreeSelect } from 'antd';
-const TreeNode = TreeSelect.TreeNode;
-
-
-class SelectDevice extends React.Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-        value:props.initdeviceid
-      }
-  }
-
-  onChange = (value) => {
-    console.log(arguments);
-    this.setState({ value });
-    this.props.onSelDeviceid(value);
-  }
-  render() {
-    const treeData = [];
-    const {g_devicesdb} = this.props;
-    _.map(g_devicesdb,(item)=>{
-      let data = {
-          label: `${item.DeviceId}`,
-          value: `${item.DeviceId}`,
-          key: `${item.DeviceId}`,
-      };
-      treeData.push(data);
-    });
-    return (
-      <TreeSelect
-        showSearch
-        style={{ width: '100%',fontSize: "16px" }}
-        value={this.state.value}
-        dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-        placeholder={this.props.placeholder}
-        allowClear
-        treeDefaultExpandAll
-        onChange={this.onChange}
-        treeData={treeData}
-        />
-
-    );
-  }
-}
-const mapStateToPropsSelectDevice = ({device}) => {
-    const {g_devicesdb} = device;
-    return {g_devicesdb};
-}
-SelectDevice = connect(mapStateToPropsSelectDevice)(SelectDevice);
+import SelectDevice from '../mydevice/selectdevice.js';
 
 class Page extends React.Component {
     constructor(props) {
@@ -161,12 +112,11 @@ class Page extends React.Component {
         }
     }
     render() {
-        // const {mapseldeviceid,devices} = this.props;
-        // let DeviceId;
-        // let deviceitem = devices[mapseldeviceid];
-        // if(!!deviceitem){
-        //   DeviceId = deviceitem.DeviceId;
-        // }
+        const {g_devicesdb} = this.props;
+        let deviceidlist = [];
+        _.map(g_devicesdb,(item)=>{
+          deviceidlist.push(item.DeviceId);
+        });
         const formstyle={width:"100%",flexGrow:"1"};
         const textFieldStyle={width:"100%",flexGrow:"1"};
         const height = window.innerHeight-(66+58);
@@ -188,7 +138,9 @@ class Page extends React.Component {
                             <span>
                               <SelectDevice placeholder={"请输入设备ID"}
                                  initdeviceid={this.state.deviceid}
-                                 onSelDeviceid={this.onSelDeviceid.bind(this)}/>
+                                 onSelDeviceid={this.onSelDeviceid.bind(this)}
+                                 deviceidlist={deviceidlist}
+                               />
                             </span>
                         </div>
                         <div className="seltimecontent" onClick={this.handleClick.bind(this, 0)}>
