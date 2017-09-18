@@ -10,7 +10,6 @@ import Footer from "../index/footer.js";
 import Datapro from "./datapro";
 import MapPage from '../admincontent';
 import {ui_mycar_showtype} from '../../actions';
-import {jsondata_bms_mydevice} from '../../test/bmsdata.js';
 import Searchimg from "../../img/22.png";
 
 class Page extends React.Component {
@@ -29,6 +28,21 @@ class Page extends React.Component {
     render() {
         const height =  window.innerHeight - 70 - 60 - 66.08;
         const mydevicecontentstyle = this.props.ui_mydeivce_showtype===0?{pointerEvents: "none",background : "none"}:{};
+        let count_connected = 0;
+        let count_running = 0;
+        let count_error = 0;
+        const {g_devicesdb} = this.props;
+        _.map(g_devicesdb,(item)=>{
+            if(item.isconnected){
+              count_connected++;
+            }
+            if(item.isrunning){
+              count_running++;
+            }
+            if(item.iserror){
+              count_error++;
+            }
+        });
         return (
             <div className="mydevicePage AppPage"
                 style={{
@@ -42,9 +56,9 @@ class Page extends React.Component {
                     </div>
                 </div>
                 <div className="mydevicecontentlist">
-                    <div className="devicenum"><span>联网车辆：{`${jsondata_bms_mydevice.length}`}辆</span>
-                    <span className='c'>运行车辆：{`${jsondata_bms_mydevice.length}`}辆</span>
-                    <span>故障车辆：1辆</span></div>
+                    <div className="devicenum"><span>联网车辆：{`${count_connected}`}辆</span>
+                    <span className='c'>运行车辆：{`${count_running}`}辆</span>
+                    <span>故障车辆：{`${count_error}`}辆</span></div>
                     <Datapro />
                 </div>
                 <Footer sel={2} />
@@ -52,8 +66,9 @@ class Page extends React.Component {
         );
     }
 }
-const data = ({app}) => {
+const data = ({app,device}) => {
   const {ui_mydeivce_showtype} = app;
-  return {ui_mydeivce_showtype};
+  const {g_devicesdb} = device;
+  return {ui_mydeivce_showtype,g_devicesdb};
 }
 export default connect(data)(Page);
