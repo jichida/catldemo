@@ -43,7 +43,10 @@ class Page extends React.Component {
     onWorkorderdone(){
       this.props.dispatch(setworkorderdone_request({
         query:{_id:this.props.match.params.workid},
-        data:{isdone:true}
+        data:{
+          pics:this.state.pics,
+          isdone:true,
+        }
       }));
     }
 
