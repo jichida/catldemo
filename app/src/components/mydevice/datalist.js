@@ -34,7 +34,8 @@ class Page extends React.Component {
         const columns = [{
             title: '车牌',
             dataIndex: 'DeviceId',
-            key: 'DeviceId'
+            key: 'DeviceId',
+            render: text => <p>{text}</p>
         }, {
             title: 'VIN',
             dataIndex: 'VIN',
@@ -48,16 +49,24 @@ class Page extends React.Component {
             dataIndex: '总里程',
             key: '总里程',
         },{
-            title: '容量保有率',
+            title: '保有率',
             dataIndex: '容量保有率',
             key: '容量保有率',
         }, {
             title: '位置',
             dataIndex: '位置',
-            key: '位置'
+            key: '位置',
+            render: (v) => <span>{v}</span>
         }];
         return (
-            <Table columns={columns} dataSource={mydevices} pagination={false} style={{flexGrow: 1}} onRowClick={this.rowClick} />
+            <Table 
+                columns={columns} 
+                dataSource={mydevices} 
+                pagination={false}
+                style={{flexGrow: 1}} 
+                onRowClick={this.rowClick}
+                scroll={{ y: this.props.tableheight }}
+                />
         );
     }
 }

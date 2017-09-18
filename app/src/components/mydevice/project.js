@@ -13,6 +13,8 @@ import {ui_mycar_showtype} from '../../actions';
 import Searchimg from "../../img/22.png";
 import SelectDevice from '../mydevice/selectdevice.js';
 
+const innerHeight = window.innerHeight;
+
 class Page extends React.Component {
     constructor(props) {
         super(props);
@@ -34,7 +36,7 @@ class Page extends React.Component {
     }
     render() {
         let deviceidlist = [];
-        const height =  window.innerHeight - 70 - 60 - 66.08;
+        const height =  innerHeight - 70 - 60 - 66.08;
         const mydevicecontentstyle = {pointerEvents: "none",background : "#FFF", flexGrow : "1"};
         let groupid = this.props.match.params.groupid;
         let count_connected = 0;
@@ -56,10 +58,11 @@ class Page extends React.Component {
           }
         });
         return (
-            <div className="mydevicePage AppPage"
+            <div 
+                className="mydevicePage AppPage customtable"
                 style={{
                     background: "none",
-                    minHeight : `${window.innerHeight}px`,
+                    minHeight : `${innerHeight}px`,
                     pointerEvents: "none",
                 }}>
                 <div className="navhead">
@@ -69,18 +72,20 @@ class Page extends React.Component {
                     </div>
                 </div>
                 <div className="searchcontent headsearch">
-                  <SelectDevice placeholder={"请输入设备ID"}
-                     initdeviceid={this.state.deviceid}
-                     onSelDeviceid={this.onSelDeviceid.bind(this)}
-                     deviceidlist={deviceidlist}
-                 />
+                    <SelectDevice 
+                        placeholder={"请输入设备ID"}
+                        initdeviceid={this.state.deviceid}
+                        onSelDeviceid={this.onSelDeviceid.bind(this)}
+                        deviceidlist={deviceidlist}
+
+                    />
                 </div>
                 <div className="mydevicecontent" style={mydevicecontentstyle}>
                     <div className="mydevicecontentlist">
                         <div className="devicenum"><span>联网车辆：{`${count_connected}`}辆</span>
                         <span className='c'>运行车辆：{`${count_running}`}辆</span>
                         <span>故障车辆：{`${count_error}`}辆</span></div>
-                        <Datalist groupid={groupid} curdeviceid={this.state.deviceid}/>
+                        <Datalist groupid={groupid} curdeviceid={this.state.deviceid} tableheight = {innerHeight-38-48-55-68} />
                     </div>
                 </div>
             </div>

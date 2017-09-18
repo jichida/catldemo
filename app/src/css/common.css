@@ -684,3 +684,30 @@ div.mydevicebtn{
 .amap-overlays .amap-info > div:first-child {
     width: 100%;
 }
+.customtable .ant-table-tbody>tr.ant-table-row>td:first-child >p{
+    white-space: nowrap;
+    text-overflow:ellipsis; 
+    width: 60px;
+    height: 20px;
+    overflow:hidden;
+    line-height: 20px;
+    display: inline-block;
+}
+.customtable .ant-table-tbody>tr.ant-table-row>td:last-child span{
+    white-space: nowrap;
+    text-overflow:ellipsis; 
+    width: 80px;
+    height: 20px;
+    overflow:hidden;
+    line-height: 20px;
+    display: inline-block;
+}
+.customtable .ant-table-tbody>tr>td,
+.customtable .ant-table-thead>tr>th{
+    word-break: normal;
+    width: 16.6%;
+    text-align: center;
+}
+.customtable .ant-table-thead>tr>th:first-child{
+    padding-left: 26px;
+}

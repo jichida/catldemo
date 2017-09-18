@@ -24,6 +24,8 @@ import moment from 'moment';
 import _ from 'lodash';
 import SelectDevice from '../mydevice/selectdevice.js';
 
+const innerHeight = window.innerHeight;
+
 class Page extends React.Component {
     constructor(props) {
         super(props);
@@ -43,9 +45,9 @@ class Page extends React.Component {
         };
     }
     onSelDeviceid(deviceid){
-      this.setState({
-        deviceid
-      });
+        this.setState({
+            deviceid
+        });
     }
     onClickStart(){
         const {deviceid,startDate,endDate} = this.state;
@@ -115,14 +117,14 @@ class Page extends React.Component {
         const {g_devicesdb} = this.props;
         let deviceidlist = [];
         _.map(g_devicesdb,(item)=>{
-          deviceidlist.push(item.DeviceId);
+            deviceidlist.push(item.DeviceId);
         });
         const formstyle={width:"100%",flexGrow:"1"};
         const textFieldStyle={width:"100%",flexGrow:"1"};
-        const height = window.innerHeight-(66+58);
+        const height = innerHeight-(66+58);
         return (
             <div className="playbackPage AppPage"
-                style={{height : `${window.innerHeight}px`,overflow: "hidden",paddingBottom:"0"}}
+                style={{height : `${innerHeight}px`,overflow: "hidden",paddingBottom:"0"}}
                 >
                 <div className="navhead">
                     <span className="title" style={{paddingLeft : "30px"}}>轨迹回放</span>
@@ -136,11 +138,11 @@ class Page extends React.Component {
                             <img src={Car} />
                             <span>车辆信息</span>
                             <span>
-                              <SelectDevice placeholder={"请输入设备ID"}
-                                 initdeviceid={this.state.deviceid}
-                                 onSelDeviceid={this.onSelDeviceid.bind(this)}
-                                 deviceidlist={deviceidlist}
-                               />
+                                <SelectDevice placeholder={"请输入设备ID"}
+                                    initdeviceid={this.state.deviceid}
+                                    onSelDeviceid={this.onSelDeviceid.bind(this)}
+                                    deviceidlist={deviceidlist}
+                                />
                             </span>
                         </div>
                         <div className="seltimecontent" onClick={this.handleClick.bind(this, 0)}>
