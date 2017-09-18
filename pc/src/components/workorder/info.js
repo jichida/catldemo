@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Button } from 'antd';
 import _ from 'lodash';
 import {ui_selworkorder} from '../../actions';
+import PicturesWall  from '../controls/pictureswall.js';
 
 
 class Page extends React.Component {
@@ -42,7 +43,7 @@ class Page extends React.Component {
         return (
 
 
-            <div className="warningPage devicePage deviceinfoPage" style={{height : window.innerHeight+"px"}}>
+            <div className="warningPage devicePage deviceinfoPage workorderinfoPage" style={{height : window.innerHeight+"px"}}>
 
                 <div className="appbar">
                     <i className="fa fa-angle-left back" aria-hidden="true" onClick={()=>{this.props.history.goBack()}}></i>
@@ -51,25 +52,34 @@ class Page extends React.Component {
                         <Button type="primary" icon="environment" onClick={this.pointdevice.bind(this, data.DeviceId)}>定位设备</Button>    
                     </div>
                 </div>
-                <div className="lists deviceinfolist"
-                    style={{
-                        flexGrow: 1,
-                        overflowY: "scroll"
-                    }}
+                <div 
+                    className="lists deviceinfolist"
+                    style={{overflowY: "scroll"}}
                     >
-                    {
-                        _.map(data,(item,i)=>{
-                            return (
-                                <div className="li" key={i}>
-                                    <div>
-                                        <div className="name">{i}</div><div className="text">{item}</div>
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
+                    <div className="li"><div><div className="name">车牌</div><div className="text">{data['车牌']}</div></div></div>
+                    <div className="li"><div><div className="name">派单时间</div><div className="text">{data['派单时间']}</div></div></div>
+                    <div className="li"><div><div className="name">项目</div><div className="text">{data['项目']}</div></div></div>
+                    <div className="li"><div><div className="name">故障类型</div><div className="text">{data['故障类型']}</div></div></div>
+                    <div className="li"><div><div className="name">电池厂商</div><div className="text">{data['电池厂商']}</div></div></div>
+                    <div className="li"><div><div className="name">工单来源</div><div className="text">{data['工单来源']}</div></div></div>
+                    <div className="li"><div><div className="name">电机厂商</div><div className="text">{data['电机厂商']}</div></div></div>
+                    <div className="li"><div><div className="name">单号</div><div className="text">{data['单号']}</div></div></div>
+                    <div className="li"><div><div className="name">联系人</div><div className="text">{data['联系人']}</div></div></div>
+                    <div className="li"><div><div className="name">联系方式</div><div className="text">{data['联系方式']}</div></div></div>
+                    <div className="li"><div><div className="name">当前位置</div><div className="text">{data['当前位置']}</div></div></div>
+                    <div className="li"><div><div className="name">故障描述</div><div className="text">{data['故障描述']}</div></div></div>
+                    <div className="li"><div><div className="name">备注</div><div className="text">{data['备注']}</div></div></div>
                 </div>
+                <div className="control">
+                    <div className="tit">维修反馈</div>
+                    <div className="infoimg">
+                        {
+                            data.isdone ? <div className="statusbtn">已完成</div>:<div className="statusbtn nodone">未处理</div>
+                        }
+                        <PicturesWall value={pics} isdone={true} candel={false} />
+                    </div>
 
+                </div>
             </div>
             
         );

@@ -50,17 +50,29 @@ class Page extends React.Component {
           ],
         };
         return (
-            <div className="mydevicePage AppPage"
-                style={{
-                    backgroundSize: "100% 100%",
-                    height : `${window.innerHeight}px`
-                }}>
-                <div className="navhead">
-                    <a onClick={()=>{this.props.history.goBack()}} className="back"></a>
-                    <span className="title" style={{paddingRight : "30px"}}>告警详情</span>
-                    <a className="moresetting"></a>
+            
+            <div className="warningPage devicePage deviceinfoPage workorderinfoPage alarminfoPage" style={{height : window.innerHeight+"px"}}>
+
+                <div className="appbar">
+                    <i className="fa fa-angle-left back" aria-hidden="true" onClick={()=>{this.props.history.goBack()}}></i>
+                    <div className="title">告警详情</div>
+                    <div className="devicebtnlist">   
+                        <Button 
+                            type="primary" 
+                            icon="environment"
+                            onClick={()=>{this.props.dispatch(ui_alarm_selcurdevice(deviceid));}}
+                            >定位车辆</Button>
+                        <Button 
+                            type="primary" 
+                            icon="environment"
+                            onClick={()=>{console.log("派发工单")}}
+                            >派发工单</Button>  
+                    </div>
                 </div>
-                <div className="deviceinfocontent">
+                <div 
+                    className="lists deviceinfolist"
+                    style={{overflowY: "scroll"}}
+                    >
                     {
                       _.map(datadevice,(item,index)=>{
 
@@ -69,30 +81,15 @@ class Page extends React.Component {
                                 <div className="tit">{index}</div>
                                 {
                                     _.map(item,(i,k)=>{
-                                        return (<div key={k} className="li"><span>{`${i.name}`}</span><span>{`${i.value}`}</span></div>);
+                                        return (<div key={k} className="li"><div><div className="name">{`${i.name}`}</div><div className="text">{`${i.value}`}</div></div></div>)
                                     })
                                 }
                             </div>
                         );
                       })
                     }
+                    
                 </div>
-                <div className="mydevicebtn">
-                        <Button icon="play-circle-o" style={{background : "#5cbeaa", color: "#FFF"}}
-                           onClick={
-                             ()=>{
-                               console.log("定位车辆");
-                               this.props.dispatch(ui_alarm_selcurdevice(deviceid));
-                             }
-                         }>定位车辆</Button>
-
-                         <Button icon="play-circle-o" style={{background : "#5cbeaa", color: "#FFF"}}
-                            onClick={
-                              ()=>{
-                                console.log("派发工单");
-                              }
-                          }>派发工单</Button>
-                    </div>
             </div>
         );
     }

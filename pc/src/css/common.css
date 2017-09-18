@@ -766,6 +766,25 @@
     justify-content: space-between;
     font-size: 16px;
 }
+
+.deviceinfoPage.devicePage.alarminfoPage .deviceinfolist{
+    display: flex;
+    flex-direction: column;
+}
+.deviceinfoPage.devicePage.alarminfoPage .deviceinfolist >div{
+    padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    flex-wrap: wrap;
+}
+.deviceinfoPage.devicePage.alarminfoPage .deviceinfolist >div >div.tit{
+    width: 100%;
+    margin-bottom: 0;
+    padding-left: 10px;
+}
+
 .headcontent .titlenav {
     font-size: 18px;
     line-height: 64px;
@@ -876,6 +895,20 @@
 .amap-overlays .amap-info > div:first-child {
     width: 100%;
 }
-
+.workorderinfoPage .control{
+    padding:20px;
+}
+.workorderinfoPage .control .statusbtn{
+    background: #35B815;
+    color: #FFF;
+    margin-bottom: 10px;
+    line-height: 30px;
+    padding: 0 15px;
+    border-radius: 30px;
+    display: inline-block;
+}
+.workorderinfoPage .control .statusbtn.nodone{
+    background:#ff9966;
+}
 
 
