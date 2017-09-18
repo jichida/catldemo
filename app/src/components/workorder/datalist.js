@@ -37,7 +37,7 @@ class Page extends React.Component {
             dataIndex: '联系人',
             key: '联系人',
         }, {
-            title: '类型',
+            title: '故障类型',
             dataIndex: '故障类型',
             key: '故障类型'
         }];
