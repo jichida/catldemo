@@ -4,7 +4,7 @@ import Upload from 'antd/lib/upload';
 import Icon from 'antd/lib/icon';
 import message from 'antd/lib/message';
 import Modal from 'antd/lib/modal';
-
+import _ from "lodash";
 import { connect } from 'react-redux';
 import './pictureswall.css';
 import 'antd/dist/antd.css';
@@ -89,42 +89,60 @@ class PicturesWall extends React.Component {
     //
     console.log('props' + JSON.stringify(this.props));
 
-    const { previewVisible, previewImage, fileList,width,height } = this.props;
+    let { previewVisible, previewImage, fileList,width,height,value } = this.props;
+
+    if(!!value && !!value.length){
+        fileList = _.map(value, (v, l)=>{
+            return {
+                name : undefined,
+                status : "done",
+                uid : `rc-upload-xx`,
+                url : v
+            };
+        })
+    }
+
     const uploadButton = (
-      <div>
-        <Icon type="plus" />
-        <div className="ant-upload-text">上传</div>
-      </div>
+        <div>
+            <Icon type="plus" />
+            <div className="ant-upload-text">上传</div>
+        </div>
     );
 
     let beforeUpload =(v)=> {
-      let imgInfo = {};
-      let restconfig = {
-        width:width || -1,
-        height:height || -1,
-        maxWidthOrHeight:800
-      };
-      return new Promise((resolve) => {
-        const picaphoto = new PicaDisposePhoto(restconfig);
-        picaphoto.disposePhotoWithFile(v,imgInfo).then((file)=>{
-          file.uid = v.uid;
-          resolve(file);
+        let imgInfo = {};
+        let restconfig = {
+            width:width || -1,
+            height:height || -1,
+            maxWidthOrHeight:800
+        };
+        return new Promise((resolve) => {
+            const picaphoto = new PicaDisposePhoto(restconfig);
+            picaphoto.disposePhotoWithFile(v,imgInfo).then((file)=>{
+                file.uid = v.uid;
+                resolve(file);
+            });
         });
-      });
     }
 
 
     return (
       <div className="clearfix">
         <Upload
-          beforeUpload={beforeUpload}
-          action={config.serverurl + "/uploadavatar"}
-          listType="picture-card"
-          fileList={fileList}
-          onPreview={this.handlePreview}
-          onChange={this.handleChange}
+            beforeUpload={beforeUpload}
+            action={config.serverurl + "/uploadavatar"}
+            listType="picture-card"
+            fileList={fileList}
+            onPreview={this.handlePreview}
+            onChange={this.handleChange}
+            showUploadList={
+                {
+                    showPreviewIcon: true,
+                    showRemoveIcon: this.props.candel
+                }
+            }
         >
-          {fileList.length < 3 && uploadButton}
+            {!this.props.isdone && uploadButton}
         </Upload>
         <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
           <img alt="example" style={{ width: '100%' }} src={previewImage} />

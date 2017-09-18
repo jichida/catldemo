@@ -27,7 +27,7 @@
 
 }
 .playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:first-child span.warningtdtitle{
-    text-align: left;
+    text-align: left;   
     
 }
 .playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:first-child span.warningtdtitle .warningtype_0,

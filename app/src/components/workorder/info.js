@@ -15,8 +15,6 @@ import _ from 'lodash';
 import PicturesWall  from '../controls/pictureswall.js';
 import {ui_selworkorder,setworkorderdone_request} from '../../actions';
 
-
-
 class Page extends React.Component {
 
     constructor(props) {
@@ -46,15 +44,6 @@ class Page extends React.Component {
         data:{isdone:true}
       }));
     }
-
-
-    // indexnavclick=(v)=>{
-    //     console.log(v);
-    //     this.setState({selstatus : v});
-    // }
-    // selworkorders=(v)=>{
-    //     this.setState({selworkorder : v});
-    // }
 
     pointdevice =(id)=>{
         console.log(id);
@@ -97,12 +86,7 @@ class Page extends React.Component {
                     </ul>
                     <div className="tit">维修反馈</div>
                     <div className="infoimg">
-                        {
-                          !data.isdone ? <PicturesWall value={pics} onChange={this.onChangePics.bind(this)} />:null
-                        }
-                        {
-                          data.isdone ? <div>这里显示照片列表:{`${JSON.stringify(pics)}`},点击放大 </div>:null
-                        }
+                        <PicturesWall value={pics} onChange={this.onChangePics.bind(this)} isdone={data.isdone} candel={false} />
                     </div>
 
                     {!data.isdone ? <Button type="primary" onClick={this.onWorkorderdone.bind(this)}>确认并提交审单员</Button>:null}
