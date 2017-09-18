@@ -4,18 +4,51 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
+import { Button, Modal, Icon, message } from 'antd';
+import { ui_alarm_selcurdevice } from '../../actions';
 
-import { Button } from 'antd';
-import {
-    ui_alarm_selcurdevice,
-} from '../../actions';
-
+//工作人员烈白哦
+const workers  = [
+  {
+    name : "关云长",
+    id: "A001"
+  },
+  {
+    name : "张翼德",
+    id: "A002"
+  },
+  {
+    name : "赵子龙",
+    id: "A003"
+  },
+  {
+    name : "刘玄德",
+    id: "A004"
+  }
+]
 
 class Page extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+          showmodal : false,
+          selworderid : '',
+        }
     }
     componentWillMount () {
+    }
+    showworderlist=(showmodal)=>{
+        this.setState({ showmodal });
+    }
+    selworderdone=()=>{
+        if(this.state.selworderid===''){
+            message.warning('您还没有制定派单人员！');
+        }else{
+            console.log(`开始派发工单给${this.state.selworderid}`);
+        }
+    }
+    selworderfn=(selworderid)=>{
+        this.setState({ selworderid });
     }
     render() {
         const {g_devicesdb,alarms} = this.props;
@@ -64,8 +97,8 @@ class Page extends React.Component {
                             >定位车辆</Button>
                         <Button 
                             type="primary" 
-                            icon="environment"
-                            onClick={()=>{console.log("派发工单")}}
+                            icon="contacts"
+                            onClick={()=>{this.showworderlist(true)}}
                             >派发工单</Button>  
                     </div>
                 </div>
@@ -90,6 +123,28 @@ class Page extends React.Component {
                     }
                     
                 </div>
+                <Modal
+                    title="派发工单"
+                    wrapClassName="vertical-center-modal"
+                    visible={this.state.showmodal}
+                    onOk={this.selworderdone}
+                    onCancel={() => {this.showworderlist(false)}}
+                    className="showworderlist"
+                    >
+                    { 
+                        _.map(workers, (worder, index)=>{
+                            return (
+                                <p 
+                                    onClick={()=>{this.selworderfn(worder.id)}}
+                                    key={index}
+                                    >
+                                    <span>{worder.name}</span>
+                                    { this.state.selworderid ===worder.id ?
+                                        <Icon type="check-circle" style={{color: "#4DB361"}} />
+                                        :<Icon type="check-circle" style={{color: "#EEEEEE"}} />}</p>);
+                        })
+                    }
+                </Modal>
             </div>
         );
     }
