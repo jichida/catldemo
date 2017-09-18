@@ -15,9 +15,44 @@
     display: flex;
     flex-direction: column;
 }
-.playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:first-child{
+.playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:first-child span.warningtdtitle{
     width: 96px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-align-items: center;
+
 }
+.playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:first-child span.warningtdtitle{
+    text-align: left;
+    
+}
+.playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:first-child span.warningtdtitle .warningtype_0,
+.playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:first-child span.warningtdtitle .warningtype_1,
+.playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:first-child span.warningtdtitle .warningtype_2{
+    display: inline-block;
+    width: 18px;
+    height: 18px; 
+    background: #C00;
+    color: #FFF;
+    margin-right: 5px;
+    border-radius: 18px;
+    line-height: 18px;
+    flex-shrink: 0;
+    text-align: center;
+    font-size: 12px;
+}
+.playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:first-child span.warningtdtitle .warningtype_1{
+    background: #FF8C00;
+}
+.playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:first-child span.warningtdtitle .warningtype_2{
+    background: #FFD700;
+}
+
+
 .playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:last-child span{
     white-space: nowrap;
     text-overflow:ellipsis; 
@@ -31,6 +66,10 @@
 .playbackPage.warningmessagePage .ant-table-thead>tr>th{
     word-break: normal;
     width: 25%;
+    text-align: center;
+}
+.playbackPage.warningmessagePage .ant-table-thead>tr>th:first-child{
+    padding-left: 26px;
 }
 
 .playbackPage.warningmessagePage .seltimecontent {
@@ -60,6 +99,9 @@
     border-bottom: none;
     border-left: none;
 }
+
+
+
 
 .playbackPage .set .title{
     text-align: center;

@@ -38,7 +38,11 @@ class Page extends React.Component {
         const columns = [{
             title: '预警时间',
             dataIndex: '告警时间',
-            key: '告警时间'
+            key: '告警时间',
+            render: (v, d) => {
+                let warningtext = ["高","中","低"];
+                return (<span className="warningtdtitle"><b className={`warningtype_${d.warninglevel}`}>{warningtext[d.warninglevel]}</b><span>{v}</span></span>)
+            },
         }, {
             title: '车辆ID',
             dataIndex: 'DeviceId',
