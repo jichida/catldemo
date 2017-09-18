@@ -9,7 +9,6 @@ const initial = {
   pic:{
     previewVisible: false,
     previewImage: '',
-    fileList: [],
   },
 };
 
@@ -21,9 +20,6 @@ const pic = createReducer({
       }
       if(payload.hasOwnProperty('previewImage')){
           newstate =  { ...newstate, previewImage:payload.previewImage};
-      }
-      if(payload.hasOwnProperty('fileList')){
-          newstate =  { ...newstate,fileList:[...payload.fileList]};
       }
       return newstate;
   },

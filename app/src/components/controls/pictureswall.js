@@ -10,18 +10,35 @@ import './pictureswall.css';
 import 'antd/dist/antd.css';
 import config from '../../env/config.js';
 import PicaDisposePhoto from '../../util/pica_dispose_photo';
-import {
-    pic_fileuploadsetpreview,
-    pic_fileuploadreset
-} from '../../actions/index.js';
+
 
 class PicturesWall extends React.Component {
+  constructor(props) {
+      super(props);
+      let fileList = [];
+      if(!!props.value){
+        _.map(props.value, (v, l)=>{
+           fileList.push({
+               name : undefined,
+               status : "done",
+               uid : `rc-upload-${l}`,
+               url : v
+           });
+       });
+      }
+
+      this.state = {
+        fileList,
+        previewVisible: false,
+        previewImage: '',
+      };
+  };
   componentWillUnmount() {
-    this.props.dispatch(pic_fileuploadreset());
+
   }
 
   handleCancel = () =>{
-    this.props.dispatch(pic_fileuploadsetpreview({ previewVisible: false }));
+    this.setState({ previewVisible: false });
   } //this.setState({ previewVisible: false })
 
   handlePreview = (file) => {
@@ -42,10 +59,10 @@ class PicturesWall extends React.Component {
     }
 
     console.log('onClick handlePreview fileobj:' + JSON.stringify(fileobj));
-    this.props.dispatch(pic_fileuploadsetpreview({
+    this.setState({
       previewImage: fileobj.url || fileobj.thumbUrl,
       previewVisible: true,
-    }));
+    });
     // this.setState({
     //   previewImage: file.url || file.thumbUrl,
     //   previewVisible: true,
@@ -79,7 +96,8 @@ class PicturesWall extends React.Component {
 
     });
 
-    this.props.dispatch(pic_fileuploadsetpreview({ fileList:filelistnew }));
+    this.setState({ fileList:filelistnew });
+    // this.props.dispatch(pic_fileuploadsetpreview({ fileList:filelistnew }));
 
     console.log('uploadedfiles:' + JSON.stringify(uploadedfiles));
     this.props.onChange(uploadedfiles);
@@ -89,18 +107,8 @@ class PicturesWall extends React.Component {
     //
     console.log('props' + JSON.stringify(this.props));
 
-    let { previewVisible, previewImage, fileList,width,height,value } = this.props;
-
-    if(!!value && !!value.length){
-        fileList = _.map(value, (v, l)=>{
-            return {
-                name : undefined,
-                status : "done",
-                uid : `rc-upload-xx`,
-                url : v
-            };
-        })
-    }
+    const { width,height } = this.props;
+    const {previewVisible, previewImage,fileList} = this.state;
 
     const uploadButton = (
         <div>
@@ -152,8 +160,4 @@ class PicturesWall extends React.Component {
   }
 }
 
-const mapStateToProps = ({pic}) => {
-  return {...pic};
-}
-PicturesWall = connect(mapStateToProps)(PicturesWall);
 export default PicturesWall;
