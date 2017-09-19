@@ -107,14 +107,18 @@ class Page extends React.Component {
                     <div className="deviceinfo">
 
                         <span>车辆信息</span>
-                        <span>
-                            <SelectDevice placeholder={"请输入设备ID"}
-                                initdeviceid={this.state.deviceid}
-                                onSelDeviceid={this.onSelDeviceid.bind(this)}
-                                deviceidlist={deviceidlist}
-                            />
-                        </span>
                     </div>
+                    <div className="selcar">
+                      <span className="t">车辆ID：</span>
+                      <SelectDevice 
+                        placeholder={"请输入设备ID"}
+                        initdeviceid={this.state.deviceid}
+                        onSelDeviceid={this.onSelDeviceid.bind(this)}
+                        deviceidlist={deviceidlist}
+                      />
+                    </div>
+
+
                     <div className="anddday">
                         <div className="seldayli">
                             <Day color={"#333"} style={{width: "26px", height : "26px"}} />

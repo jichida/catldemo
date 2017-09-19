@@ -149,6 +149,31 @@
     -moz-transform:rotate(45deg);    /* Firefox */
     -webkit-transform:rotate(45deg); /* Safari 和 Chrome */
 }
+#historytrackplayback  .selcar {
+    background:#FFF;
+    height: 60px;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+}
+#historytrackplayback  .selcar .ant-select{
+    border: none;
+    height: 60px;
+    top: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+#historytrackplayback  .selcar >span.t{
+    margin-left: 15px;
+    font-size: 14px;
+    color: #333;
+    line-height: 20px;
+    flex-shrink: 0;
+}
+#historytrackplayback .ant-select-selection--single{
+    border: none;
+}
 
 
 

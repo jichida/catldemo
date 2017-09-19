@@ -34,7 +34,7 @@ class SelectDevice extends React.Component {
     return (
       <TreeSelect
         showSearch
-        style={{ width: '100%',fontSize: "16px",margin: "0 15px" }}
+        style={{ width: '100%',fontSize: "16px"}}
         value={this.state.value}
         dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
         placeholder={this.props.placeholder}
