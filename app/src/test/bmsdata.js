@@ -147,6 +147,7 @@ for(let i=0;i<20;i++){
     cloneitem['部位'] = test_workorder_part_text[getrandom(0,test_workorder_part_text.length-1)];
     cloneitem['责任人'] = test_workorder_assgin_text[getrandom(0,test_workorder_assgin_text.length-1)];
     cloneitem['故障地点'] = jsondatareadonly_chargingpile[getrandom(0,jsondatareadonly_chargingpile.length-1)].address.formattedAddress;
+    cloneitem['feedbacktxt'] = '';
     cloneitem.isdone = getrandom(0,1)?true:false;
     cloneitem.pics = [];
     if(cloneitem.isdone){
