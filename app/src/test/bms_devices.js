@@ -31,10 +31,10 @@ _.map(jsondata,(item,index)=>{
     item.imagetype = '0';
     item.groupid = groups[getrandom(0,groups.length-1)]._id;
     //车辆
-    item.isonline = getrandom(0,1)===0?true:false;
-    item.isconnected = getrandom(0,1)===0?true:false;
-    item.isrunning = getrandom(0,1)===0?true:false;
-    item.iserror = getrandom(0,1)===0?true:false;
+    item.isonline = true;
+    item.isconnected = true;
+    item.isrunning = getrandom(0,100)<80?true:false;
+    item.iserror = getrandom(0,10000)>9876?true:false;
     item['车牌'] = `车牌${index}`;
     item['VIN'] = `VIN${index}`;
     item['运营年限'] = `${getrandom(5,10)}`;
