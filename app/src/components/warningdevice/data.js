@@ -39,12 +39,12 @@ class Page extends React.Component {
             showset : false,
         };
     }
-    onClickSearch(e){
-        e.stopPropagation();
-      const {startDate,endDate,warninglevel} = this.state;
-      this.setState({showdata: false});
-      let v = this.state.seltype;
+    componentWillMount () {
+        this.onSearch(this.state.seltype);
+    }
+    onSearch(v){
       let query = {};
+      const {startDate,endDate,warninglevel} = this.state;
 
       query.queryalarm = {
         startDate:startDate.format('YYYY-MM-DD HH:mm:ss'),
@@ -61,30 +61,22 @@ class Page extends React.Component {
       }
       this.props.dispatch(searchbatteryalarm_request({query}));
     }
+    onClickSearch(e){
+      e.stopPropagation();
+      this.setState({showdata: false});
+
+      this.onSearch(this.state.seltype);
+    }
     onChangeWarninglevel(event, index, value){
       this.setState({
         warninglevel:value
       });
     }
     seltype=(v)=>{
-        const {startDate,endDate,warninglevel} = this.state;
-        this.setState({seltype : v});
-        let query = {};
 
-        query.queryalarm = {
-          startDate:startDate.format('YYYY-MM-DD HH:mm:ss'),
-          endDate:endDate.format('YYYY-MM-DD HH:mm:ss'),
-        };
-        if(warninglevel != -1){
-          query.queryalarm.warninglevel = warninglevel;
-        }
-        if(v === 0){
-          query.queryalarm.isreaded = false;
-        }
-        else if(v === 1){
-          query.queryalarm.isreaded = true;
-        }
-        this.props.dispatch(searchbatteryalarm_request({query}));
+        this.setState({seltype : v});
+        this.onSearch(v);
+
     }
     handleClick = (v) => {
         this.setState({
