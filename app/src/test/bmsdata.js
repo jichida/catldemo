@@ -32,28 +32,35 @@ _.map(jsondata_chargingpile,(item,index)=>{
     let imagetype = 4+index%3;
     item.imagetype = ''+imagetype;
 
-
+    let dqzttext = ['工作','空闲','维修中'];
+    let secago = getrandom(0,60*60*12);
     let sample = {
-      "采集时间":"N.A",
-      "额定功率":"180（kW）",
-      "额定电压":"220（V）",
-      "最大输出电流":"250（A）",
-      "定位状态":"有效定位",
-      "纬度信息":"N.A",
-      "经度信息":"N.A",
-      "经度":"N.A",
-      "纬度":"N.A",
-      "位置描述":"N.A",
-      "当前状态":"工作中",
-      "累计充电次数":`${getrandom(5000,100000)}`,
-      "累计充电量（MWh）":"256.95",
-      "累计放电量（MWh）":"106.9294359",
-      "充电模式":"直流",
-      "绝缘阻抗":"8287.2",
-      "当前电流":"215.22（A）",
-      "当前功率":"66.9506376（kW）",
-      "开机时长":"26.5（h）"
+      "采集时间":moment().subtract(secago, 'seconds').format('YYYY-MM-DD HH:mm:ss'),
+      "额定功率（kW）":getrandom(50,100),
+      "额定电压（V）":getrandom(300,400),
+      "最大输出电流（A）":getrandom(150,250),
+      "位置描述":item.address.formattedAddress,
+      "当前状态":dqzttext[getrandom(0,dqzttext.length-1)],
+      "累计充电次数":`${getrandom(2000,8000)}`,
+
+      "累计放电量（MWh）":getrandom(0,1000)*200/1000,
+      "充电模式":getrandom(0,1)?'直流':'交流',
+      "绝缘阻抗":getrandom(8000,10000),
+
     };
+
+    item['当前电流（A）'] =getrandom(0,sample['最大输出电流（A）']);
+    item["累计充电量（MWh）"]= sample["累计充电次数"]*50/1000;
+    item["累计放电量（MWh）"]=getrandom(0,1000)*200/1000;
+
+    item["当前功率（kW）"]=item['当前电流（A）']*sample['额定电压（V）']/1000;
+    item['开机时长（h）'] =getrandom(5,300);
+
+    item['定位状态'] ='有效定位';
+    item['纬度信息'] ='北纬';
+    item['经度信息'] ='东经';
+    item['经度'] =item.LastHistoryTrack.Longitude;
+    item['纬度'] =item.LastHistoryTrack.Latitude;
     item = {...item,...sample};
 
     gmap_chargingpile[item.DeviceId] = item;
