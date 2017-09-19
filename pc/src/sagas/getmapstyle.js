@@ -49,9 +49,9 @@ export const getgroupStyleMap = ()=>{
     {
       name:'4',
       image:`${process.env.PUBLIC_URL}/images/pow1.png`,
-      width: 48,
+      width: 32,
       //高度
-      height: 48,
+      height: 32,
       //定位点为中心
       offset: ['-50%', '0%'],
       fillStyle: null,
@@ -59,9 +59,9 @@ export const getgroupStyleMap = ()=>{
     {
       name:'5',
       image:`${process.env.PUBLIC_URL}/images/pow2.png`,
-      width: 48,
+      width: 32,
       //高度
-      height: 48,
+      height: 32,
       //定位点为中心
       offset: ['-50%', '0%'],
       fillStyle: null,
@@ -69,9 +69,9 @@ export const getgroupStyleMap = ()=>{
     {
       name:'6',
       image:`${process.env.PUBLIC_URL}/images/pow3.png`,
-      width: 48,
+      width: 32,
       //高度
-      height: 48,
+      height: 32,
       //定位点为中心
       offset: ['-50%', '0%'],
       fillStyle: null,

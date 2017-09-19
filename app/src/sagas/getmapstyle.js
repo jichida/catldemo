@@ -49,9 +49,9 @@ export const getgroupStyleMap = ()=>{
     {
       name:'4',
       image:`${process.env.PUBLIC_URL}/images/pow1.png`,
-      width: 48,
+      width: 32,
       //高度
-      height: 48,
+      height: 32,
       //定位点为中心
       offset: ['-50%', '0%'],
       fillStyle: null,
@@ -59,9 +59,9 @@ export const getgroupStyleMap = ()=>{
     {
       name:'5',
       image:`${process.env.PUBLIC_URL}/images/pow2.png`,
-      width: 48,
+      width: 32,
       //高度
-      height: 48,
+      height: 32,
       //定位点为中心
       offset: ['-50%', '0%'],
       fillStyle: null,
@@ -69,9 +69,9 @@ export const getgroupStyleMap = ()=>{
     {
       name:'6',
       image:`${process.env.PUBLIC_URL}/images/pow3.png`,
-      width: 48,
+      width: 32,
       //高度
-      height: 48,
+      height: 32,
       //定位点为中心
       offset: ['-50%', '0%'],
       fillStyle: null,
@@ -117,7 +117,7 @@ const getpop_device =(deviceitem)=>{
       <p class='l'><span class='t'>车速</span><span class='color_warning'>14.0km/h</span> </p>
       <p class='l'><span class='t'>总里程</span><span class='color_warning'>27196km</span></p>
       <p class='l'><span class='t'>绝缘阻抗</span><span class='color_warning'>3015KΩ</span></p>
-      <p class='l'><span class='t'>最高温度</span><span class='color_warning'>39℃</span></p>
+      <p class='l'><span class='t'>电池最高温度</span><span class='color_warning'>39℃</span></p>
       <p class='l'><span class='t'>车辆当前位置</span><span class='color_warning'>${province}${city}${district}</span></p>
       <p class='l'><span class='t'>当前报警信息</span><span class='color_warning'>无</span></p>
       <button onclick="clickfn_device(${DeviceId})">查看详情</button>`

@@ -14,9 +14,9 @@ class Page extends React.Component {
         const {carcollections,g_devicesdb} = this.props;
         _.map(carcollections,(id)=>{
           let item = g_devicesdb[id];
-          data.push({name :`车辆${id}`,id});
+          data.push({name :`${id}`,id});
         });
-        
+
         return (
             <div className="mydevicelist">
                 {
