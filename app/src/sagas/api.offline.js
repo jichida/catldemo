@@ -108,13 +108,18 @@ export function* apiflow(){//
     try{
       const {payload} = action;
       let item;
-      _.map(jsondata_bms_alarm,(alarm)=>{
+      _.map(jsondata_bms_alarm,(alarm,index)=>{
         if(alarm._id === payload){
-          alarm.isreaded = true;
-          item = alarm;
-        }
+          item = {...alarm};
+          item.isreaded = true;
+          jsondata_bms_alarm[index] = item;
+        };
       });
-      yield put(setalarmreaded_result(item));
+
+      if(!!item){
+        yield put(setalarmreaded_result(item));
+      }
+
    }
    catch(e){
      console.log(e);
@@ -171,6 +176,7 @@ export function* apiflow(){//
   yield takeEvery(`${getcurallalarm_request}`, function*(action) {
     try{
       //获取今天所有告警信息列表
+
       // jsondata_bms_alarm
       yield put(getcurallalarm_result({list:jsondata_bms_alarm}));
    }
@@ -260,6 +266,7 @@ export function* apiflow(){//
   yield takeEvery(`${searchbattery_request}`, function*(action) {
     try{
         const {payload:{query}} = action;
+
         const list = _.sampleSize(jsondata_bms_mydevice, 20);
         yield put(searchbattery_result({list}));
       }
@@ -272,6 +279,9 @@ export function* apiflow(){//
   yield takeEvery(`${searchbatteryalarm_request}`, function*(action) {
     try{
       const {payload:{query}} = action;
+
+      console.log(`${JSON.stringify(query)}`);
+
       let list = [];
       if(!!query){
         let warninglevel = _.get(query,'queryalarm.warninglevel',-1);
@@ -321,6 +331,9 @@ export function* apiflow(){//
   yield takeEvery(`${searchbatteryalarmsingle_request}`, function*(action) {
     try{
         const {payload:{query}} = action;
+
+        console.log(`${JSON.stringify(query)}`);
+
         let list = [];
         if(!!query){
            list = _.filter(jsondata_bms_alarm,(item)=>{
@@ -358,23 +371,6 @@ export function* apiflow(){//
 
    yield takeEvery(`${querydevicegroup_request}`, function*(action) {
        try{
-      // yield put(querydevicegroup_result({list:jsondata}));
-          // let groups = [];
-          // if(config.softmode === 'pc'){
-          //   _.map(jsondataprovinces,(v,index)=>{
-          //     groups.push({
-          //       _id:`${v.code}`,
-          //       name:`${v.name}`
-          //     });
-          //   });
-          // }
-          // else{
-          //   _.map(jsondata_bms_groups,(v,index)=>{
-          //     groups.push(v);
-          //   });
-          // }
-
-
           yield put(querydevicegroup_result({list:jsondata_bms_groups}));
         }
         catch(e){

@@ -33,7 +33,7 @@ class Page extends React.Component {
             time: new Date(),
             isOpen: false,
             seltype : 0,
-            startDate:moment().subtract(5, 'hours'),
+            startDate:moment().subtract(10, 'days'),
             endDate:moment(),
             mindata : new Date(1970, 0, 1),
             showset : false,

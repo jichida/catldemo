@@ -67,6 +67,9 @@ class Page extends React.Component {
             render: (v) => <span>{v}</span>,
         }];
         alaram_data = _.sortBy(alaram_data,[(item)=>{
+          return item.isreaded;
+        },
+        (item)=>{
           return item.warninglevel;
         }]);
         return (

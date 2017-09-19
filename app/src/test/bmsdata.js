@@ -74,7 +74,7 @@ let jsondata_bms_workorder =[];
 const test_alaram_text=['绝缘故障','高压互锁','SOC过低'];
 const test_warning_level_text=['严重告警','紧急告警','一般告警'];
 let indexalarm  = 0;
-for(let i=0;i<30;i++){
+for(let i=0;i<10;i++){
   _.map(data_bms_alarm,(item,index)=>{
     let cloneitem = {...item};
     indexalarm++;
@@ -95,6 +95,10 @@ for(let i=0;i<30;i++){
 
     jsondata_bms_alarm.push(cloneitem);
   });
+
+  if((i+1)*data_bms_alarm.length > 10){
+    break;
+  }
 }
 // console.log(jsondata_bms_alarm);
 let jsondata_bms_workusers = workusers;
