@@ -14,7 +14,7 @@ import "../../css/antd.min.css";
 class Page extends React.Component {
 
     render() {
-        const {workorder_datas} = this.props;
+        let {workorder_datas} = this.props;
         const columns = [{
             title: '工号',
             dataIndex: '_id',
@@ -41,6 +41,10 @@ class Page extends React.Component {
             dataIndex: '故障类型',
             key: '故障类型'
         }];
+
+        workorder_datas = _.sortBy(workorder_datas,[(item)=>{
+          return item.isdone;
+        }]);
         return (
             <Table
                 columns={columns}
