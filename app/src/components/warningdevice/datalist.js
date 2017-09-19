@@ -21,7 +21,7 @@ class Page extends React.Component {
     }
 
     render() {
-        const {g_devicesdb,alarms,searchresult_alaram,alaram_data} = this.props;
+        let {g_devicesdb,alarms,searchresult_alaram,alaram_data} = this.props;
         // const columns = _.map
         const {seltype} = this.props;
 
@@ -35,18 +35,27 @@ class Page extends React.Component {
           }
           return true;
         });
-        const columns = [{
+        const columns = [
+          {
             title: '预警时间',
             dataIndex: '告警时间',
             key: '告警时间',
-            render: (v, d) => {
+            render: (text, record, index) => {
                 let warningtext = ["高","中","低"];
-                return (<span className="warningtdtitle"><b className={`warningtype_${d.warninglevel}`}>{warningtext[d.warninglevel]}</b><span>{v}</span></span>)
+                return (<span className="warningtdtitle"><b className={`warningtype_${record.warninglevel}`}>{warningtext[record.warninglevel]}</b><span>{text}</span></span>)
             },
+            sorter: (a, b) => {
+              console.log(`sort:${JSON.stringify(a)},${JSON.stringify(b)}`)
+              return a['告警时间'] > b['告警时间']?1:-1;
+            }
         }, {
             title: '车辆ID',
             dataIndex: 'DeviceId',
-            key: 'deviceid'
+            key: 'deviceid',
+            sorter: (a, b) => {
+              console.log(`sort:${JSON.stringify(a)},${JSON.stringify(b)}`)
+              return a['DeviceId'] > b['DeviceId']?1:-1;
+            }
         }, {
             title: '故障信息',
             dataIndex: '报警信息',
@@ -57,7 +66,9 @@ class Page extends React.Component {
             key: '告警位置',
             render: (v) => <span>{v}</span>,
         }];
-
+        alaram_data = _.sortBy(alaram_data,[(item)=>{
+          return item.warninglevel;
+        }]);
         return (
             <Table
                 columns={columns}
