@@ -20,84 +20,84 @@ class Page extends React.Component {
 
       let id = this.props.match.params.id;
       let chargingpileinfo = [id];
-      console.log(`${JSON.stringify(chargingpileinfo)}`);
-
+      const data = gmap_chargingpile[id];
+      console.log(data);
       const datapower = [
         {
             name:'采集时间',
-            value: "2017-09-13 18:16:57",
+            value: data['采集时间']
         },
         {
-            name:'额定功率',
-            value : "220W",
+            name:'额定功率（kW）',
+            value : data['额定功率（kW）']
         },
         {
-            name:'额定电压',
-            value : "20V"
+            name:'额定电压（V）',
+            value : data['额定电压（V）']
         },
         {
-            name:'最大输出电流',
-            value : "50A"
+            name:'最大输出电流（A）',
+            value : data['最大输出电流（A）']
         },
         {
             name:'定位状态',
-            value : "有效定位"
+            value : data['定位状态']
         },
         {
             name:'纬度信息',
-            value : "北纬13.9"
+            value : data['纬度信息']
         },
         {
             name:'经度信息',
-            value : "东经21.9"
+            value : data['经度信息']
         },
         {
             name:'经度',
-            value : "118.159387"
+            value : data['经度']
         },
         {
             name:'纬度',
-            value : "24.499292"
+            value : data['纬度']
         },
         {
             name:'位置描述',
-            value : ""
+            value : data['位置描述']
         },
         {
             name:'当前状态',
-            value : "工作"
+            value : data['当前状态']
         },
         {
             name:'累计充电次数',
-            value : "2次"
+            value : data['累计充电次数']
         },
         {
-            name:'累计充电量',
-            value : "234MWh"
+            name:'累计充电量（MWh）',
+            value : data['累计充电量（MWh）']
         },
         {
-            name:'累计放电量',
-            value : "12313MWh"
+            name:'累计放电量（MWh）',
+            value : data['累计放电量（MWh）']
         },
         {
             name:'充电模式',
-            value : "交流"
+            value : data['充电模式']
         },
         {
             name:'绝缘阻抗',
-            value : ""
+            value : data['绝缘阻抗']
         },
         {
-            name:'当前电流',
-            value : "2A"
+            name:'当前电流（A）',
+            value : data['当前电流（A）']
         },
         {
-            name:'当前功率',
-            value : "100KW"
+            name:'当前功率（kW）',
+            value : data['当前功率（kW）']
         },
         {
-            name:'开机时长',
-            value : "200H"
+            name:'开机时长（h）',
+            value : data['开机时长（h）']
         }
 
     ];

@@ -90,16 +90,20 @@ class Page extends React.Component {
                     </ul>
                     <div className="tit">维修反馈</div>
                     <div className="infoimg">
-                        <TextField
-                            hintText="请输入反馈内容"
-                            hintStyle={{top: 0}}
-                            textareaStyle={{marginTop: "0"}}
-                            multiLine={true}
-                            rows={2}
-                            rowsMax={2}
-                            fullWidth={true}
-                            onChange={(e,v)=>{console.log(v)}}
-                        />
+                        {
+                            data.isdone? <span className="isdonetext">用户维修反馈内容</span>:
+                            <TextField
+                                hintText="请输入反馈内容"
+                                hintStyle={{top: 0}}
+                                textareaStyle={{marginTop: "0"}}
+                                multiLine={true}
+                                rows={2}
+                                rowsMax={2}
+                                fullWidth={true}
+                                onChange={(e,v)=>{console.log(v)}}
+                            />
+                        }
+
                         <PicturesWall value={pics} onChange={this.onChangePics.bind(this)} isdone={data.isdone} candel={false} />
                     </div>
 
