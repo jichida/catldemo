@@ -479,11 +479,30 @@
     border-left:  none;
 }
 .workerorderinfo .infoimg{
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -ms-flex-align: flex-start;
+    align-items: flex-start;
+    -ms-flex-pack: flex-start;
+    justify-content: flex-start;
+    -ms-flex-positive: 1;
     flex-grow: 1;
     border-bottom: 1px solid #EEE;
+    flex-direction: column;
+    border:1px solid #EEE;
+    margin: 10px;
+    margin-bottom: 0;
+    padding: 10px;
+    padding-bottom: 1px;
+}
+.workerorderinfo .infoimg > textarea{
+    flex-grow: 1;
+    font-size: 14px;
+    resize: none;
+    align-self: stretch;
+    justify-content: flex-start;
+    border: none;
+    margin-bottom: 10px;
 }
 .workerorderinfo .ant-btn-primary{
     background: #5cbeaa;
