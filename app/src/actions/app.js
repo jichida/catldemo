@@ -24,3 +24,5 @@ export const ui_sel_tabindex = createAction('ui_sel_tabindex');
 
 export const ui_setmapstyle = createAction('ui_setmapstyle');
 export const ui_resetsearch = createAction('ui_resetsearch');
+
+export const ui_clickplayback = createAction('ui_clickplayback');
