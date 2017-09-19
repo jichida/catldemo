@@ -13,7 +13,7 @@ import {ui_resetsearch} from '../../actions';
 
 class Page extends React.Component {
     componentWillMount() {
-      this.props.dispatch(ui_resetsearch({}));
+      // this.props.dispatch(ui_resetsearch({}));
     }
     rowClick(record, index, event){
         console.log(record.DeviceId);
