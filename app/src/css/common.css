@@ -380,6 +380,14 @@
     text-align: center;
     padding: 10px 0;
 }
+.indexPage .workorderlist .ant-table-tbody > tr.isdone{
+    background:#EEE;
+    color: #999;
+}
+.indexPage .workorderlist .ant-table-tbody > tr.isdone td,
+.indexPage .workorderlist .ant-table-tbody > tr.isdone td span{
+    color: #999;
+}
 .workordernav {
     display: flex;
     justify-content: space-around;
