@@ -41,7 +41,7 @@ class Page extends React.Component {
             endDate:moment(),
             deviceid,
             mindata : new Date(1970, 0, 1),
-            showset : false,
+            showset : true,
         };
     }
     onSelDeviceid(deviceid){

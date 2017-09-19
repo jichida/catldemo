@@ -48,8 +48,7 @@ class Page extends React.Component {
 
                 }}>
                 <div className="navhead">
-
-                    <div className="headsearch"  style={{marginLeft : "30px"}}>
+                    <div className="headsearch"  style={{marginLeft : "30px",display:"none"}}>
 
                         { this.state.searchonfocus && <input name="search" onBlur={this.onblurinput} autoFocus /> }
                         { !this.state.searchonfocus && <input name="search" onBlur={this.onblurinput} /> }
@@ -64,7 +63,7 @@ class Page extends React.Component {
                 {
                     this.props.selstatus===0 &&
                         <div className="content" style={{pointerEvents: "none",background : "none"}}>
- 
+
                         </div>
                 }
                 {

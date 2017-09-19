@@ -895,7 +895,7 @@ export function* createmapmainflow(){
                     //  let amapboounds = new window.AMap.Bounds(southWest,northEast);
                     //  window.amapmain.setBounds(amapboounds);
                     let center = new window.AMap.LngLat(latlngs[0][1],latlngs[0][0]);
-                     window.amapmain.setZoomAndCenter(17,center);
+                     window.amapmain.setZoomAndCenter(window.amapmain.getZoom()+1,center);
                   }
 
               }
