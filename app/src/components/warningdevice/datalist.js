@@ -75,6 +75,7 @@ class Page extends React.Component {
                 dataSource={alaram_data}
                 pagination={false}
                 style={{flexGrow: 1}}
+                rowClassName={(v)=>{return v.isreaded?"isreaded":""}}
                 onRowClick={this.rowClick.bind(this)}
                 scroll={{ y: this.props.tableheight }}
                 />

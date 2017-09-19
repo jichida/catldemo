@@ -157,3 +157,13 @@
 .playbackPage .btnlist >div:last-child{
     margin-right: 0;
 }
+
+
+.ant-table-tbody > tr.isreaded{
+    background:#EEE;
+    color: #999;
+}
+.ant-table-tbody > tr.isreaded td,
+.ant-table-tbody > tr.isreaded td span{
+    color: #999;
+}

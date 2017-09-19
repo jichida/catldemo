@@ -37,7 +37,7 @@ class Page extends React.Component {
             }
         });
         const datadevice = {
-            "基本信息" :[ {
+            "基本信息" :[{
                     name:'告警等级',
                     value: `${curalarm['告警等级']}`,
                 },
@@ -46,21 +46,20 @@ class Page extends React.Component {
                     value: `${curalarm['车辆ID']}`,
                 },
                 {
-                  name:'告警时间',
-                  value: `${curalarm['告警时间']}`,
+                    name:'告警时间',
+                    value: `${curalarm['告警时间']}`,
                 },
                 {
-                  name:'报警信息',
-                  value: `${curalarm['报警信息']}`,
+                    name:'报警信息',
+                    value: `${curalarm['报警信息']}`,
                 },
             ],
-            "位置信息" : [
+            "位置信息":[
                 {
-                  name:'告警位置',
-                  value: `${curalarm['告警位置']}`,
+                    name:'告警位置',
+                    value: `${curalarm['告警位置']}`,
                 },
-
-          ],
+            ],
         };
         return (
             <div className="mydevicePage AppPage"
