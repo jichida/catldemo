@@ -107,6 +107,19 @@ for(let i=0;i<10;i++){
     break;
   }
 }
+
+//<------处理设备的报警信息到设备------
+let mapdata_bms_alarm = {};
+_.map(jsondata_bms_alarm,(item)=>{
+  mapdata_bms_alarm[item['DeviceId']] = item['报警信息'];
+});
+_.map(jsondata_bms_mydevice,(item,index)=>{
+  if(!!mapdata_bms_alarm[item.DeviceId]){
+    let cloneitem = {...item};
+    cloneitem['报警信息'] = mapdata_bms_alarm[item.DeviceId];
+    jsondata_bms_mydevice[index] = cloneitem;
+  }
+});
 // console.log(jsondata_bms_alarm);
 let jsondata_bms_workusers = workusers;
 // "工单号" : "",
@@ -124,6 +137,7 @@ const test_workorder_part_text = ['车身','发动机','方向盘','坐骑'];
 const test_workorder_assgin_text = ['张三','李四','王五','赵六'];
 const test_workorder_carid_text = ['苏AXM872','沪BMT722','沪ATJ722','沪A72EF2','沪A9FE2','沪AZM993','沪AME777','沪AAS995','沪AKJ773','沪AFL872','沪A4FJJE','沪ATF335'];
 const test_workorder_type_text = ['告警排查','急需维修','正常维护','定时检测','正常维修',];
+const test_workorder_feedback_text = ['某零件损坏','某零件脱落','使用不当','被风刮坏了','使用次数过多',];
 let indexworkorder  = 0;
 for(let i=0;i<20;i++){
   _.map(data_bms_workorder,(item,index)=>{
@@ -154,6 +168,7 @@ for(let i=0;i<20;i++){
       for(let i=0;i<getrandom(1,5);i++){
         cloneitem.pics.push(`https://unsplash.it/300/200/?random`);
       }
+      cloneitem['feedbacktxt'] =  test_workorder_feedback_text[getrandom(0,test_workorder_feedback_text.length-1)];
     }
     jsondata_bms_workorder.push(cloneitem);
   });

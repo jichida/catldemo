@@ -116,6 +116,7 @@ const getpop_device =(deviceitem)=>{
   let zlc = _.get(deviceitem,'里程(km)',100000);
   let jxzk = _.get(deviceitem,'电池绝缘电阻(KΩ)',9000);
   let zgwd = _.get(deviceitem,'最高温度值(℃)',30);
+  let bjxx = _.get(deviceitem,'报警信息','无');
   return {
       infoBody: `<p>车辆编号:${DeviceId}</p>
       <p class='l'><span class='t'>总电流</span><span class='color_warning'>${zdl}V</span></p>
@@ -126,7 +127,7 @@ const getpop_device =(deviceitem)=>{
       <p class='l'><span class='t'>绝缘阻抗</span><span class='color_warning'>${jxzk}KΩ</span></p>
       <p class='l'><span class='t'>电池最高温度</span><span class='color_warning'>${zgwd}℃</span></p>
       <p class='l'><span class='t'>车辆当前位置</span><span class='color_warning'>${province}${city}${district}</span></p>
-      <p class='l'><span class='t'>当前报警信息</span><span class='color_warning'>无</span></p>
+      <p class='l'><span class='t'>当前报警信息</span><span class='color_warning'>${bjxx}</span></p>
       <button onclick="clickfn_device(${DeviceId})">查看详情</button>`
   };
 }
