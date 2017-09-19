@@ -1,4 +1,4 @@
-import {takeLatest,takeEvery,put,fork,call,select} from 'redux-saga/effects';
+import {takeLatest,take,takeEvery,put,fork,call,select} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {
   querydevicegroup_request,
@@ -56,7 +56,9 @@ import {
   createworkorder_result,
 
   getworkusers_request,
-  getworkusers_result
+  getworkusers_result,
+
+  ui_clickplayback
 } from '../actions';
 import  {
   jsondata_bms_chargingpile,
@@ -68,7 +70,7 @@ import  {
   jsondata_bms_workusers,
   getrandom
 } from '../test/bmsdata.js';
-
+import { push,goBack,go,replace } from 'react-router-redux';
 
 import {getRandomLocation} from '../env/geo';
 import coordtransform from 'coordtransform';
@@ -80,6 +82,25 @@ import {getgeodata} from '../sagas/mapmain_getgeodata';
 import moment from 'moment';
 
 export function* apiflow(){//
+  yield takeLatest(`${ui_clickplayback}`, function*(action) {
+    try{
+      const {payload} = action;
+      const mode = yield select((state)=>{
+        return state.app.modeview;
+      });
+      if(mode !== 'device'){
+        yield put(ui_changemodeview('device'));
+        yield take(`${querydevice_result}`);
+      }
+      //轨迹回放时,判断是否为
+      yield put(push(`/historyplay/${payload}`));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+
   yield takeLatest(`${createworkorder_request}`, function*(action) {
     try{
       const {payload} = action;

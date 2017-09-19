@@ -40,7 +40,6 @@ class Page extends React.Component {
         this.state = {
             innerWidth : window.innerWidth,
             openaddress : false,
-            titlenav : 0
         };
     }
     componentWillMount() {
@@ -83,8 +82,6 @@ class Page extends React.Component {
     }
 
     titleNavClick =(v)=>{
-        console.log("index nav titlenav");
-        this.setState({titlenav: v});
         if(v===0){
           this.props.dispatch(ui_changemodeview('device'));
         }
@@ -104,8 +101,8 @@ class Page extends React.Component {
                         <AppBar
                             title={
                                 <div className="titlenav">
-                                    <span className={this.state.titlenav===0?"sel":""} onClick={this.titleNavClick.bind(this, 0)}>地图模式</span>
-                                    <span className={this.state.titlenav===1?"sel":""} onClick={this.titleNavClick.bind(this, 1)}>充电桩模式</span>
+                                    <span className={modeview==='device'?"sel":""} onClick={this.titleNavClick.bind(this, 0)}>地图模式</span>
+                                    <span className={modeview!=='device'?"sel":""} onClick={this.titleNavClick.bind(this, 1)}>充电桩模式</span>
                                 </div>
                             }
                             onLeftIconButtonTouchTap={this.menuevent}

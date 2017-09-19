@@ -11,7 +11,8 @@ import {
   ui_showhistoryplay,
   ui_showmenu,
   searchbatteryalarm_request,
-  ui_btnclick_devicemessage
+  ui_btnclick_devicemessage,
+  ui_clickplayback
 } from '../actions';
 import translate from 'redux-polyglot/translate';
 import TableComponents from "./table.js";
@@ -314,7 +315,13 @@ class Page extends React.Component {
                     <i className="fa fa-angle-left back" aria-hidden="true" onClick={()=>{this.props.history.goBack()}}></i>
                     <div className="title">车辆详情</div>
                     <div className="devicebtnlist">
-                        <Button type="primary" icon="play-circle-o" onClick={()=>this.props.history.push(`/historyplay/${mapseldeviceid}`)}>轨迹回放</Button>
+                        <Button type="primary" icon="play-circle-o" onClick={
+                          ()=>
+                          {
+                            this.props.dispatch(ui_clickplayback(mapseldeviceid));
+                          }
+
+                        }>轨迹回放</Button>
                         <Button type="primary" icon="clock-circle-o" onClick={()=>{
                           const id = this.props.match.params.id;
                           this.props.dispatch(ui_btnclick_devicemessage({DeviceId:id}));

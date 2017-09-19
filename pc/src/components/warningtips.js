@@ -45,7 +45,7 @@ import {
   ui_btnclick_alaramred,
   ui_btnclick_alaramorange,
   ui_btnclick_alaramyellow,
-
+  ui_clickplayback,
   ui_menuclick_settings,
   ui_menuclick_logout
 }from '../actions';
@@ -160,7 +160,7 @@ class UserMenu extends React.Component {
             }}/>
             <MenuItem primaryText="轨迹回放" leftIcon={<Assignment />} onClick={()=>{
                 this.handleRequestClose();
-                this.props.history.push("/historyplay/0");
+                this.props.dispatch(ui_clickplayback(0));
             }}/>
             <MenuItem primaryText="工单查询" leftIcon={<Assignment />} onClick={()=>{
                 this.handleRequestClose();
