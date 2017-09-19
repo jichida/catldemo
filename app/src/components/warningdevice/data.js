@@ -40,7 +40,12 @@ class Page extends React.Component {
         };
     }
     componentWillMount () {
-        this.onSearch(this.state.seltype);
+        this.props.dispatch(searchbatteryalarm_request({query:{
+          queryalarm:{
+            isreaded:false
+          }
+        }}));
+        //this.onSearch(this.state.seltype);
     }
     onSearch(v){
       let query = {};
