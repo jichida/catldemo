@@ -14,6 +14,7 @@ import { Button } from 'antd';
 import _ from 'lodash';
 import PicturesWall  from '../controls/pictureswall.js';
 import {ui_selworkorder,setworkorderdone_request} from '../../actions';
+import TextField from 'material-ui/TextField';
 
 class Page extends React.Component {
 
@@ -89,6 +90,16 @@ class Page extends React.Component {
                     </ul>
                     <div className="tit">维修反馈</div>
                     <div className="infoimg">
+                        <TextField
+                            hintText="请输入反馈内容"
+                            hintStyle={{top: 0}}
+                            textareaStyle={{marginTop: "0"}}
+                            multiLine={true}
+                            rows={2}
+                            rowsMax={2}
+                            fullWidth={true}
+                            onChange={(e,v)=>{console.log(v)}}
+                        />
                         <PicturesWall value={pics} onChange={this.onChangePics.bind(this)} isdone={data.isdone} candel={false} />
                     </div>
 
