@@ -63,7 +63,7 @@ export function* uiflow(){//仅执行一次
   yield takeLatest(`${ui_btnclick_alaramall}`, function*(action) {
     yield put(searchbatteryalarm_request({}));
     console.log(`点击所有告警`);
-    yield put(push('/message'));
+    yield put(push('/message/all'));
   });
 
   yield takeLatest(`${ui_btnclick_alaramred}`, function*(action) {
@@ -76,7 +76,7 @@ export function* uiflow(){//仅执行一次
     }));
     console.log(`点击红色告警`);
     yield take(`${searchbatteryalarm_result}`);
-    yield put(push('/message'));
+    yield put(push('/message/0'));
   });
 
   yield takeLatest(`${ui_btnclick_alaramorange}`, function*(action) {
@@ -89,7 +89,7 @@ export function* uiflow(){//仅执行一次
     }));
     console.log(`点击橙色告警`);
     yield take(`${searchbatteryalarm_result}`);
-    yield put(push('/message'));
+    yield put(push('/message/1'));
   });
 
   yield takeLatest(`${ui_btnclick_alaramyellow}`, function*(action) {
@@ -102,7 +102,7 @@ export function* uiflow(){//仅执行一次
     }));
     console.log(`点击黄色告警`);
     yield take(`${searchbatteryalarm_result}`);
-    yield put(push('/message'));
+    yield put(push('/message/2'));
   });
 
   yield takeLatest(`${ui_menuclick_settings}`, function*(action) {
