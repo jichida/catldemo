@@ -73,6 +73,7 @@ import  {
 import { push,goBack,go,replace } from 'react-router-redux';
 
 import {getRandomLocation} from '../env/geo';
+import {getRandomLocation_track} from './simulatetrack';
 import coordtransform from 'coordtransform';
 import {g_devicesdb} from './mapmain';
 import _ from 'lodash';
@@ -453,11 +454,11 @@ export function* apiflow(){//
           return state.app.modeview;
         });
         if('device' === modeview){
-            const list = _.sampleSize(jsondata_bms_mydevice, 1000);
+            const list = _.sampleSize(jsondata_bms_mydevice, jsondata_bms_mydevice.length/3);
             let items = [];
             for(let i = 0;i < list.length; i++){
               let item = {...list[i]};
-              let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,getrandom(5,60));
+              let locationsz = yield call(getRandomLocation_track,item.DeviceId,item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude);
               item.LastHistoryTrack.Latitude = locationsz[1];
               item.LastHistoryTrack.Longitude  =  locationsz[0];
               let cor = [item.LastHistoryTrack.Longitude,item.LastHistoryTrack.Latitude];

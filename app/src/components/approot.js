@@ -52,7 +52,7 @@ class AppRoot extends React.Component {
 
     componentWillMount() {
         const script = document.createElement("script");
-        script.src = "http://webapi.amap.com/maps?v=1.3&key=788e08def03f95c670944fe2c78fa76f&callback=init&&plugin=AMap.Geocoder,AMap.Scale,AMap.OverView,AMap.ToolBar";
+        script.src = "http://webapi.amap.com/maps?v=1.3&key=788e08def03f95c670944fe2c78fa76f&callback=init&&plugin=AMap.Geocoder,AMap.Scale,AMap.OverView,AMap.ToolBar,AMap.Geocoder,AMap.Driving";
         script.async = true;
         window.init = ()=>{
               const scriptui = document.createElement("script");
