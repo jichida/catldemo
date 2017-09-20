@@ -96,7 +96,7 @@ class Page extends React.Component {
 
       const {mapseldeviceid,g_devicesdb,p, columns, alaram_data} = this.props;
       let deviceitem = g_devicesdb[mapseldeviceid];
-      let datadevice = {
+      const datadevice = {
 
           "基本信息" :[ {
                   name:'采集时间',
@@ -158,7 +158,8 @@ class Page extends React.Component {
                 name:'电机控制器直流母线电流',
                 value: _.get(deviceitem,'电机控制器直流母线电流'),
               },
-
+            ],
+            "GPS信息" : [
               {
                 name:'定位状态',
                 value: _.get(deviceitem,'定位状态'),
@@ -221,8 +222,6 @@ class Page extends React.Component {
                 name:'电池绝缘电阻(KΩ)',
                 value:_.get(deviceitem,'电池绝缘电阻(KΩ)'),
             },
-        ],
-        "GPS信息" : [
             {
                 name:'最高电压动力蓄电池包序号',
                 value: _.get(deviceitem,'最高电压动力蓄电池包序号'),
@@ -311,7 +310,6 @@ class Page extends React.Component {
                 name:'动力蓄电池包总数(动力)',
                 value: _.get(deviceitem,'动力蓄电池包总数(动力)'),
             },
-
           ]
       };
       let datadeviceclone = {...datadevice};
