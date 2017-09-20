@@ -95,14 +95,18 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
     });
 
     let columns = _.map(column_data, (data, index)=>{
-        return {
-            title: index,
-            dataIndex: index,
-            key: index,
-            render: (text, row, index) => {
-                return <span>{text}</span>;
-            }
-        }
+      let column_item = {
+          title: index,
+          dataIndex: index,
+          key: index,
+          render: (text, row, index) => {
+              return <span>{text}</span>;
+          },
+          sorter:(a,b)=>{
+            return a[data] > b[data] ? 1:-1;
+          }
+      };
+      return column_item;
     })
 
 

@@ -159,7 +159,7 @@ class UserMenu extends React.Component {
                     this.handleRequestClose();
                     window.open(`${mapcontent[2].link}`,'_blank');
             }}/>
-            <MenuItem primaryText="轨迹回放" leftIcon={<Assignment />} onClick={()=>{
+            <MenuItem primaryText="车辆轨迹监控" leftIcon={<Assignment />} onClick={()=>{
                 this.handleRequestClose();
                 this.props.dispatch(ui_changemodeview('device'));
                 this.props.history.push(`/historyplay/0`);

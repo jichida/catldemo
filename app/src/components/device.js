@@ -97,7 +97,7 @@ class Page extends React.Component {
             <div className="warningPage devicePage">
                 <div className="tit">车辆详情</div>
                 <div className="devicebtnlist">
-                    <RaisedButton label="轨迹回放" primary={true} onTouchTap={this.showhistoryplay.bind(this)} className="showDeviceInfo" />
+                    <RaisedButton label="轨迹监控" primary={true} onTouchTap={this.showhistoryplay.bind(this)} className="showDeviceInfo" />
                     <RaisedButton label="历史警告" primary={true} onTouchTap={this.onClickMenu.bind(this,"warningbox")} className="showDeviceInfo" />
                 </div>
                 <div className="lists">
@@ -119,7 +119,7 @@ class Page extends React.Component {
                   })
                 }
                 </div>
-               
+
             </div>
         );
     }

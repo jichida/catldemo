@@ -100,15 +100,19 @@ const mapStateToProps = ({device:{g_devicesdb},workorder:{searchresult_workorder
     workorder_data.push(workorders[aid]);
   });
 
-    let columns = _.map(column_data, (data, index)=>{
-        return {
+  let columns = _.map(column_data, (data, index)=>{
+        let column_item = {
             title: index,
             dataIndex: index,
             key: index,
             render: (text, row, index) => {
                 return <span>{text}</span>;
+            },
+            sorter:(a,b)=>{
+              return a[data] > b[data] ? 1:-1;
             }
-        }
+        };
+        return column_item;
     })
 
     console.log(workorder_data);

@@ -543,7 +543,7 @@ class Page extends React.Component {
                             this.props.dispatch(ui_clickplayback(mapseldeviceid));
                           }
 
-                        }>轨迹回放</Button>
+                        }>车辆轨迹监控</Button>
                         <Button type="primary" icon="clock-circle-o" onClick={()=>{
                           const id = this.props.match.params.id;
                           this.props.dispatch(ui_btnclick_devicemessage({DeviceId:id}));

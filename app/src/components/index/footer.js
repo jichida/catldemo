@@ -56,7 +56,7 @@ class Page extends React.Component {
                     </li>
                     <li onClick={this.pushurl.bind(this, "/playback/0",4)}>
                         <img src={tabindex===4?Footer9:Footer10} />
-                        <span className={tabindex===4?"sel":""}>轨迹回放</span></li>
+                        <span className={tabindex===4?"sel":""}>轨迹监控</span></li>
                 </ul>
             </div>
         );
