@@ -26,6 +26,7 @@ class Page extends React.Component {
             selworkorder : 0,
             fileobj : '',
             pics:[],
+            feedbacktxt:''
         };
     }
 
@@ -44,6 +45,7 @@ class Page extends React.Component {
         query:{_id:this.props.match.params.workid},
         data:{
           pics:this.state.pics,
+          feedbacktxt:this.state.feedbacktxt,
           isdone:true,
         }
       }));
@@ -91,7 +93,7 @@ class Page extends React.Component {
                     <div className="tit">维修反馈</div>
                     <div className="infoimg">
                         {
-                            data.isdone? <span className="isdonetext">用户维修反馈内容</span>:
+                            data.isdone? <span className="isdonetext">{data.feedbacktxt}</span>:
                             <TextField
                                 hintText="请输入反馈内容"
                                 hintStyle={{top: 0}}
@@ -100,7 +102,9 @@ class Page extends React.Component {
                                 rows={2}
                                 rowsMax={2}
                                 fullWidth={true}
-                                onChange={(e,v)=>{console.log(v)}}
+                                onChange={(e,v)=>{
+                                  this.setState({feedbacktxt:v});
+                                }}
                             />
                         }
 

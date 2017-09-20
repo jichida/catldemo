@@ -49,10 +49,10 @@ class Page extends React.Component {
                     <i className="fa fa-angle-left back" aria-hidden="true" onClick={()=>{this.props.history.goBack()}}></i>
                     <div className="title">{title}</div>
                     <div className="devicebtnlist">
-                        <Button type="primary" icon="environment" onClick={this.pointdevice.bind(this, data.DeviceId)}>定位设备</Button>    
+                        <Button type="primary" icon="environment" onClick={this.pointdevice.bind(this, data.DeviceId)}>定位设备</Button>
                     </div>
                 </div>
-                <div 
+                <div
                     className="lists deviceinfolist"
                     style={{overflowY: "scroll"}}
                     >
@@ -76,12 +76,13 @@ class Page extends React.Component {
                         {
                             data.isdone ? <div className="statusbtn">已完成</div>:<div className="statusbtn nodone">未处理</div>
                         }
-                        <PicturesWall value={pics} isdone={true} candel={false} />
+                        { data.isdone && <div>{data['feedbacktxt']}</div>}
+                        { data.isdone && <PicturesWall value={pics} isdone={true} candel={false} />}
                     </div>
 
                 </div>
             </div>
-            
+
         );
     }
 }

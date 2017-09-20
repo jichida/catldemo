@@ -37,7 +37,9 @@ import _ from 'lodash';
 import coordtransform from 'coordtransform';
 import {getgeodata} from '../sagas/mapmain_getgeodata';
 import {g_devicesdb} from './mapmain';
-
+import  {
+  getrandom
+} from '../test/bmsdata.js';
 
 export function* wsrecvsagaflow() {
   yield takeLatest(`${setworkorderdone_request}`, function*(action) {
@@ -55,7 +57,7 @@ export function* wsrecvsagaflow() {
         while(true){
           const { resstop, timeout } = yield race({
              resstop: take(`${stop_serverpush_devicegeo_sz}`),
-             timeout: call(delay, 500000)
+             timeout: call(delay,getrandom(5000,10000))
           });
           if(!!resstop){
             break;

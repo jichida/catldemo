@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import Devicestar from "../../img/16.png";
 import { withRouter } from 'react-router-dom';
+import {ui_selworkorder} from '../../actions';
 
 class Page extends React.Component {
 
@@ -22,7 +23,11 @@ class Page extends React.Component {
                 {
                     _.map(data, (d, i)=>{
                         return (
-                            <div className="li" key={i} onClick={()=>{this.props.history.push(`/deviceinfo/${d.id}`)}}><img src={Devicestar} />{d.name}</div>
+                            <div className="li" key={i} onClick={()=>{
+                              // this.props.history.push(`/deviceinfo/${d.id}`)}
+                                this.props.dispatch(ui_selworkorder(d.id));
+                              }
+                            }><img src={Devicestar} />{d.name}</div>
                         )
                     })
                 }<div></div>

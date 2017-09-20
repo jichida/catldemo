@@ -1,4 +1,4 @@
-import {takeLatest,takeEvery,put,fork,call,select} from 'redux-saga/effects';
+import {takeLatest,take,takeEvery,put,fork,call,select} from 'redux-saga/effects';
 import {delay} from 'redux-saga';
 import {
   querydevicegroup_request,
@@ -56,7 +56,9 @@ import {
   createworkorder_result,
 
   getworkusers_request,
-  getworkusers_result
+  getworkusers_result,
+
+  ui_clickplayback
 } from '../actions';
 import  {
   jsondata_bms_chargingpile,
@@ -68,7 +70,7 @@ import  {
   jsondata_bms_workusers,
   getrandom
 } from '../test/bmsdata.js';
-
+import { push,goBack,go,replace } from 'react-router-redux';
 
 import {getRandomLocation} from '../env/geo';
 import coordtransform from 'coordtransform';
@@ -79,7 +81,43 @@ import {getgeodata} from '../sagas/mapmain_getgeodata';
 
 import moment from 'moment';
 
+const getresult_historytrack = (mstart,mend)=>{
+  let list = [];
+  list = _.filter(jsondata_bms_track,(item)=>{
+    return (item.GPSTime >= mstart) && (item.GPSTime <= mend);
+  });
+  return list;
+}
+
+let list_historyplayback_sz = [
+  getresult_historytrack('2017-07-31 09:30:00','2017-07-31 10:30:00'),
+  getresult_historytrack('2017-07-31 13:00:00','2017-07-31 14:00:00'),
+  getresult_historytrack('2017-07-31 14:00:00','2017-07-31 15:00:00'),
+  getresult_historytrack('2017-07-31 15:00:00','2017-07-31 16:00:00'),
+];
+
+
+
 export function* apiflow(){//
+  yield takeLatest(`${ui_clickplayback}`, function*(action) {
+    try{
+      const {payload} = action;
+      const mode = yield select((state)=>{
+        return state.app.modeview;
+      });
+      if(mode !== 'device'){
+        yield put(ui_changemodeview('device'));
+        yield take(`${querydevice_result}`);
+      }
+      //轨迹回放时,判断是否为
+      yield put(push(`/historyplay/${payload}`));
+   }
+   catch(e){
+     console.log(e);
+   }
+  });
+
+
   yield takeLatest(`${createworkorder_request}`, function*(action) {
     try{
       const {payload} = action;
@@ -396,18 +434,12 @@ export function* apiflow(){//
         const {payload} = action;
         const {query} = payload;
         const {startDate,endDate} = query;
-        let mstart = moment(startDate).format('2017-07-31 HH:mm:ss');
-        let mend = moment(endDate).format('2017-07-31 HH:mm:ss');
-        if(mstart >= mend){
-          let tmp = mstart;
-          mstart = mend;
-          mend = tmp;
-        }
-        let list = [];
-        list = _.filter(jsondata_bms_track,(item)=>{
-          return (item.GPSTime >= mstart) && (item.GPSTime <= mend);
-        });
-        yield put(queryhistorytrack_result({list:list}));
+        // let mstart = moment(startDate).format('2017-07-31 HH:mm:ss');
+        // let mend = moment(endDate).format('2017-07-31 HH:mm:ss');
+        let index = getrandom(0,list_historyplayback_sz.length -1);
+        let resultlist = list_historyplayback_sz[index];
+        console.log(`resultlist:index:${index}:${JSON.stringify(resultlist.length)}`);
+        yield put(queryhistorytrack_result({list:resultlist}));
       }
       catch(e){
         console.log(e);
@@ -425,7 +457,7 @@ export function* apiflow(){//
             let items = [];
             for(let i = 0;i < list.length; i++){
               let item = {...list[i]};
-              let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,5.6);
+              let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,getrandom(5,60));
               item.LastHistoryTrack.Latitude = locationsz[1];
               item.LastHistoryTrack.Longitude  =  locationsz[0];
               let cor = [item.LastHistoryTrack.Longitude,item.LastHistoryTrack.Latitude];

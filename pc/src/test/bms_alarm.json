@@ -10,40 +10,4 @@
     "省市区" : "江苏常州武进区",
     "报警信息" : "绝缘故障",
     "isreaded":false
-}, {
-    "key" : 1,
-    "time": "2017/09/07",
-    "DeviceId": "1602010001",
-    "errorinfo":"1级警报",
-    "address": "上海浦东",
-    "PACK号码" : "pack001",
-    "PDB编号" : "pdb001",
-    "料号" : "liaohao001",
-    "省市区" : "江苏常州武进区",
-    "报警信息" : "绝缘故障",
-    "isreaded":false
-}, {
-    "key" : 2,
-    "time": "2017/09/07",
-    "DeviceId": "1602010003",
-    "errorinfo": "1级警报",
-    "address": "上海浦东",
-    "PACK号码" : "pack001",
-    "PDB编号" : "pdb001",
-    "料号" : "liaohao001",
-    "省市区" : "江苏常州武进区",
-    "报警信息" : "绝缘故障",
-    "isreaded":false
-}, {
-    "key" : 3,
-    "time": "2017/09/07",
-    "DeviceId": "1602010007",
-    "errorinfo": "1级警报",
-    "address": "上海浦东",
-    "PACK号码" : "pack001",
-    "PDB编号" : "pdb001",
-    "料号" : "liaohao001",
-    "省市区" : "江苏常州武进区",
-    "报警信息" : "绝缘故障",
-    "isreaded":true
 }]
