@@ -131,7 +131,7 @@ export class Page extends Component {
             <div className="loginPage AppPage" 
                 style={{
                     backgroundSize: "100% 100%",
-                    minHeight : `${window.innerHeight}px`
+                    height : `${window.innerHeight}px`
                 }}>
                 
                 <div className="content">

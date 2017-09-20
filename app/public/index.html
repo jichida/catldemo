@@ -12,24 +12,6 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <link rel="stylesheet" href="%PUBLIC_URL%/awesome/css/font-awesome.min.css">
-    <script src="http://gosspublic.alicdn.com/aliyun-oss-sdk-4.4.4.min.js"></script>
-
-    <script>
-        var uploadimg = ()=>{
-            var client = new OSS.Wrapper({
-                accessKeyId: "oss-cn-beijing",
-                accessKeySecret: "LTAIiHKjGyXdxpUy",
-                stsToken: "",
-                endpoint: '<oss endpoint>',
-                bucket: '<Your bucket name>'
-            });
-            client.multipartUpload("storeAs", "file").then(function (result) {
-                console.log(result);
-            }).catch(function (err) {
-                console.log(err);
-            });
-        }
-    </script>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
