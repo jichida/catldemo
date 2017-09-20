@@ -454,11 +454,12 @@ export function* apiflow(){//
           return state.app.modeview;
         });
         if('device' === modeview){
-            const list = _.sampleSize(jsondata_bms_mydevice, jsondata_bms_mydevice.length/3);
+            const list = _.sampleSize(jsondata_bms_mydevice, jsondata_bms_mydevice.length/2);
             let items = [];
             for(let i = 0;i < list.length; i++){
               let item = {...list[i]};
-              let locationsz = yield call(getRandomLocation_track,item.DeviceId,item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude);
+              let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,getrandom(5,60));
+              // let locationsz = yield call(getRandomLocation_track,item.DeviceId,item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude);
               item.LastHistoryTrack.Latitude = locationsz[1];
               item.LastHistoryTrack.Longitude  =  locationsz[0];
               let cor = [item.LastHistoryTrack.Longitude,item.LastHistoryTrack.Latitude];
