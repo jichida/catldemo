@@ -96,7 +96,7 @@ class Page extends React.Component {
 
       const {mapseldeviceid,g_devicesdb,p, columns, alaram_data} = this.props;
       let deviceitem = g_devicesdb[mapseldeviceid];
-      const datadevice = {
+      let datadevice = {
 
           "基本信息" :[ {
                   name:'采集时间',
