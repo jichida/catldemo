@@ -194,7 +194,34 @@ export function* apiflow(){//
 
   yield takeLatest(`${queryworkorder_request}`, function*(action) {
     try{
-      let list =  _.sampleSize(jsondata_bms_workorder, getrandom(0,jsondata_bms_workorder.length-1));
+      const {payload:{query}} = action;
+
+      let list = [];
+
+      let workusers = yield select((state)=>{
+        return state.workorder.workusers;
+      });
+      let assignto = _.get(query,'queryalarm.assignto','');
+      if(assignto !== ''){
+        list = _.filter(jsondata_bms_workorder, (oneworkorder)=>{
+          return workusers[assignto].name === oneworkorder['责任人'];
+        });
+      }
+      else{
+        list =  _.sampleSize(jsondata_bms_workorder, getrandom(0,jsondata_bms_workorder.length-1));
+      }
+
+      let startdatestring = _.get(query,'queryalarm.startDate','');
+      let enddatestring = _.get(query,'queryalarm.endDate','');
+      if(startdatestring !== '' && enddatestring !== ''){
+        list = _.filter(list,(item)=>{
+          let waringtime = item['createtime'];
+          let match = (startdatestring <= waringtime) && (waringtime <= enddatestring);
+          return match;
+       });
+      }
+      //查询条件
+
       yield put(queryworkorder_result({list}));
    }
    catch(e){

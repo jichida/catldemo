@@ -25,7 +25,7 @@ import {
     TableRow,
     TableRowColumn,
 } from 'material-ui/Table';
-import TreeSearchreport from './search/searchreport';
+import TreeSearchreport from './search/searchreport_workorder';
 import {
   ui_selcurdevice_request,
   searchbatteryalarm_request,
