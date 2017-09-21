@@ -56,7 +56,7 @@
 .playbackPage.warningmessagePage .ant-table-tbody>tr.ant-table-row>td:last-child span{
     white-space: nowrap;
     text-overflow:ellipsis; 
-    width: 90px;
+    width: 70px;
     height: 20px;
     overflow:hidden;
     line-height: 20px;
@@ -67,6 +67,19 @@
     word-break: normal;
     width: 25%;
     text-align: center;
+}
+.playbackPage.warningmessagePage .ant-table-tbody>tr>td{
+    white-space: wrap;
+    word-break:break-all;
+}
+.playbackPage.warningmessagePage .ant-table-thead>tr>th span{
+    display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    align-items: center;
+}
+.playbackPage.warningmessagePage .ant-table-thead>tr>th span .ant-table-column-sorter{
+    margin-top: 5px;
 }
 .playbackPage.warningmessagePage .ant-table-thead>tr>th:first-child{
     
