@@ -119,7 +119,7 @@ const getpop_device =(deviceitem)=>{
   let bjxx = _.get(deviceitem,'报警信息','无');
   return {
       infoBody: `<p>车辆编号:${DeviceId}</p>
-      <p class='l'><span class='t'>总电流</span><span class='color_warning'>${zdl}V</span></p>
+      <p class='l'><span class='t'>总电流</span><span class='color_warning'>${zdl}A</span></p>
       <p class='l'><span class='t'>总电压</span><span class='color_warning'>${zdy}V</span></p>
       <p class='l'><span class='t'>SOC</span><span class='color_warning'>${soc}%</span></p>
       <p class='l'><span class='t'>车速</span><span class='color_warning'>${cs}km/h</span> </p>
