@@ -392,7 +392,7 @@ class Page extends React.Component {
         return (
             <div className="BadgeStyle">
                 <Badge
-                    badgeContent={`维修(${count_chargingpile_obj['4']})`}
+                    badgeContent={`工作(${count_chargingpile_obj['4']})`}
                     className="Badge"
                     secondary={true}
                     style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
@@ -409,10 +409,10 @@ class Page extends React.Component {
                         color : "#666"
                     }}
                     >
-                    <img src={Pow3} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenuPipleinfo.bind(this,'4')} />
+                    <img src={Pow2} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenuPipleinfo.bind(this,'4')} />
                 </Badge>
                 <Badge
-                    badgeContent={`工作(${count_chargingpile_obj['5']})`}
+                    badgeContent={`空闲(${count_chargingpile_obj['5']})`}
                     className="Badge"
                     secondary={true}
                     style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
@@ -432,7 +432,7 @@ class Page extends React.Component {
                     <img src={Pow1} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenuPipleinfo.bind(this,'5')} />
                 </Badge>
                 <Badge
-                    badgeContent={`空闲(${count_chargingpile_obj['6']})`}
+                    badgeContent={`维修(${count_chargingpile_obj['6']})`}
                     className="Badge"
                     secondary={true}
                     style={{padding:"0",width:"auto",height:"36px",display: "flex", marginRight : "15px"}}
@@ -449,7 +449,7 @@ class Page extends React.Component {
                         color : "#666"
                     }}
                     >
-                    <img src={Pow2} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenuPipleinfo.bind(this,'6')} />
+                    <img src={Pow3} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenuPipleinfo.bind(this,'6')} />
                 </Badge>
                 <UserMenu />
 

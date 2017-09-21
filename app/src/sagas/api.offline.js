@@ -450,21 +450,40 @@ export function* apiflow(){//
   //  模拟服务端推送消息
   yield takeEvery(`${serverpush_devicegeo_sz_request}`, function*(action) {
      try{
-        let modeview = yield select((state)=>{
-          return state.app.modeview;
+        let {modeview,carcollections} = yield select((state)=>{
+          let carcollections = state.device.carcollections;
+          let modeview = state.app.modeview;
+          return {modeview,carcollections};
         });
         if('device' === modeview){
-            const list = _.sampleSize(jsondata_bms_mydevice, jsondata_bms_mydevice.length/2);
+
+            const list = _.sampleSize(jsondata_bms_mydevice, jsondata_bms_mydevice.length);
             let items = [];
             for(let i = 0;i < list.length; i++){
               let item = {...list[i]};
-              let locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,getrandom(5,60));
-              // let locationsz = yield call(getRandomLocation_track,item.DeviceId,item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude);
-              item.LastHistoryTrack.Latitude = locationsz[1];
-              item.LastHistoryTrack.Longitude  =  locationsz[0];
-              let cor = [item.LastHistoryTrack.Longitude,item.LastHistoryTrack.Latitude];
-              const wgs84togcj02=coordtransform.wgs84togcj02(cor[0],cor[1]);
-              item.locz = wgs84togcj02;
+              let locationsz = [];
+              let findeditem = _.find(carcollections,(col)=>{
+                return col === item.DeviceId;
+              });
+              if(!!findeditem){
+                const wgs84togcj02=coordtransform.wgs84togcj02(item.LastHistoryTrack.Longitude,item.LastHistoryTrack.Latitude);
+                locationsz = yield call(getRandomLocation_track,item.DeviceId,wgs84togcj02[1],wgs84togcj02[0]);
+                //坐标转换
+                const gcj02towgs84=coordtransform.gcj02towgs84(locationsz[0],locationsz[1]);
+                item.LastHistoryTrack.Longitude = gcj02towgs84[0];
+                item.LastHistoryTrack.Latitude = gcj02towgs84[1];
+                item.locz = locationsz;
+              }
+              else{
+                locationsz = getRandomLocation(item.LastHistoryTrack.Latitude,item.LastHistoryTrack.Longitude,getrandom(5,60));
+                item.LastHistoryTrack.Latitude = locationsz[1];
+                item.LastHistoryTrack.Longitude  =  locationsz[0];
+                let cor = [item.LastHistoryTrack.Longitude,item.LastHistoryTrack.Latitude];
+                const wgs84togcj02=coordtransform.wgs84togcj02(cor[0],cor[1]);
+                item.locz = wgs84togcj02;
+              }
+
+
               items.push(item);
             };
             yield put(serverpush_devicegeo_sz_result({list:items}));

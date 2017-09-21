@@ -36,6 +36,7 @@ class Page extends React.Component {
             cloneitem['项目'] = '';
             cloneitem['故障类型'] = '';
             cloneitem['车辆ID'] = curalarm['车辆ID'];
+            cloneitem['故障描述'] = curalarm['故障描述'];
             // cloneitem['部位'] = test_workorder_part_text[getrandom(0,test_workorder_part_text.length-1)];
             cloneitem['责任人'] = workusers[this.state.selworderid].name;
             cloneitem['故障地点'] =curalarm['告警位置'];

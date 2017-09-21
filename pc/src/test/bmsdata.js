@@ -29,7 +29,17 @@ _.map(jsondata_chargingpile,(item,index)=>{
       Latitude:item.LastHistoryTrack__Latitude,
       Longitude:item.LastHistoryTrack__Longitude
     }
-    let imagetype = 4+index%3;
+    let imagetype = 4;
+    let random = getrandom(0,10000);
+    if(random < 9500){
+      imagetype = 4;
+    }
+    else if(random > 9500 && random < 9800){
+      imagetype = 5;
+    }
+    else{
+      imagetype = 6;
+    }
     item.imagetype = ''+imagetype;
 
     let dqzttext = ['工作','空闲','维修中'];
@@ -40,7 +50,7 @@ _.map(jsondata_chargingpile,(item,index)=>{
       "额定电压（V）":getrandom(300,400),
       "最大输出电流（A）":getrandom(150,250),
       "位置描述":item.address.formattedAddress,
-      "当前状态":dqzttext[getrandom(0,dqzttext.length-1)],
+      "当前状态":dqzttext[imagetype-4],
       "累计充电次数":`${getrandom(2000,8000)}`,
 
       "累计放电量（MWh）":getrandom(0,1000)*200/1000,

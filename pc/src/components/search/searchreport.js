@@ -45,13 +45,14 @@ const selitem_alarmfields = [
 class TreeSearchBattery extends React.Component {
     constructor(props) {
         super(props);
+        let warninglevel = props.warninglevel + '';
         this.state = {
             notype:  '',
             notypevalue : '',
             alarmtype : '',
             alarmtypevalue:'',
-            alarmlevel:'-1',
-            startDate:moment().subtract(3600*12, 'seconds'),
+            alarmlevel:warninglevel,
+            startDate:moment().subtract(7, 'days'),
             endDate:moment(),
             groupid:'0',
             adcode:10000
@@ -164,7 +165,7 @@ class TreeSearchBattery extends React.Component {
 
 
 
-                    <Select defaultValue={'-1'}   onChange={this.onChange_alarmlevel.bind(this)}>
+                    <Select defaultValue={this.state.alarmlevel}   onChange={this.onChange_alarmlevel.bind(this)}>
                         <Option value={'-1'}>选择警告级别</Option>
                         <Option value={'0'} >严重告警</Option>
                         <Option value={'1'} >紧急告警</Option>

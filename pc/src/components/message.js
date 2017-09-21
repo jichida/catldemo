@@ -90,6 +90,13 @@ class MessageAllDevice extends React.Component {
     }
 
     render(){
+        let warninglevel = this.props.match.params.warninglevel;
+        if(warninglevel === 'all'){
+          warninglevel = -1;
+        }
+        else{
+          warninglevel = parseInt(warninglevel);
+        }
         let {g_devicesdb,alarms,searchresult_alaram,alaram_data,columns} = this.props;
         let delrow = (row)=>{
             console.log(row);
@@ -114,7 +121,7 @@ class MessageAllDevice extends React.Component {
                     <div className="title">新消息</div>
                 </div>
                 <div className="TreeSearchBattery">
-                    <TreeSearchreport onClickQuery={this.onClickQuery.bind(this)}/>
+                    <TreeSearchreport onClickQuery={this.onClickQuery.bind(this)} warninglevel={warninglevel}/>
                 </div>
                 <div className="tablelist">
                     <TableComponents data={alaram_data} columns={columns}/>

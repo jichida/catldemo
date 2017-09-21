@@ -48,7 +48,7 @@ export const getgroupStyleMap = ()=>{
     },
     {
       name:'4',
-      image:`${process.env.PUBLIC_URL}/images/pow1.png`,
+      image:`${process.env.PUBLIC_URL}/images/pow2.png`,
       width: 32,
       //高度
       height: 32,
@@ -58,7 +58,7 @@ export const getgroupStyleMap = ()=>{
     },
     {
       name:'5',
-      image:`${process.env.PUBLIC_URL}/images/pow2.png`,
+      image:`${process.env.PUBLIC_URL}/images/pow1.png`,
       width: 32,
       //高度
       height: 32,
