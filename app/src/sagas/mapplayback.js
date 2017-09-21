@@ -174,7 +174,7 @@ const getmapstate_curdevice = (state) => {
 export function* createmaptrackhistoryplaybackflow(){
 
     //创建地图
-    yield takeEvery(`${carmapshow_createmap}`, function*(action_createmap) {
+    yield takeLatest(`${carmapshow_createmap}`, function*(action_createmap) {
       try{
         let {payload:{divmapid}} = action_createmap;
         if(divmapid === divmapid_maptrackhistoryplayback){
@@ -221,7 +221,7 @@ export function* createmaptrackhistoryplaybackflow(){
     });
 
     //销毁地图
-    yield takeEvery(`${carmapshow_destorymap}`, function*(action_destorymap) {
+    yield takeLatest(`${carmapshow_destorymap}`, function*(action_destorymap) {
         let {payload:{divmapid}} = action_destorymap;
         if(divmapid === divmapid_maptrackhistoryplayback){
           window.amaptrackhistoryplayback = null;

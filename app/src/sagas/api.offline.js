@@ -194,7 +194,34 @@ export function* apiflow(){//
 
   yield takeLatest(`${queryworkorder_request}`, function*(action) {
     try{
-      let list =  _.sampleSize(jsondata_bms_workorder, getrandom(0,jsondata_bms_workorder.length-1));
+      const {payload:{query}} = action;
+
+      let list = [];
+
+      let workusers = yield select((state)=>{
+        return state.workorder.workusers;
+      });
+      let assignto = _.get(query,'queryalarm.assignto','');
+      if(assignto !== ''){
+        list = _.filter(jsondata_bms_workorder, (oneworkorder)=>{
+          return workusers[assignto].name === oneworkorder['责任人'];
+        });
+      }
+      else{
+        list =  _.sampleSize(jsondata_bms_workorder, getrandom(0,jsondata_bms_workorder.length-1));
+      }
+
+      let startdatestring = _.get(query,'queryalarm.startDate','');
+      let enddatestring = _.get(query,'queryalarm.endDate','');
+      if(startdatestring !== '' && enddatestring !== ''){
+        list = _.filter(list,(item)=>{
+          let waringtime = item['createtime'];
+          let match = (startdatestring <= waringtime) && (waringtime <= enddatestring);
+          return match;
+       });
+      }
+      //查询条件
+
       yield put(queryworkorder_result({list}));
    }
    catch(e){
@@ -212,7 +239,7 @@ export function* apiflow(){//
    }
   });
 
-  yield takeEvery(`${getcurallalarm_request}`, function*(action) {
+  yield takeLatest(`${getcurallalarm_request}`, function*(action) {
     try{
       //获取今天所有告警信息列表
 
@@ -225,7 +252,7 @@ export function* apiflow(){//
   });
 
 
-  yield takeEvery(`${querydeviceinfo_request}`, function*(action) {
+  yield takeLatest(`${querydeviceinfo_request}`, function*(action) {
     try{
     const {payload:{query:{DeviceId}}} = action;
     let deviceinfo = g_devicesdb[DeviceId];
@@ -236,7 +263,7 @@ export function* apiflow(){//
    }
   });
 
-  yield takeEvery(`${getsystemconfig_request}`, function*(action) {
+  yield takeLatest(`${getsystemconfig_request}`, function*(action) {
     try{
       yield put(getsystemconfig_result({}));
 
@@ -252,7 +279,7 @@ export function* apiflow(){//
 
   });
 
-  yield takeEvery(`${login_request}`, function*(action) {
+  yield takeLatest(`${login_request}`, function*(action) {
     try{
         const {payload} = action;
         const {username,password} = payload;
@@ -274,7 +301,7 @@ export function* apiflow(){//
       }
   });
 
-  yield takeEvery(`${ui_changemodeview}`, function*(action) {
+  yield takeLatest(`${ui_changemodeview}`, function*(action) {
     try{
         let viewmode = action.payload;
         let jsondata_result_2;
@@ -292,7 +319,7 @@ export function* apiflow(){//
       }
   });
 
-  yield takeEvery(`${querydevice_request}`, function*(action) {
+  yield takeLatest(`${querydevice_request}`, function*(action) {
     try{
        yield put(querydevice_result({list:jsondata_bms_mydevice}));
      }
@@ -302,11 +329,19 @@ export function* apiflow(){//
     //  yield put(start_serverpush_devicegeo_sz({}));
   });
 
-  yield takeEvery(`${searchbattery_request}`, function*(action) {
+  yield takeLatest(`${searchbattery_request}`, function*(action) {
     try{
         const {payload:{query}} = action;
-
-        const list = _.sampleSize(jsondata_bms_mydevice, 20);
+        let {carcollections} = yield select((state)=>{
+          let carcollections = state.device.carcollections;
+          return {carcollections};
+        });
+        //收藏的设备
+        const list = _.filter(jsondata_bms_mydevice, (itemdevice)=>{
+          return !!_.find(carcollections,(item)=>{
+            return item === itemdevice.DeviceId;
+          });
+        });
         yield put(searchbattery_result({list}));
       }
       catch(e){
@@ -315,7 +350,7 @@ export function* apiflow(){//
   });
 
 
-  yield takeEvery(`${searchbatteryalarm_request}`, function*(action) {
+  yield takeLatest(`${searchbatteryalarm_request}`, function*(action) {
     try{
       const {payload:{query}} = action;
 
@@ -367,7 +402,7 @@ export function* apiflow(){//
     }
   });
 
-  yield takeEvery(`${searchbatteryalarmsingle_request}`, function*(action) {
+  yield takeLatest(`${searchbatteryalarmsingle_request}`, function*(action) {
     try{
         const {payload:{query}} = action;
 
@@ -408,7 +443,7 @@ export function* apiflow(){//
 
 
 
-   yield takeEvery(`${querydevicegroup_request}`, function*(action) {
+   yield takeLatest(`${querydevicegroup_request}`, function*(action) {
        try{
           yield put(querydevicegroup_result({list:jsondata_bms_groups}));
         }
@@ -430,7 +465,7 @@ export function* apiflow(){//
 
    });
 
-   yield takeEvery(`${queryhistorytrack_request}`, function*(action) {
+   yield takeLatest(`${queryhistorytrack_request}`, function*(action) {
      try{
         const {payload} = action;
         const {query} = payload;
@@ -448,7 +483,7 @@ export function* apiflow(){//
    });
 
   //  模拟服务端推送消息
-  yield takeEvery(`${serverpush_devicegeo_sz_request}`, function*(action) {
+  yield takeLatest(`${serverpush_devicegeo_sz_request}`, function*(action) {
      try{
         let {modeview,carcollections} = yield select((state)=>{
           let carcollections = state.device.carcollections;

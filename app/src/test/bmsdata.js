@@ -8,7 +8,7 @@ import jsondatatrack from '../test/1602010008.json';
 import jsondataalarm from '../test/json-BMS2.json';
 import {groups} from './bmsdata_group.js';
 import {jsondata} from './bms_devices';
-import {workusers} from './bms_workusers.js';
+
 
 const getrandom=(min,max)=>{
   return parseInt(Math.random()*(max-min+1)+min,10);
@@ -128,7 +128,7 @@ _.map(jsondata_bms_mydevice,(item,index)=>{
   }
 });
 // console.log(jsondata_bms_alarm);
-let jsondata_bms_workusers = workusers;
+
 // "工单号" : "",
 // "营运公司" : "",
 // "车辆ID" : "",
@@ -141,11 +141,21 @@ let jsondata_bms_workusers = workusers;
 const test_workorder_company_text = ['上海巴士','北京巴士','江苏巴士','安徽巴士'];
 const test_workorder_errorcode_text = ['U87','S22','F34','E22'];
 const test_workorder_part_text = ['车身','发动机','方向盘','坐骑'];
-const test_workorder_assgin_text = ['张三','李四','王五','赵六'];
+const test_workorder_assgin_text = ['张三','李四','王五','赵六','钱七','付八','焦九'];
 const test_workorder_carid_text = ['苏AXM872','沪BMT722','沪ATJ722','沪A72EF2','沪A9FE2','沪AZM993','沪AME777','沪AAS995','沪AKJ773','沪AFL872','沪A4FJJE','沪ATF335'];
 const test_workorder_type_text = ['告警排查','急需维修','正常维护','定时检测','正常维修',];
 const test_workorder_feedback_text = ['某零件损坏','某零件脱落','使用不当','被风刮坏了','使用次数过多',];
 let indexworkorder  = 0;
+
+let jsondata_bms_workusers = [];
+_.map(test_workorder_assgin_text,(item,index)=>{
+  jsondata_bms_workusers.push({
+    _id:index+'',
+    name:item
+  });
+});
+
+
 for(let i=0;i<20;i++){
   _.map(data_bms_workorder,(item,index)=>{
     let cloneitem = {...item};
@@ -187,6 +197,9 @@ for(let i=0;i<5;i++){
 }
 
 let jsondata_bms_track = jsondatatrack;
+
+
+
 export {
   jsondata_bms_chargingpile,
   jsondata_bms_track,
@@ -196,7 +209,6 @@ export {
   jsondata_bms_groups,
   jsondata_bms_workusers,
   jsondata_bms_carcollections,
-
   gmap_chargingpile,
   getrandom
 };
