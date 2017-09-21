@@ -68,9 +68,13 @@
     width: 25%;
     text-align: center;
 }
+.mydevicePage .ant-table-tbody>tr>td{
+    word-break: normal;
+}
 .playbackPage.warningmessagePage .ant-table-tbody>tr>td{
     white-space: wrap;
     word-break:break-all;
+    max-width: 70px;
 }
 .playbackPage.warningmessagePage .ant-table-thead>tr>th span{
     display: flex;
