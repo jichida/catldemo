@@ -4,7 +4,6 @@ import {
     mapmain_setmapcenter,
     mapmain_setzoomlevel,
     map_setmapinited,
-
 } from '../actions';
 import _ from 'lodash';
 

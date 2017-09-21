@@ -181,6 +181,7 @@ const device = createReducer({
   },
   [mapmain_init_device]:(state,payload)=>{
      const {g_devicesdb,gmap_acode_devices,gmap_acode_treecount} = payload;
+     const {datatree} = get_initgeotree();
      let datatreeloc = {...datatree};
      return {...state,g_devicesdb,gmap_acode_devices,gmap_acode_treecount,datatreeloc};
   },

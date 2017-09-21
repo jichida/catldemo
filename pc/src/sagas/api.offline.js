@@ -305,8 +305,16 @@ export function* apiflow(){//
   yield takeEvery(`${searchbattery_request}`, function*(action) {
     try{
         const {payload:{query}} = action;
-
-        const list = _.sampleSize(jsondata_bms_mydevice, 20);
+        let {carcollections} = yield select((state)=>{
+          let carcollections = state.device.carcollections;
+          return {carcollections};
+        });
+        //收藏的设备
+        const list = _.filter(jsondata_bms_mydevice, (itemdevice)=>{
+          return !!_.find(carcollections,(item)=>{
+            return item === itemdevice.DeviceId;
+          });
+        });
         yield put(searchbattery_result({list}));
       }
       catch(e){
