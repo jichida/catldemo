@@ -74,12 +74,12 @@ export function* wsrecvsagaflow() {
   });
 
 
-  yield takeEvery(`${serverpush_devicegeo_sz_result}`, function*(action) {
+  yield takeLatest(`${serverpush_devicegeo_sz_result}`, function*(action) {
       let {payload:result} = action;
       yield put(serverpush_devicegeo_sz(result));
   });
 
-  yield takeEvery(`${md_login_result}`, function*(action) {
+  yield takeLatest(`${md_login_result}`, function*(action) {
       let {payload:result} = action;
       yield put(login_result(result));
       if(result.loginsuccess){
@@ -96,7 +96,7 @@ export function* wsrecvsagaflow() {
   });
 
 
-  yield takeEvery(`${common_err}`, function*(action) {
+  yield takeLatest(`${common_err}`, function*(action) {
         let {payload:result} = action;
 
         yield put(set_weui({
@@ -107,7 +107,7 @@ export function* wsrecvsagaflow() {
         }}));
   });
 
-  yield takeEvery(`${querydevicegroup_result}`, function*(action) {
+  yield takeLatest(`${querydevicegroup_result}`, function*(action) {
     try{
       const {payload:{list}} = action;
       //获取到分组列表
@@ -123,7 +123,7 @@ export function* wsrecvsagaflow() {
 
   });
 
-  yield takeEvery(`${md_querydeviceinfo_result}`, function*(action) {
+  yield takeLatest(`${md_querydeviceinfo_result}`, function*(action) {
     let {payload:deviceinfo} = action;
     console.log(`deviceinfo==>${JSON.stringify(deviceinfo)}`);
     try{

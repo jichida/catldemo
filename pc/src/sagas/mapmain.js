@@ -551,7 +551,7 @@ const getclustertree_one =(adcode)=>{
 export function* createmapmainflow(){
 
     //创建地图
-    yield takeEvery(`${carmapshow_createmap}`, function*(action_createmap) {
+    yield takeLatest(`${carmapshow_createmap}`, function*(action_createmap) {
       try{
         let {payload:{divmapid}} = action_createmap;
         if(divmapid === divmapid_mapmain){
@@ -666,13 +666,13 @@ export function* createmapmainflow(){
 
     });
 
-    yield takeEvery(`${ui_changemodeview}`, function*(action) {
+    yield takeLatest(`${ui_changemodeview}`, function*(action) {
       if(!!infoWindow){
         infoWindow.close();
       }
     });
     //销毁地图
-    yield takeEvery(`${carmapshow_destorymap}`, function*(action_destorymap) {
+    yield takeLatest(`${carmapshow_destorymap}`, function*(action_destorymap) {
       let {payload:{divmapid}} = action_destorymap;
       if(divmapid === divmapid_mapmain){
         window.amapmain = null;
@@ -815,7 +815,7 @@ export function* createmapmainflow(){
     });
 
 
-    yield takeEvery(`${ui_showdistcluster}`, function*(action_showflag) {
+    yield takeLatest(`${ui_showdistcluster}`, function*(action_showflag) {
         let {payload:isshow} = action_showflag;
         try{
           if(!!distCluster){
@@ -833,7 +833,7 @@ export function* createmapmainflow(){
         }
     });
     //显示海量点
-    yield takeEvery(`${ui_showhugepoints}`, function*(action_showflag) {
+    yield takeLatest(`${ui_showhugepoints}`, function*(action_showflag) {
         let {payload:isshow} = action_showflag;
         try{
           if(!!distCluster){
@@ -852,7 +852,7 @@ export function* createmapmainflow(){
     });
 
     //选中某个区域
-    yield takeEvery(`${mapmain_seldistrict}`, function*(action_district) {
+    yield takeLatest(`${mapmain_seldistrict}`, function*(action_district) {
         let {payload:{adcodetop,forcetoggled}} = action_district;
         try{
           if(!!adcodetop){
@@ -936,7 +936,7 @@ export function* createmapmainflow(){
     //serverpush_devicegeo
 
     //某个车辆地理位置发送变化
-    yield takeEvery(`${serverpush_devicegeo}`,function*(action){
+    yield takeLatest(`${serverpush_devicegeo}`,function*(action){
       //https://redux-saga.js.org/docs/recipes/
       const {payload} = action;
       let deviceitem = payload;
@@ -952,7 +952,7 @@ export function* createmapmainflow(){
     });
 
     //多个车辆地理位置变化【刷新界面】
-    yield takeEvery(`${serverpush_devicegeo_sz}`,function*(action){
+    yield takeLatest(`${serverpush_devicegeo_sz}`,function*(action){
       //https://redux-saga.js.org/docs/recipes/
       const {payload} = action;
       let {list} = payload;
@@ -970,7 +970,7 @@ export function* createmapmainflow(){
             return o.DeviceId === mapseldeviceid;
           }));
           if(!!deviceitem){
-            console.log(`当前车辆发生了变化:${JSON.stringify(deviceitem)}`)
+            // console.log(`当前车辆发生了变化:${JSON.stringify(deviceitem)}`)
             //请求
             yield put(querydeviceinfo_request({query:{DeviceId:mapseldeviceid}}));
             const {payload} = yield take(`${querydeviceinfo_result}`);
@@ -981,7 +981,7 @@ export function* createmapmainflow(){
             // g_devicesdb[mapseldeviceid] = deviceinfo;
 
             let locz = deviceinfo.locz;
-            console.log(`开始移动==>${JSON.stringify(locz)}`)
+            // console.log(`开始移动==>${JSON.stringify(locz)}`)
             const infooptions = getpopinfowindowstyle(deviceinfo);
             infoWindow.setInfoTitle(infooptions.infoTitle);
             infoWindow.setInfoBody(infooptions.infoBody);
