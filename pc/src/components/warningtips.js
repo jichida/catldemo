@@ -115,7 +115,7 @@ class UserMenu extends React.Component {
       },
       '2':{
         title:'减排量统计',
-        link:'https://app.powerbi.com/view?r=eyJrIjoiMTA0M2I4YWMtMzE3Ni00MWFmLWFkNTUtMWJlMDIyM2MxZTYxIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9'
+        link:'https://app.powerbi.com/view?r=eyJrIjoiMTA4MmJlZTMtNGQ2OS00MTMxLTliMDUtZDIwMmRmMTUwZWJkIiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9'
       },
       '3':{
         title:'仪表盘1',
