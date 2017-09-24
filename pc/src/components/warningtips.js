@@ -103,7 +103,7 @@ class UserMenu extends React.Component {
   };
 // this.props.history.push("/device")
   render() {
-    const {username} = this.props;
+    const {username,role} = this.props;
     let mapcontent = {
       '0':{
         title:'运营分析',
@@ -130,6 +130,24 @@ class UserMenu extends React.Component {
         link:'https://app.powerbi.com/view?r=eyJrIjoiMGRmZDY5NzAtMmU0YS00OTQyLWFiMzMtMjRiZGIwYWQzNWU2IiwidCI6IjQwMjJlMDNlLTU4MjAtNDhhNS1iODQ5LWNkZThjZDc3ZThmYyIsImMiOjF9'
       },
     };
+    let menuitems = [];
+    if(role === 'admin'){
+      menuitems.push(<MenuItem key={'3'} primaryText={`${mapcontent[3].title}`} leftIcon={<Chart />} onClick={()=>{
+            this.handleRequestClose();
+            // this.props.history.push("/chartlist/1");
+            window.open(`${mapcontent[3].link}`,'_blank');
+        }}/>);
+      menuitems.push(<MenuItem key={'4'} primaryText={`${mapcontent[4].title}`} leftIcon={<Chart />} onClick={()=>{
+            this.handleRequestClose();
+            // this.props.history.push("/chartlist/1");
+            window.open(`${mapcontent[4].link}`,'_blank');
+        }}/>);
+      menuitems.push(<MenuItem key={'5'} primaryText={`${mapcontent[5].title}`} leftIcon={<Chart />} onClick={()=>{
+            this.handleRequestClose();
+            // this.props.history.push("/chartlist/1");
+            window.open(`${mapcontent[3].link}`,'_blank');
+        }}/>);
+    }
     return (
       <div>
         <div className="topuser" onClick={this.handleTouchTap}>
@@ -145,6 +163,7 @@ class UserMenu extends React.Component {
           animation={PopoverAnimationVertical}
         >
           <Menu>
+            {menuitems}
             <MenuItem primaryText="运营分析" leftIcon={<Chart />} onClick={()=>{
                 this.handleRequestClose();
                 // this.props.history.push("/chartlist/1");
@@ -191,8 +210,8 @@ class UserMenu extends React.Component {
 }
 
 const mapStateToProps = ({userlogin}) => {
-   const {username} = userlogin;
-   return {username};
+   const {username,role} = userlogin;
+   return {username,role};
 }
 UserMenu = withRouter(UserMenu);
 UserMenu = connect(mapStateToProps)(UserMenu);
