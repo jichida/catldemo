@@ -31,7 +31,7 @@ import {
                         placeholder="请输入您的账号"
                         type="text"
                         component={ InputValidation }
-                        validate={[ required, phone ]}
+                        validate={[ required ]}
                     />
                 </div>
                 <div className="li">
@@ -47,8 +47,13 @@ import {
                 </div>
 
                 <div className="submitBtn">
-                    <RaisedButton label="登录" fullWidth={true} primary={true} disabled={pristine || submitting}
-                    onClick={handleSubmit(onClickLogin)}/>
+                    <RaisedButton 
+                        label="登录"
+                        fullWidth={true} 
+                        primary={true} 
+                        disabled={pristine || submitting}
+                        onClick={handleSubmit(onClickLogin)}
+                    />
                 </div>
             </Form>
         )
