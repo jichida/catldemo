@@ -287,6 +287,7 @@ class Page extends React.Component {
                           width : "auto",
                           color : "#5cbeaa"
                       }}
+                      onClick={this.onClickMenu.bind(this,'online')}
                       >
                       <img src={CarOnline} style={{marginBottom: "-6px", width:"27px", height:"32"}} onClick={this.onClickMenu.bind(this,'online')} />
                   </Badge>
@@ -307,8 +308,9 @@ class Page extends React.Component {
                           width : "auto",
                           color : "#999"
                       }}
+                      onClick={this.onClickMenu.bind(this,'offline')}
                       >
-                      <img src={CarOutline} style={{marginBottom: "-6px", width:"27px", height:"32"}}  onClick={this.onClickMenu.bind(this,'offline')} />
+                      <img src={CarOutline} style={{marginBottom: "-6px", width:"27px", height:"32"}} onClick={this.onClickMenu.bind(this,'offline')} />
                   </Badge>
                   <Badge
                       badgeContent={`(${count_red})`}
@@ -327,8 +329,9 @@ class Page extends React.Component {
                           width : "auto",
                           color : "#d21d24"
                       }}
+                      onClick={this.onClickMenu.bind(this,'red')}
                       >
-                      <i className="fa fa-bus"  aria-hidden="true"   style={iconstyle1} onClick={this.onClickMenu.bind(this,'red')} />
+                      <i className="fa fa-bus"  aria-hidden="true"  style={iconstyle1} />
                   </Badge>
                   <Badge
                       badgeContent={`(${count_orange})`}
@@ -347,8 +350,9 @@ class Page extends React.Component {
                           width : "auto",
                           color : "#ed942f"
                       }}
+                      onClick={this.onClickMenu.bind(this,'orange')}
                       >
-                      <i className="fa fa-bus"  aria-hidden="true"   style={iconstyle2} onClick={this.onClickMenu.bind(this,'orange')} />
+                      <i className="fa fa-bus"  aria-hidden="true" style={iconstyle2} />
                   </Badge>
                   <Badge
                       badgeContent={`(${count_yellow})`}
@@ -367,8 +371,9 @@ class Page extends React.Component {
                           width : "auto",
                           color : "#f6d06b"
                       }}
+                      onClick={this.onClickMenu.bind(this,'yellow')}
                       >
-                      <i className="fa fa-bus"  aria-hidden="true"   style={iconstyle3} onClick={this.onClickMenu.bind(this,'yellow')} />
+                      <i className="fa fa-bus"  aria-hidden="true" style={iconstyle3} />
                   </Badge>
 
                   <Badge
@@ -387,8 +392,9 @@ class Page extends React.Component {
                           lineHeight : "28px",
                           fontSize : "11px"
                       }}
+                      onClick={this.onClickMenu.bind(this,'all')}
                       >
-                      <i className="fa fa-envelope-o"  aria-hidden="true"   style={iconstyle1}  onClick={this.onClickMenu.bind(this,'all')}  />
+                      <i className="fa fa-envelope-o" aria-hidden="true" style={iconstyle1} />
                     </Badge>
 
 
@@ -427,8 +433,9 @@ class Page extends React.Component {
                         width : "auto",
                         color : "#666"
                     }}
+                    onClick={this.onClickMenuPipleinfo.bind(this,'4')}
                     >
-                    <img src={Pow2} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenuPipleinfo.bind(this,'4')} />
+                    <img src={Pow2} style={{marginBottom: "-6px", width: "24px"}} />
                 </Badge>
                 <Badge
                     badgeContent={`空闲(${count_chargingpile_obj['5']})`}
@@ -447,8 +454,9 @@ class Page extends React.Component {
                         width : "auto",
                         color : "#666"
                     }}
+                    onClick={this.onClickMenuPipleinfo.bind(this,'5')}
                     >
-                    <img src={Pow1} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenuPipleinfo.bind(this,'5')} />
+                    <img src={Pow1} style={{marginBottom: "-6px", width: "24px"}} />
                 </Badge>
                 <Badge
                     badgeContent={`维修(${count_chargingpile_obj['6']})`}
@@ -467,8 +475,9 @@ class Page extends React.Component {
                         width : "auto",
                         color : "#666"
                     }}
+                    onClick={this.onClickMenuPipleinfo.bind(this,'6')}
                     >
-                    <img src={Pow3} style={{marginBottom: "-6px", width: "24px"}} onClick={this.onClickMenuPipleinfo.bind(this,'6')} />
+                    <img src={Pow3} style={{marginBottom: "-6px", width: "24px"}} />
                 </Badge>
                 <UserMenu />
 
