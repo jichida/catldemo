@@ -567,7 +567,27 @@
     font-size: 16px;
 }
 .treePage .ant-tabs{
-    
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -moz-box-orient:vertical;
+    -moz-box-direction:normal;
+    flex-direction:column;
+    -webkit-flex-direction:column;
+}
+.treePage .ant-tabs:not(.ant-tabs-vertical) > .ant-tabs-content-animated{
+    flex-grow: 1;
+}
+.treePage .ant-tabs:not(.ant-tabs-vertical) > .ant-tabs-content > .ant-tabs-tabpane{
+    display: flex;
+    overflow-y: scroll;
+    width: 400px;
+    overflow-x: hidden;
+    -moz-box-orient:vertical;
+    -moz-box-direction:normal;
+    flex-direction:column;
+    -webkit-flex-direction:column;
 }
 .topuser {
     display: -webkit-box;
