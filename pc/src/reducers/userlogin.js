@@ -10,6 +10,7 @@ const initial = {
     loginsuccess:false,
     username:'',
     token:'',
+    role:'admin'//operator
   },
 };
 

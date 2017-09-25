@@ -71,7 +71,7 @@ import  {
   getrandom
 } from '../test/bmsdata.js';
 import { push,goBack,go,replace } from 'react-router-redux';
-
+import config from '../env/config.js';
 import {getRandomLocation} from '../env/geo';
 import {getRandomLocation_track} from './simulatetrack';
 import coordtransform from 'coordtransform';
@@ -268,10 +268,14 @@ export function* apiflow(){//
       yield put(getsystemconfig_result({}));
 
       yield call(delay,3000);
-      yield put(login_request({
-        username:'15961125167',
-        password:'123456'
-      }));
+
+      if(config.softmode !== 'pc'){
+        yield put(login_request({
+          username:'15961125167',
+          password:'123456',
+          role:'operator'
+        }));
+      }
     }
     catch(e){
       console.log(e);
@@ -288,6 +292,15 @@ export function* apiflow(){//
             loginsuccess:true,
             username:username,
             token:'',
+            role:'operator'
+          }));
+        }
+        else if(password === '654321'){
+          yield put(md_login_result({
+            loginsuccess:true,
+            username:username,
+            token:'',
+            role:'admin'
           }));
         }
         else{

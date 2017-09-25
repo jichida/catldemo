@@ -158,9 +158,7 @@ const mapStateToProps = ({device:{g_devicesdb},searchresult:{searchresult_alaram
           }
       };
       return column_item;
-    })
-
-
+    });
 
     return {g_devicesdb,alarms,searchresult_alaram, alaram_data, columns};
 }
