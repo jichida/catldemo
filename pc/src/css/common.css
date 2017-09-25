@@ -566,6 +566,21 @@
     line-height: 45px;
     font-size: 16px;
 }
+.treePage .ant-tabs{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    display: -webkit-flex;
+    -moz-box-orient:vertical;
+    -moz-box-direction:normal;
+    flex-direction:column;
+    -webkit-flex-direction:column;
+}
+.treePage .ant-tabs:not(.ant-tabs-vertical) > .ant-tabs-content-animated{
+    flex-grow: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 .topuser {
     display: -webkit-box;
     display: -ms-flexbox;

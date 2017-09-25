@@ -33,6 +33,13 @@ import Assignment from "material-ui/svg-icons/action/assignment";
 
 import Exit from "material-ui/svg-icons/action/exit-to-app";
 import Avatar from "../img/2.jpg";
+
+import Userlist_4 from "../img/4.png";
+import Userlist_5 from "../img/5.png";
+import Userlist_6 from "../img/6.png";
+import Userlist_7 from "../img/7.png";
+import Userlist_8 from "../img/8.png";
+
 import RaisedButton from 'material-ui/RaisedButton';
 import Popover, {PopoverAnimationVertical} from 'material-ui/Popover';
 import withRouter from 'react-router-dom/withRouter';
@@ -103,7 +110,7 @@ class UserMenu extends React.Component {
   };
 // this.props.history.push("/device")
   render() {
-    const {username,role} = this.props;
+    const {username,role,avatar} = this.props;
     let mapcontent = {
       '0':{
         title:'运营分析',
@@ -132,17 +139,17 @@ class UserMenu extends React.Component {
     };
     let menuitems = [];
     if(role === 'admin'){
-      menuitems.push(<MenuItem key={'3'} primaryText={`${mapcontent[3].title}`} leftIcon={<Chart />} onClick={()=>{
+      menuitems.push(<MenuItem key={'3'} primaryText={`${mapcontent[3].title}`} leftIcon={<img src={Userlist_7} />} onClick={()=>{
             this.handleRequestClose();
             // this.props.history.push("/chartlist/1");
             window.open(`${mapcontent[3].link}`,'_blank');
         }}/>);
-      menuitems.push(<MenuItem key={'4'} primaryText={`${mapcontent[4].title}`} leftIcon={<Chart />} onClick={()=>{
+      menuitems.push(<MenuItem key={'4'} primaryText={`${mapcontent[4].title}`} leftIcon={<img src={Userlist_7} />} onClick={()=>{
             this.handleRequestClose();
             // this.props.history.push("/chartlist/1");
             window.open(`${mapcontent[4].link}`,'_blank');
         }}/>);
-      menuitems.push(<MenuItem key={'5'} primaryText={`${mapcontent[5].title}`} leftIcon={<Chart />} onClick={()=>{
+      menuitems.push(<MenuItem key={'5'} primaryText={`${mapcontent[5].title}`} leftIcon={<img src={Userlist_7} />} onClick={()=>{
             this.handleRequestClose();
             // this.props.history.push("/chartlist/1");
             window.open(`${mapcontent[3].link}`,'_blank');
@@ -152,7 +159,7 @@ class UserMenu extends React.Component {
       <div>
         <div className="topuser" onClick={this.handleTouchTap}>
             <span>{username}</span>
-            <img src={Avatar}  />
+            <img src={avatar}  />
         </div>
         <Popover
           open={this.state.open}
@@ -164,21 +171,21 @@ class UserMenu extends React.Component {
         >
           <Menu>
             {menuitems}
-            <MenuItem primaryText="运营分析" leftIcon={<Chart />} onClick={()=>{
+            <MenuItem primaryText="运营分析" leftIcon={<img src={Userlist_6} />} onClick={()=>{
                 this.handleRequestClose();
                 // this.props.history.push("/chartlist/1");
                 window.open(`${mapcontent[0].link}`,'_blank');
             }}/>
-            <MenuItem primaryText="充电桩分布" leftIcon={<Chart />} onClick={()=>{
+            <MenuItem primaryText="充电桩分布" leftIcon={<img src={Userlist_5} />} onClick={()=>{
                 this.handleRequestClose();
                 // this.props.history.push("/chartlist/1");
                 window.open(`${mapcontent[1].link}`,'_blank');
             }}/>
-             <MenuItem primaryText="减排量统计" leftIcon={<Chart />} onClick={()=>{
+             <MenuItem primaryText="减排量统计" leftIcon={<img src={Userlist_8} />} onClick={()=>{
                     this.handleRequestClose();
                     window.open(`${mapcontent[2].link}`,'_blank');
             }}/>
-            <MenuItem primaryText="车辆轨迹监控" leftIcon={<Assignment />} onClick={()=>{
+            <MenuItem primaryText="车辆轨迹监控" leftIcon={<img src={Userlist_4} />} onClick={()=>{
                 this.handleRequestClose();
                 this.props.dispatch(ui_changemodeview('device'));
                 this.props.history.push(`/historyplay/0`);
@@ -210,8 +217,8 @@ class UserMenu extends React.Component {
 }
 
 const mapStateToProps = ({userlogin}) => {
-   const {username,role} = userlogin;
-   return {username,role};
+   const {username,role,avatar} = userlogin;
+   return {username,role,avatar};
 }
 UserMenu = withRouter(UserMenu);
 UserMenu = connect(mapStateToProps)(UserMenu);
