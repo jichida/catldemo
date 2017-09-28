@@ -1,5 +1,7 @@
 import jsondatareadonly_device from '../test/bmsdata_device.json';
-import _ from 'lodash';
+import map from 'lodash.map';
+import filter from 'lodash.filter';
+import sampleSize from 'lodash.samplesize';
 import config from '../env/config';
 import {groups} from './bmsdata_group.js';
 import jsondatareadonly_chargingpile from '../test/bmsdata_chargingpile.json';
@@ -8,7 +10,7 @@ const getrandom=(min,max)=>{
   return parseInt(Math.random()*(max-min+1)+min,10);
 }
 
-let jsondata = _.filter(jsondatareadonly_device,(item) => {
+let jsondata = filter(jsondatareadonly_device,(item) => {
   let thisdata = false;
   if(!!item.LastHistoryTrack){
     if(!!item.LastHistoryTrack.Latitude){
@@ -23,12 +25,12 @@ let jsondata = _.filter(jsondatareadonly_device,(item) => {
 if(config.softmode === 'pc'){
 }
 else{
-  jsondata = _.sampleSize(jsondata,456);
+  jsondata = sampleSize(jsondata,456);
 }
 
 let device_dw = ['自动档D','P','N','R'];
 let device_cfd = ['充电','放电','静置'];
-_.map(jsondata,(item,index)=>{
+map(jsondata,(item,index)=>{
     item.imagetype = '0';
     item.groupid = groups[getrandom(0,groups.length-1)]._id;
     //车辆

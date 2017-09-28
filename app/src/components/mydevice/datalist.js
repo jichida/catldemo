@@ -3,8 +3,9 @@
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import { Table, Icon } from 'antd';
-import _ from 'lodash';
+import Table from 'antd/lib/table';
+import Icon  from 'antd/lib/icon';
+import map from 'lodash.map';
 import Searchimg from '../../img/13.png';
 import Footer from "../index/footer.js";
 import "../../css/antd.min.css";
@@ -21,7 +22,7 @@ class Page extends React.Component {
     render() {
         const { groupid,g_devicesdb,curdeviceid} = this.props;
         let mydevices = [];
-        _.map(g_devicesdb,(item)=>{
+        map(g_devicesdb,(item)=>{
           if(item.groupid === groupid){
             mydevices.push(item);
           }
@@ -59,11 +60,11 @@ class Page extends React.Component {
             render: (v) => <span>{v}</span>
         }];
         return (
-            <Table 
-                columns={columns} 
-                dataSource={mydevices} 
+            <Table
+                columns={columns}
+                dataSource={mydevices}
                 pagination={false}
-                style={{flexGrow: 1}} 
+                style={{flexGrow: 1}}
                 onRowClick={this.rowClick}
                 scroll={{ y: this.props.tableheight }}
                 />
