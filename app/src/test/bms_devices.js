@@ -10,7 +10,7 @@ const getrandom=(min,max)=>{
   return parseInt(Math.random()*(max-min+1)+min,10);
 }
 
-let jsondata = filter(jsondatareadonly_device,(item) => {
+let jsondataexport = filter(jsondatareadonly_device,(item) => {
   let thisdata = false;
   if(!!item.LastHistoryTrack){
     if(!!item.LastHistoryTrack.Latitude){
@@ -25,12 +25,12 @@ let jsondata = filter(jsondatareadonly_device,(item) => {
 if(config.softmode === 'pc'){
 }
 else{
-  jsondata = sampleSize(jsondata,456);
+  jsondataexport = sampleSize(jsondataexport,456);
 }
 
 let device_dw = ['自动档D','P','N','R'];
 let device_cfd = ['充电','放电','静置'];
-map(jsondata,(item,index)=>{
+map(jsondataexport,(item,index)=>{
     item.imagetype = '0';
     item.groupid = groups[getrandom(0,groups.length-1)]._id;
     //车辆
@@ -96,6 +96,63 @@ map(jsondata,(item,index)=>{
     item['动力蓄电池包总数(单体)'] =getrandom(30,50);
     item['温度探针总数'] =getrandom(60,120);
     item['动力蓄电池包总数(动力)'] =6;
+});
+
+const tydata = [
+  {
+    "deviceid": "1707200001",
+    "GPSStatus": "A",
+    "Longitude": "121.777376",
+    "Latitude": "31.107271",
+    "Speed": "0",
+    "Course": "0",
+    "DataTime": "2017/9/21 13:33:59",
+    "TP1": "255",
+    "TP2": "29",
+    "TP3": "255",
+    "TP4": "255",
+    "TP5": "0"
+},
+{
+    "deviceid": "1707200016",
+    "GPSStatus": "A",
+    "Longitude": "121.777424",
+    "Latitude": "31.107333",
+    "Speed": "0",
+    "Course": "0",
+    "DataTime": "2017/9/21 12:08:09",
+    "TP1": "255",
+    "TP2": "29",
+    "TP3": "255",
+    "TP4": "255",
+    "TP5": "0"
+},
+{
+    "deviceid": "1707200020",
+    "GPSStatus": "A",
+    "Longitude": "121.572675",
+    "Latitude": "31.222501",
+    "Speed": "26",
+    "Course": "342",
+    "DataTime": "2017/9/29 17:01:11",
+    "TP1": "25",
+    "TP2": "23",
+    "TP3": "27",
+    "TP4": "27",
+    "TP5": "0"
+}];
+
+let jsondata = [];
+map(tydata,(item,index)=>{
+  // item = {...jsondataexport[index],...item};
+  item.imagetype = '0';
+  item.groupid = groups[getrandom(0,groups.length-1)]._id;
+  item.DeviceId = item.deviceid;
+  item.LastHistoryTrack = {
+    Latitude:parseFloat(item.Latitude),
+    Longitude:parseFloat(item.Longitude),
+  }
+  jsondata.push(item);
 });
 
 

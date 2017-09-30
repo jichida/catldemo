@@ -98,7 +98,7 @@ for(let i=0;i<10;i++){
     indexalarm++;
     let deviceindexalarm = indexalarm%jsondata.length;
 
-    cloneitem.DeviceId = jsondata[deviceindexalarm].DeviceId;
+    cloneitem.DeviceId = jsondata[deviceindexalarm%jsondata.length].DeviceId;
     //修改数据
     cloneitem.warninglevel = getrandom(0,2);
     cloneitem.key = indexalarm + '';
@@ -162,7 +162,7 @@ for(let i=0;i<20;i++){
     let cloneitem = {...item};
     indexworkorder++;
     let deviceindexalarm = indexalarm%jsondata.length;
-    cloneitem.DeviceId = jsondata[deviceindexalarm].DeviceId;
+    cloneitem.DeviceId = jsondata[deviceindexalarm%jsondata.length].DeviceId;
     cloneitem.key = indexworkorder + '';
     cloneitem._id = cloneitem.key;
 
@@ -193,8 +193,9 @@ for(let i=0;i<20;i++){
 }
 
 let jsondata_bms_carcollections = [];
-for(let i=0;i<5;i++){
-  jsondata_bms_carcollections.push(jsondata[i].DeviceId);
+const max_collections = 5 > jsondata.length?jsondata.length:5;
+for(let i=0;i<max_collections;i++){
+  jsondata_bms_carcollections.push(jsondata[i%jsondata.length].DeviceId);
 }
 
 let jsondata_bms_track = jsondatatrack;

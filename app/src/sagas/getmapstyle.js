@@ -117,17 +117,26 @@ const getpop_device =(deviceitem)=>{
   let jxzk = get(deviceitem,'电池绝缘电阻(KΩ)',9000);
   let zgwd = get(deviceitem,'最高温度值(℃)',30);
   let bjxx = get(deviceitem,'报警信息','无');
+
+  const sd = get(deviceitem,'Speed','');
+  const hx = get(deviceitem,'Course','');
+  const cysj = get(deviceitem,'DataTime','');
+  const TP1 = get(deviceitem,'TP1','');
+  const TP2 = get(deviceitem,'TP2','');
+  const TP3 = get(deviceitem,'TP3','');
+  const TP4 = get(deviceitem,'TP4','');
+  const TP5 = get(deviceitem,'TP5','');
+
   return {
       infoBody: `<p>车辆编号:${DeviceId}</p>
-      <p class='l'><span class='t'>总电流</span><span class='color_warning'>${zdl}A</span></p>
-      <p class='l'><span class='t'>总电压</span><span class='color_warning'>${zdy}V</span></p>
-      <p class='l'><span class='t'>SOC</span><span class='color_warning'>${soc}%</span></p>
-      <p class='l'><span class='t'>车速</span><span class='color_warning'>${cs}km/h</span> </p>
-      <p class='l'><span class='t'>总里程</span><span class='color_warning'>${zlc}km</span></p>
-      <p class='l'><span class='t'>绝缘阻抗</span><span class='color_warning'>${jxzk}KΩ</span></p>
-      <p class='l'><span class='t'>电池最高温度</span><span class='color_warning'>${zgwd}℃</span></p>
-      <p class='l'><span class='t'>车辆当前位置</span><span class='color_warning'>${province}${city}${district}</span></p>
-      <p class='l'><span class='t'>当前报警信息</span><span class='color_warning'>${bjxx}</span></p>
+      <p class='l'><span class='t'>速度</span><span class='color_warning'>${sd}km/h</span></p>
+      <p class='l'><span class='t'>航向</span><span class='color_warning'>${hx}</span></p>
+      <p class='l'><span class='t'>采样时间</span><span class='color_warning'>${cysj}</span></p>
+      <p class='l'><span class='t'>左前胎压</span><span class='color_warning'>${TP1}</span> </p>
+      <p class='l'><span class='t'>右前胎压</span><span class='color_warning'>${TP2}</span></p>
+      <p class='l'><span class='t'>右后胎压</span><span class='color_warning'>${TP3}</span></p>
+      <p class='l'><span class='t'>左后胎压</span><span class='color_warning'>${TP4}</span></p>
+      <p class='l'><span class='t'>胎压故障码</span><span class='color_warning'>${TP5}</span></p>
       <button onclick="clickfn_device(${DeviceId})">查看详情</button>`
   };
 }

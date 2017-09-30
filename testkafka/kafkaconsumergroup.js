@@ -3,7 +3,7 @@ const ConsumerGroup = require('kafka-node').ConsumerGroup;
 const uuid = require('uuid');
 const cid = uuid.v4();
 const consumerOptions = {
-  host: '127.0.0.1:2181',
+  host: '101.89.141.136:2181',
   groupId: 'BMSRecvGroup',
   sessionTimeout: 15000,
   protocol: ['roundrobin'],
