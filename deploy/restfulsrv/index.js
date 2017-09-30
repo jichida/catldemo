@@ -4,7 +4,6 @@ const jsondata = require('./data.js');
 const server = new Hapi.Server();
 server.connection({
     routes: { cors: true },
-    host: 'localhost',
     port: 8000
 });
 
