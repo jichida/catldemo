@@ -16,7 +16,7 @@ server.connection({
 //  },
 server.route({
     method: 'GET',
-    path:'/getdevicegeo',
+    path:'/api/getdevicegeo',
     handler: function (request, reply) {
       return reply(JSON.stringify({list:jsondata}));
     }
