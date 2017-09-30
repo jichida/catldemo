@@ -17,8 +17,18 @@ server.route({
     method: 'GET',
     path:'/api/getdevicegeo',
     handler: function (request, reply) {
-      return reply(JSON.stringify({list:jsondata}));
+      return reply(JSON.stringify({list:jsondata.getjsondata()}));
     }
+  });
+
+server.route({
+        method: 'POST',
+        path:'/api/setdevicegeo',
+        handler: function (request, reply) {
+          console.log(`get data:${JSON.stringify(request.payload)}`);
+          jsondata.setjsondata(request.payload);
+          return reply(JSON.stringify({result:'OK'}));
+     },
 });
 
 // Start the server

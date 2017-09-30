@@ -8,7 +8,7 @@ const statusHelper = (response)=> {
 
 const restfulapi = {
   getdevicegeo (userData) {
-    return fetch(`http://101.89.141.136:50000/api/getdevicegeo`)
+    return fetch(`http://101.89.141.136:50002/api/getdevicegeo`)
     .then(statusHelper)
     .then(response => response.json());
   },

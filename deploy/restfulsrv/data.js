@@ -55,4 +55,20 @@ map(tydata,(item,index)=>{
   jsondata.push(item);
 });
 
-module.exports = jsondata;
+exports.getjsondata = ()=>{
+  return jsondata;
+}
+
+exports.setjsondata = (data)=>{
+  jsondata = [];
+  map(data,(item,index)=>{
+    // item = {...jsondataexport[index],...item};
+    item.imagetype = '0';
+    item.DeviceId = item.deviceid;
+    item.LastHistoryTrack = {
+      Latitude:parseFloat(item.Latitude),
+      Longitude:parseFloat(item.Longitude),
+    }
+    jsondata.push(item);
+  });
+}
