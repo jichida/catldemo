@@ -40,9 +40,9 @@ services:
     links:
       - mongodb
     ports:
-       - "8000:8000"
+       - "50002:50002"
     expose:
-       - "8000"
+       - "50002"
   mongodb:
     image:  mongo:3.4
     expose:
