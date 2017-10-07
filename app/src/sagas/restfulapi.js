@@ -1,3 +1,10 @@
+let islocalhost = true;
+if (process.env.NODE_ENV === 'production') {
+    islocalhost = false;
+} else {
+    islocalhost = true;
+}
+const fetchurl = islocalhost?`http://localhost:50002/api/getdevicegeo`:`http://101.89.141.136:50002/api/getdevicegeo`;
 const statusHelper = (response)=> {
   if (response.status >= 200 && response.status < 300) {
     return Promise.resolve(response)
@@ -8,7 +15,7 @@ const statusHelper = (response)=> {
 
 const restfulapi = {
   getdevicegeo (userData) {
-    return fetch(`http://101.89.141.136:50002/api/getdevicegeo`)
+    return fetch(`${fetchurl}`)
     .then(statusHelper)
     .then(response => response.json());
   },

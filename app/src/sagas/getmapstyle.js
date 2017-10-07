@@ -118,14 +118,14 @@ const getpop_device =(deviceitem)=>{
   let zgwd = get(deviceitem,'最高温度值(℃)',30);
   let bjxx = get(deviceitem,'报警信息','无');
 
-  const sd = get(deviceitem,'Speed','');
-  const hx = get(deviceitem,'Course','');
-  const cysj = get(deviceitem,'DataTime','');
-  const TP1 = get(deviceitem,'TP1','');
-  const TP2 = get(deviceitem,'TP2','');
-  const TP3 = get(deviceitem,'TP3','');
-  const TP4 = get(deviceitem,'TP4','');
-  const TP5 = get(deviceitem,'TP5','');
+  const sd = get(deviceitem,'LastHistoryTrack.Speed','');
+  const hx = get(deviceitem,'LastHistoryTrack.Course','');
+  const cysj = get(deviceitem,'TPData.DataTime','');
+  const TP1 = get(deviceitem,'TPData.TP1','');
+  const TP2 = get(deviceitem,'TPData.TP2','');
+  const TP3 = get(deviceitem,'TPData.TP3','');
+  const TP4 = get(deviceitem,'TPData.TP4','');
+  const TP5 = get(deviceitem,'TPData.TP5','');
 
   return {
       infoBody: `<p>车辆编号:${DeviceId}</p>

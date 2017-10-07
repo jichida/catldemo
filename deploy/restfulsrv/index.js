@@ -1,41 +1,25 @@
-const Hapi = require('hapi');
-const jsondata = require('./data.js');
-// Create a server with a host and port
-const server = new Hapi.Server();
-server.connection({
-    routes: { cors: true },
-    port: 50002
-});
+const srvhttp = require('./src/srvhttp.js');
+const srvwebsocket = require('./src/srvws.js');
+const srvsystem = require('./src/srvsystem.js');
 
-// config: {
-//   cors: {
-//     origin: ['*'],
-//     additionalHeaders: ['cache-control', 'x-requested-with']
-//     }
-//  },
-server.route({
-    method: 'GET',
-    path:'/api/getdevicegeo',
-    handler: function (request, reply) {
-      return reply(JSON.stringify({list:jsondata.getjsondata()}));
-    }
+const config = require('./src/config');
+let mongoose     = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect(config.mongodburl,{
+    useMongoClient: true,
+    // This options is 1 second by default, its possible the ha
+    // takes longer than 30 seconds to recover.
+    reconnectInterval: 5000,
+    // This options is 30 by default, why not make it 60
+    reconnectTries: Number.MAX_VALUE
   });
 
-server.route({
-        method: 'POST',
-        path:'/api/setdevicegeo',
-        handler: function (request, reply) {
-          console.log(`get data:${JSON.stringify(request.payload)}`);
-          jsondata.setjsondata(request.payload);
-          return reply(JSON.stringify({result:'OK'}));
-     },
-});
+console.log(`rooturl:${config.rooturl}`);
+console.log(`issmsdebug:${config.issmsdebug}`);
 
-// Start the server
-server.start((err) => {
+srvsystem.job();
+srvwebsocket.startsrv(srvhttp.startsrv());
 
-    if (err) {
-        throw err;
-    }
-    console.log('Server running at:', server.info.uri);
+process.on('uncaughtException', (err)=> {
+    console.log(err);
 });

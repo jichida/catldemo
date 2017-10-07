@@ -35,8 +35,8 @@ services:
     volumes:
       - ./restfulsrv:/app
     environment:
-      - MONGO_URL=mongodb://192.168.0.1:27017/catldemo
-      - listenport=3004
+      - MONGO_URL=mongodb://172.17.0.1:27017/catldemo
+      - listenport=50002
     links:
       - mongodb
     ports:
