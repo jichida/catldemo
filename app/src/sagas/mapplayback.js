@@ -279,11 +279,16 @@ export function* createmaptrackhistoryplaybackflow(){
             let amapboounds = new window.AMap.Bounds(southWest,northEast);
             window.amaptrackhistoryplayback.setBounds(amapboounds);
             pathSimplifierIns.setData([{
-              name: '车辆1602010008',
+              name: `车辆:${query.DeviceId}`,
               path
             }]);
-
             yield call(startplayback,{isloop,speed});
+
+
+            console.log(`路线:${JSON.stringify({
+              name: `车辆:${query.DeviceId}`,
+              path
+            })}`);
           }
 
         }

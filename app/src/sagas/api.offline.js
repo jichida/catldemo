@@ -476,12 +476,15 @@ export function* apiflow(){//
         const {payload} = action;
         const {query} = payload;
         const {startDate,endDate} = query;
+
+        const {list} = yield call(restfulapi.gethistorytrack,{query});
+        yield put(queryhistorytrack_result({list}));
         // let mstart = moment(startDate).format('2017-07-31 HH:mm:ss');
         // let mend = moment(endDate).format('2017-07-31 HH:mm:ss');
-        let index = getrandom(0,list_historyplayback_sz.length -1);
-        let resultlist = list_historyplayback_sz[index];
-        console.log(`resultlist:index:${index}:${JSON.stringify(resultlist.length)}`);
-        yield put(queryhistorytrack_result({list:resultlist}));
+        // let index = getrandom(0,list_historyplayback_sz.length -1);
+        // let resultlist = list_historyplayback_sz[index];
+        // console.log(`resultlist:index:${index}:${JSON.stringify(resultlist.length)}`);
+        // yield put(queryhistorytrack_result({list:resultlist}));
       }
       catch(e){
         console.log(e);

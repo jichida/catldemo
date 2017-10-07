@@ -4,7 +4,7 @@ if (process.env.NODE_ENV === 'production') {
 } else {
     islocalhost = true;
 }
-const fetchurl = islocalhost?`http://localhost:50002/api/getdevicegeo`:`http://101.89.141.136:50002/api/getdevicegeo`;
+const fetchurl = islocalhost?`http://localhost:50002/api`:`http://101.89.141.136:50002/api`;
 const statusHelper = (response)=> {
   if (response.status >= 200 && response.status < 300) {
     return Promise.resolve(response)
@@ -15,12 +15,12 @@ const statusHelper = (response)=> {
 
 const restfulapi = {
   getdevicegeo (userData) {
-    return fetch(`${fetchurl}`)
+    return fetch(`${fetchurl}/getdevicegeo`)
     .then(statusHelper)
     .then(response => response.json());
   },
-  login (userData) {
-    return fetch(`http://localhost/api/login`, {
+  gethistorytrack (userData) {
+    return fetch(`${fetchurl}/gethistorytrack`, {
       method  : 'POST',
       headers : {
         'Accept'        : 'application/json',

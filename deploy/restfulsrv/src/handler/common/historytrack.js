@@ -4,10 +4,17 @@ let mongoose  = require('mongoose');
 const winston = require('../../log/log.js');
 
 exports.queryhistorytrack = (actiondata,ctx,callback)=>{
+  console.log(`queryhistorytrack==>${JSON.stringify(actiondata)}`);
   //let HistoryTrackModel =mongoose.model('historytrack',  HistoryTrackSchema);
   let historytrackModel = DBModels.HistoryTrackModel;
   let query = actiondata.query || {};
-  historytrackModel.find(query,(err,list)=>{
+  let fields = actiondata.fields || {
+    'DeviceId':1,
+    'Latitude':1,
+    'Longitude':1,
+  };
+  let queryexec = historytrackModel.find(query).select(fields);
+  queryexec.exec((err,list)=>{
     if(!err){
       callback({
         cmd:'queryhistorytrack_result',

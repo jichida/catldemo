@@ -257,7 +257,7 @@ exports.savedevice = (actiondata,ctx,callback)=>{
      curdatatime = moment(actiondata.TPData.DataTime).format('YYYY-MM-DD HH:mm:ss');
   }
   catch(e){
-
+    console.log(`e==>${JSON.stringify(e)}`);
   }
   actiondata.TPData.DataTime = curdatatime;
   console.log(`savedevice==>${JSON.stringify(actiondata)}`);
@@ -273,7 +273,7 @@ exports.savedevice = (actiondata,ctx,callback)=>{
   actiondata.LastHistoryTrack.GPSTime = curdatatime;
   actiondata.LastHistoryTrack.DeviceId = actiondata.DeviceId;
   //插入历史记录
-  const historyTrackModel = DBModels.DeviceModel;
+  const historyTrackModel = DBModels.HistoryTrackModel;
   historyTrackModel.findOneAndUpdate({
       DeviceId: actiondata.DeviceId,
       GPSTime:curdatatime
