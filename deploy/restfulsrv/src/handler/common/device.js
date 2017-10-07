@@ -4,6 +4,7 @@ let mongoose  = require('mongoose');
 const winston = require('../../log/log.js');
 const coordtransform = require('coordtransform');
 const _ = require('lodash');
+const moment = require('moment');
 
 const getRandomLocation =  (latitude, longitude, radiusInMeters)=>{
 
@@ -251,13 +252,33 @@ exports.serverpush_devicegeo_sz  = (actiondata,ctx,callback)=>{
 //保存设备数据
 exports.savedevice = (actiondata,ctx,callback)=>{
   actiondata.updated_at = new Date();
+  let curdatatime = moment().format('YYYY-MM-DD HH:mm:ss');
+  try{
+     curdatatime = moment(actiondata.TPData.DataTime).format('YYYY-MM-DD HH:mm:ss');
+  }
+  catch(e){
+
+  }
+  actiondata.TPData.DataTime = curdatatime;
   console.log(`savedevice==>${JSON.stringify(actiondata)}`);
 
   const deviceModel = DBModels.DeviceModel;
   deviceModel.findOneAndUpdate({
       DeviceId: actiondata.DeviceId,
   },{$set:actiondata}, {new: true, upsert: true}, (err, updateditem)=> {
-    console.log(`err:${JSON.stringify(err)},updateditem:${JSON.stringify(updateditem)}`);
+    console.log(`deviceModel=>err:${JSON.stringify(err)},updateditem:${JSON.stringify(updateditem)}`);
+    callback(err,updateditem);
+  });
+
+  actiondata.LastHistoryTrack.GPSTime = curdatatime;
+  actiondata.LastHistoryTrack.DeviceId = actiondata.DeviceId;
+  //插入历史记录
+  const historyTrackModel = DBModels.DeviceModel;
+  historyTrackModel.findOneAndUpdate({
+      DeviceId: actiondata.DeviceId,
+      GPSTime:curdatatime
+  },{$set:actiondata.LastHistoryTrack}, {new: true, upsert: true}, (err, updateditem)=> {
+    console.log(`historyTrackModel=>err:${JSON.stringify(err)},updateditem:${JSON.stringify(updateditem)}`);
     callback(err,updateditem);
   });
 };

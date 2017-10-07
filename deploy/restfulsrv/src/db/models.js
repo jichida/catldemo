@@ -98,7 +98,7 @@ let DeviceSchema = new Schema({
   },
   imagetype:String,
   TPData:{
-    "DataTime":{type: String, default:moment().format('YYYY-MM-DD HH:mm:ss')}
+    "DataTime":{type: String, default:moment().format('YYYY-MM-DD HH:mm:ss')},
     "TP1":String,
     "TP2":String,
     "TP3":String,
