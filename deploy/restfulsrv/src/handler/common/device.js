@@ -270,6 +270,7 @@ exports.savedevice = (actiondata,ctx,callback)=>{
     callback(err,updateditem);
   });
 
+  actiondata.LastHistoryTrack.updated_at= new Date();
   actiondata.LastHistoryTrack.GPSTime = curdatatime;
   actiondata.LastHistoryTrack.DeviceId = actiondata.DeviceId;
   //插入历史记录

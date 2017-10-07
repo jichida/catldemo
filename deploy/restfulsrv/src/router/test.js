@@ -11,7 +11,8 @@ let startmodule = (app)=>{
         'DeviceId':1,
         'LastHistoryTrack':1,
         'imagetype':1,
-        'TPData':1
+        'TPData':1,
+        'updated_at':1,
       }
     },{},(result)=>{
       if(result.cmd === 'querydevice_result'){
@@ -28,6 +29,24 @@ let startmodule = (app)=>{
       console.log(`get data:${JSON.stringify(req.body)}`);
       const data = req.body;
       map(data,(item,index)=>{
+        let Speed = item.Speed;
+        let Course = item.Course;
+        try{
+          if(typeof item.Speed === 'string'){
+            Speed = parseFloat(item.Speed);
+          }
+        }
+        catch(e){
+          Speed = 0;
+        }
+        try{
+          if(typeof item.Course === 'string'){
+            Course = parseFloat(item.Course);
+          }
+        }
+        catch(e){
+          Course = 0;
+        }
         let item2 = {};
         item2.imagetype = '0';
         item2.DeviceId = item.deviceid;
@@ -35,8 +54,8 @@ let startmodule = (app)=>{
           Latitude:parseFloat(item.Latitude),
           Longitude:parseFloat(item.Longitude),
           GPSStatus:item.GPSStatus,
-          Speed: item.Speed,
-          Course: item.Course,
+          Speed: Speed,
+          Course: Course,
         };
         item2.TPData = {
           "DataTime": item.DataTime,
@@ -53,7 +72,7 @@ let startmodule = (app)=>{
 
       res.status(200).json({result:'OK'});
   });
-  
+
   //获取轨迹回放数据
   app.post('/api/gethistorytrack',(req,res)=>{
     const actiondata = req.body;

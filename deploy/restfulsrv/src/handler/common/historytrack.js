@@ -12,6 +12,7 @@ exports.queryhistorytrack = (actiondata,ctx,callback)=>{
     'DeviceId':1,
     'Latitude':1,
     'Longitude':1,
+    'updated_at':1,
   };
   let queryexec = historytrackModel.find(query).select(fields);
   queryexec.exec((err,list)=>{

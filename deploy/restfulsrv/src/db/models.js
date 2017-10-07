@@ -249,6 +249,7 @@ let HistoryTrackSchema = new Schema({
   City:String,//	海口市	string	市
   County:String,//	 	string	县
   created_at:{ type: Date, default:new Date()},//插入数据库时间
+  updated_at:{ type: Date, default:new Date()},//插入数据库时间
 });
 HistoryTrackSchema.plugin(mongoosePaginate);
 let HistoryTrackModel =mongoose.model('historytrack',  HistoryTrackSchema);

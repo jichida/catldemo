@@ -509,13 +509,13 @@ export function* apiflow(){//
             //本地坐标转换
             for(let i = 0;i < list.length; i++){
               let item = {...list[i]};
-              const wgs84togcj02=coordtransform.wgs84togcj02(item.LastHistoryTrack.Longitude,item.LastHistoryTrack.Latitude);
-              const locationsz = yield call(getRandomLocation_track,item.DeviceId,wgs84togcj02[1],wgs84togcj02[0]);
-              //坐标转换
-              const gcj02towgs84=coordtransform.gcj02towgs84(locationsz[0],locationsz[1]);
-              item.LastHistoryTrack.Longitude = gcj02towgs84[0];
-              item.LastHistoryTrack.Latitude = gcj02towgs84[1];
-              item.locz = locationsz;
+              // const wgs84togcj02=coordtransform.wgs84togcj02(item.LastHistoryTrack.Longitude,item.LastHistoryTrack.Latitude);
+              // const locationsz = yield call(getRandomLocation_track,item.DeviceId,wgs84togcj02[1],wgs84togcj02[0]);
+              // //坐标转换
+              // const gcj02towgs84=coordtransform.gcj02towgs84(locationsz[0],locationsz[1]);
+              // item.LastHistoryTrack.Longitude = gcj02towgs84[0];
+              // item.LastHistoryTrack.Latitude = gcj02towgs84[1];
+              // item.locz = locationsz;
 
               // item.groupid = jsondata_bms_groups[getrandom(0,jsondata_bms_groups.length-1)]._id;
               item = {...g_devicesdb[item.DeviceId],...item};

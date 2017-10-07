@@ -2,7 +2,7 @@ import get from 'lodash.get';
 import store from '../env/store';
 import {ui_showmenu} from '../actions';
 import { push,goBack,go  } from 'react-router-redux';//https://github.com/reactjs/react-router-redux
-
+import moment from 'moment';
 //地图上点图标的样式【图标类型】
 export const getgroupStyleMap = ()=>{
   let groupsz = [
@@ -126,12 +126,19 @@ const getpop_device =(deviceitem)=>{
   const TP3 = get(deviceitem,'TPData.TP3','');
   const TP4 = get(deviceitem,'TPData.TP4','');
   const TP5 = get(deviceitem,'TPData.TP5','');
+  let lasttime = get(deviceitem,'updated_at','');
+  try{
+    lasttime = moment(lasttime).format('YYYY-MM-DD HH:mm:ss');
+  }
+  catch(e){
 
+  }
   return {
       infoBody: `<p>车辆编号:${DeviceId}</p>
       <p class='l'><span class='t'>速度</span><span class='color_warning'>${sd}km/h</span></p>
       <p class='l'><span class='t'>航向</span><span class='color_warning'>${hx}</span></p>
       <p class='l'><span class='t'>采样时间</span><span class='color_warning'>${cysj}</span></p>
+      <p class='l'><span class='t'>最后更新时间</span><span class='color_warning'>${lasttime}</span></p>
       <p class='l'><span class='t'>左前胎压</span><span class='color_warning'>${TP1}</span> </p>
       <p class='l'><span class='t'>右前胎压</span><span class='color_warning'>${TP2}</span></p>
       <p class='l'><span class='t'>右后胎压</span><span class='color_warning'>${TP3}</span></p>
