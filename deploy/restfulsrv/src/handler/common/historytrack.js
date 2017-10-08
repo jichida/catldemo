@@ -14,7 +14,7 @@ exports.queryhistorytrack = (actiondata,ctx,callback)=>{
     'Longitude':1,
     'updated_at':1,
   };
-  let queryexec = historytrackModel.find(query).select(fields);
+  let queryexec = historytrackModel.find(query).sort({ GPSTime: 1 }).select(fields);
   queryexec.exec((err,list)=>{
     if(!err){
       callback({
