@@ -139,6 +139,15 @@ const getCoureName = (course)=> {
     return name;
 }
 
+const gettyname = (tp)=>{
+  if(typeof tp === 'string'){
+    tp = parseFloat(tp);
+  }
+  tp = tp/10;
+  tp = tp.toFixed(1);
+  return `${tp}bar`;
+};
+
 window.clickfn_device =(DeviceId)=>{
   store.dispatch(push(`/deviceinfo/${DeviceId}`));
 }
@@ -185,10 +194,10 @@ const getpop_device =(deviceitem)=>{
       <p class='l'><span class='t'>航向</span><span class='color_warning'>${getCoureName(hx)}</span></p>
       <p class='l'><span class='t'>采样时间</span><span class='color_warning'>${cysj}</span></p>
       <p class='l'><span class='t'>最后更新时间</span><span class='color_warning'>${lasttime}</span></p>
-      <p class='l'><span class='t'>左前胎压</span><span class='color_warning'>${TP1}</span> </p>
-      <p class='l'><span class='t'>右前胎压</span><span class='color_warning'>${TP2}</span></p>
-      <p class='l'><span class='t'>右后胎压</span><span class='color_warning'>${TP3}</span></p>
-      <p class='l'><span class='t'>左后胎压</span><span class='color_warning'>${TP4}</span></p>
+      <p class='l'><span class='t'>左前胎压</span><span class='color_warning'>${gettyname(TP1)}</span> </p>
+      <p class='l'><span class='t'>右前胎压</span><span class='color_warning'>${gettyname(TP2)}</span></p>
+      <p class='l'><span class='t'>右后胎压</span><span class='color_warning'>${gettyname(TP3)}</span></p>
+      <p class='l'><span class='t'>左后胎压</span><span class='color_warning'>${gettyname(TP4)}</span></p>
       <p class='l'><span class='t'>胎压故障码</span><span class='color_warning'>${TP5}</span></p>
       <button onclick="clickfn_device(${DeviceId})">查看详情</button>`
   };
