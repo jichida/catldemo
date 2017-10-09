@@ -503,7 +503,7 @@ export function* apiflow(){//
         if('device' === modeview){
             const {list} = yield call(restfulapi.getdevicegeo);
 
-            console.log(`serverpush_devicegeo_sz_request===>${JSON.stringify(list)}`)
+            // console.log(`serverpush_devicegeo_sz_request===>${JSON.stringify(list)}`)
             // const list = sampleSize(jsondata_bms_mydevice, jsondata_bms_mydevice.length);
             let items = [];
             //本地坐标转换
