@@ -839,12 +839,13 @@ export function* createmapmainflow(){
         let {payload:isshow} = action_showflag;
         try{
           if(!!distCluster){
-            if(isshow){
-              pointSimplifierIns.show();
-            }
-            else{
-              pointSimplifierIns.hide();
-            }
+            // if(isshow){
+            //   pointSimplifierIns.show();
+            // }
+            // else{
+            //   pointSimplifierIns.hide();
+            // }
+            pointSimplifierIns.show();
             pointSimplifierIns.render();
           }
         }

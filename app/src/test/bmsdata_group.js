@@ -34,4 +34,6 @@ map(groups,(item,index)=>{
   item['电机厂商'] = test_djcs_text[getrandom(0,test_djcs_text.length-1)];
   item['电控厂商'] = test_dkcs_text[getrandom(0,test_dkcs_text.length-1)];
 });
+
+groups = [groups[0]];//留1个数据
 export {groups};

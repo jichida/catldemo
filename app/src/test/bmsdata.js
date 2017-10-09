@@ -200,7 +200,7 @@ for(let i=0;i<max_collections;i++){
 
 let jsondata_bms_track = jsondatatrack;
 
-
+jsondata_bms_alarm = [];//告警信息不要
 
 export {
   jsondata_bms_chargingpile,
