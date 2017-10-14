@@ -8,6 +8,7 @@ import get from 'lodash.get';
 import Devicestar from "../../img/16.png";
 import Moresetting from "../../img/17.png";
 import Searchimg from '../../img/13.png';
+import Luntai from '../../img/23.png';
 import Footer from "../index/footer.js";
 import {ui_sel_tabindex} from '../../actions';
 import Button  from 'antd/lib/button';
@@ -299,6 +300,14 @@ class Page extends React.Component {
                                this.props.history.replace(`/playback/${deviceid}`);
                              }
                          }>轨迹回放</Button>
+                         <Button style={{background : "#3aaf6f", color: "#FFF", display:"flex"}}
+                           onClick={
+                             ()=>{
+                               console.log("轨迹回放");
+                               this.props.dispatch(ui_sel_tabindex(4));
+                               this.props.history.replace(`/tirepressure/${deviceid}`);
+                             }
+                         }><img src={Luntai} width={16} style={{alignSelf: "center",marginRight:"8px"}} />胎压记录</Button>
                     </div>
             </div>
         );

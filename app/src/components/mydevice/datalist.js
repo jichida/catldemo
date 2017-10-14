@@ -23,14 +23,14 @@ class Page extends React.Component {
         const { groupid,g_devicesdb,curdeviceid} = this.props;
         let mydevices = [];
         map(g_devicesdb,(item)=>{
-          if(item.groupid === groupid){
-            mydevices.push(item);
-          }
+            if(item.groupid === groupid){
+                mydevices.push(item);
+            }
         });
 
         if(curdeviceid !== '' && !!curdeviceid){
-          mydevices = [];
-          mydevices.push(g_devicesdb[curdeviceid]);
+            mydevices = [];
+            mydevices.push(g_devicesdb[curdeviceid]);
         }
         const columns = [{
             title: '车牌',
