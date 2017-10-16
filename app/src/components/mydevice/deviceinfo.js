@@ -11,6 +11,7 @@ import Searchimg from '../../img/13.png';
 import Luntai from '../../img/23.png';
 import Footer from "../index/footer.js";
 import {ui_sel_tabindex} from '../../actions';
+import {querydevicehistory_request} from '../../actions';
 import Button  from 'antd/lib/button';
 import {
     ui_index_addcollection,
@@ -303,9 +304,8 @@ class Page extends React.Component {
                          <Button style={{background : "#3aaf6f", color: "#FFF", display:"flex"}}
                            onClick={
                              ()=>{
-                               console.log("轨迹回放");
-                               this.props.dispatch(ui_sel_tabindex(4));
-                               this.props.history.replace(`/tirepressure/${deviceid}`);
+                               this.props.dispatch(querydevicehistory_request({query:{DeviceId:deviceid}}));
+                               this.props.history.push(`/tirepressure/${deviceid}`);
                              }
                          }><img src={Luntai} width={16} style={{alignSelf: "center",marginRight:"8px"}} />胎压记录</Button>
                     </div>

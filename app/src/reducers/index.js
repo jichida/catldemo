@@ -11,9 +11,12 @@ import carmap from './carmap';
 import searchresult from './searchresult';
 import workorder from './workorder';
 import pic from './pic';
+import devicedatahistory from './devicedatahistory';
+
 export default combineReducers({
   pic,
   app,
+  devicedatahistory,
   carmap,
   searchresult,
   device,

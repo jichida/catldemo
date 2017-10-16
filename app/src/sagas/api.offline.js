@@ -58,7 +58,10 @@ import {
   getworkusers_request,
   getworkusers_result,
 
-  ui_clickplayback
+  ui_clickplayback,
+
+  querydevicehistory_request,
+  querydevicehistory_result,
 } from '../actions';
 import  {
   jsondata_bms_chargingpile,
@@ -523,6 +526,52 @@ export function* apiflow(){//
             };
             yield put(serverpush_devicegeo_sz_result({list:items}));
         }
+      }
+      catch(e){
+        console.log(e);
+      }
+   });
+
+   //---querydevicehistory_request
+   yield takeLatest(`${querydevicehistory_request}`, function*(action) {
+     try{
+        const {payload} = action;
+        const {query} = payload;
+        const {startDate,endDate,DeviceId} = query;
+
+        // const {list} = yield call(restfulapi.getdevicehistory,{query});
+        const tirelist = [{
+              _id:'0',
+              TPData:{
+                "DataTime": "2017-09-08 12:20:23",
+                "TP1": "20",
+                "TP2":"20",
+                "TP3":"20",
+                "TP4":"20",
+                "TP5":"0"
+              },
+          },{
+                _id:'1',
+                TPData:{
+                  "DataTime": "2017-09-08 12:20:23",
+                  "TP1": "120",
+                  "TP2":"230",
+                  "TP3":"221",
+                  "TP4":"200",
+                  "TP5":"2"
+                },
+            },{
+                  _id:'2',
+                  TPData:{
+                    "DataTime": "2017-09-08 12:20:23",
+                    "TP1": "30",
+                    "TP2":"22",
+                    "TP3":"24",
+                    "TP4":"25",
+                    "TP5":"1"
+                  },
+              }];
+        yield put(querydevicehistory_result({list:tirelist}));
       }
       catch(e){
         console.log(e);

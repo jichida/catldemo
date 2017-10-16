@@ -268,6 +268,14 @@ let CanRawDataModel =mongoose.model('canrawdata',  CanRawDataSchema);
 //设备历史信息
 let HistoryDeviceSchema = new Schema({
   deviceid:{ type: Schema.Types.ObjectId, ref: 'device' },
+  TPData:{
+    "DataTime":{type: String, default:moment().format('YYYY-MM-DD HH:mm:ss')},
+    "TP1":String,
+    "TP2":String,
+    "TP3":String,
+    "TP4":String,
+    "TP5":String,
+  },
 });
 HistoryDeviceSchema.plugin(mongoosePaginate);
 let HistoryDeviceModel =mongoose.model('historydevice',  HistoryDeviceSchema);

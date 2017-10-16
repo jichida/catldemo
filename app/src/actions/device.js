@@ -8,6 +8,9 @@ export const querydevice_result = createAction('querydevice_result');
 //获取一个device所有信息
 export const querydeviceinfo_request = createAction('querydeviceinfo_request');
 export const querydeviceinfo_result = createAction('querydeviceinfo_result');
+//查询设备历史信息
+export const querydevicehistory_request  = createAction('querydevicehistory_request');
+export const querydevicehistory_result  = createAction('querydevicehistory_result');
 //查询告警信息
 export const queryrealtimealarm_request = createAction('queryrealtimealarm_request');
 export const queryrealtimealarm_result = createAction('queryrealtimealarm_result');
