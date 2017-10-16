@@ -19,11 +19,12 @@ class Page extends React.Component {
         let tirelist = [];
         map(devicehistorylist,(record)=>{
           let tire = {
-            _id:record._id
+            _id:devicehistorys[record]._id
           };
-          tire = {...tire,...record.TPData};
+          tire = {...tire,...devicehistorys[record].TPData};
           tirelist.push(tire);
         });
+        console.log(tirelist);
         const columns = [{
             title: '采集时间',
             dataIndex: 'DataTime',
