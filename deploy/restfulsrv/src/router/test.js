@@ -19,7 +19,7 @@ let startmodule = (app)=>{
         res.status(200).json({list:result.payload.list});
       }
       else{
-        callback({list:[]});
+        res.status(200).json({list:[]});
       }
     });
   });
@@ -82,7 +82,7 @@ let startmodule = (app)=>{
         res.status(200).json({list:result.payload.list});
       }
       else{
-        callback({list:[]});
+        res.status(200).json({list:[]});
       }
     });
   });
@@ -94,7 +94,7 @@ let startmodule = (app)=>{
         res.status(200).json({list:result.payload.list});
       }
       else{
-        callback({list:[]});
+        res.status(200).json({list:[]});
       }
     });
   });
