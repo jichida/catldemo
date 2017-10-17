@@ -31,6 +31,18 @@ const restfulapi = {
     .then(statusHelper)
     .then(response => response.json());
   },
+  querydevicehistory(userData) {
+    return fetch(`${fetchurl}/querydevicehistory`, {
+      method  : 'POST',
+      headers : {
+        'Accept'        : 'application/json',
+        'Content-Type'  : 'application/json'
+      },
+      body    : JSON.stringify(userData)
+    })
+    .then(statusHelper)
+    .then(response => response.json());
+  },
 };
 
 

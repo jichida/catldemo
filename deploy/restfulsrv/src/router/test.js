@@ -68,6 +68,7 @@ let startmodule = (app)=>{
         device.savedevice(item2,{},(err,result)=>{
 
         });
+
       });
 
       res.status(200).json({result:'OK'});
@@ -78,6 +79,18 @@ let startmodule = (app)=>{
     const actiondata = req.body;
     historytrack.queryhistorytrack(actiondata,{},(result)=>{
       if(result.cmd === 'queryhistorytrack_result'){
+        res.status(200).json({list:result.payload.list});
+      }
+      else{
+        callback({list:[]});
+      }
+    });
+  });
+
+  app.post('/api/querydevicehistory',(req,res)=>{
+    const actiondata = req.body;
+    device.querydevicehistory(actiondata,{},(result)=>{
+      if(result.cmd === 'querydevicehistory_result'){
         res.status(200).json({list:result.payload.list});
       }
       else{

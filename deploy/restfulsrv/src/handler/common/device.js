@@ -282,4 +282,41 @@ exports.savedevice = (actiondata,ctx,callback)=>{
     console.log(`historyTrackModel=>err:${JSON.stringify(err)},updateditem:${JSON.stringify(updateditem)}`);
     callback(err,updateditem);
   });
+
+  const historydeviceModel = DBModels.HistoryDeviceModel;
+  deviceModel.findOneAndUpdate({
+      DeviceId: actiondata.DeviceId,
+      'TPData.DataTime':actiondata.TPData.DataTime
+  },{$set:actiondata.TPData}, {new: true, upsert: true}, (err, updateditem)=> {
+    console.log(`deviceModel=>err:${JSON.stringify(err)},updateditem:${JSON.stringify(updateditem)}`);
+    callback(err,updateditem);
+  });
+
 };
+
+exports.querydevicehistory= (actiondata,ctx,callback)=>{
+  console.log(`querydevicehistory==>${JSON.stringify(actiondata)}`);
+  //let HistoryTrackModel =mongoose.model('historytrack',  HistoryTrackSchema);
+  let historydeviceModel = DBModels.HistoryDeviceModel;
+  let query = actiondata.query || {};
+  let fields = actiondata.fields || {
+    'DeviceId':1,
+    'TPData':1,
+    'created_at':1
+  };
+  let queryexec = historydeviceModel.find(query).sort({ created_at: -1 }).select(fields);
+  queryexec.exec((err,list)=>{
+    if(!err){
+      callback({
+        cmd:'querydevicehistory_result',
+        payload:{list}
+      });
+    }
+    else{
+      callback({
+        cmd:'common_err',
+        payload:{errmsg:err.message,type:'querydevicehistory'}
+      });
+    }
+  });
+}
