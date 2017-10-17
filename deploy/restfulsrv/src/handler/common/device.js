@@ -284,11 +284,11 @@ exports.savedevice = (actiondata,ctx,callback)=>{
   });
 
   const historydeviceModel = DBModels.HistoryDeviceModel;
-  deviceModel.findOneAndUpdate({
+  historydeviceModel.findOneAndUpdate({
       DeviceId: actiondata.DeviceId,
       'TPData.DataTime':actiondata.TPData.DataTime
-  },{$set:actiondata.TPData}, {new: true, upsert: true}, (err, updateditem)=> {
-    console.log(`deviceModel=>err:${JSON.stringify(err)},updateditem:${JSON.stringify(updateditem)}`);
+  },{$set:{TPData:actiondata.TPData}}, {new: true, upsert: true}, (err, updateditem)=> {
+    console.log(`historydeviceModel=>err:${JSON.stringify(err)},updateditem:${JSON.stringify(updateditem)}`);
     callback(err,updateditem);
   });
 

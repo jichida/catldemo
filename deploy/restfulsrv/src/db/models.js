@@ -267,7 +267,7 @@ let CanRawDataModel =mongoose.model('canrawdata',  CanRawDataSchema);
 
 //设备历史信息
 let HistoryDeviceSchema = new Schema({
-  DeviceId:{ type: Schema.Types.ObjectId, ref: 'device' },
+  DeviceId:String,//设备id
   created_at:{ type: Date, default:new Date()},//插入数据库时间
   TPData:{
     "DataTime":{type: String, default:moment().format('YYYY-MM-DD HH:mm:ss')},

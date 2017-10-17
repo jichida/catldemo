@@ -4,7 +4,7 @@ if (process.env.NODE_ENV === 'production') {
 } else {
     islocalhost = true;
 }
-islocalhost = false;
+
 const fetchurl = islocalhost?`http://localhost:50002/api`:`http://101.89.141.136:50002/api`;
 const statusHelper = (response)=> {
   if (response.status >= 200 && response.status < 300) {
