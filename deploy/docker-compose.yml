@@ -1,10 +1,10 @@
 version: '2'
 services:
   public:
-    image: nginx
+    image: nginxcatldemo
     restart: always
     ports:
-        - "8080:8080"
+        - "8080:18080"
     volumes:
         - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
         - ./dist:/usr/share/nginx/html
